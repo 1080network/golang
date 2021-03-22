@@ -20,3 +20,13 @@ partner or sp service:
 ./ten80 partner grpc.4p1nr.demo.1080.network:443
 ./ten80 sp grpc.uparn.demo.1080.network:443
 ```
+
+## Using a credential
+
+### Generate a public/private key pair
+```shell script
+ssh-keygen -t rsa -b 4096 -f key
+ssh-keygen -f key.pub -e -m pem > key.pem
+```
+
+### Upload the public key to 1080 network
