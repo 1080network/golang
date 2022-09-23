@@ -8,6 +8,9 @@ package servicev1
 
 import (
 	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	pingv1 "github.com/1080network/golang/partner/proto/common/pingv1"
 	instrumentv1 "github.com/1080network/golang/partner/proto/partner/instrumentv1"
 	organizationv1 "github.com/1080network/golang/partner/proto/partner/organizationv1"
@@ -17,9 +20,6 @@ import (
 	storev1 "github.com/1080network/golang/partner/proto/partner/storev1"
 	transactionv1 "github.com/1080network/golang/partner/proto/partner/transactionv1"
 	valuev1 "github.com/1080network/golang/partner/proto/partner/valuev1"
-	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -60,9 +60,9 @@ type PartnerToMicaServiceClient interface {
 	// Used to retrieve SPs based on the criteria in the request.
 	SearchServiceProvider(ctx context.Context, in *serviceproviderv1.SearchServiceProviderRequest, opts ...grpc.CallOption) (*serviceproviderv1.SearchServiceProviderResponse, error)
 	// When a user no longer wishes to use their payment tokens this operation can remove them from mica.
-	ClosePaymentToken(ctx context.Context, in *paymenttokenv1.RemovePaymentTokenRequest, opts ...grpc.CallOption) (*paymenttokenv1.RemovePaymentTokenResponse, error)
+	RemovePaymentToken(ctx context.Context, in *paymenttokenv1.RemovePaymentTokenRequest, opts ...grpc.CallOption) (*paymenttokenv1.RemovePaymentTokenResponse, error)
 	// A Partner can proactively replace a payment token with a new one for future use.
-	ReplacePaymentToken(ctx context.Context, in *paymenttokenv1.ExchangePaymentTokenRequest, opts ...grpc.CallOption) (*paymenttokenv1.ExchangePaymentTokenResponse, error)
+	ExchangePaymentToken(ctx context.Context, in *paymenttokenv1.ExchangePaymentTokenRequest, opts ...grpc.CallOption) (*paymenttokenv1.ExchangePaymentTokenResponse, error)
 	// Search for Payment Tokens that the Partner has created.
 	SearchPaymentToken(ctx context.Context, in *paymenttokenv1.SearchPaymentTokenRequest, opts ...grpc.CallOption) (*paymenttokenv1.SearchPaymentTokenResponse, error)
 	// An operation to obtain value from a user in order to pay for goods or services rendered to the user.
@@ -214,18 +214,18 @@ func (c *partnerToMicaServiceClient) SearchServiceProvider(ctx context.Context, 
 	return out, nil
 }
 
-func (c *partnerToMicaServiceClient) ClosePaymentToken(ctx context.Context, in *paymenttokenv1.RemovePaymentTokenRequest, opts ...grpc.CallOption) (*paymenttokenv1.RemovePaymentTokenResponse, error) {
+func (c *partnerToMicaServiceClient) RemovePaymentToken(ctx context.Context, in *paymenttokenv1.RemovePaymentTokenRequest, opts ...grpc.CallOption) (*paymenttokenv1.RemovePaymentTokenResponse, error) {
 	out := new(paymenttokenv1.RemovePaymentTokenResponse)
-	err := c.cc.Invoke(ctx, "/partner.service.v1.PartnerToMicaService/ClosePaymentToken", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/partner.service.v1.PartnerToMicaService/RemovePaymentToken", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *partnerToMicaServiceClient) ReplacePaymentToken(ctx context.Context, in *paymenttokenv1.ExchangePaymentTokenRequest, opts ...grpc.CallOption) (*paymenttokenv1.ExchangePaymentTokenResponse, error) {
+func (c *partnerToMicaServiceClient) ExchangePaymentToken(ctx context.Context, in *paymenttokenv1.ExchangePaymentTokenRequest, opts ...grpc.CallOption) (*paymenttokenv1.ExchangePaymentTokenResponse, error) {
 	out := new(paymenttokenv1.ExchangePaymentTokenResponse)
-	err := c.cc.Invoke(ctx, "/partner.service.v1.PartnerToMicaService/ReplacePaymentToken", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/partner.service.v1.PartnerToMicaService/ExchangePaymentToken", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -355,9 +355,9 @@ type PartnerToMicaServiceServer interface {
 	// Used to retrieve SPs based on the criteria in the request.
 	SearchServiceProvider(context.Context, *serviceproviderv1.SearchServiceProviderRequest) (*serviceproviderv1.SearchServiceProviderResponse, error)
 	// When a user no longer wishes to use their payment tokens this operation can remove them from mica.
-	ClosePaymentToken(context.Context, *paymenttokenv1.RemovePaymentTokenRequest) (*paymenttokenv1.RemovePaymentTokenResponse, error)
+	RemovePaymentToken(context.Context, *paymenttokenv1.RemovePaymentTokenRequest) (*paymenttokenv1.RemovePaymentTokenResponse, error)
 	// A Partner can proactively replace a payment token with a new one for future use.
-	ReplacePaymentToken(context.Context, *paymenttokenv1.ExchangePaymentTokenRequest) (*paymenttokenv1.ExchangePaymentTokenResponse, error)
+	ExchangePaymentToken(context.Context, *paymenttokenv1.ExchangePaymentTokenRequest) (*paymenttokenv1.ExchangePaymentTokenResponse, error)
 	// Search for Payment Tokens that the Partner has created.
 	SearchPaymentToken(context.Context, *paymenttokenv1.SearchPaymentTokenRequest) (*paymenttokenv1.SearchPaymentTokenResponse, error)
 	// An operation to obtain value from a user in order to pay for goods or services rendered to the user.
@@ -422,11 +422,11 @@ func (UnimplementedPartnerToMicaServiceServer) SearchStore(context.Context, *sto
 func (UnimplementedPartnerToMicaServiceServer) SearchServiceProvider(context.Context, *serviceproviderv1.SearchServiceProviderRequest) (*serviceproviderv1.SearchServiceProviderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchServiceProvider not implemented")
 }
-func (UnimplementedPartnerToMicaServiceServer) ClosePaymentToken(context.Context, *paymenttokenv1.RemovePaymentTokenRequest) (*paymenttokenv1.RemovePaymentTokenResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ClosePaymentToken not implemented")
+func (UnimplementedPartnerToMicaServiceServer) RemovePaymentToken(context.Context, *paymenttokenv1.RemovePaymentTokenRequest) (*paymenttokenv1.RemovePaymentTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemovePaymentToken not implemented")
 }
-func (UnimplementedPartnerToMicaServiceServer) ReplacePaymentToken(context.Context, *paymenttokenv1.ExchangePaymentTokenRequest) (*paymenttokenv1.ExchangePaymentTokenResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ReplacePaymentToken not implemented")
+func (UnimplementedPartnerToMicaServiceServer) ExchangePaymentToken(context.Context, *paymenttokenv1.ExchangePaymentTokenRequest) (*paymenttokenv1.ExchangePaymentTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ExchangePaymentToken not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) SearchPaymentToken(context.Context, *paymenttokenv1.SearchPaymentTokenRequest) (*paymenttokenv1.SearchPaymentTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchPaymentToken not implemented")
@@ -723,38 +723,38 @@ func _PartnerToMicaService_SearchServiceProvider_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PartnerToMicaService_ClosePaymentToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PartnerToMicaService_RemovePaymentToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(paymenttokenv1.RemovePaymentTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).ClosePaymentToken(ctx, in)
+		return srv.(PartnerToMicaServiceServer).RemovePaymentToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/partner.service.v1.PartnerToMicaService/ClosePaymentToken",
+		FullMethod: "/partner.service.v1.PartnerToMicaService/RemovePaymentToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).ClosePaymentToken(ctx, req.(*paymenttokenv1.RemovePaymentTokenRequest))
+		return srv.(PartnerToMicaServiceServer).RemovePaymentToken(ctx, req.(*paymenttokenv1.RemovePaymentTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PartnerToMicaService_ReplacePaymentToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PartnerToMicaService_ExchangePaymentToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(paymenttokenv1.ExchangePaymentTokenRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).ReplacePaymentToken(ctx, in)
+		return srv.(PartnerToMicaServiceServer).ExchangePaymentToken(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/partner.service.v1.PartnerToMicaService/ReplacePaymentToken",
+		FullMethod: "/partner.service.v1.PartnerToMicaService/ExchangePaymentToken",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).ReplacePaymentToken(ctx, req.(*paymenttokenv1.ExchangePaymentTokenRequest))
+		return srv.(PartnerToMicaServiceServer).ExchangePaymentToken(ctx, req.(*paymenttokenv1.ExchangePaymentTokenRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1003,12 +1003,12 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PartnerToMicaService_SearchServiceProvider_Handler,
 		},
 		{
-			MethodName: "ClosePaymentToken",
-			Handler:    _PartnerToMicaService_ClosePaymentToken_Handler,
+			MethodName: "RemovePaymentToken",
+			Handler:    _PartnerToMicaService_RemovePaymentToken_Handler,
 		},
 		{
-			MethodName: "ReplacePaymentToken",
-			Handler:    _PartnerToMicaService_ReplacePaymentToken_Handler,
+			MethodName: "ExchangePaymentToken",
+			Handler:    _PartnerToMicaService_ExchangePaymentToken_Handler,
 		},
 		{
 			MethodName: "SearchPaymentToken",

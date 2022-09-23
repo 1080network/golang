@@ -15,10 +15,10 @@
 package commonv1
 
 import (
-	countryv1 "github.com/1080network/golang/partner/proto/common/enums/countryv1"
-	regionv1 "github.com/1080network/golang/partner/proto/common/enums/regionv1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	countryv1 "github.com/1080network/golang/partner/proto/common/enums/countryv1"
+	regionv1 "github.com/1080network/golang/partner/proto/common/enums/regionv1"
 	reflect "reflect"
 	sync "sync"
 )

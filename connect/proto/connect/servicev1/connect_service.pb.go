@@ -15,12 +15,12 @@
 package servicev1
 
 import (
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	pingv1 "github.com/1080network/golang/connect/proto/common/pingv1"
 	instrumentv1 "github.com/1080network/golang/connect/proto/connect/instrumentv1"
 	serviceproviderv1 "github.com/1080network/golang/connect/proto/connect/serviceproviderv1"
 	staticdatav1 "github.com/1080network/golang/connect/proto/connect/staticdatav1"
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 )
 

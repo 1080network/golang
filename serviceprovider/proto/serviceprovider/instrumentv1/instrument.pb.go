@@ -15,12 +15,12 @@
 package instrumentv1
 
 import (
-	currencyv1 "github.com/1080network/golang/serviceprovider/proto/common/enums/currencyv1"
-	instrumenttypev1 "github.com/1080network/golang/serviceprovider/proto/common/enums/instrumenttypev1"
-	v1 "github.com/1080network/golang/serviceprovider/proto/common/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
+	currencyv1 "github.com/1080network/golang/serviceprovider/proto/common/enums/currencyv1"
+	instrumenttypev1 "github.com/1080network/golang/serviceprovider/proto/common/enums/instrumenttypev1"
+	v1 "github.com/1080network/golang/serviceprovider/proto/common/v1"
 	reflect "reflect"
 	sync "sync"
 )

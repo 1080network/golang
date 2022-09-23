@@ -15,14 +15,14 @@
 package valuev1
 
 import (
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	approvaltypev1 "github.com/1080network/golang/serviceprovider/proto/common/enums/approvaltypev1"
 	channelv1 "github.com/1080network/golang/serviceprovider/proto/common/enums/channelv1"
 	currencyv1 "github.com/1080network/golang/serviceprovider/proto/common/enums/currencyv1"
 	organizationcategoryv1 "github.com/1080network/golang/serviceprovider/proto/common/enums/organizationcategoryv1"
 	v1 "github.com/1080network/golang/serviceprovider/proto/common/v1"
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
-	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 )

@@ -327,7 +327,7 @@ func (m *Partner) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for PartnerUrl
+	// no validation rules for CallbackAddress
 
 	for idx, item := range m.GetPartnerAccounts() {
 		_, _ = idx, item

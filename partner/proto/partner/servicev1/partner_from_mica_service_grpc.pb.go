@@ -8,11 +8,11 @@ package servicev1
 
 import (
 	context "context"
-	pingv1 "github.com/1080network/golang/partner/proto/common/pingv1"
-	userv1 "github.com/1080network/golang/partner/proto/partner/userv1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	pingv1 "github.com/1080network/golang/partner/proto/common/pingv1"
+	userv1 "github.com/1080network/golang/partner/proto/partner/userv1"
 )
 
 // This is a compile-time assertion to ensure that this generated file

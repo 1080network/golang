@@ -65,11 +65,13 @@ func (m *Discount) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for DiscountDefinitionKey
+
 	// no validation rules for DiscountKey
 
 	// no validation rules for Version
 
-	// no validation rules for ExternalRef
+	// no validation rules for DiscountRef
 
 	// no validation rules for ReceiptDescription
 
@@ -135,16 +137,6 @@ func (m *Discount) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for Currency
-
-	// no validation rules for DiscountAmount
-
-	// no validation rules for DiscountTaxAmount
-
-	// no validation rules for UserKey
-
-	// no validation rules for UserRef
-
 	for idx, item := range m.GetDiscountCriteria() {
 		_, _ = idx, item
 
@@ -171,6 +163,78 @@ func (m *Discount) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return DiscountValidationError{
 					field:  fmt.Sprintf("DiscountCriteria[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for Currency
+
+	// no validation rules for UserKey
+
+	// no validation rules for UserRef
+
+	switch m.DiscountAmount.(type) {
+
+	case *Discount_MonetaryAmount:
+
+		if all {
+			switch v := interface{}(m.GetMonetaryAmount()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DiscountValidationError{
+						field:  "MonetaryAmount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DiscountValidationError{
+						field:  "MonetaryAmount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetMonetaryAmount()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DiscountValidationError{
+					field:  "MonetaryAmount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *Discount_PercentageAmount:
+
+		if all {
+			switch v := interface{}(m.GetPercentageAmount()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, DiscountValidationError{
+						field:  "PercentageAmount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, DiscountValidationError{
+						field:  "PercentageAmount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPercentageAmount()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return DiscountValidationError{
+					field:  "PercentageAmount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -410,6 +474,37 @@ func (m *DiscountCriteria) validate(all bool) error {
 		}
 	}
 
+	if all {
+		switch v := interface{}(m.GetMonetaryAmount()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DiscountCriteriaValidationError{
+					field:  "MonetaryAmount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DiscountCriteriaValidationError{
+					field:  "MonetaryAmount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMonetaryAmount()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DiscountCriteriaValidationError{
+				field:  "MonetaryAmount",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for DiscountAmountApplicable
+
 	if len(errors) > 0 {
 		return DiscountCriteriaMultiError(errors)
 	}
@@ -488,6 +583,272 @@ var _ interface {
 	ErrorName() string
 } = DiscountCriteriaValidationError{}
 
+// Validate checks the field values on MonetaryAmount with the rules defined in
+// the proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *MonetaryAmount) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on MonetaryAmount with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in MonetaryAmountMultiError,
+// or nil if none found.
+func (m *MonetaryAmount) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *MonetaryAmount) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Amount
+
+	// no validation rules for TaxAmount
+
+	if len(errors) > 0 {
+		return MonetaryAmountMultiError(errors)
+	}
+
+	return nil
+}
+
+// MonetaryAmountMultiError is an error wrapping multiple validation errors
+// returned by MonetaryAmount.ValidateAll() if the designated constraints
+// aren't met.
+type MonetaryAmountMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m MonetaryAmountMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m MonetaryAmountMultiError) AllErrors() []error { return m }
+
+// MonetaryAmountValidationError is the validation error returned by
+// MonetaryAmount.Validate if the designated constraints aren't met.
+type MonetaryAmountValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e MonetaryAmountValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e MonetaryAmountValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e MonetaryAmountValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e MonetaryAmountValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e MonetaryAmountValidationError) ErrorName() string { return "MonetaryAmountValidationError" }
+
+// Error satisfies the builtin error interface
+func (e MonetaryAmountValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sMonetaryAmount.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = MonetaryAmountValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = MonetaryAmountValidationError{}
+
+// Validate checks the field values on PercentageAmount with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *PercentageAmount) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on PercentageAmount with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// PercentageAmountMultiError, or nil if none found.
+func (m *PercentageAmount) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *PercentageAmount) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for PercentageAmount
+
+	// no validation rules for PercentageTaxAmount
+
+	if all {
+		switch v := interface{}(m.GetMaxAmount()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PercentageAmountValidationError{
+					field:  "MaxAmount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PercentageAmountValidationError{
+					field:  "MaxAmount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMaxAmount()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PercentageAmountValidationError{
+				field:  "MaxAmount",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCriteria()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, PercentageAmountValidationError{
+					field:  "Criteria",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, PercentageAmountValidationError{
+					field:  "Criteria",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCriteria()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return PercentageAmountValidationError{
+				field:  "Criteria",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return PercentageAmountMultiError(errors)
+	}
+
+	return nil
+}
+
+// PercentageAmountMultiError is an error wrapping multiple validation errors
+// returned by PercentageAmount.ValidateAll() if the designated constraints
+// aren't met.
+type PercentageAmountMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m PercentageAmountMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m PercentageAmountMultiError) AllErrors() []error { return m }
+
+// PercentageAmountValidationError is the validation error returned by
+// PercentageAmount.Validate if the designated constraints aren't met.
+type PercentageAmountValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e PercentageAmountValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e PercentageAmountValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e PercentageAmountValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e PercentageAmountValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e PercentageAmountValidationError) ErrorName() string { return "PercentageAmountValidationError" }
+
+// Error satisfies the builtin error interface
+func (e PercentageAmountValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sPercentageAmount.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = PercentageAmountValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = PercentageAmountValidationError{}
+
 // Validate checks the field values on CreateDiscountRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -510,7 +871,9 @@ func (m *CreateDiscountRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ExternalRef
+	// no validation rules for DiscountDescriptionKey
+
+	// no validation rules for DiscountRef
 
 	// no validation rules for ReceiptDescription
 
@@ -576,16 +939,6 @@ func (m *CreateDiscountRequest) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for Currency
-
-	// no validation rules for DiscountAmount
-
-	// no validation rules for DiscountTaxAmount
-
-	// no validation rules for UserKey
-
-	// no validation rules for UserRef
-
 	for idx, item := range m.GetDiscountCriteria() {
 		_, _ = idx, item
 
@@ -612,6 +965,78 @@ func (m *CreateDiscountRequest) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return CreateDiscountRequestValidationError{
 					field:  fmt.Sprintf("DiscountCriteria[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for UserKey
+
+	// no validation rules for UserRef
+
+	// no validation rules for Currency
+
+	switch m.DiscountAmount.(type) {
+
+	case *CreateDiscountRequest_MonetaryAmount:
+
+		if all {
+			switch v := interface{}(m.GetMonetaryAmount()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CreateDiscountRequestValidationError{
+						field:  "MonetaryAmount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CreateDiscountRequestValidationError{
+						field:  "MonetaryAmount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetMonetaryAmount()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreateDiscountRequestValidationError{
+					field:  "MonetaryAmount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *CreateDiscountRequest_PercentageAmount:
+
+		if all {
+			switch v := interface{}(m.GetPercentageAmount()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, CreateDiscountRequestValidationError{
+						field:  "PercentageAmount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, CreateDiscountRequestValidationError{
+						field:  "PercentageAmount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPercentageAmount()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return CreateDiscountRequestValidationError{
+					field:  "PercentageAmount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -1102,3 +1527,418 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = GetDiscountResponseValidationError{}
+
+// Validate checks the field values on ApplyDiscountNotificationRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ApplyDiscountNotificationRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplyDiscountNotificationRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// ApplyDiscountNotificationRequestMultiError, or nil if none found.
+func (m *ApplyDiscountNotificationRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplyDiscountNotificationRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for DiscountKey
+
+	// no validation rules for DiscountRef
+
+	// no validation rules for Status
+
+	// no validation rules for Currency
+
+	if all {
+		switch v := interface{}(m.GetMonetaryAmount()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApplyDiscountNotificationRequestValidationError{
+					field:  "MonetaryAmount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApplyDiscountNotificationRequestValidationError{
+					field:  "MonetaryAmount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetMonetaryAmount()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApplyDiscountNotificationRequestValidationError{
+				field:  "MonetaryAmount",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for TransactionKey
+
+	if all {
+		switch v := interface{}(m.GetTransactionCreated()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApplyDiscountNotificationRequestValidationError{
+					field:  "TransactionCreated",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApplyDiscountNotificationRequestValidationError{
+					field:  "TransactionCreated",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetTransactionCreated()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApplyDiscountNotificationRequestValidationError{
+				field:  "TransactionCreated",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for PartnerKey
+
+	// no validation rules for PartnerName
+
+	// no validation rules for OrganizationKey
+
+	// no validation rules for OrganizationName
+
+	if all {
+		switch v := interface{}(m.GetOrganizationAddress()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApplyDiscountNotificationRequestValidationError{
+					field:  "OrganizationAddress",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApplyDiscountNotificationRequestValidationError{
+					field:  "OrganizationAddress",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetOrganizationAddress()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApplyDiscountNotificationRequestValidationError{
+				field:  "OrganizationAddress",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for StoreKey
+
+	// no validation rules for StoreNumber
+
+	if all {
+		switch v := interface{}(m.GetStoreAddress()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApplyDiscountNotificationRequestValidationError{
+					field:  "StoreAddress",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApplyDiscountNotificationRequestValidationError{
+					field:  "StoreAddress",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetStoreAddress()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApplyDiscountNotificationRequestValidationError{
+				field:  "StoreAddress",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for idx, item := range m.GetLineItems() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ApplyDiscountNotificationRequestValidationError{
+						field:  fmt.Sprintf("LineItems[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ApplyDiscountNotificationRequestValidationError{
+						field:  fmt.Sprintf("LineItems[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ApplyDiscountNotificationRequestValidationError{
+					field:  fmt.Sprintf("LineItems[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return ApplyDiscountNotificationRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApplyDiscountNotificationRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// ApplyDiscountNotificationRequest.ValidateAll() if the designated
+// constraints aren't met.
+type ApplyDiscountNotificationRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplyDiscountNotificationRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplyDiscountNotificationRequestMultiError) AllErrors() []error { return m }
+
+// ApplyDiscountNotificationRequestValidationError is the validation error
+// returned by ApplyDiscountNotificationRequest.Validate if the designated
+// constraints aren't met.
+type ApplyDiscountNotificationRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplyDiscountNotificationRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplyDiscountNotificationRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplyDiscountNotificationRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplyDiscountNotificationRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplyDiscountNotificationRequestValidationError) ErrorName() string {
+	return "ApplyDiscountNotificationRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ApplyDiscountNotificationRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplyDiscountNotificationRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplyDiscountNotificationRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplyDiscountNotificationRequestValidationError{}
+
+// Validate checks the field values on ApplyDiscountNotificationResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *ApplyDiscountNotificationResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ApplyDiscountNotificationResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// ApplyDiscountNotificationResponseMultiError, or nil if none found.
+func (m *ApplyDiscountNotificationResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ApplyDiscountNotificationResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetError()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ApplyDiscountNotificationResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ApplyDiscountNotificationResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ApplyDiscountNotificationResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for ExternalRef
+
+	if len(errors) > 0 {
+		return ApplyDiscountNotificationResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ApplyDiscountNotificationResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// ApplyDiscountNotificationResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ApplyDiscountNotificationResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ApplyDiscountNotificationResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ApplyDiscountNotificationResponseMultiError) AllErrors() []error { return m }
+
+// ApplyDiscountNotificationResponseValidationError is the validation error
+// returned by ApplyDiscountNotificationResponse.Validate if the designated
+// constraints aren't met.
+type ApplyDiscountNotificationResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ApplyDiscountNotificationResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ApplyDiscountNotificationResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ApplyDiscountNotificationResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ApplyDiscountNotificationResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ApplyDiscountNotificationResponseValidationError) ErrorName() string {
+	return "ApplyDiscountNotificationResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ApplyDiscountNotificationResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sApplyDiscountNotificationResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ApplyDiscountNotificationResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ApplyDiscountNotificationResponseValidationError{}

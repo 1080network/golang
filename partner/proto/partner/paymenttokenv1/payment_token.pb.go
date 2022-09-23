@@ -15,9 +15,9 @@
 package paymenttokenv1
 
 import (
-	v1 "github.com/1080network/golang/partner/proto/common/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	v1 "github.com/1080network/golang/partner/proto/common/v1"
 	reflect "reflect"
 	sync "sync"
 )

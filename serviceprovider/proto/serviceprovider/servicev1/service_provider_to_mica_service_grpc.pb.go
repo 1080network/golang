@@ -8,6 +8,9 @@ package servicev1
 
 import (
 	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	pingv1 "github.com/1080network/golang/serviceprovider/proto/common/pingv1"
 	v1 "github.com/1080network/golang/serviceprovider/proto/common/v1"
 	instrumentv1 "github.com/1080network/golang/serviceprovider/proto/serviceprovider/instrumentv1"
@@ -16,9 +19,6 @@ import (
 	transactionv1 "github.com/1080network/golang/serviceprovider/proto/serviceprovider/transactionv1"
 	userv1 "github.com/1080network/golang/serviceprovider/proto/serviceprovider/userv1"
 	valuev1 "github.com/1080network/golang/serviceprovider/proto/serviceprovider/valuev1"
-	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file

@@ -2,16 +2,17 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v3.19.4
-// source: discount/service/v1/discount_service_from_mica.proto
+// source: discount/service/v1/discount_from_mica_service.proto
 
 package servicev1
 
 import (
 	context "context"
-	pingv1 "github.com/1080network/golang/discount/proto/common/pingv1"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	pingv1 "github.com/1080network/golang/discount/proto/common/pingv1"
+	discountv1 "github.com/1080network/golang/discount/proto/discount/discountv1"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -23,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DiscountFromMicaServiceClient interface {
+	ApplyDiscountNotification(ctx context.Context, in *discountv1.ApplyDiscountNotificationRequest, opts ...grpc.CallOption) (*discountv1.ApplyDiscountNotificationResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
 	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
 }
@@ -33,6 +35,15 @@ type discountFromMicaServiceClient struct {
 
 func NewDiscountFromMicaServiceClient(cc grpc.ClientConnInterface) DiscountFromMicaServiceClient {
 	return &discountFromMicaServiceClient{cc}
+}
+
+func (c *discountFromMicaServiceClient) ApplyDiscountNotification(ctx context.Context, in *discountv1.ApplyDiscountNotificationRequest, opts ...grpc.CallOption) (*discountv1.ApplyDiscountNotificationResponse, error) {
+	out := new(discountv1.ApplyDiscountNotificationResponse)
+	err := c.cc.Invoke(ctx, "/discount.service.v1.DiscountFromMicaService/ApplyDiscountNotification", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *discountFromMicaServiceClient) Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
@@ -48,6 +59,7 @@ func (c *discountFromMicaServiceClient) Ping(ctx context.Context, in *pingv1.Pin
 // All implementations must embed UnimplementedDiscountFromMicaServiceServer
 // for forward compatibility
 type DiscountFromMicaServiceServer interface {
+	ApplyDiscountNotification(context.Context, *discountv1.ApplyDiscountNotificationRequest) (*discountv1.ApplyDiscountNotificationResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
 	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
 	mustEmbedUnimplementedDiscountFromMicaServiceServer()
@@ -57,6 +69,9 @@ type DiscountFromMicaServiceServer interface {
 type UnimplementedDiscountFromMicaServiceServer struct {
 }
 
+func (UnimplementedDiscountFromMicaServiceServer) ApplyDiscountNotification(context.Context, *discountv1.ApplyDiscountNotificationRequest) (*discountv1.ApplyDiscountNotificationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ApplyDiscountNotification not implemented")
+}
 func (UnimplementedDiscountFromMicaServiceServer) Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
 }
@@ -72,6 +87,24 @@ type UnsafeDiscountFromMicaServiceServer interface {
 
 func RegisterDiscountFromMicaServiceServer(s grpc.ServiceRegistrar, srv DiscountFromMicaServiceServer) {
 	s.RegisterService(&DiscountFromMicaService_ServiceDesc, srv)
+}
+
+func _DiscountFromMicaService_ApplyDiscountNotification_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(discountv1.ApplyDiscountNotificationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiscountFromMicaServiceServer).ApplyDiscountNotification(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/discount.service.v1.DiscountFromMicaService/ApplyDiscountNotification",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiscountFromMicaServiceServer).ApplyDiscountNotification(ctx, req.(*discountv1.ApplyDiscountNotificationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountFromMicaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -100,10 +133,14 @@ var DiscountFromMicaService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*DiscountFromMicaServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "ApplyDiscountNotification",
+			Handler:    _DiscountFromMicaService_ApplyDiscountNotification_Handler,
+		},
+		{
 			MethodName: "Ping",
 			Handler:    _DiscountFromMicaService_Ping_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "discount/service/v1/discount_service_from_mica.proto",
+	Metadata: "discount/service/v1/discount_from_mica_service.proto",
 }

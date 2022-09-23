@@ -15,12 +15,12 @@
 package commonv1
 
 import (
-	currencyv1 "github.com/1080network/golang/serviceprovider/proto/common/enums/currencyv1"
-	organizationcategoryv1 "github.com/1080network/golang/serviceprovider/proto/common/enums/organizationcategoryv1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
+	currencyv1 "github.com/1080network/golang/serviceprovider/proto/common/enums/currencyv1"
+	organizationcategoryv1 "github.com/1080network/golang/serviceprovider/proto/common/enums/organizationcategoryv1"
 	reflect "reflect"
 	sync "sync"
 )

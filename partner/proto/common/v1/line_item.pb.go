@@ -15,10 +15,10 @@
 package commonv1
 
 import (
-	lineitemstatusv1 "github.com/1080network/golang/partner/proto/common/enums/lineitemstatusv1"
-	unitv1 "github.com/1080network/golang/partner/proto/common/enums/unitv1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	lineitemstatusv1 "github.com/1080network/golang/partner/proto/common/enums/lineitemstatusv1"
+	unitv1 "github.com/1080network/golang/partner/proto/common/enums/unitv1"
 	reflect "reflect"
 	sync "sync"
 )

@@ -8,13 +8,13 @@ package servicev1
 
 import (
 	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 	pingv1 "github.com/1080network/golang/connect/proto/common/pingv1"
 	instrumentv1 "github.com/1080network/golang/connect/proto/connect/instrumentv1"
 	serviceproviderv1 "github.com/1080network/golang/connect/proto/connect/serviceproviderv1"
 	staticdatav1 "github.com/1080network/golang/connect/proto/connect/staticdatav1"
-	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file

@@ -15,10 +15,10 @@
 package staticdatav1
 
 import (
-	serviceprovidertypev1 "github.com/1080network/golang/connect/proto/common/enums/serviceprovidertypev1"
-	v1 "github.com/1080network/golang/connect/proto/common/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	serviceprovidertypev1 "github.com/1080network/golang/connect/proto/common/enums/serviceprovidertypev1"
+	v1 "github.com/1080network/golang/connect/proto/common/v1"
 	reflect "reflect"
 	sync "sync"
 )

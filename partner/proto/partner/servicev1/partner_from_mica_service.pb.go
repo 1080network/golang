@@ -15,10 +15,10 @@
 package servicev1
 
 import (
-	pingv1 "github.com/1080network/golang/partner/proto/common/pingv1"
-	userv1 "github.com/1080network/golang/partner/proto/partner/userv1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	pingv1 "github.com/1080network/golang/partner/proto/common/pingv1"
+	userv1 "github.com/1080network/golang/partner/proto/partner/userv1"
 	reflect "reflect"
 )
 

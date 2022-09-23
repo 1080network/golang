@@ -15,10 +15,10 @@
 package organizationv1
 
 import (
-	organizationcategoryv1 "github.com/1080network/golang/partner/proto/common/enums/organizationcategoryv1"
-	v1 "github.com/1080network/golang/partner/proto/common/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	organizationcategoryv1 "github.com/1080network/golang/partner/proto/common/enums/organizationcategoryv1"
+	v1 "github.com/1080network/golang/partner/proto/common/v1"
 	reflect "reflect"
 	sync "sync"
 )
