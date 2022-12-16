@@ -72,7 +72,16 @@ func (m *Receipt) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for TransactionKey
+	if l := utf8.RuneCountInString(m.GetTransactionKey()); l < 30 || l > 50 {
+		err := ReceiptValidationError{
+			field:  "TransactionKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Version
 
@@ -138,7 +147,16 @@ func (m *Receipt) validate(all bool) error {
 
 	// no validation rules for PartnerTransactionRef
 
-	// no validation rules for ServiceProviderInstrumentKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()); l < 30 || l > 50 {
+		err := ReceiptValidationError{
+			field:  "ServiceProviderInstrumentKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for ServiceProviderInstrumentRef
 
@@ -146,7 +164,16 @@ func (m *Receipt) validate(all bool) error {
 
 	// no validation rules for Currency
 
-	// no validation rules for OrganizationKey
+	if l := utf8.RuneCountInString(m.GetOrganizationKey()); l < 30 || l > 50 {
+		err := ReceiptValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for OrganizationName
 
@@ -181,7 +208,16 @@ func (m *Receipt) validate(all bool) error {
 
 	// no validation rules for Category
 
-	// no validation rules for StoreKey
+	if l := utf8.RuneCountInString(m.GetStoreKey()); l < 30 || l > 50 {
+		err := ReceiptValidationError{
+			field:  "StoreKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for StoreNumber
 
@@ -250,6 +286,74 @@ func (m *Receipt) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return ReceiptValidationError{
 					field:  fmt.Sprintf("LineItemAndStatuses[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetAppliedDiscounts() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReceiptValidationError{
+						field:  fmt.Sprintf("AppliedDiscounts[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReceiptValidationError{
+						field:  fmt.Sprintf("AppliedDiscounts[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReceiptValidationError{
+					field:  fmt.Sprintf("AppliedDiscounts[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetAdjustments() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ReceiptValidationError{
+						field:  fmt.Sprintf("Adjustments[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ReceiptValidationError{
+						field:  fmt.Sprintf("Adjustments[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ReceiptValidationError{
+					field:  fmt.Sprintf("Adjustments[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -357,7 +461,16 @@ func (m *GetReceiptRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for TransactionKey
+	if l := utf8.RuneCountInString(m.GetTransactionKey()); l < 30 || l > 50 {
+		err := GetReceiptRequestValidationError{
+			field:  "TransactionKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return GetReceiptRequestMultiError(errors)

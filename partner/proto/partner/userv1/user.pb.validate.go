@@ -56,7 +56,27 @@ func (m *User) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for UserKey
+	if l := utf8.RuneCountInString(m.GetUserKey()); l < 30 || l > 50 {
+		err := UserValidationError{
+			field:  "UserKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetVersion() < 0 {
+		err := UserValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetCreated()).(type) {
@@ -115,8 +135,6 @@ func (m *User) validate(all bool) error {
 			}
 		}
 	}
-
-	// no validation rules for Version
 
 	if all {
 		switch v := interface{}(m.GetUserDemographic()).(type) {

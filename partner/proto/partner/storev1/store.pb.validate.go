@@ -57,7 +57,16 @@ func (m *CreateStoreRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for OrganizationKey
+	if l := utf8.RuneCountInString(m.GetOrganizationKey()); l < 30 || l > 50 {
+		err := CreateStoreRequestValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for StoreRef
 
@@ -225,7 +234,16 @@ func (m *CreateStoreResponse) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for StoreKey
+	if l := utf8.RuneCountInString(m.GetStoreKey()); l < 30 || l > 50 {
+		err := CreateStoreResponseValidationError{
+			field:  "StoreKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Version
 
@@ -331,7 +349,16 @@ func (m *GetStoreRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for StoreKey
+	if l := utf8.RuneCountInString(m.GetStoreKey()); l < 30 || l > 50 {
+		err := GetStoreRequestValidationError{
+			field:  "StoreKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return GetStoreRequestMultiError(errors)
@@ -593,7 +620,16 @@ func (m *SearchStoreRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for OrganizationKey
+	if utf8.RuneCountInString(m.GetOrganizationKey()) > 50 {
+		err := SearchStoreRequestValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be at most 50 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for StoreRef
 
@@ -868,7 +904,16 @@ func (m *StoreRef) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for OrganizationKey
+	if l := utf8.RuneCountInString(m.GetOrganizationKey()); l < 30 || l > 50 {
+		err := StoreRefValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for StoreRef
 
@@ -1038,7 +1083,17 @@ func (m *UpdateStoreRequest) validate(all bool) error {
 		}
 
 	case *UpdateStoreRequest_StoreKey:
-		// no validation rules for StoreKey
+
+		if l := utf8.RuneCountInString(m.GetStoreKey()); l < 30 || l > 50 {
+			err := UpdateStoreRequestValidationError{
+				field:  "StoreKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 	}
 
@@ -1313,7 +1368,17 @@ func (m *RemoveStoreRequest) validate(all bool) error {
 		}
 
 	case *RemoveStoreRequest_StoreKey:
-		// no validation rules for StoreKey
+
+		if l := utf8.RuneCountInString(m.GetStoreKey()); l < 30 || l > 50 {
+			err := RemoveStoreRequestValidationError{
+				field:  "StoreKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 	}
 

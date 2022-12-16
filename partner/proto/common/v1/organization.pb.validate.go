@@ -65,7 +65,18 @@ func (m *Organization) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for OrganizationKey
+	if l := utf8.RuneCountInString(m.GetOrganizationKey()); l < 30 || l > 50 {
+		err := OrganizationValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Version
 
 	if all {
 		switch v := interface{}(m.GetCreated()).(type) {
@@ -125,7 +136,16 @@ func (m *Organization) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for PartnerKey
+	if l := utf8.RuneCountInString(m.GetPartnerKey()); l < 30 || l > 50 {
+		err := OrganizationValidationError{
+			field:  "PartnerKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Name
 
@@ -158,15 +178,60 @@ func (m *Organization) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for DomesticAchRoutingNumber
+	if !_Organization_DomesticAchRoutingNumber_Pattern.MatchString(m.GetDomesticAchRoutingNumber()) {
+		err := OrganizationValidationError{
+			field:  "DomesticAchRoutingNumber",
+			reason: "value does not match regex pattern \"^|\\\\w{9}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for InternationalAchRoutingNumber
+	if !_Organization_InternationalAchRoutingNumber_Pattern.MatchString(m.GetInternationalAchRoutingNumber()) {
+		err := OrganizationValidationError{
+			field:  "InternationalAchRoutingNumber",
+			reason: "value does not match regex pattern \"^|\\\\w{9}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for WireRoutingNumber
+	if !_Organization_WireRoutingNumber_Pattern.MatchString(m.GetWireRoutingNumber()) {
+		err := OrganizationValidationError{
+			field:  "WireRoutingNumber",
+			reason: "value does not match regex pattern \"^|\\\\w{9}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for SwiftRoutingNumber
+	if !_Organization_SwiftRoutingNumber_Pattern.MatchString(m.GetSwiftRoutingNumber()) {
+		err := OrganizationValidationError{
+			field:  "SwiftRoutingNumber",
+			reason: "value does not match regex pattern \"^|\\\\w{9}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for BankAccountNumber
+	if !_Organization_BankAccountNumber_Pattern.MatchString(m.GetBankAccountNumber()) {
+		err := OrganizationValidationError{
+			field:  "BankAccountNumber",
+			reason: "value does not match regex pattern \"^|\\\\w{14}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return OrganizationMultiError(errors)
@@ -244,6 +309,16 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = OrganizationValidationError{}
+
+var _Organization_DomesticAchRoutingNumber_Pattern = regexp.MustCompile("^|\\w{9}$")
+
+var _Organization_InternationalAchRoutingNumber_Pattern = regexp.MustCompile("^|\\w{9}$")
+
+var _Organization_WireRoutingNumber_Pattern = regexp.MustCompile("^|\\w{9}$")
+
+var _Organization_SwiftRoutingNumber_Pattern = regexp.MustCompile("^|\\w{9}$")
+
+var _Organization_BankAccountNumber_Pattern = regexp.MustCompile("^|\\w{14}$")
 
 // Validate checks the field values on LegacyConfiguration with the rules
 // defined in the proto definition for this message. If any rules are

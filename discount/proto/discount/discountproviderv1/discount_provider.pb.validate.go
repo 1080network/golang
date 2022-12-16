@@ -57,11 +57,96 @@ func (m *DiscountProvider) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for DiscountProviderKey
+	if l := utf8.RuneCountInString(m.GetDiscountProviderKey()); l < 30 || l > 50 {
+		err := DiscountProviderValidationError{
+			field:  "DiscountProviderKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Version
+	if m.GetVersion() < 0 {
+		err := DiscountProviderValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Name
+	if all {
+		switch v := interface{}(m.GetCreated()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DiscountProviderValidationError{
+					field:  "Created",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DiscountProviderValidationError{
+					field:  "Created",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreated()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DiscountProviderValidationError{
+				field:  "Created",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetUpdated()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DiscountProviderValidationError{
+					field:  "Updated",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DiscountProviderValidationError{
+					field:  "Updated",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdated()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DiscountProviderValidationError{
+				field:  "Updated",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if utf8.RuneCountInString(m.GetName()) > 100 {
+		err := DiscountProviderValidationError{
+			field:  "Name",
+			reason: "value length must be at most 100 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetAddress()).(type) {
@@ -98,15 +183,34 @@ func (m *DiscountProvider) validate(all bool) error {
 
 	// no validation rules for Phone
 
-	// no validation rules for DomesticAchRoutingNumber
-
-	// no validation rules for InternationalAchRoutingNumber
-
-	// no validation rules for WireRoutingNumber
-
-	// no validation rules for SwiftRoutingNumber
-
-	// no validation rules for BankAccountNumber
+	if all {
+		switch v := interface{}(m.GetBankAccountDetail()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, DiscountProviderValidationError{
+					field:  "BankAccountDetail",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, DiscountProviderValidationError{
+					field:  "BankAccountDetail",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBankAccountDetail()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return DiscountProviderValidationError{
+				field:  "BankAccountDetail",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return DiscountProviderMultiError(errors)
@@ -473,9 +577,27 @@ func (m *UpdateDiscountProviderRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for DiscountProviderKey
+	if m.GetVersion() < 0 {
+		err := UpdateDiscountProviderRequestValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Name
+	if utf8.RuneCountInString(m.GetName()) > 100 {
+		err := UpdateDiscountProviderRequestValidationError{
+			field:  "Name",
+			reason: "value length must be at most 100 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetAddress()).(type) {
@@ -512,15 +634,34 @@ func (m *UpdateDiscountProviderRequest) validate(all bool) error {
 
 	// no validation rules for Phone
 
-	// no validation rules for DomesticAchRoutingNumber
-
-	// no validation rules for InternationalAchRoutingNumber
-
-	// no validation rules for WireRoutingNumber
-
-	// no validation rules for SwiftRoutingNumber
-
-	// no validation rules for BankAccountNumber
+	if all {
+		switch v := interface{}(m.GetBankAccountDetail()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateDiscountProviderRequestValidationError{
+					field:  "BankAccountDetail",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateDiscountProviderRequestValidationError{
+					field:  "BankAccountDetail",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetBankAccountDetail()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateDiscountProviderRequestValidationError{
+				field:  "BankAccountDetail",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
 	if len(errors) > 0 {
 		return UpdateDiscountProviderRequestMultiError(errors)
@@ -656,7 +797,16 @@ func (m *UpdateDiscountProviderResponse) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for Version
+	if m.GetVersion() < 0 {
+		err := UpdateDiscountProviderResponseValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return UpdateDiscountProviderResponseMultiError(errors)

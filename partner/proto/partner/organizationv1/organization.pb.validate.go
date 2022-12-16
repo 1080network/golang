@@ -61,7 +61,16 @@ func (m *GetOrganizationRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for OrganizationKey
+	if l := utf8.RuneCountInString(m.GetOrganizationKey()); l < 30 || l > 50 {
+		err := GetOrganizationRequestValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return GetOrganizationRequestMultiError(errors)
@@ -327,7 +336,16 @@ func (m *UpdateOrganizationRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for OrganizationKey
+	if l := utf8.RuneCountInString(m.GetOrganizationKey()); l < 30 || l > 50 {
+		err := UpdateOrganizationRequestValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Version
 
@@ -362,15 +380,60 @@ func (m *UpdateOrganizationRequest) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for DomesticAchRoutingNumber
+	if !_UpdateOrganizationRequest_DomesticAchRoutingNumber_Pattern.MatchString(m.GetDomesticAchRoutingNumber()) {
+		err := UpdateOrganizationRequestValidationError{
+			field:  "DomesticAchRoutingNumber",
+			reason: "value does not match regex pattern \"^|\\\\w{9}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for InternationalAchRoutingNumber
+	if !_UpdateOrganizationRequest_InternationalAchRoutingNumber_Pattern.MatchString(m.GetInternationalAchRoutingNumber()) {
+		err := UpdateOrganizationRequestValidationError{
+			field:  "InternationalAchRoutingNumber",
+			reason: "value does not match regex pattern \"^|\\\\w{9}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for WireRoutingNumber
+	if !_UpdateOrganizationRequest_WireRoutingNumber_Pattern.MatchString(m.GetWireRoutingNumber()) {
+		err := UpdateOrganizationRequestValidationError{
+			field:  "WireRoutingNumber",
+			reason: "value does not match regex pattern \"^|\\\\w{9}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for SwiftRoutingNumber
+	if !_UpdateOrganizationRequest_SwiftRoutingNumber_Pattern.MatchString(m.GetSwiftRoutingNumber()) {
+		err := UpdateOrganizationRequestValidationError{
+			field:  "SwiftRoutingNumber",
+			reason: "value does not match regex pattern \"^|\\\\w{9}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for BankAccountNumber
+	if !_UpdateOrganizationRequest_BankAccountNumber_Pattern.MatchString(m.GetBankAccountNumber()) {
+		err := UpdateOrganizationRequestValidationError{
+			field:  "BankAccountNumber",
+			reason: "value does not match regex pattern \"^|\\\\w{14}$\"",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return UpdateOrganizationRequestMultiError(errors)
@@ -451,6 +514,16 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateOrganizationRequestValidationError{}
+
+var _UpdateOrganizationRequest_DomesticAchRoutingNumber_Pattern = regexp.MustCompile("^|\\w{9}$")
+
+var _UpdateOrganizationRequest_InternationalAchRoutingNumber_Pattern = regexp.MustCompile("^|\\w{9}$")
+
+var _UpdateOrganizationRequest_WireRoutingNumber_Pattern = regexp.MustCompile("^|\\w{9}$")
+
+var _UpdateOrganizationRequest_SwiftRoutingNumber_Pattern = regexp.MustCompile("^|\\w{9}$")
+
+var _UpdateOrganizationRequest_BankAccountNumber_Pattern = regexp.MustCompile("^|\\w{14}$")
 
 // Validate checks the field values on UpdateOrganizationResponse with the
 // rules defined in the proto definition for this message. If any rules are
@@ -884,7 +957,16 @@ func (m *GetOrganizationLegacyConfigurationRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for OrganizationKey
+	if l := utf8.RuneCountInString(m.GetOrganizationKey()); l < 30 || l > 50 {
+		err := GetOrganizationLegacyConfigurationRequestValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return GetOrganizationLegacyConfigurationRequestMultiError(errors)
@@ -1187,7 +1269,16 @@ func (m *UpdateOrganizationLegacyConfigurationRequest) validate(all bool) error 
 
 	var errors []error
 
-	// no validation rules for OrganizationKey
+	if l := utf8.RuneCountInString(m.GetOrganizationKey()); l < 30 || l > 50 {
+		err := UpdateOrganizationLegacyConfigurationRequestValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetLegacyConfiguration()).(type) {

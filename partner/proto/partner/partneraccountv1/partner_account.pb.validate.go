@@ -65,7 +65,27 @@ func (m *PartnerAccount) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for PartnerAccountKey
+	if l := utf8.RuneCountInString(m.GetPartnerAccountKey()); l < 30 || l > 50 {
+		err := PartnerAccountValidationError{
+			field:  "PartnerAccountKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetVersion() < 0 {
+		err := PartnerAccountValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetCreated()).(type) {
@@ -125,9 +145,16 @@ func (m *PartnerAccount) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for Version
-
-	// no validation rules for PartnerKey
+	if l := utf8.RuneCountInString(m.GetPartnerKey()); l < 30 || l > 50 {
+		err := PartnerAccountValidationError{
+			field:  "PartnerKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for AccountType
 
@@ -233,7 +260,16 @@ func (m *GetPartnerAccountRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for PartnerAccountKey
+	if l := utf8.RuneCountInString(m.GetPartnerAccountKey()); l < 30 || l > 50 {
+		err := GetPartnerAccountRequestValidationError{
+			field:  "PartnerAccountKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return GetPartnerAccountRequestMultiError(errors)

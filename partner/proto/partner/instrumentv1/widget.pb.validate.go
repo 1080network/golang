@@ -219,7 +219,16 @@ func (m *InitializeWidgetResponse) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for SessionKey
+	if l := utf8.RuneCountInString(m.GetSessionKey()); l < 30 || l > 50 {
+		err := InitializeWidgetResponseValidationError{
+			field:  "SessionKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return InitializeWidgetResponseMultiError(errors)

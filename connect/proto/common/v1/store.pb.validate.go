@@ -56,7 +56,18 @@ func (m *Store) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for StoreKey
+	if l := utf8.RuneCountInString(m.GetStoreKey()); l < 30 || l > 50 {
+		err := StoreValidationError{
+			field:  "StoreKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Version
 
 	if all {
 		switch v := interface{}(m.GetCreated()).(type) {
@@ -116,11 +127,27 @@ func (m *Store) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for Version
+	if l := utf8.RuneCountInString(m.GetPartnerKey()); l < 30 || l > 50 {
+		err := StoreValidationError{
+			field:  "PartnerKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for PartnerKey
-
-	// no validation rules for OrganizationKey
+	if l := utf8.RuneCountInString(m.GetOrganizationKey()); l < 30 || l > 50 {
+		err := StoreValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for StoreRef
 

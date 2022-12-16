@@ -116,7 +116,16 @@ func (m *User) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for ServiceProviderUserKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderUserKey()); l < 30 || l > 50 {
+		err := UserValidationError{
+			field:  "ServiceProviderUserKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for ServiceProviderUserRef
 
@@ -148,6 +157,8 @@ func (m *User) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for FederatedUserKey
 
 	if len(errors) > 0 {
 		return UserMultiError(errors)
@@ -412,7 +423,16 @@ func (m *RegisterUserResponse) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for ServiceProviderUserKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderUserKey()); l < 30 || l > 50 {
+		err := RegisterUserResponseValidationError{
+			field:  "ServiceProviderUserKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Version
 
@@ -518,7 +538,16 @@ func (m *UpdateUserRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ServiceProviderUserKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderUserKey()); l < 30 || l > 50 {
+		err := UpdateUserRequestValidationError{
+			field:  "ServiceProviderUserKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Version
 
@@ -788,7 +817,16 @@ func (m *RemoveUserRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ServiceProviderUserKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderUserKey()); l < 30 || l > 50 {
+		err := RemoveUserRequestValidationError{
+			field:  "ServiceProviderUserKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return RemoveUserRequestMultiError(errors)
@@ -1028,7 +1066,17 @@ func (m *GetUserRequest) validate(all bool) error {
 	switch m.Criteria.(type) {
 
 	case *GetUserRequest_ServiceProviderUserKey:
-		// no validation rules for ServiceProviderUserKey
+
+		if l := utf8.RuneCountInString(m.GetServiceProviderUserKey()); l < 30 || l > 50 {
+			err := GetUserRequestValidationError{
+				field:  "ServiceProviderUserKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 	case *GetUserRequest_ServiceProviderUserRef:
 		// no validation rules for ServiceProviderUserRef
@@ -1572,11 +1620,29 @@ func (m *EnrollUserInstrumentRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ServiceProviderUserKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderUserKey()); l < 30 || l > 50 {
+		err := EnrollUserInstrumentRequestValidationError{
+			field:  "ServiceProviderUserKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for ServiceProviderUserRef
 
-	// no validation rules for ServiceProviderInstrumentKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()); l < 30 || l > 50 {
+		err := EnrollUserInstrumentRequestValidationError{
+			field:  "ServiceProviderInstrumentKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for ServiceProviderInstrumentRef
 

@@ -125,7 +125,33 @@ func (m *SearchTransactionDataRequest) validate(all bool) error {
 
 	// no validation rules for IntervalType
 
+	// no validation rules for TopN
+
+	// no validation rules for TransactionType
+
 	// no validation rules for Currency
+
+	if utf8.RuneCountInString(m.GetOrganizationKey()) > 50 {
+		err := SearchTransactionDataRequestValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be at most 50 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetStoreKey()) > 50 {
+		err := SearchTransactionDataRequestValidationError{
+			field:  "StoreKey",
+			reason: "value length must be at most 50 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for MinAmount
 
@@ -273,6 +299,10 @@ func (m *CountAmountItem) validate(all bool) error {
 
 	// no validation rules for ObtainDeclineAmount
 
+	// no validation rules for ObtainNetworkDeclineCount
+
+	// no validation rules for ObtainNetworkDeclineAmount
+
 	// no validation rules for ReturnApprovalCount
 
 	// no validation rules for ReturnApprovalAmount
@@ -280,6 +310,10 @@ func (m *CountAmountItem) validate(all bool) error {
 	// no validation rules for ReturnDeclineCount
 
 	// no validation rules for ReturnDeclineAmount
+
+	// no validation rules for ReturnNetworkDeclineCount
+
+	// no validation rules for ReturnNetworkDeclineAmount
 
 	if len(errors) > 0 {
 		return CountAmountItemMultiError(errors)
@@ -612,9 +646,41 @@ func (m *SearchTransactionGeographyDataRequest) validate(all bool) error {
 
 	// no validation rules for IntervalType
 
+	// no validation rules for TopN
+
+	// no validation rules for TransactionType
+
+	// no validation rules for Currency
+
+	if utf8.RuneCountInString(m.GetOrganizationKey()) > 50 {
+		err := SearchTransactionGeographyDataRequestValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be at most 50 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetStoreKey()) > 50 {
+		err := SearchTransactionGeographyDataRequestValidationError{
+			field:  "StoreKey",
+			reason: "value length must be at most 50 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	// no validation rules for Region
 
 	// no validation rules for PostalCode
+
+	// no validation rules for MinAmount
+
+	// no validation rules for MaxAmount
 
 	if len(errors) > 0 {
 		return SearchTransactionGeographyDataRequestMultiError(errors)
@@ -1095,9 +1161,39 @@ func (m *SearchTransactionPartnerDataRequest) validate(all bool) error {
 		}
 	}
 
+	// no validation rules for IntervalType
+
 	// no validation rules for TopN
 
 	// no validation rules for TransactionType
+
+	// no validation rules for Currency
+
+	if utf8.RuneCountInString(m.GetOrganizationKey()) > 50 {
+		err := SearchTransactionPartnerDataRequestValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be at most 50 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetStoreKey()) > 50 {
+		err := SearchTransactionPartnerDataRequestValidationError{
+			field:  "StoreKey",
+			reason: "value length must be at most 50 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for MinAmount
+
+	// no validation rules for MaxAmount
 
 	if len(errors) > 0 {
 		return SearchTransactionPartnerDataRequestMultiError(errors)
@@ -1204,7 +1300,16 @@ func (m *SearchTransactionPartnerDataItem) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for PartnerKey
+	if l := utf8.RuneCountInString(m.GetPartnerKey()); l < 30 || l > 50 {
+		err := SearchTransactionPartnerDataItemValidationError{
+			field:  "PartnerKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for PartnerName
 

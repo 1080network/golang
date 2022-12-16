@@ -57,9 +57,27 @@ func (m *BankAccountCredentials) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for Username
+	if utf8.RuneCountInString(m.GetUsername()) < 3 {
+		err := BankAccountCredentialsValidationError{
+			field:  "Username",
+			reason: "value length must be at least 3 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Password
+	if utf8.RuneCountInString(m.GetPassword()) < 3 {
+		err := BankAccountCredentialsValidationError{
+			field:  "Password",
+			reason: "value length must be at least 3 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return BankAccountCredentialsMultiError(errors)

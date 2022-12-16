@@ -20,7 +20,7 @@ import (
 
 	currencyv1 "mica/proto/common/enums/currencyv1"
 
-	discountv1 "mica/proto/discount/discountv1"
+	discounttypev1 "mica/proto/common/enums/discounttypev1"
 )
 
 // ensure the imports are used
@@ -40,7 +40,7 @@ var (
 
 	_ = currencyv1.Currency(0)
 
-	_ = discountv1.DiscountType(0)
+	_ = discounttypev1.DiscountType(0)
 )
 
 // Validate checks the field values on DiscountDefinition with the rules
@@ -65,24 +65,34 @@ func (m *DiscountDefinition) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for DiscountDefinitionKey
+	if l := utf8.RuneCountInString(m.GetDiscountDefinitionKey()); l < 30 || l > 50 {
+		err := DiscountDefinitionValidationError{
+			field:  "DiscountDefinitionKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Version
-
-	// no validation rules for DiscountDefinitionRef
-
-	// no validation rules for ReceiptDescription
-
-	// no validation rules for Status
-
-	// no validation rules for Type
+	if m.GetVersion() < 0 {
+		err := DiscountDefinitionValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
-		switch v := interface{}(m.GetDateFrom()).(type) {
+		switch v := interface{}(m.GetCreated()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, DiscountDefinitionValidationError{
-					field:  "DateFrom",
+					field:  "Created",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -90,16 +100,16 @@ func (m *DiscountDefinition) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, DiscountDefinitionValidationError{
-					field:  "DateFrom",
+					field:  "Created",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetDateFrom()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetCreated()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return DiscountDefinitionValidationError{
-				field:  "DateFrom",
+				field:  "Created",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -107,11 +117,11 @@ func (m *DiscountDefinition) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetDateTo()).(type) {
+		switch v := interface{}(m.GetUpdated()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, DiscountDefinitionValidationError{
-					field:  "DateTo",
+					field:  "Updated",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -119,20 +129,109 @@ func (m *DiscountDefinition) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, DiscountDefinitionValidationError{
-					field:  "DateTo",
+					field:  "Updated",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetDateTo()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetUpdated()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return DiscountDefinitionValidationError{
-				field:  "DateTo",
+				field:  "Updated",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
 		}
+	}
+
+	if l := utf8.RuneCountInString(m.GetDiscountDefinitionRef()); l < 1 || l > 50 {
+		err := DiscountDefinitionValidationError{
+			field:  "DiscountDefinitionRef",
+			reason: "value length must be between 1 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetDiscountProviderAccountRef()); l < 1 || l > 50 {
+		err := DiscountDefinitionValidationError{
+			field:  "DiscountProviderAccountRef",
+			reason: "value length must be between 1 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetReceiptDescription()) > 100 {
+		err := DiscountDefinitionValidationError{
+			field:  "ReceiptDescription",
+			reason: "value length must be at most 100 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Status
+
+	// no validation rules for Type
+
+	if m.GetValidFrom() == nil {
+		err := DiscountDefinitionValidationError{
+			field:  "ValidFrom",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if t := m.GetValidTo(); t != nil {
+		ts, err := t.AsTime(), t.CheckValid()
+		if err != nil {
+			err = DiscountDefinitionValidationError{
+				field:  "ValidTo",
+				reason: "value is not a valid timestamp",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		} else {
+
+			now := time.Now()
+
+			if ts.Sub(now) <= 0 {
+				err := DiscountDefinitionValidationError{
+					field:  "ValidTo",
+					reason: "value must be greater than now",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+	}
+
+	if len(m.GetDiscountCriteria()) < 1 {
+		err := DiscountDefinitionValidationError{
+			field:  "DiscountCriteria",
+			reason: "value must contain at least 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
 	}
 
 	for idx, item := range m.GetDiscountCriteria() {
@@ -173,14 +272,14 @@ func (m *DiscountDefinition) validate(all bool) error {
 
 	switch m.DiscountAmount.(type) {
 
-	case *DiscountDefinition_Amount:
+	case *DiscountDefinition_MonetaryAmount:
 
 		if all {
-			switch v := interface{}(m.GetAmount()).(type) {
+			switch v := interface{}(m.GetMonetaryAmount()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, DiscountDefinitionValidationError{
-						field:  "Amount",
+						field:  "MonetaryAmount",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -188,30 +287,30 @@ func (m *DiscountDefinition) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, DiscountDefinitionValidationError{
-						field:  "Amount",
+						field:  "MonetaryAmount",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetAmount()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetMonetaryAmount()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return DiscountDefinitionValidationError{
-					field:  "Amount",
+					field:  "MonetaryAmount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
 			}
 		}
 
-	case *DiscountDefinition_Percentage:
+	case *DiscountDefinition_PercentageAmount:
 
 		if all {
-			switch v := interface{}(m.GetPercentage()).(type) {
+			switch v := interface{}(m.GetPercentageAmount()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, DiscountDefinitionValidationError{
-						field:  "Percentage",
+						field:  "PercentageAmount",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -219,16 +318,16 @@ func (m *DiscountDefinition) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, DiscountDefinitionValidationError{
-						field:  "Percentage",
+						field:  "PercentageAmount",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetPercentage()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetPercentageAmount()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return DiscountDefinitionValidationError{
-					field:  "Percentage",
+					field:  "PercentageAmount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -339,70 +438,93 @@ func (m *CreateDiscountDefinitionRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for DiscountDefinitionRef
+	if l := utf8.RuneCountInString(m.GetDiscountDefinitionRef()); l < 1 || l > 50 {
+		err := CreateDiscountDefinitionRequestValidationError{
+			field:  "DiscountDefinitionRef",
+			reason: "value length must be between 1 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for ReceiptDescription
+	if l := utf8.RuneCountInString(m.GetDiscountProviderAccountRef()); l < 1 || l > 50 {
+		err := CreateDiscountDefinitionRequestValidationError{
+			field:  "DiscountProviderAccountRef",
+			reason: "value length must be between 1 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetReceiptDescription()) > 100 {
+		err := CreateDiscountDefinitionRequestValidationError{
+			field:  "ReceiptDescription",
+			reason: "value length must be at most 100 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Status
 
 	// no validation rules for Type
 
-	if all {
-		switch v := interface{}(m.GetDateFrom()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CreateDiscountDefinitionRequestValidationError{
-					field:  "DateFrom",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, CreateDiscountDefinitionRequestValidationError{
-					field:  "DateFrom",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
+	if m.GetValidFrom() == nil {
+		err := CreateDiscountDefinitionRequestValidationError{
+			field:  "ValidFrom",
+			reason: "value is required",
 		}
-	} else if v, ok := interface{}(m.GetDateFrom()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CreateDiscountDefinitionRequestValidationError{
-				field:  "DateFrom",
-				reason: "embedded message failed validation",
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if t := m.GetValidTo(); t != nil {
+		ts, err := t.AsTime(), t.CheckValid()
+		if err != nil {
+			err = CreateDiscountDefinitionRequestValidationError{
+				field:  "ValidTo",
+				reason: "value is not a valid timestamp",
 				cause:  err,
 			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		} else {
+
+			now := time.Now()
+
+			if ts.Sub(now) <= 0 {
+				err := CreateDiscountDefinitionRequestValidationError{
+					field:  "ValidTo",
+					reason: "value must be greater than now",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
 		}
 	}
 
-	if all {
-		switch v := interface{}(m.GetDateTo()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, CreateDiscountDefinitionRequestValidationError{
-					field:  "DateTo",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, CreateDiscountDefinitionRequestValidationError{
-					field:  "DateTo",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
+	if len(m.GetDiscountCriteria()) < 1 {
+		err := CreateDiscountDefinitionRequestValidationError{
+			field:  "DiscountCriteria",
+			reason: "value must contain at least 1 item(s)",
 		}
-	} else if v, ok := interface{}(m.GetDateTo()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return CreateDiscountDefinitionRequestValidationError{
-				field:  "DateTo",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
+		if !all {
+			return err
 		}
+		errors = append(errors, err)
 	}
 
 	for idx, item := range m.GetDiscountCriteria() {
@@ -443,14 +565,14 @@ func (m *CreateDiscountDefinitionRequest) validate(all bool) error {
 
 	switch m.DiscountAmount.(type) {
 
-	case *CreateDiscountDefinitionRequest_Amount:
+	case *CreateDiscountDefinitionRequest_MonetaryAmount:
 
 		if all {
-			switch v := interface{}(m.GetAmount()).(type) {
+			switch v := interface{}(m.GetMonetaryAmount()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, CreateDiscountDefinitionRequestValidationError{
-						field:  "Amount",
+						field:  "MonetaryAmount",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -458,30 +580,30 @@ func (m *CreateDiscountDefinitionRequest) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, CreateDiscountDefinitionRequestValidationError{
-						field:  "Amount",
+						field:  "MonetaryAmount",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetAmount()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetMonetaryAmount()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return CreateDiscountDefinitionRequestValidationError{
-					field:  "Amount",
+					field:  "MonetaryAmount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
 			}
 		}
 
-	case *CreateDiscountDefinitionRequest_Percentage:
+	case *CreateDiscountDefinitionRequest_PercentageAmount:
 
 		if all {
-			switch v := interface{}(m.GetPercentage()).(type) {
+			switch v := interface{}(m.GetPercentageAmount()).(type) {
 			case interface{ ValidateAll() error }:
 				if err := v.ValidateAll(); err != nil {
 					errors = append(errors, CreateDiscountDefinitionRequestValidationError{
-						field:  "Percentage",
+						field:  "PercentageAmount",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
@@ -489,16 +611,16 @@ func (m *CreateDiscountDefinitionRequest) validate(all bool) error {
 			case interface{ Validate() error }:
 				if err := v.Validate(); err != nil {
 					errors = append(errors, CreateDiscountDefinitionRequestValidationError{
-						field:  "Percentage",
+						field:  "PercentageAmount",
 						reason: "embedded message failed validation",
 						cause:  err,
 					})
 				}
 			}
-		} else if v, ok := interface{}(m.GetPercentage()).(interface{ Validate() error }); ok {
+		} else if v, ok := interface{}(m.GetPercentageAmount()).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
 				return CreateDiscountDefinitionRequestValidationError{
-					field:  "Percentage",
+					field:  "PercentageAmount",
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -644,7 +766,16 @@ func (m *CreateDiscountDefinitionResponse) validate(all bool) error {
 
 	// no validation rules for DiscountDefinitionKey
 
-	// no validation rules for Version
+	if m.GetVersion() < 0 {
+		err := CreateDiscountDefinitionResponseValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return CreateDiscountDefinitionResponseMultiError(errors)
@@ -750,7 +881,35 @@ func (m *GetDiscountDefinitionRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for DiscountDefinitionRef
+	switch m.DiscountDefinitionIdentifier.(type) {
+
+	case *GetDiscountDefinitionRequest_DiscountDefinitionRef:
+
+		if l := utf8.RuneCountInString(m.GetDiscountDefinitionRef()); l < 1 || l > 50 {
+			err := GetDiscountDefinitionRequestValidationError{
+				field:  "DiscountDefinitionRef",
+				reason: "value length must be between 1 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	case *GetDiscountDefinitionRequest_DiscountDefinitionKey:
+
+		if l := utf8.RuneCountInString(m.GetDiscountDefinitionKey()); l < 30 || l > 50 {
+			err := GetDiscountDefinitionRequestValidationError{
+				field:  "DiscountDefinitionKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return GetDiscountDefinitionRequestMultiError(errors)
@@ -1018,7 +1177,226 @@ func (m *UpdateDiscountDefinitionRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for DiscountDefinitionRef
+	if m.GetVersion() < 0 {
+		err := UpdateDiscountDefinitionRequestValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetDiscountProviderAccountRef()); l < 1 || l > 50 {
+		err := UpdateDiscountDefinitionRequestValidationError{
+			field:  "DiscountProviderAccountRef",
+			reason: "value length must be between 1 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetReceiptDescription()) > 100 {
+		err := UpdateDiscountDefinitionRequestValidationError{
+			field:  "ReceiptDescription",
+			reason: "value length must be at most 100 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for Status
+
+	// no validation rules for Type
+
+	if m.GetValidFrom() == nil {
+		err := UpdateDiscountDefinitionRequestValidationError{
+			field:  "ValidFrom",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if t := m.GetValidTo(); t != nil {
+		ts, err := t.AsTime(), t.CheckValid()
+		if err != nil {
+			err = UpdateDiscountDefinitionRequestValidationError{
+				field:  "ValidTo",
+				reason: "value is not a valid timestamp",
+				cause:  err,
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		} else {
+
+			now := time.Now()
+
+			if ts.Sub(now) <= 0 {
+				err := UpdateDiscountDefinitionRequestValidationError{
+					field:  "ValidTo",
+					reason: "value must be greater than now",
+				}
+				if !all {
+					return err
+				}
+				errors = append(errors, err)
+			}
+
+		}
+	}
+
+	if len(m.GetDiscountCriteria()) < 1 {
+		err := UpdateDiscountDefinitionRequestValidationError{
+			field:  "DiscountCriteria",
+			reason: "value must contain at least 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	for idx, item := range m.GetDiscountCriteria() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpdateDiscountDefinitionRequestValidationError{
+						field:  fmt.Sprintf("DiscountCriteria[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpdateDiscountDefinitionRequestValidationError{
+						field:  fmt.Sprintf("DiscountCriteria[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpdateDiscountDefinitionRequestValidationError{
+					field:  fmt.Sprintf("DiscountCriteria[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	// no validation rules for Currency
+
+	switch m.DiscountDefinitionIdentifier.(type) {
+
+	case *UpdateDiscountDefinitionRequest_DiscountDefinitionRef:
+
+		if l := utf8.RuneCountInString(m.GetDiscountDefinitionRef()); l < 1 || l > 50 {
+			err := UpdateDiscountDefinitionRequestValidationError{
+				field:  "DiscountDefinitionRef",
+				reason: "value length must be between 1 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	case *UpdateDiscountDefinitionRequest_DiscountDefinitionKey:
+
+		if l := utf8.RuneCountInString(m.GetDiscountDefinitionKey()); l < 30 || l > 50 {
+			err := UpdateDiscountDefinitionRequestValidationError{
+				field:  "DiscountDefinitionKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	switch m.DiscountAmount.(type) {
+
+	case *UpdateDiscountDefinitionRequest_MonetaryAmount:
+
+		if all {
+			switch v := interface{}(m.GetMonetaryAmount()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpdateDiscountDefinitionRequestValidationError{
+						field:  "MonetaryAmount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpdateDiscountDefinitionRequestValidationError{
+						field:  "MonetaryAmount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetMonetaryAmount()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpdateDiscountDefinitionRequestValidationError{
+					field:  "MonetaryAmount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	case *UpdateDiscountDefinitionRequest_PercentageAmount:
+
+		if all {
+			switch v := interface{}(m.GetPercentageAmount()).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, UpdateDiscountDefinitionRequestValidationError{
+						field:  "PercentageAmount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, UpdateDiscountDefinitionRequestValidationError{
+						field:  "PercentageAmount",
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(m.GetPercentageAmount()).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return UpdateDiscountDefinitionRequestValidationError{
+					field:  "PercentageAmount",
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return UpdateDiscountDefinitionRequestMultiError(errors)
@@ -1155,7 +1533,16 @@ func (m *UpdateDiscountDefinitionResponse) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for Version
+	if m.GetVersion() < 0 {
+		err := UpdateDiscountDefinitionResponseValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return UpdateDiscountDefinitionResponseMultiError(errors)
@@ -1239,6 +1626,304 @@ var _ interface {
 	ErrorName() string
 } = UpdateDiscountDefinitionResponseValidationError{}
 
+// Validate checks the field values on UpdateDiscountDefinitionStatusRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *UpdateDiscountDefinitionStatusRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateDiscountDefinitionStatusRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// UpdateDiscountDefinitionStatusRequestMultiError, or nil if none found.
+func (m *UpdateDiscountDefinitionStatusRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateDiscountDefinitionStatusRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if _, ok := _UpdateDiscountDefinitionStatusRequest_DiscountDefinitionStatus_NotInLookup[m.GetDiscountDefinitionStatus()]; ok {
+		err := UpdateDiscountDefinitionStatusRequestValidationError{
+			field:  "DiscountDefinitionStatus",
+			reason: "value must not be in list [0]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	switch m.DiscountDefinitionIdentifier.(type) {
+
+	case *UpdateDiscountDefinitionStatusRequest_DiscountDefinitionRef:
+
+		if l := utf8.RuneCountInString(m.GetDiscountDefinitionRef()); l < 1 || l > 50 {
+			err := UpdateDiscountDefinitionStatusRequestValidationError{
+				field:  "DiscountDefinitionRef",
+				reason: "value length must be between 1 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	case *UpdateDiscountDefinitionStatusRequest_DiscountDefinitionKey:
+
+		if l := utf8.RuneCountInString(m.GetDiscountDefinitionKey()); l < 30 || l > 50 {
+			err := UpdateDiscountDefinitionStatusRequestValidationError{
+				field:  "DiscountDefinitionKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return UpdateDiscountDefinitionStatusRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateDiscountDefinitionStatusRequestMultiError is an error wrapping
+// multiple validation errors returned by
+// UpdateDiscountDefinitionStatusRequest.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateDiscountDefinitionStatusRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateDiscountDefinitionStatusRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateDiscountDefinitionStatusRequestMultiError) AllErrors() []error { return m }
+
+// UpdateDiscountDefinitionStatusRequestValidationError is the validation error
+// returned by UpdateDiscountDefinitionStatusRequest.Validate if the
+// designated constraints aren't met.
+type UpdateDiscountDefinitionStatusRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateDiscountDefinitionStatusRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateDiscountDefinitionStatusRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateDiscountDefinitionStatusRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateDiscountDefinitionStatusRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateDiscountDefinitionStatusRequestValidationError) ErrorName() string {
+	return "UpdateDiscountDefinitionStatusRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateDiscountDefinitionStatusRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateDiscountDefinitionStatusRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateDiscountDefinitionStatusRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateDiscountDefinitionStatusRequestValidationError{}
+
+var _UpdateDiscountDefinitionStatusRequest_DiscountDefinitionStatus_NotInLookup = map[DiscountDefinitionStatus]struct{}{
+	0: {},
+}
+
+// Validate checks the field values on UpdateDiscountDefinitionStatusResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *UpdateDiscountDefinitionStatusResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on
+// UpdateDiscountDefinitionStatusResponse with the rules defined in the proto
+// definition for this message. If any rules are violated, the result is a
+// list of violation errors wrapped in
+// UpdateDiscountDefinitionStatusResponseMultiError, or nil if none found.
+func (m *UpdateDiscountDefinitionStatusResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateDiscountDefinitionStatusResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetError()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateDiscountDefinitionStatusResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateDiscountDefinitionStatusResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateDiscountDefinitionStatusResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if m.GetVersion() < 0 {
+		err := UpdateDiscountDefinitionStatusResponseValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(errors) > 0 {
+		return UpdateDiscountDefinitionStatusResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateDiscountDefinitionStatusResponseMultiError is an error wrapping
+// multiple validation errors returned by
+// UpdateDiscountDefinitionStatusResponse.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateDiscountDefinitionStatusResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateDiscountDefinitionStatusResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateDiscountDefinitionStatusResponseMultiError) AllErrors() []error { return m }
+
+// UpdateDiscountDefinitionStatusResponseValidationError is the validation
+// error returned by UpdateDiscountDefinitionStatusResponse.Validate if the
+// designated constraints aren't met.
+type UpdateDiscountDefinitionStatusResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateDiscountDefinitionStatusResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateDiscountDefinitionStatusResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateDiscountDefinitionStatusResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateDiscountDefinitionStatusResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateDiscountDefinitionStatusResponseValidationError) ErrorName() string {
+	return "UpdateDiscountDefinitionStatusResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateDiscountDefinitionStatusResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateDiscountDefinitionStatusResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateDiscountDefinitionStatusResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateDiscountDefinitionStatusResponseValidationError{}
+
 // Validate checks the field values on RemoveDiscountDefinitionRequest with the
 // rules defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1261,7 +1946,35 @@ func (m *RemoveDiscountDefinitionRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for DiscountDefinitionRef
+	switch m.DiscountDefinitionIdentifier.(type) {
+
+	case *RemoveDiscountDefinitionRequest_DiscountDefinitionRef:
+
+		if l := utf8.RuneCountInString(m.GetDiscountDefinitionRef()); l < 1 || l > 50 {
+			err := RemoveDiscountDefinitionRequestValidationError{
+				field:  "DiscountDefinitionRef",
+				reason: "value length must be between 1 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	case *RemoveDiscountDefinitionRequest_DiscountDefinitionKey:
+
+		if l := utf8.RuneCountInString(m.GetDiscountDefinitionKey()); l < 30 || l > 50 {
+			err := RemoveDiscountDefinitionRequestValidationError{
+				field:  "DiscountDefinitionKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return RemoveDiscountDefinitionRequestMultiError(errors)
@@ -1479,3 +2192,342 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RemoveDiscountDefinitionResponseValidationError{}
+
+// Validate checks the field values on SearchDiscountDefinitionRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SearchDiscountDefinitionRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SearchDiscountDefinitionRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// SearchDiscountDefinitionRequestMultiError, or nil if none found.
+func (m *SearchDiscountDefinitionRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SearchDiscountDefinitionRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for ReceiptDescription
+
+	// no validation rules for Status
+
+	// no validation rules for Type
+
+	if all {
+		switch v := interface{}(m.GetValidFrom()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SearchDiscountDefinitionRequestValidationError{
+					field:  "ValidFrom",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SearchDiscountDefinitionRequestValidationError{
+					field:  "ValidFrom",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValidFrom()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchDiscountDefinitionRequestValidationError{
+				field:  "ValidFrom",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetValidTo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SearchDiscountDefinitionRequestValidationError{
+					field:  "ValidTo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SearchDiscountDefinitionRequestValidationError{
+					field:  "ValidTo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValidTo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchDiscountDefinitionRequestValidationError{
+				field:  "ValidTo",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	// no validation rules for Currency
+
+	if len(errors) > 0 {
+		return SearchDiscountDefinitionRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SearchDiscountDefinitionRequestMultiError is an error wrapping multiple
+// validation errors returned by SearchDiscountDefinitionRequest.ValidateAll()
+// if the designated constraints aren't met.
+type SearchDiscountDefinitionRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SearchDiscountDefinitionRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SearchDiscountDefinitionRequestMultiError) AllErrors() []error { return m }
+
+// SearchDiscountDefinitionRequestValidationError is the validation error
+// returned by SearchDiscountDefinitionRequest.Validate if the designated
+// constraints aren't met.
+type SearchDiscountDefinitionRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SearchDiscountDefinitionRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SearchDiscountDefinitionRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SearchDiscountDefinitionRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SearchDiscountDefinitionRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SearchDiscountDefinitionRequestValidationError) ErrorName() string {
+	return "SearchDiscountDefinitionRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SearchDiscountDefinitionRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSearchDiscountDefinitionRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SearchDiscountDefinitionRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SearchDiscountDefinitionRequestValidationError{}
+
+// Validate checks the field values on SearchDiscountDefinitionResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *SearchDiscountDefinitionResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SearchDiscountDefinitionResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the result is a list of violation errors wrapped in
+// SearchDiscountDefinitionResponseMultiError, or nil if none found.
+func (m *SearchDiscountDefinitionResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SearchDiscountDefinitionResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetError()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SearchDiscountDefinitionResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SearchDiscountDefinitionResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchDiscountDefinitionResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for idx, item := range m.GetDiscountDefinitions() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SearchDiscountDefinitionResponseValidationError{
+						field:  fmt.Sprintf("DiscountDefinitions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SearchDiscountDefinitionResponseValidationError{
+						field:  fmt.Sprintf("DiscountDefinitions[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SearchDiscountDefinitionResponseValidationError{
+					field:  fmt.Sprintf("DiscountDefinitions[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SearchDiscountDefinitionResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SearchDiscountDefinitionResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// SearchDiscountDefinitionResponse.ValidateAll() if the designated
+// constraints aren't met.
+type SearchDiscountDefinitionResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SearchDiscountDefinitionResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SearchDiscountDefinitionResponseMultiError) AllErrors() []error { return m }
+
+// SearchDiscountDefinitionResponseValidationError is the validation error
+// returned by SearchDiscountDefinitionResponse.Validate if the designated
+// constraints aren't met.
+type SearchDiscountDefinitionResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SearchDiscountDefinitionResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SearchDiscountDefinitionResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SearchDiscountDefinitionResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SearchDiscountDefinitionResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SearchDiscountDefinitionResponseValidationError) ErrorName() string {
+	return "SearchDiscountDefinitionResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SearchDiscountDefinitionResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSearchDiscountDefinitionResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SearchDiscountDefinitionResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SearchDiscountDefinitionResponseValidationError{}

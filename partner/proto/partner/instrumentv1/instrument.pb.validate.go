@@ -57,7 +57,16 @@ func (m *ExchangeSessionKeyRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for SessionKey
+	if l := utf8.RuneCountInString(m.GetSessionKey()); l < 30 || l > 50 {
+		err := ExchangeSessionKeyRequestValidationError{
+			field:  "SessionKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for PartnerInstrumentRef
 

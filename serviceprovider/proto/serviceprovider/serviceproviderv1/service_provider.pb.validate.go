@@ -65,7 +65,27 @@ func (m *ServiceProviderAccount) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ServiceProviderAccountKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderAccountKey()); l < 30 || l > 50 {
+		err := ServiceProviderAccountValidationError{
+			field:  "ServiceProviderAccountKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetVersion() < 0 {
+		err := ServiceProviderAccountValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetCreated()).(type) {
@@ -124,8 +144,6 @@ func (m *ServiceProviderAccount) validate(all bool) error {
 			}
 		}
 	}
-
-	// no validation rules for Version
 
 	// no validation rules for AccountType
 
@@ -233,7 +251,27 @@ func (m *ServiceProvider) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ServiceProviderKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderKey()); l < 30 || l > 50 {
+		err := ServiceProviderValidationError{
+			field:  "ServiceProviderKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetVersion() < 0 {
+		err := ServiceProviderValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetCreated()).(type) {
@@ -292,8 +330,6 @@ func (m *ServiceProvider) validate(all bool) error {
 			}
 		}
 	}
-
-	// no validation rules for Version
 
 	// no validation rules for Name
 

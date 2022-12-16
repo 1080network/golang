@@ -332,7 +332,16 @@ func (m *ServiceProviderTypeMetadata) validate(all bool) error {
 
 	// no validation rules for ServiceProviderType
 
-	// no validation rules for PublicKey
+	if l := utf8.RuneCountInString(m.GetPublicKey()); l < 30 || l > 50 {
+		err := ServiceProviderTypeMetadataValidationError{
+			field:  "PublicKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return ServiceProviderTypeMetadataMultiError(errors)

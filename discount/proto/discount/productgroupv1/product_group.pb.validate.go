@@ -57,13 +57,129 @@ func (m *ProductGroup) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ProductGroupKey
+	if l := utf8.RuneCountInString(m.GetProductGroupKey()); l < 30 || l > 50 {
+		err := ProductGroupValidationError{
+			field:  "ProductGroupKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Version
+	if m.GetVersion() < 0 {
+		err := ProductGroupValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Name
+	if all {
+		switch v := interface{}(m.GetCreated()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ProductGroupValidationError{
+					field:  "Created",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ProductGroupValidationError{
+					field:  "Created",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCreated()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ProductGroupValidationError{
+				field:  "Created",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
 
-	// no validation rules for ProductGroupRef
+	if all {
+		switch v := interface{}(m.GetUpdated()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ProductGroupValidationError{
+					field:  "Updated",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ProductGroupValidationError{
+					field:  "Updated",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUpdated()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ProductGroupValidationError{
+				field:  "Updated",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if utf8.RuneCountInString(m.GetName()) > 100 {
+		err := ProductGroupValidationError{
+			field:  "Name",
+			reason: "value length must be at most 100 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetProductGroupRef()) > 50 {
+		err := ProductGroupValidationError{
+			field:  "ProductGroupRef",
+			reason: "value length must be at most 50 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetProductMatchFilters()) > 100 {
+		err := ProductGroupValidationError{
+			field:  "ProductMatchFilters",
+			reason: "value must contain no more than 100 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetProductCodes()) > 100 {
+		err := ProductGroupValidationError{
+			field:  "ProductCodes",
+			reason: "value must contain no more than 100 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return ProductGroupMultiError(errors)
@@ -164,9 +280,49 @@ func (m *CreateProductGroupRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ProductGroupRef
+	if utf8.RuneCountInString(m.GetProductGroupRef()) > 50 {
+		err := CreateProductGroupRequestValidationError{
+			field:  "ProductGroupRef",
+			reason: "value length must be at most 50 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Name
+	if utf8.RuneCountInString(m.GetName()) > 100 {
+		err := CreateProductGroupRequestValidationError{
+			field:  "Name",
+			reason: "value length must be at most 100 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetProductMatchFilters()) > 100 {
+		err := CreateProductGroupRequestValidationError{
+			field:  "ProductMatchFilters",
+			reason: "value must contain no more than 100 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetProductCodes()) > 100 {
+		err := CreateProductGroupRequestValidationError{
+			field:  "ProductCodes",
+			reason: "value must contain no more than 100 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return CreateProductGroupRequestMultiError(errors)
@@ -301,9 +457,27 @@ func (m *CreateProductGroupResponse) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for ProductGroupKey
+	if l := utf8.RuneCountInString(m.GetProductGroupKey()); l < 30 || l > 50 {
+		err := CreateProductGroupResponseValidationError{
+			field:  "ProductGroupKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for Version
+	if m.GetVersion() < 0 {
+		err := CreateProductGroupResponseValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return CreateProductGroupResponseMultiError(errors)
@@ -407,7 +581,35 @@ func (m *GetProductGroupRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ProductGroupKey
+	switch m.ProductGroupIdentifier.(type) {
+
+	case *GetProductGroupRequest_ProductGroupRef:
+
+		if l := utf8.RuneCountInString(m.GetProductGroupRef()); l < 1 || l > 50 {
+			err := GetProductGroupRequestValidationError{
+				field:  "ProductGroupRef",
+				reason: "value length must be between 1 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	case *GetProductGroupRequest_ProductGroupKey:
+
+		if l := utf8.RuneCountInString(m.GetProductGroupKey()); l < 30 || l > 50 {
+			err := GetProductGroupRequestValidationError{
+				field:  "ProductGroupKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return GetProductGroupRequestMultiError(errors)
@@ -673,7 +875,79 @@ func (m *UpdateProductGroupRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ProductGroupKey
+	if m.GetVersion() < 0 {
+		err := UpdateProductGroupRequestValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if utf8.RuneCountInString(m.GetName()) > 100 {
+		err := UpdateProductGroupRequestValidationError{
+			field:  "Name",
+			reason: "value length must be at most 100 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetProductMatchFilters()) > 100 {
+		err := UpdateProductGroupRequestValidationError{
+			field:  "ProductMatchFilters",
+			reason: "value must contain no more than 100 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetProductCodes()) > 100 {
+		err := UpdateProductGroupRequestValidationError{
+			field:  "ProductCodes",
+			reason: "value must contain no more than 100 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	switch m.ProductGroupIdentifier.(type) {
+
+	case *UpdateProductGroupRequest_ProductGroupRef:
+
+		if l := utf8.RuneCountInString(m.GetProductGroupRef()); l < 1 || l > 50 {
+			err := UpdateProductGroupRequestValidationError{
+				field:  "ProductGroupRef",
+				reason: "value length must be between 1 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	case *UpdateProductGroupRequest_ProductGroupKey:
+
+		if l := utf8.RuneCountInString(m.GetProductGroupKey()); l < 30 || l > 50 {
+			err := UpdateProductGroupRequestValidationError{
+				field:  "ProductGroupKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return UpdateProductGroupRequestMultiError(errors)
@@ -808,7 +1082,16 @@ func (m *UpdateProductGroupResponse) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for Version
+	if m.GetVersion() < 0 {
+		err := UpdateProductGroupResponseValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return UpdateProductGroupResponseMultiError(errors)
@@ -912,7 +1195,35 @@ func (m *RemoveProductGroupRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ProductGroupKey
+	switch m.ProductGroupIdentifier.(type) {
+
+	case *RemoveProductGroupRequest_ProductGroupRef:
+
+		if l := utf8.RuneCountInString(m.GetProductGroupRef()); l < 1 || l > 50 {
+			err := RemoveProductGroupRequestValidationError{
+				field:  "ProductGroupRef",
+				reason: "value length must be between 1 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	case *RemoveProductGroupRequest_ProductGroupKey:
+
+		if l := utf8.RuneCountInString(m.GetProductGroupKey()); l < 30 || l > 50 {
+			err := RemoveProductGroupRequestValidationError{
+				field:  "ProductGroupKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
+
+	}
 
 	if len(errors) > 0 {
 		return RemoveProductGroupRequestMultiError(errors)
@@ -1126,3 +1437,278 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = RemoveProductGroupResponseValidationError{}
+
+// Validate checks the field values on SearchProductGroupRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SearchProductGroupRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SearchProductGroupRequest with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SearchProductGroupRequestMultiError, or nil if none found.
+func (m *SearchProductGroupRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SearchProductGroupRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Name
+
+	// no validation rules for ProductMatchFilter
+
+	// no validation rules for ProductCode
+
+	if len(errors) > 0 {
+		return SearchProductGroupRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SearchProductGroupRequestMultiError is an error wrapping multiple validation
+// errors returned by SearchProductGroupRequest.ValidateAll() if the
+// designated constraints aren't met.
+type SearchProductGroupRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SearchProductGroupRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SearchProductGroupRequestMultiError) AllErrors() []error { return m }
+
+// SearchProductGroupRequestValidationError is the validation error returned by
+// SearchProductGroupRequest.Validate if the designated constraints aren't met.
+type SearchProductGroupRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SearchProductGroupRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SearchProductGroupRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SearchProductGroupRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SearchProductGroupRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SearchProductGroupRequestValidationError) ErrorName() string {
+	return "SearchProductGroupRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SearchProductGroupRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSearchProductGroupRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SearchProductGroupRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SearchProductGroupRequestValidationError{}
+
+// Validate checks the field values on SearchProductGroupResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *SearchProductGroupResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SearchProductGroupResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// SearchProductGroupResponseMultiError, or nil if none found.
+func (m *SearchProductGroupResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SearchProductGroupResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetError()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SearchProductGroupResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SearchProductGroupResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchProductGroupResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for idx, item := range m.GetProductGroups() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SearchProductGroupResponseValidationError{
+						field:  fmt.Sprintf("ProductGroups[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SearchProductGroupResponseValidationError{
+						field:  fmt.Sprintf("ProductGroups[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SearchProductGroupResponseValidationError{
+					field:  fmt.Sprintf("ProductGroups[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SearchProductGroupResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SearchProductGroupResponseMultiError is an error wrapping multiple
+// validation errors returned by SearchProductGroupResponse.ValidateAll() if
+// the designated constraints aren't met.
+type SearchProductGroupResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SearchProductGroupResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SearchProductGroupResponseMultiError) AllErrors() []error { return m }
+
+// SearchProductGroupResponseValidationError is the validation error returned
+// by SearchProductGroupResponse.Validate if the designated constraints aren't met.
+type SearchProductGroupResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SearchProductGroupResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SearchProductGroupResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SearchProductGroupResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SearchProductGroupResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SearchProductGroupResponseValidationError) ErrorName() string {
+	return "SearchProductGroupResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SearchProductGroupResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSearchProductGroupResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SearchProductGroupResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SearchProductGroupResponseValidationError{}

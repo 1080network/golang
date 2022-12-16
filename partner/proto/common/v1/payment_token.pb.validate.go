@@ -67,7 +67,16 @@ func (m *CommonPaymentToken) validate(all bool) error {
 
 	// no validation rules for PaymentTokenType
 
-	// no validation rules for PaymentToken
+	if l := utf8.RuneCountInString(m.GetPaymentToken()); l < 30 || l > 50 {
+		err := CommonPaymentTokenValidationError{
+			field:  "PaymentToken",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Version
 

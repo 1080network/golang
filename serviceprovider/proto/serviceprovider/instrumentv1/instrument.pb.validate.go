@@ -65,7 +65,16 @@ func (m *RegisterInstrumentRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ServiceProviderUserKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderUserKey()); l < 30 || l > 50 {
+		err := RegisterInstrumentRequestValidationError{
+			field:  "ServiceProviderUserKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for ServiceProviderInstrumentRef
 
@@ -374,7 +383,16 @@ func (m *RegisterInstrumentResponse) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for ServiceProviderInstrumentKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()); l < 30 || l > 50 {
+		err := RegisterInstrumentResponseValidationError{
+			field:  "ServiceProviderInstrumentKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Version
 
@@ -483,7 +501,17 @@ func (m *GetInstrumentRequest) validate(all bool) error {
 	switch m.Criteria.(type) {
 
 	case *GetInstrumentRequest_ServiceProviderInstrumentKey:
-		// no validation rules for ServiceProviderInstrumentKey
+
+		if l := utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()); l < 30 || l > 50 {
+			err := GetInstrumentRequestValidationError{
+				field:  "ServiceProviderInstrumentKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 	case *GetInstrumentRequest_ServiceProviderInstrumentRef:
 		// no validation rules for ServiceProviderInstrumentRef
@@ -592,7 +620,16 @@ func (m *Instrument) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ServiceProviderInstrumentKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()); l < 30 || l > 50 {
+		err := InstrumentValidationError{
+			field:  "ServiceProviderInstrumentKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Version
 
@@ -656,7 +693,16 @@ func (m *Instrument) validate(all bool) error {
 
 	// no validation rules for ServiceProviderInstrumentRef
 
-	// no validation rules for ServiceProviderUserKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderUserKey()); l < 30 || l > 50 {
+		err := InstrumentValidationError{
+			field:  "ServiceProviderUserKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for ServiceProviderUserRef
 
@@ -930,7 +976,17 @@ func (m *RemoveInstrumentRequest) validate(all bool) error {
 	switch m.Criteria.(type) {
 
 	case *RemoveInstrumentRequest_ServiceProviderInstrumentKey:
-		// no validation rules for ServiceProviderInstrumentKey
+
+		if l := utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()); l < 30 || l > 50 {
+			err := RemoveInstrumentRequestValidationError{
+				field:  "ServiceProviderInstrumentKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 	case *RemoveInstrumentRequest_ServiceProviderInstrumentRef:
 		// no validation rules for ServiceProviderInstrumentRef
@@ -1175,7 +1231,17 @@ func (m *SearchInstrumentRequest) validate(all bool) error {
 	switch m.Criteria.(type) {
 
 	case *SearchInstrumentRequest_ServiceProviderUserKey:
-		// no validation rules for ServiceProviderUserKey
+
+		if l := utf8.RuneCountInString(m.GetServiceProviderUserKey()); l < 30 || l > 50 {
+			err := SearchInstrumentRequestValidationError{
+				field:  "ServiceProviderUserKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 	}
 
@@ -1453,7 +1519,17 @@ func (m *SetPINRequest) validate(all bool) error {
 	switch m.Criteria.(type) {
 
 	case *SetPINRequest_ServiceProviderInstrumentKey:
-		// no validation rules for ServiceProviderInstrumentKey
+
+		if l := utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()); l < 30 || l > 50 {
+			err := SetPINRequestValidationError{
+				field:  "ServiceProviderInstrumentKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 	case *SetPINRequest_ServiceProviderInstrumentRef:
 		// no validation rules for ServiceProviderInstrumentRef
@@ -1698,7 +1774,17 @@ func (m *ResetPINRequest) validate(all bool) error {
 	switch m.Criteria.(type) {
 
 	case *ResetPINRequest_ServiceProviderInstrumentKey:
-		// no validation rules for ServiceProviderInstrumentKey
+
+		if l := utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()); l < 30 || l > 50 {
+			err := ResetPINRequestValidationError{
+				field:  "ServiceProviderInstrumentKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 	case *ResetPINRequest_ServiceProviderInstrumentRef:
 		// no validation rules for ServiceProviderInstrumentRef
@@ -1939,7 +2025,17 @@ func (m *RemovePINRequest) validate(all bool) error {
 	switch m.Criteria.(type) {
 
 	case *RemovePINRequest_ServiceProviderInstrumentKey:
-		// no validation rules for ServiceProviderInstrumentKey
+
+		if l := utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()); l < 30 || l > 50 {
+			err := RemovePINRequestValidationError{
+				field:  "ServiceProviderInstrumentKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 	case *RemovePINRequest_ServiceProviderInstrumentRef:
 		// no validation rules for ServiceProviderInstrumentRef

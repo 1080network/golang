@@ -57,11 +57,29 @@ func (m *ServiceProviderPaymentToken) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ServiceProviderUserKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderUserKey()); l < 30 || l > 50 {
+		err := ServiceProviderPaymentTokenValidationError{
+			field:  "ServiceProviderUserKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for ServiceProviderUserRef
 
-	// no validation rules for ServiceProviderInstrumentKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()); l < 30 || l > 50 {
+		err := ServiceProviderPaymentTokenValidationError{
+			field:  "ServiceProviderInstrumentKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for ServiceProviderInstrumentRef
 
@@ -202,7 +220,17 @@ func (m *ProvisionServiceProviderPaymentTokenRequest) validate(all bool) error {
 	switch m.Criteria.(type) {
 
 	case *ProvisionServiceProviderPaymentTokenRequest_ServiceProviderInstrumentKey:
-		// no validation rules for ServiceProviderInstrumentKey
+
+		if l := utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()); l < 30 || l > 50 {
+			err := ProvisionServiceProviderPaymentTokenRequestValidationError{
+				field:  "ServiceProviderInstrumentKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 	case *ProvisionServiceProviderPaymentTokenRequest_ServiceProviderInstrumentRef:
 		// no validation rules for ServiceProviderInstrumentRef
@@ -458,7 +486,17 @@ func (m *RemoveServiceProviderPaymentTokenRequest) validate(all bool) error {
 	switch m.Criteria.(type) {
 
 	case *RemoveServiceProviderPaymentTokenRequest_ServiceProviderInstrumentKey:
-		// no validation rules for ServiceProviderInstrumentKey
+
+		if l := utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()); l < 30 || l > 50 {
+			err := RemoveServiceProviderPaymentTokenRequestValidationError{
+				field:  "ServiceProviderInstrumentKey",
+				reason: "value length must be between 30 and 50 runes, inclusive",
+			}
+			if !all {
+				return err
+			}
+			errors = append(errors, err)
+		}
 
 	case *RemoveServiceProviderPaymentTokenRequest_ServiceProviderInstrumentRef:
 		// no validation rules for ServiceProviderInstrumentRef
@@ -711,9 +749,27 @@ func (m *SearchServiceProviderPaymentTokenRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ServiceProviderUserKey
+	if utf8.RuneCountInString(m.GetServiceProviderUserKey()) > 50 {
+		err := SearchServiceProviderPaymentTokenRequestValidationError{
+			field:  "ServiceProviderUserKey",
+			reason: "value length must be at most 50 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for ServiceProviderInstrumentKey
+	if utf8.RuneCountInString(m.GetServiceProviderInstrumentKey()) > 50 {
+		err := SearchServiceProviderPaymentTokenRequestValidationError{
+			field:  "ServiceProviderInstrumentKey",
+			reason: "value length must be at most 50 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return SearchServiceProviderPaymentTokenRequestMultiError(errors)

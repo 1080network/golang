@@ -57,7 +57,27 @@ func (m *DetermineDiscountRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for FederatedUserKey
+	if l := utf8.RuneCountInString(m.GetFederatedUserKey()); l < 30 || l > 50 {
+		err := DetermineDiscountRequestValidationError{
+			field:  "FederatedUserKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetLineItems()) < 1 {
+		err := DetermineDiscountRequestValidationError{
+			field:  "LineItems",
+			reason: "value must contain at least 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	for idx, item := range m.GetLineItems() {
 		_, _ = idx, item
@@ -328,6 +348,8 @@ func (m *ApplyDiscountRequest) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for DiscountRef
+
 	if len(errors) > 0 {
 		return ApplyDiscountRequestMultiError(errors)
 	}
@@ -540,3 +562,240 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = ApplyDiscountResponseValidationError{}
+
+// Validate checks the field values on ReleaseDiscountRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReleaseDiscountRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseDiscountRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReleaseDiscountRequestMultiError, or nil if none found.
+func (m *ReleaseDiscountRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseDiscountRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for DiscountRef
+
+	if len(errors) > 0 {
+		return ReleaseDiscountRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseDiscountRequestMultiError is an error wrapping multiple validation
+// errors returned by ReleaseDiscountRequest.ValidateAll() if the designated
+// constraints aren't met.
+type ReleaseDiscountRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseDiscountRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseDiscountRequestMultiError) AllErrors() []error { return m }
+
+// ReleaseDiscountRequestValidationError is the validation error returned by
+// ReleaseDiscountRequest.Validate if the designated constraints aren't met.
+type ReleaseDiscountRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseDiscountRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseDiscountRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseDiscountRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseDiscountRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseDiscountRequestValidationError) ErrorName() string {
+	return "ReleaseDiscountRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReleaseDiscountRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseDiscountRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseDiscountRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseDiscountRequestValidationError{}
+
+// Validate checks the field values on ReleaseDiscountResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ReleaseDiscountResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ReleaseDiscountResponse with the
+// rules defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ReleaseDiscountResponseMultiError, or nil if none found.
+func (m *ReleaseDiscountResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ReleaseDiscountResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetError()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, ReleaseDiscountResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, ReleaseDiscountResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return ReleaseDiscountResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return ReleaseDiscountResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// ReleaseDiscountResponseMultiError is an error wrapping multiple validation
+// errors returned by ReleaseDiscountResponse.ValidateAll() if the designated
+// constraints aren't met.
+type ReleaseDiscountResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ReleaseDiscountResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ReleaseDiscountResponseMultiError) AllErrors() []error { return m }
+
+// ReleaseDiscountResponseValidationError is the validation error returned by
+// ReleaseDiscountResponse.Validate if the designated constraints aren't met.
+type ReleaseDiscountResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ReleaseDiscountResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ReleaseDiscountResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ReleaseDiscountResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ReleaseDiscountResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ReleaseDiscountResponseValidationError) ErrorName() string {
+	return "ReleaseDiscountResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ReleaseDiscountResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sReleaseDiscountResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ReleaseDiscountResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ReleaseDiscountResponseValidationError{}

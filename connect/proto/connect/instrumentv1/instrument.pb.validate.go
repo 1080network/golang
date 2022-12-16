@@ -67,9 +67,27 @@ func (m *WidgetRegisterInstrumentInitiateRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for SessionKey
+	if l := utf8.RuneCountInString(m.GetSessionKey()); l < 30 || l > 50 {
+		err := WidgetRegisterInstrumentInitiateRequestValidationError{
+			field:  "SessionKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for ServiceProviderKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderKey()); l < 30 || l > 50 {
+		err := WidgetRegisterInstrumentInitiateRequestValidationError{
+			field:  "ServiceProviderKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	switch m.InstrumentIdentifier.(type) {
 
@@ -650,7 +668,16 @@ func (m *WidgetRegisterInstrumentWithAccountRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for SessionKey
+	if l := utf8.RuneCountInString(m.GetSessionKey()); l < 30 || l > 50 {
+		err := WidgetRegisterInstrumentWithAccountRequestValidationError{
+			field:  "SessionKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetInstrument()).(type) {
@@ -926,7 +953,16 @@ func (m *WidgetRegisterInstrumentCompleteRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for SessionKey
+	if l := utf8.RuneCountInString(m.GetSessionKey()); l < 30 || l > 50 {
+		err := WidgetRegisterInstrumentCompleteRequestValidationError{
+			field:  "SessionKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	switch m.Details.(type) {
 
@@ -1437,9 +1473,27 @@ func (m *WidgetRibbitRegisterInstrumentInitiateRequest) validate(all bool) error
 
 	var errors []error
 
-	// no validation rules for SessionKey
+	if l := utf8.RuneCountInString(m.GetSessionKey()); l < 30 || l > 50 {
+		err := WidgetRibbitRegisterInstrumentInitiateRequestValidationError{
+			field:  "SessionKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for ServiceProviderKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderKey()); l < 30 || l > 50 {
+		err := WidgetRibbitRegisterInstrumentInitiateRequestValidationError{
+			field:  "ServiceProviderKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return WidgetRibbitRegisterInstrumentInitiateRequestMultiError(errors)

@@ -76,7 +76,16 @@ func (m *Value) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for TransactionKey
+	if l := utf8.RuneCountInString(m.GetTransactionKey()); l < 30 || l > 50 {
+		err := ValueValidationError{
+			field:  "TransactionKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Version
 
@@ -140,7 +149,16 @@ func (m *Value) validate(all bool) error {
 
 	// no validation rules for OperationType
 
-	// no validation rules for PaymentToken
+	if l := utf8.RuneCountInString(m.GetPaymentToken()); l < 30 || l > 50 {
+		err := ValueValidationError{
+			field:  "PaymentToken",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for PartnerTransactionRef
 
@@ -148,11 +166,29 @@ func (m *Value) validate(all bool) error {
 
 	// no validation rules for Currency
 
-	// no validation rules for OrganizationKey
+	if l := utf8.RuneCountInString(m.GetOrganizationKey()); l < 30 || l > 50 {
+		err := ValueValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Category
 
-	// no validation rules for StoreKey
+	if l := utf8.RuneCountInString(m.GetStoreKey()); l < 30 || l > 50 {
+		err := ValueValidationError{
+			field:  "StoreKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for ClerkIdentifier
 
@@ -305,11 +341,29 @@ func (m *ValueRequest) validate(all bool) error {
 
 	// no validation rules for Currency
 
-	// no validation rules for OrganizationKey
+	if l := utf8.RuneCountInString(m.GetOrganizationKey()); l < 30 || l > 50 {
+		err := ValueRequestValidationError{
+			field:  "OrganizationKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Category
 
-	// no validation rules for StoreKey
+	if l := utf8.RuneCountInString(m.GetStoreKey()); l < 30 || l > 50 {
+		err := ValueRequestValidationError{
+			field:  "StoreKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for ClerkIdentifier
 
@@ -343,6 +397,40 @@ func (m *ValueRequest) validate(all bool) error {
 			if err := v.Validate(); err != nil {
 				return ValueRequestValidationError{
 					field:  fmt.Sprintf("LineItems[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	for idx, item := range m.GetAdjustments() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, ValueRequestValidationError{
+						field:  fmt.Sprintf("Adjustments[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, ValueRequestValidationError{
+						field:  fmt.Sprintf("Adjustments[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return ValueRequestValidationError{
+					field:  fmt.Sprintf("Adjustments[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
 				}
@@ -614,7 +702,16 @@ func (m *ObtainValueResponse) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for TransactionKey
+	if l := utf8.RuneCountInString(m.GetTransactionKey()); l < 30 || l > 50 {
+		err := ObtainValueResponseValidationError{
+			field:  "TransactionKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Cid
 
@@ -918,7 +1015,16 @@ func (m *ReturnValueResponse) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for TransactionKey
+	if l := utf8.RuneCountInString(m.GetTransactionKey()); l < 30 || l > 50 {
+		err := ReturnValueResponseValidationError{
+			field:  "TransactionKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Cid
 
@@ -1004,6 +1110,276 @@ var _ interface {
 	ErrorName() string
 } = ReturnValueResponseValidationError{}
 
+// Validate checks the field values on GetValueRequest with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetValueRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetValueRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetValueRequestMultiError, or nil if none found.
+func (m *GetValueRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetValueRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	switch m.Identifier.(type) {
+
+	case *GetValueRequest_TransactionKey:
+		// no validation rules for TransactionKey
+
+	case *GetValueRequest_PartnerTransactionRef:
+		// no validation rules for PartnerTransactionRef
+
+	}
+
+	if len(errors) > 0 {
+		return GetValueRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetValueRequestMultiError is an error wrapping multiple validation errors
+// returned by GetValueRequest.ValidateAll() if the designated constraints
+// aren't met.
+type GetValueRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetValueRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetValueRequestMultiError) AllErrors() []error { return m }
+
+// GetValueRequestValidationError is the validation error returned by
+// GetValueRequest.Validate if the designated constraints aren't met.
+type GetValueRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetValueRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetValueRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetValueRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetValueRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetValueRequestValidationError) ErrorName() string { return "GetValueRequestValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GetValueRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetValueRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetValueRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetValueRequestValidationError{}
+
+// Validate checks the field values on GetValueResponse with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *GetValueResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GetValueResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// GetValueResponseMultiError, or nil if none found.
+func (m *GetValueResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GetValueResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetError()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetValueResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetValueResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetValueResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetValue()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GetValueResponseValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GetValueResponseValidationError{
+					field:  "Value",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetValue()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GetValueResponseValidationError{
+				field:  "Value",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GetValueResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GetValueResponseMultiError is an error wrapping multiple validation errors
+// returned by GetValueResponse.ValidateAll() if the designated constraints
+// aren't met.
+type GetValueResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GetValueResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GetValueResponseMultiError) AllErrors() []error { return m }
+
+// GetValueResponseValidationError is the validation error returned by
+// GetValueResponse.Validate if the designated constraints aren't met.
+type GetValueResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GetValueResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GetValueResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GetValueResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GetValueResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GetValueResponseValidationError) ErrorName() string { return "GetValueResponseValidationError" }
+
+// Error satisfies the builtin error interface
+func (e GetValueResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGetValueResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GetValueResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GetValueResponseValidationError{}
+
 // Validate checks the field values on SearchValueRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, the first error encountered is returned, or nil if there are no violations.
@@ -1031,11 +1407,11 @@ func (m *SearchValueRequest) validate(all bool) error {
 	// no validation rules for PartnerTransactionRef
 
 	if all {
-		switch v := interface{}(m.GetFrom()).(type) {
+		switch v := interface{}(m.GetDateFrom()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, SearchValueRequestValidationError{
-					field:  "From",
+					field:  "DateFrom",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -1043,16 +1419,16 @@ func (m *SearchValueRequest) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, SearchValueRequestValidationError{
-					field:  "From",
+					field:  "DateFrom",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetFrom()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetDateFrom()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return SearchValueRequestValidationError{
-				field:  "From",
+				field:  "DateFrom",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -1060,11 +1436,11 @@ func (m *SearchValueRequest) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetTo()).(type) {
+		switch v := interface{}(m.GetDateTo()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, SearchValueRequestValidationError{
-					field:  "To",
+					field:  "DateTo",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -1072,16 +1448,16 @@ func (m *SearchValueRequest) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, SearchValueRequestValidationError{
-					field:  "To",
+					field:  "DateTo",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetTo()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetDateTo()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return SearchValueRequestValidationError{
-				field:  "To",
+				field:  "DateTo",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

@@ -392,7 +392,16 @@ func (m *ServiceProvider) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for ServiceProviderKey
+	if l := utf8.RuneCountInString(m.GetServiceProviderKey()); l < 30 || l > 50 {
+		err := ServiceProviderValidationError{
+			field:  "ServiceProviderKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Rank
 

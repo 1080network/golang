@@ -67,6 +67,8 @@ func (m *LineItem) validate(all bool) error {
 
 	// no validation rules for Sequence
 
+	// no validation rules for LineItemGroup
+
 	// no validation rules for ProductCode
 
 	// no validation rules for Description
@@ -159,6 +161,259 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = LineItemValidationError{}
+
+// Validate checks the field values on LineItemWrapper with the rules defined
+// in the proto definition for this message. If any rules are violated, the
+// first error encountered is returned, or nil if there are no violations.
+func (m *LineItemWrapper) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on LineItemWrapper with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// LineItemWrapperMultiError, or nil if none found.
+func (m *LineItemWrapper) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *LineItemWrapper) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	for idx, item := range m.GetLineItems() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, LineItemWrapperValidationError{
+						field:  fmt.Sprintf("LineItems[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, LineItemWrapperValidationError{
+						field:  fmt.Sprintf("LineItems[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return LineItemWrapperValidationError{
+					field:  fmt.Sprintf("LineItems[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return LineItemWrapperMultiError(errors)
+	}
+
+	return nil
+}
+
+// LineItemWrapperMultiError is an error wrapping multiple validation errors
+// returned by LineItemWrapper.ValidateAll() if the designated constraints
+// aren't met.
+type LineItemWrapperMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m LineItemWrapperMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m LineItemWrapperMultiError) AllErrors() []error { return m }
+
+// LineItemWrapperValidationError is the validation error returned by
+// LineItemWrapper.Validate if the designated constraints aren't met.
+type LineItemWrapperValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e LineItemWrapperValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e LineItemWrapperValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e LineItemWrapperValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e LineItemWrapperValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e LineItemWrapperValidationError) ErrorName() string { return "LineItemWrapperValidationError" }
+
+// Error satisfies the builtin error interface
+func (e LineItemWrapperValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sLineItemWrapper.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = LineItemWrapperValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = LineItemWrapperValidationError{}
+
+// Validate checks the field values on Adjustment with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Adjustment) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on Adjustment with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in AdjustmentMultiError, or
+// nil if none found.
+func (m *Adjustment) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *Adjustment) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Sequence
+
+	// no validation rules for AdjustmentType
+
+	// no validation rules for ProductCode
+
+	// no validation rules for Description
+
+	// no validation rules for Quantity
+
+	// no validation rules for Unit
+
+	// no validation rules for UnitAmount
+
+	// no validation rules for UnitTaxAmount
+
+	// no validation rules for LineAmount
+
+	// no validation rules for LineTaxAmount
+
+	if len(errors) > 0 {
+		return AdjustmentMultiError(errors)
+	}
+
+	return nil
+}
+
+// AdjustmentMultiError is an error wrapping multiple validation errors
+// returned by Adjustment.ValidateAll() if the designated constraints aren't met.
+type AdjustmentMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m AdjustmentMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m AdjustmentMultiError) AllErrors() []error { return m }
+
+// AdjustmentValidationError is the validation error returned by
+// Adjustment.Validate if the designated constraints aren't met.
+type AdjustmentValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e AdjustmentValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e AdjustmentValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e AdjustmentValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e AdjustmentValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e AdjustmentValidationError) ErrorName() string { return "AdjustmentValidationError" }
+
+// Error satisfies the builtin error interface
+func (e AdjustmentValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sAdjustment.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = AdjustmentValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = AdjustmentValidationError{}
 
 // Validate checks the field values on LineItemSequenceAndStatus with the rules
 // defined in the proto definition for this message. If any rules are

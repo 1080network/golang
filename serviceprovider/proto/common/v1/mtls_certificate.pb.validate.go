@@ -1422,3 +1422,962 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = SearchMTLSCertificateResponseValidationError{}
+
+// Validate checks the field values on ClientMTLSCertificate with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *ClientMTLSCertificate) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on ClientMTLSCertificate with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// ClientMTLSCertificateMultiError, or nil if none found.
+func (m *ClientMTLSCertificate) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *ClientMTLSCertificate) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetCertificateRefKey()); l < 30 || l > 50 {
+		err := ClientMTLSCertificateValidationError{
+			field:  "CertificateRefKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for DisplayName
+
+	// no validation rules for CrtPem
+
+	// no validation rules for CsrPem
+
+	// no validation rules for RootcaBundlePem
+
+	// no validation rules for Enabled
+
+	if len(errors) > 0 {
+		return ClientMTLSCertificateMultiError(errors)
+	}
+
+	return nil
+}
+
+// ClientMTLSCertificateMultiError is an error wrapping multiple validation
+// errors returned by ClientMTLSCertificate.ValidateAll() if the designated
+// constraints aren't met.
+type ClientMTLSCertificateMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m ClientMTLSCertificateMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m ClientMTLSCertificateMultiError) AllErrors() []error { return m }
+
+// ClientMTLSCertificateValidationError is the validation error returned by
+// ClientMTLSCertificate.Validate if the designated constraints aren't met.
+type ClientMTLSCertificateValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e ClientMTLSCertificateValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e ClientMTLSCertificateValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e ClientMTLSCertificateValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e ClientMTLSCertificateValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e ClientMTLSCertificateValidationError) ErrorName() string {
+	return "ClientMTLSCertificateValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e ClientMTLSCertificateValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sClientMTLSCertificate.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = ClientMTLSCertificateValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = ClientMTLSCertificateValidationError{}
+
+// Validate checks the field values on GenerateClientMTLSCertificateRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *GenerateClientMTLSCertificateRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GenerateClientMTLSCertificateRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GenerateClientMTLSCertificateRequestMultiError, or nil if none found.
+func (m *GenerateClientMTLSCertificateRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GenerateClientMTLSCertificateRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for DisplayName
+
+	if len(errors) > 0 {
+		return GenerateClientMTLSCertificateRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// GenerateClientMTLSCertificateRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// GenerateClientMTLSCertificateRequest.ValidateAll() if the designated
+// constraints aren't met.
+type GenerateClientMTLSCertificateRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GenerateClientMTLSCertificateRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GenerateClientMTLSCertificateRequestMultiError) AllErrors() []error { return m }
+
+// GenerateClientMTLSCertificateRequestValidationError is the validation error
+// returned by GenerateClientMTLSCertificateRequest.Validate if the designated
+// constraints aren't met.
+type GenerateClientMTLSCertificateRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GenerateClientMTLSCertificateRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GenerateClientMTLSCertificateRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GenerateClientMTLSCertificateRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GenerateClientMTLSCertificateRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GenerateClientMTLSCertificateRequestValidationError) ErrorName() string {
+	return "GenerateClientMTLSCertificateRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GenerateClientMTLSCertificateRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGenerateClientMTLSCertificateRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GenerateClientMTLSCertificateRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GenerateClientMTLSCertificateRequestValidationError{}
+
+// Validate checks the field values on GenerateClientMTLSCertificateResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the first error encountered is returned, or nil if
+// there are no violations.
+func (m *GenerateClientMTLSCertificateResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on GenerateClientMTLSCertificateResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// GenerateClientMTLSCertificateResponseMultiError, or nil if none found.
+func (m *GenerateClientMTLSCertificateResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *GenerateClientMTLSCertificateResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetError()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GenerateClientMTLSCertificateResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GenerateClientMTLSCertificateResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GenerateClientMTLSCertificateResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCertificateToSign()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, GenerateClientMTLSCertificateResponseValidationError{
+					field:  "CertificateToSign",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, GenerateClientMTLSCertificateResponseValidationError{
+					field:  "CertificateToSign",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCertificateToSign()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return GenerateClientMTLSCertificateResponseValidationError{
+				field:  "CertificateToSign",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return GenerateClientMTLSCertificateResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// GenerateClientMTLSCertificateResponseMultiError is an error wrapping
+// multiple validation errors returned by
+// GenerateClientMTLSCertificateResponse.ValidateAll() if the designated
+// constraints aren't met.
+type GenerateClientMTLSCertificateResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m GenerateClientMTLSCertificateResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m GenerateClientMTLSCertificateResponseMultiError) AllErrors() []error { return m }
+
+// GenerateClientMTLSCertificateResponseValidationError is the validation error
+// returned by GenerateClientMTLSCertificateResponse.Validate if the
+// designated constraints aren't met.
+type GenerateClientMTLSCertificateResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e GenerateClientMTLSCertificateResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e GenerateClientMTLSCertificateResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e GenerateClientMTLSCertificateResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e GenerateClientMTLSCertificateResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e GenerateClientMTLSCertificateResponseValidationError) ErrorName() string {
+	return "GenerateClientMTLSCertificateResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e GenerateClientMTLSCertificateResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sGenerateClientMTLSCertificateResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = GenerateClientMTLSCertificateResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = GenerateClientMTLSCertificateResponseValidationError{}
+
+// Validate checks the field values on UpdateClientMTLSCertificateRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *UpdateClientMTLSCertificateRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateClientMTLSCertificateRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// UpdateClientMTLSCertificateRequestMultiError, or nil if none found.
+func (m *UpdateClientMTLSCertificateRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateClientMTLSCertificateRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if l := utf8.RuneCountInString(m.GetCertificateRefKey()); l < 30 || l > 50 {
+		err := UpdateClientMTLSCertificateRequestValidationError{
+			field:  "CertificateRefKey",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	// no validation rules for DisplayName
+
+	// no validation rules for SignedCertPemFromCsr
+
+	// no validation rules for RootcaBundlePem
+
+	// no validation rules for Enabled
+
+	if len(errors) > 0 {
+		return UpdateClientMTLSCertificateRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateClientMTLSCertificateRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// UpdateClientMTLSCertificateRequest.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateClientMTLSCertificateRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateClientMTLSCertificateRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateClientMTLSCertificateRequestMultiError) AllErrors() []error { return m }
+
+// UpdateClientMTLSCertificateRequestValidationError is the validation error
+// returned by UpdateClientMTLSCertificateRequest.Validate if the designated
+// constraints aren't met.
+type UpdateClientMTLSCertificateRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateClientMTLSCertificateRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateClientMTLSCertificateRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateClientMTLSCertificateRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateClientMTLSCertificateRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateClientMTLSCertificateRequestValidationError) ErrorName() string {
+	return "UpdateClientMTLSCertificateRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateClientMTLSCertificateRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateClientMTLSCertificateRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateClientMTLSCertificateRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateClientMTLSCertificateRequestValidationError{}
+
+// Validate checks the field values on UpdateClientMTLSCertificateResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *UpdateClientMTLSCertificateResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateClientMTLSCertificateResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// UpdateClientMTLSCertificateResponseMultiError, or nil if none found.
+func (m *UpdateClientMTLSCertificateResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateClientMTLSCertificateResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetError()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateClientMTLSCertificateResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateClientMTLSCertificateResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateClientMTLSCertificateResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if all {
+		switch v := interface{}(m.GetCertificate()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateClientMTLSCertificateResponseValidationError{
+					field:  "Certificate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateClientMTLSCertificateResponseValidationError{
+					field:  "Certificate",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetCertificate()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateClientMTLSCertificateResponseValidationError{
+				field:  "Certificate",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdateClientMTLSCertificateResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateClientMTLSCertificateResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// UpdateClientMTLSCertificateResponse.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateClientMTLSCertificateResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateClientMTLSCertificateResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateClientMTLSCertificateResponseMultiError) AllErrors() []error { return m }
+
+// UpdateClientMTLSCertificateResponseValidationError is the validation error
+// returned by UpdateClientMTLSCertificateResponse.Validate if the designated
+// constraints aren't met.
+type UpdateClientMTLSCertificateResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateClientMTLSCertificateResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateClientMTLSCertificateResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateClientMTLSCertificateResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateClientMTLSCertificateResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateClientMTLSCertificateResponseValidationError) ErrorName() string {
+	return "UpdateClientMTLSCertificateResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateClientMTLSCertificateResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateClientMTLSCertificateResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateClientMTLSCertificateResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateClientMTLSCertificateResponseValidationError{}
+
+// Validate checks the field values on SearchClientMTLSCertificateRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *SearchClientMTLSCertificateRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SearchClientMTLSCertificateRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// SearchClientMTLSCertificateRequestMultiError, or nil if none found.
+func (m *SearchClientMTLSCertificateRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SearchClientMTLSCertificateRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if len(errors) > 0 {
+		return SearchClientMTLSCertificateRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// SearchClientMTLSCertificateRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// SearchClientMTLSCertificateRequest.ValidateAll() if the designated
+// constraints aren't met.
+type SearchClientMTLSCertificateRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SearchClientMTLSCertificateRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SearchClientMTLSCertificateRequestMultiError) AllErrors() []error { return m }
+
+// SearchClientMTLSCertificateRequestValidationError is the validation error
+// returned by SearchClientMTLSCertificateRequest.Validate if the designated
+// constraints aren't met.
+type SearchClientMTLSCertificateRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SearchClientMTLSCertificateRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SearchClientMTLSCertificateRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SearchClientMTLSCertificateRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SearchClientMTLSCertificateRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SearchClientMTLSCertificateRequestValidationError) ErrorName() string {
+	return "SearchClientMTLSCertificateRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SearchClientMTLSCertificateRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSearchClientMTLSCertificateRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SearchClientMTLSCertificateRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SearchClientMTLSCertificateRequestValidationError{}
+
+// Validate checks the field values on SearchClientMTLSCertificateResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *SearchClientMTLSCertificateResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on SearchClientMTLSCertificateResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// SearchClientMTLSCertificateResponseMultiError, or nil if none found.
+func (m *SearchClientMTLSCertificateResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *SearchClientMTLSCertificateResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	// no validation rules for Status
+
+	if all {
+		switch v := interface{}(m.GetError()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SearchClientMTLSCertificateResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SearchClientMTLSCertificateResponseValidationError{
+					field:  "Error",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchClientMTLSCertificateResponseValidationError{
+				field:  "Error",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	for idx, item := range m.GetCertificates() {
+		_, _ = idx, item
+
+		if all {
+			switch v := interface{}(item).(type) {
+			case interface{ ValidateAll() error }:
+				if err := v.ValidateAll(); err != nil {
+					errors = append(errors, SearchClientMTLSCertificateResponseValidationError{
+						field:  fmt.Sprintf("Certificates[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			case interface{ Validate() error }:
+				if err := v.Validate(); err != nil {
+					errors = append(errors, SearchClientMTLSCertificateResponseValidationError{
+						field:  fmt.Sprintf("Certificates[%v]", idx),
+						reason: "embedded message failed validation",
+						cause:  err,
+					})
+				}
+			}
+		} else if v, ok := interface{}(item).(interface{ Validate() error }); ok {
+			if err := v.Validate(); err != nil {
+				return SearchClientMTLSCertificateResponseValidationError{
+					field:  fmt.Sprintf("Certificates[%v]", idx),
+					reason: "embedded message failed validation",
+					cause:  err,
+				}
+			}
+		}
+
+	}
+
+	if len(errors) > 0 {
+		return SearchClientMTLSCertificateResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// SearchClientMTLSCertificateResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// SearchClientMTLSCertificateResponse.ValidateAll() if the designated
+// constraints aren't met.
+type SearchClientMTLSCertificateResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m SearchClientMTLSCertificateResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m SearchClientMTLSCertificateResponseMultiError) AllErrors() []error { return m }
+
+// SearchClientMTLSCertificateResponseValidationError is the validation error
+// returned by SearchClientMTLSCertificateResponse.Validate if the designated
+// constraints aren't met.
+type SearchClientMTLSCertificateResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e SearchClientMTLSCertificateResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e SearchClientMTLSCertificateResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e SearchClientMTLSCertificateResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e SearchClientMTLSCertificateResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e SearchClientMTLSCertificateResponseValidationError) ErrorName() string {
+	return "SearchClientMTLSCertificateResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e SearchClientMTLSCertificateResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sSearchClientMTLSCertificateResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = SearchClientMTLSCertificateResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = SearchClientMTLSCertificateResponseValidationError{}
