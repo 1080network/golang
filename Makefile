@@ -1,5 +1,5 @@
 SUBDIRS := connect discount partner serviceprovider shared
-TOPTARGETS := tidy
+TOPTARGETS := tidy test
 
 $(TOPTARGETS): $(SUBDIRS)
 $(SUBDIRS):

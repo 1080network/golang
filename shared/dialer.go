@@ -8,12 +8,8 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
-func TestClientDial(target string, roles []string, opts ...grpc.DialOption) (*grpc.ClientConn, error) {
-	interceptor, err := JWTClientInterceptor(roles, "")
-	if err != nil {
-		return nil, err
-	}
-	opts = append(opts, grpc.WithUnaryInterceptor(interceptor))
+func TestClientDial(target string, testJWTCredential *JWTAuthCredential, opts ...grpc.DialOption) (*grpc.ClientConn, error) {
+	opts = append(opts, grpc.WithPerRPCCredentials(testJWTCredential))
 	return grpc.Dial(target, opts...)
 }
 
