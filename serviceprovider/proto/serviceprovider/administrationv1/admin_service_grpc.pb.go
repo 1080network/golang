@@ -24,8 +24,6 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceProviderAdministrationServiceClient interface {
-	GetSettings(ctx context.Context, in *GetSettingsRequest, opts ...grpc.CallOption) (*GetSettingsResponse, error)
-	UpdateSettings(ctx context.Context, in *UpdateSettingsRequest, opts ...grpc.CallOption) (*UpdateSettingsResponse, error)
 	// Generate a new MTLS certificate.
 	GenerateMTLSCertificate(ctx context.Context, in *v1.GenerateMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateMTLSCertificateResponse, error)
 	// Update the certificate with a given serial number, only supports enable/disable for now
@@ -37,11 +35,15 @@ type ServiceProviderAdministrationServiceClient interface {
 	UpdateSingleSignOnConsoleUser(ctx context.Context, in *v1.UpdateSingleSignOnConsoleUserRequest, opts ...grpc.CallOption) (*v1.UpdateSingleSignOnConsoleUserResponse, error)
 	SearchSingleSignOnUser(ctx context.Context, in *v1.SearchSingleSignOnConsoleUserRequest, opts ...grpc.CallOption) (*v1.SearchSingleSignOnConsoleUserResponse, error)
 	GetSingleSignOnConsoleUser(ctx context.Context, in *v1.GetSingleSignOnConsoleUserRequest, opts ...grpc.CallOption) (*v1.GetSingleSignOnConsoleUserResponse, error)
-	PingExternal(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
+	// External authentication mechanisms for Mica to call provider endpoints
+	GetExternalClientSettings(ctx context.Context, in *v1.GetExternalClientSettingsRequest, opts ...grpc.CallOption) (*v1.GetExternalClientSettingsResponse, error)
+	UpdateExternalClientCallbackAddress(ctx context.Context, in *v1.UpdateExternalClientCallBackAddressRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientCallBackAddressResponse, error)
 	// Client certificates are used when mica needs to call out to a customers environment.
-	GenerateClientMTLSCertificate(ctx context.Context, in *v1.GenerateClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateClientMTLSCertificateResponse, error)
-	UpdateClientMTLSCertificate(ctx context.Context, in *v1.UpdateClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateClientMTLSCertificateResponse, error)
-	SearchClientMTLSCertificate(ctx context.Context, in *v1.SearchClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchClientMTLSCertificateResponse, error)
+	GenerateExternalClientMTLSCertificate(ctx context.Context, in *v1.GenerateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateExternalClientMTLSCertificateResponse, error)
+	UpdateExternalClientMTLSCertificate(ctx context.Context, in *v1.UpdateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientMTLSCertificateResponse, error)
+	SearchExternalClientMTLSCertificate(ctx context.Context, in *v1.SearchExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchExternalClientMTLSCertificateResponse, error)
+	// tests the external call to verify proper configuration and connectivity
+	PingExternal(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
 }
 
 type serviceProviderAdministrationServiceClient struct {
@@ -50,24 +52,6 @@ type serviceProviderAdministrationServiceClient struct {
 
 func NewServiceProviderAdministrationServiceClient(cc grpc.ClientConnInterface) ServiceProviderAdministrationServiceClient {
 	return &serviceProviderAdministrationServiceClient{cc}
-}
-
-func (c *serviceProviderAdministrationServiceClient) GetSettings(ctx context.Context, in *GetSettingsRequest, opts ...grpc.CallOption) (*GetSettingsResponse, error) {
-	out := new(GetSettingsResponse)
-	err := c.cc.Invoke(ctx, "/serviceprovider.administration.v1.ServiceProviderAdministrationService/GetSettings", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderAdministrationServiceClient) UpdateSettings(ctx context.Context, in *UpdateSettingsRequest, opts ...grpc.CallOption) (*UpdateSettingsResponse, error) {
-	out := new(UpdateSettingsResponse)
-	err := c.cc.Invoke(ctx, "/serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateSettings", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *serviceProviderAdministrationServiceClient) GenerateMTLSCertificate(ctx context.Context, in *v1.GenerateMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateMTLSCertificateResponse, error) {
@@ -142,36 +126,54 @@ func (c *serviceProviderAdministrationServiceClient) GetSingleSignOnConsoleUser(
 	return out, nil
 }
 
+func (c *serviceProviderAdministrationServiceClient) GetExternalClientSettings(ctx context.Context, in *v1.GetExternalClientSettingsRequest, opts ...grpc.CallOption) (*v1.GetExternalClientSettingsResponse, error) {
+	out := new(v1.GetExternalClientSettingsResponse)
+	err := c.cc.Invoke(ctx, "/serviceprovider.administration.v1.ServiceProviderAdministrationService/GetExternalClientSettings", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceProviderAdministrationServiceClient) UpdateExternalClientCallbackAddress(ctx context.Context, in *v1.UpdateExternalClientCallBackAddressRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientCallBackAddressResponse, error) {
+	out := new(v1.UpdateExternalClientCallBackAddressResponse)
+	err := c.cc.Invoke(ctx, "/serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateExternalClientCallbackAddress", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceProviderAdministrationServiceClient) GenerateExternalClientMTLSCertificate(ctx context.Context, in *v1.GenerateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateExternalClientMTLSCertificateResponse, error) {
+	out := new(v1.GenerateExternalClientMTLSCertificateResponse)
+	err := c.cc.Invoke(ctx, "/serviceprovider.administration.v1.ServiceProviderAdministrationService/GenerateExternalClientMTLSCertificate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceProviderAdministrationServiceClient) UpdateExternalClientMTLSCertificate(ctx context.Context, in *v1.UpdateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientMTLSCertificateResponse, error) {
+	out := new(v1.UpdateExternalClientMTLSCertificateResponse)
+	err := c.cc.Invoke(ctx, "/serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateExternalClientMTLSCertificate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceProviderAdministrationServiceClient) SearchExternalClientMTLSCertificate(ctx context.Context, in *v1.SearchExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchExternalClientMTLSCertificateResponse, error) {
+	out := new(v1.SearchExternalClientMTLSCertificateResponse)
+	err := c.cc.Invoke(ctx, "/serviceprovider.administration.v1.ServiceProviderAdministrationService/SearchExternalClientMTLSCertificate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *serviceProviderAdministrationServiceClient) PingExternal(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
 	out := new(pingv1.PingResponse)
 	err := c.cc.Invoke(ctx, "/serviceprovider.administration.v1.ServiceProviderAdministrationService/PingExternal", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderAdministrationServiceClient) GenerateClientMTLSCertificate(ctx context.Context, in *v1.GenerateClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateClientMTLSCertificateResponse, error) {
-	out := new(v1.GenerateClientMTLSCertificateResponse)
-	err := c.cc.Invoke(ctx, "/serviceprovider.administration.v1.ServiceProviderAdministrationService/GenerateClientMTLSCertificate", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderAdministrationServiceClient) UpdateClientMTLSCertificate(ctx context.Context, in *v1.UpdateClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateClientMTLSCertificateResponse, error) {
-	out := new(v1.UpdateClientMTLSCertificateResponse)
-	err := c.cc.Invoke(ctx, "/serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateClientMTLSCertificate", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderAdministrationServiceClient) SearchClientMTLSCertificate(ctx context.Context, in *v1.SearchClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchClientMTLSCertificateResponse, error) {
-	out := new(v1.SearchClientMTLSCertificateResponse)
-	err := c.cc.Invoke(ctx, "/serviceprovider.administration.v1.ServiceProviderAdministrationService/SearchClientMTLSCertificate", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -182,8 +184,6 @@ func (c *serviceProviderAdministrationServiceClient) SearchClientMTLSCertificate
 // All implementations must embed UnimplementedServiceProviderAdministrationServiceServer
 // for forward compatibility
 type ServiceProviderAdministrationServiceServer interface {
-	GetSettings(context.Context, *GetSettingsRequest) (*GetSettingsResponse, error)
-	UpdateSettings(context.Context, *UpdateSettingsRequest) (*UpdateSettingsResponse, error)
 	// Generate a new MTLS certificate.
 	GenerateMTLSCertificate(context.Context, *v1.GenerateMTLSCertificateRequest) (*v1.GenerateMTLSCertificateResponse, error)
 	// Update the certificate with a given serial number, only supports enable/disable for now
@@ -195,11 +195,15 @@ type ServiceProviderAdministrationServiceServer interface {
 	UpdateSingleSignOnConsoleUser(context.Context, *v1.UpdateSingleSignOnConsoleUserRequest) (*v1.UpdateSingleSignOnConsoleUserResponse, error)
 	SearchSingleSignOnUser(context.Context, *v1.SearchSingleSignOnConsoleUserRequest) (*v1.SearchSingleSignOnConsoleUserResponse, error)
 	GetSingleSignOnConsoleUser(context.Context, *v1.GetSingleSignOnConsoleUserRequest) (*v1.GetSingleSignOnConsoleUserResponse, error)
-	PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
+	// External authentication mechanisms for Mica to call provider endpoints
+	GetExternalClientSettings(context.Context, *v1.GetExternalClientSettingsRequest) (*v1.GetExternalClientSettingsResponse, error)
+	UpdateExternalClientCallbackAddress(context.Context, *v1.UpdateExternalClientCallBackAddressRequest) (*v1.UpdateExternalClientCallBackAddressResponse, error)
 	// Client certificates are used when mica needs to call out to a customers environment.
-	GenerateClientMTLSCertificate(context.Context, *v1.GenerateClientMTLSCertificateRequest) (*v1.GenerateClientMTLSCertificateResponse, error)
-	UpdateClientMTLSCertificate(context.Context, *v1.UpdateClientMTLSCertificateRequest) (*v1.UpdateClientMTLSCertificateResponse, error)
-	SearchClientMTLSCertificate(context.Context, *v1.SearchClientMTLSCertificateRequest) (*v1.SearchClientMTLSCertificateResponse, error)
+	GenerateExternalClientMTLSCertificate(context.Context, *v1.GenerateExternalClientMTLSCertificateRequest) (*v1.GenerateExternalClientMTLSCertificateResponse, error)
+	UpdateExternalClientMTLSCertificate(context.Context, *v1.UpdateExternalClientMTLSCertificateRequest) (*v1.UpdateExternalClientMTLSCertificateResponse, error)
+	SearchExternalClientMTLSCertificate(context.Context, *v1.SearchExternalClientMTLSCertificateRequest) (*v1.SearchExternalClientMTLSCertificateResponse, error)
+	// tests the external call to verify proper configuration and connectivity
+	PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
 	mustEmbedUnimplementedServiceProviderAdministrationServiceServer()
 }
 
@@ -207,12 +211,6 @@ type ServiceProviderAdministrationServiceServer interface {
 type UnimplementedServiceProviderAdministrationServiceServer struct {
 }
 
-func (UnimplementedServiceProviderAdministrationServiceServer) GetSettings(context.Context, *GetSettingsRequest) (*GetSettingsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSettings not implemented")
-}
-func (UnimplementedServiceProviderAdministrationServiceServer) UpdateSettings(context.Context, *UpdateSettingsRequest) (*UpdateSettingsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateSettings not implemented")
-}
 func (UnimplementedServiceProviderAdministrationServiceServer) GenerateMTLSCertificate(context.Context, *v1.GenerateMTLSCertificateRequest) (*v1.GenerateMTLSCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateMTLSCertificate not implemented")
 }
@@ -237,17 +235,23 @@ func (UnimplementedServiceProviderAdministrationServiceServer) SearchSingleSignO
 func (UnimplementedServiceProviderAdministrationServiceServer) GetSingleSignOnConsoleUser(context.Context, *v1.GetSingleSignOnConsoleUserRequest) (*v1.GetSingleSignOnConsoleUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSingleSignOnConsoleUser not implemented")
 }
+func (UnimplementedServiceProviderAdministrationServiceServer) GetExternalClientSettings(context.Context, *v1.GetExternalClientSettingsRequest) (*v1.GetExternalClientSettingsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetExternalClientSettings not implemented")
+}
+func (UnimplementedServiceProviderAdministrationServiceServer) UpdateExternalClientCallbackAddress(context.Context, *v1.UpdateExternalClientCallBackAddressRequest) (*v1.UpdateExternalClientCallBackAddressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateExternalClientCallbackAddress not implemented")
+}
+func (UnimplementedServiceProviderAdministrationServiceServer) GenerateExternalClientMTLSCertificate(context.Context, *v1.GenerateExternalClientMTLSCertificateRequest) (*v1.GenerateExternalClientMTLSCertificateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateExternalClientMTLSCertificate not implemented")
+}
+func (UnimplementedServiceProviderAdministrationServiceServer) UpdateExternalClientMTLSCertificate(context.Context, *v1.UpdateExternalClientMTLSCertificateRequest) (*v1.UpdateExternalClientMTLSCertificateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateExternalClientMTLSCertificate not implemented")
+}
+func (UnimplementedServiceProviderAdministrationServiceServer) SearchExternalClientMTLSCertificate(context.Context, *v1.SearchExternalClientMTLSCertificateRequest) (*v1.SearchExternalClientMTLSCertificateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchExternalClientMTLSCertificate not implemented")
+}
 func (UnimplementedServiceProviderAdministrationServiceServer) PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PingExternal not implemented")
-}
-func (UnimplementedServiceProviderAdministrationServiceServer) GenerateClientMTLSCertificate(context.Context, *v1.GenerateClientMTLSCertificateRequest) (*v1.GenerateClientMTLSCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GenerateClientMTLSCertificate not implemented")
-}
-func (UnimplementedServiceProviderAdministrationServiceServer) UpdateClientMTLSCertificate(context.Context, *v1.UpdateClientMTLSCertificateRequest) (*v1.UpdateClientMTLSCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateClientMTLSCertificate not implemented")
-}
-func (UnimplementedServiceProviderAdministrationServiceServer) SearchClientMTLSCertificate(context.Context, *v1.SearchClientMTLSCertificateRequest) (*v1.SearchClientMTLSCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchClientMTLSCertificate not implemented")
 }
 func (UnimplementedServiceProviderAdministrationServiceServer) mustEmbedUnimplementedServiceProviderAdministrationServiceServer() {
 }
@@ -261,42 +265,6 @@ type UnsafeServiceProviderAdministrationServiceServer interface {
 
 func RegisterServiceProviderAdministrationServiceServer(s grpc.ServiceRegistrar, srv ServiceProviderAdministrationServiceServer) {
 	s.RegisterService(&ServiceProviderAdministrationService_ServiceDesc, srv)
-}
-
-func _ServiceProviderAdministrationService_GetSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetSettingsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).GetSettings(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/serviceprovider.administration.v1.ServiceProviderAdministrationService/GetSettings",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).GetSettings(ctx, req.(*GetSettingsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderAdministrationService_UpdateSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateSettingsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).UpdateSettings(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateSettings",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).UpdateSettings(ctx, req.(*UpdateSettingsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _ServiceProviderAdministrationService_GenerateMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -443,6 +411,96 @@ func _ServiceProviderAdministrationService_GetSingleSignOnConsoleUser_Handler(sr
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceProviderAdministrationService_GetExternalClientSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.GetExternalClientSettingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderAdministrationServiceServer).GetExternalClientSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/serviceprovider.administration.v1.ServiceProviderAdministrationService/GetExternalClientSettings",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderAdministrationServiceServer).GetExternalClientSettings(ctx, req.(*v1.GetExternalClientSettingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceProviderAdministrationService_UpdateExternalClientCallbackAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.UpdateExternalClientCallBackAddressRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderAdministrationServiceServer).UpdateExternalClientCallbackAddress(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateExternalClientCallbackAddress",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderAdministrationServiceServer).UpdateExternalClientCallbackAddress(ctx, req.(*v1.UpdateExternalClientCallBackAddressRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceProviderAdministrationService_GenerateExternalClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.GenerateExternalClientMTLSCertificateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderAdministrationServiceServer).GenerateExternalClientMTLSCertificate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/serviceprovider.administration.v1.ServiceProviderAdministrationService/GenerateExternalClientMTLSCertificate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderAdministrationServiceServer).GenerateExternalClientMTLSCertificate(ctx, req.(*v1.GenerateExternalClientMTLSCertificateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceProviderAdministrationService_UpdateExternalClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.UpdateExternalClientMTLSCertificateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderAdministrationServiceServer).UpdateExternalClientMTLSCertificate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateExternalClientMTLSCertificate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderAdministrationServiceServer).UpdateExternalClientMTLSCertificate(ctx, req.(*v1.UpdateExternalClientMTLSCertificateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceProviderAdministrationService_SearchExternalClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.SearchExternalClientMTLSCertificateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderAdministrationServiceServer).SearchExternalClientMTLSCertificate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/serviceprovider.administration.v1.ServiceProviderAdministrationService/SearchExternalClientMTLSCertificate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderAdministrationServiceServer).SearchExternalClientMTLSCertificate(ctx, req.(*v1.SearchExternalClientMTLSCertificateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ServiceProviderAdministrationService_PingExternal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(pingv1.PingRequest)
 	if err := dec(in); err != nil {
@@ -461,60 +519,6 @@ func _ServiceProviderAdministrationService_PingExternal_Handler(srv interface{},
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceProviderAdministrationService_GenerateClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GenerateClientMTLSCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).GenerateClientMTLSCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/serviceprovider.administration.v1.ServiceProviderAdministrationService/GenerateClientMTLSCertificate",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).GenerateClientMTLSCertificate(ctx, req.(*v1.GenerateClientMTLSCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderAdministrationService_UpdateClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.UpdateClientMTLSCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).UpdateClientMTLSCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateClientMTLSCertificate",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).UpdateClientMTLSCertificate(ctx, req.(*v1.UpdateClientMTLSCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderAdministrationService_SearchClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.SearchClientMTLSCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).SearchClientMTLSCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/serviceprovider.administration.v1.ServiceProviderAdministrationService/SearchClientMTLSCertificate",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).SearchClientMTLSCertificate(ctx, req.(*v1.SearchClientMTLSCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // ServiceProviderAdministrationService_ServiceDesc is the grpc.ServiceDesc for ServiceProviderAdministrationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -522,14 +526,6 @@ var ServiceProviderAdministrationService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "serviceprovider.administration.v1.ServiceProviderAdministrationService",
 	HandlerType: (*ServiceProviderAdministrationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "GetSettings",
-			Handler:    _ServiceProviderAdministrationService_GetSettings_Handler,
-		},
-		{
-			MethodName: "UpdateSettings",
-			Handler:    _ServiceProviderAdministrationService_UpdateSettings_Handler,
-		},
 		{
 			MethodName: "GenerateMTLSCertificate",
 			Handler:    _ServiceProviderAdministrationService_GenerateMTLSCertificate_Handler,
@@ -563,20 +559,28 @@ var ServiceProviderAdministrationService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ServiceProviderAdministrationService_GetSingleSignOnConsoleUser_Handler,
 		},
 		{
+			MethodName: "GetExternalClientSettings",
+			Handler:    _ServiceProviderAdministrationService_GetExternalClientSettings_Handler,
+		},
+		{
+			MethodName: "UpdateExternalClientCallbackAddress",
+			Handler:    _ServiceProviderAdministrationService_UpdateExternalClientCallbackAddress_Handler,
+		},
+		{
+			MethodName: "GenerateExternalClientMTLSCertificate",
+			Handler:    _ServiceProviderAdministrationService_GenerateExternalClientMTLSCertificate_Handler,
+		},
+		{
+			MethodName: "UpdateExternalClientMTLSCertificate",
+			Handler:    _ServiceProviderAdministrationService_UpdateExternalClientMTLSCertificate_Handler,
+		},
+		{
+			MethodName: "SearchExternalClientMTLSCertificate",
+			Handler:    _ServiceProviderAdministrationService_SearchExternalClientMTLSCertificate_Handler,
+		},
+		{
 			MethodName: "PingExternal",
 			Handler:    _ServiceProviderAdministrationService_PingExternal_Handler,
-		},
-		{
-			MethodName: "GenerateClientMTLSCertificate",
-			Handler:    _ServiceProviderAdministrationService_GenerateClientMTLSCertificate_Handler,
-		},
-		{
-			MethodName: "UpdateClientMTLSCertificate",
-			Handler:    _ServiceProviderAdministrationService_UpdateClientMTLSCertificate_Handler,
-		},
-		{
-			MethodName: "SearchClientMTLSCertificate",
-			Handler:    _ServiceProviderAdministrationService_SearchClientMTLSCertificate_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

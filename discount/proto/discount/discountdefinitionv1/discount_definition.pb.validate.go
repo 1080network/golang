@@ -18,9 +18,9 @@ import (
 
 	"google.golang.org/protobuf/types/known/anypb"
 
-	currencyv1 "mica/proto/common/enums/currencyv1"
+	currencyv1 "github.com/1080network/golang/discount/proto/common/enums/currencyv1"
 
-	discounttypev1 "mica/proto/common/enums/discounttypev1"
+	discounttypev1 "github.com/1080network/golang/discount/proto/common/enums/discounttypev1"
 )
 
 // ensure the imports are used

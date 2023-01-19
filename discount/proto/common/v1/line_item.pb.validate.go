@@ -18,9 +18,9 @@ import (
 
 	"google.golang.org/protobuf/types/known/anypb"
 
-	lineitemstatusv1 "mica/proto/common/enums/lineitemstatusv1"
+	lineitemstatusv1 "github.com/1080network/golang/discount/proto/common/enums/lineitemstatusv1"
 
-	unitv1 "mica/proto/common/enums/unitv1"
+	unitv1 "github.com/1080network/golang/discount/proto/common/enums/unitv1"
 )
 
 // ensure the imports are used

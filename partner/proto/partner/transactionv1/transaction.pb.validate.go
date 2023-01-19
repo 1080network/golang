@@ -18,9 +18,9 @@ import (
 
 	"google.golang.org/protobuf/types/known/anypb"
 
-	currencyv1 "mica/proto/common/enums/currencyv1"
+	currencyv1 "github.com/1080network/golang/partner/proto/common/enums/currencyv1"
 
-	regionv1 "mica/proto/common/enums/regionv1"
+	regionv1 "github.com/1080network/golang/partner/proto/common/enums/regionv1"
 )
 
 // ensure the imports are used
@@ -65,15 +65,33 @@ func (m *SearchTransactionDataRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetDateFrom() == nil {
-		err := SearchTransactionDataRequestValidationError{
-			field:  "DateFrom",
-			reason: "value is required",
+	if all {
+		switch v := interface{}(m.GetDateFrom()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, SearchTransactionDataRequestValidationError{
+					field:  "DateFrom",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, SearchTransactionDataRequestValidationError{
+					field:  "DateFrom",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
 		}
-		if !all {
-			return err
+	} else if v, ok := interface{}(m.GetDateFrom()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return SearchTransactionDataRequestValidationError{
+				field:  "DateFrom",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
 		}
-		errors = append(errors, err)
 	}
 
 	if all {

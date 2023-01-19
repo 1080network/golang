@@ -18,7 +18,7 @@ import (
 
 	"google.golang.org/protobuf/types/known/anypb"
 
-	serviceprovidertypev1 "mica/proto/common/enums/serviceprovidertypev1"
+	serviceprovidertypev1 "github.com/1080network/golang/connect/proto/common/enums/serviceprovidertypev1"
 )
 
 // ensure the imports are used

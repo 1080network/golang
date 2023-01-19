@@ -18,7 +18,7 @@ import (
 
 	"google.golang.org/protobuf/types/known/anypb"
 
-	organizationcategoryv1 "mica/proto/common/enums/organizationcategoryv1"
+	organizationcategoryv1 "github.com/1080network/golang/partner/proto/common/enums/organizationcategoryv1"
 )
 
 // ensure the imports are used

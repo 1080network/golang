@@ -18,9 +18,9 @@ import (
 
 	"google.golang.org/protobuf/types/known/anypb"
 
-	countryv1 "mica/proto/common/enums/countryv1"
+	countryv1 "github.com/1080network/golang/partner/proto/common/enums/countryv1"
 
-	regionv1 "mica/proto/common/enums/regionv1"
+	regionv1 "github.com/1080network/golang/partner/proto/common/enums/regionv1"
 )
 
 // ensure the imports are used

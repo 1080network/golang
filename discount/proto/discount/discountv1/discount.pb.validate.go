@@ -18,13 +18,13 @@ import (
 
 	"google.golang.org/protobuf/types/known/anypb"
 
-	approvaltypev1 "mica/proto/common/enums/approvaltypev1"
+	approvaltypev1 "github.com/1080network/golang/discount/proto/common/enums/approvaltypev1"
 
-	currencyv1 "mica/proto/common/enums/currencyv1"
+	currencyv1 "github.com/1080network/golang/discount/proto/common/enums/currencyv1"
 
-	discounttypev1 "mica/proto/common/enums/discounttypev1"
+	discounttypev1 "github.com/1080network/golang/discount/proto/common/enums/discounttypev1"
 
-	unitv1 "mica/proto/common/enums/unitv1"
+	unitv1 "github.com/1080network/golang/discount/proto/common/enums/unitv1"
 )
 
 // ensure the imports are used

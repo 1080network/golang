@@ -32,17 +32,20 @@ type DiscountAdministrationServiceClient interface {
 	SearchMTLSCertificate(ctx context.Context, in *v1.SearchMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchMTLSCertificateResponse, error)
 	GetMTLSCertificate(ctx context.Context, in *v1.GetMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GetMTLSCertificateResponse, error)
 	// External authentication mechanisms for Mica to call provider endpoints
-	GenerateClientMTLSCertificate(ctx context.Context, in *v1.GenerateClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateClientMTLSCertificateResponse, error)
-	UpdateClientMTLSCertificate(ctx context.Context, in *v1.UpdateClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateClientMTLSCertificateResponse, error)
-	SearchClientMTLSCertificate(ctx context.Context, in *v1.SearchClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchClientMTLSCertificateResponse, error)
-	// if the provider cannot enable certificate authentication this can configure
-	ConfigureApiTokenAuthentication(ctx context.Context, in *v1.ApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.ApiTokenConfigurationResponse, error)
+	GetExternalClientSettings(ctx context.Context, in *v1.GetExternalClientSettingsRequest, opts ...grpc.CallOption) (*v1.GetExternalClientSettingsResponse, error)
+	UpdateExternalClientCallbackAddress(ctx context.Context, in *v1.UpdateExternalClientCallBackAddressRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientCallBackAddressResponse, error)
+	// Client certificates are used when mica needs to call out to a customers environment.
+	GenerateExternalClientMTLSCertificate(ctx context.Context, in *v1.GenerateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateExternalClientMTLSCertificateResponse, error)
+	UpdateExternalClientMTLSCertificate(ctx context.Context, in *v1.UpdateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientMTLSCertificateResponse, error)
+	SearchExternalClientMTLSCertificate(ctx context.Context, in *v1.SearchExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchExternalClientMTLSCertificateResponse, error)
+	// creates the token configuration
+	CreateApiTokenConfiguration(ctx context.Context, in *v1.CreateApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.CreateApiTokenConfigurationResponse, error)
+	// if the authentication type is api token use these methods to properly setup the api token
 	// retrieves the api token configuration including the token itself
 	GetApiTokenConfiguration(ctx context.Context, in *v1.GetApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.GetApiTokenConfigurationResponse, error)
-	// Update the configutation of the token, does not include the token itself
+	// Update the configuration of the token, the set fields will be modified
 	UpdateAPITokenAuthenticationConfiguration(ctx context.Context, in *v1.UpdateApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.UpdateApiTokenConfigurationResponse, error)
-	// Updates the values for either the token or the ca certificate or both
-	UpdateApiTokenValue(ctx context.Context, in *v1.UpdateApiTokenValueRequest, opts ...grpc.CallOption) (*v1.UpdateApiTokenValueResponse, error)
+	// tests the external call to verify proper configuration and connectivity
 	PingExternal(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
 }
 
@@ -90,36 +93,54 @@ func (c *discountAdministrationServiceClient) GetMTLSCertificate(ctx context.Con
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) GenerateClientMTLSCertificate(ctx context.Context, in *v1.GenerateClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateClientMTLSCertificateResponse, error) {
-	out := new(v1.GenerateClientMTLSCertificateResponse)
-	err := c.cc.Invoke(ctx, "/discount.administration.v1.DiscountAdministrationService/GenerateClientMTLSCertificate", in, out, opts...)
+func (c *discountAdministrationServiceClient) GetExternalClientSettings(ctx context.Context, in *v1.GetExternalClientSettingsRequest, opts ...grpc.CallOption) (*v1.GetExternalClientSettingsResponse, error) {
+	out := new(v1.GetExternalClientSettingsResponse)
+	err := c.cc.Invoke(ctx, "/discount.administration.v1.DiscountAdministrationService/GetExternalClientSettings", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) UpdateClientMTLSCertificate(ctx context.Context, in *v1.UpdateClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateClientMTLSCertificateResponse, error) {
-	out := new(v1.UpdateClientMTLSCertificateResponse)
-	err := c.cc.Invoke(ctx, "/discount.administration.v1.DiscountAdministrationService/UpdateClientMTLSCertificate", in, out, opts...)
+func (c *discountAdministrationServiceClient) UpdateExternalClientCallbackAddress(ctx context.Context, in *v1.UpdateExternalClientCallBackAddressRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientCallBackAddressResponse, error) {
+	out := new(v1.UpdateExternalClientCallBackAddressResponse)
+	err := c.cc.Invoke(ctx, "/discount.administration.v1.DiscountAdministrationService/UpdateExternalClientCallbackAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) SearchClientMTLSCertificate(ctx context.Context, in *v1.SearchClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchClientMTLSCertificateResponse, error) {
-	out := new(v1.SearchClientMTLSCertificateResponse)
-	err := c.cc.Invoke(ctx, "/discount.administration.v1.DiscountAdministrationService/SearchClientMTLSCertificate", in, out, opts...)
+func (c *discountAdministrationServiceClient) GenerateExternalClientMTLSCertificate(ctx context.Context, in *v1.GenerateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateExternalClientMTLSCertificateResponse, error) {
+	out := new(v1.GenerateExternalClientMTLSCertificateResponse)
+	err := c.cc.Invoke(ctx, "/discount.administration.v1.DiscountAdministrationService/GenerateExternalClientMTLSCertificate", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) ConfigureApiTokenAuthentication(ctx context.Context, in *v1.ApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.ApiTokenConfigurationResponse, error) {
-	out := new(v1.ApiTokenConfigurationResponse)
-	err := c.cc.Invoke(ctx, "/discount.administration.v1.DiscountAdministrationService/ConfigureApiTokenAuthentication", in, out, opts...)
+func (c *discountAdministrationServiceClient) UpdateExternalClientMTLSCertificate(ctx context.Context, in *v1.UpdateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientMTLSCertificateResponse, error) {
+	out := new(v1.UpdateExternalClientMTLSCertificateResponse)
+	err := c.cc.Invoke(ctx, "/discount.administration.v1.DiscountAdministrationService/UpdateExternalClientMTLSCertificate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *discountAdministrationServiceClient) SearchExternalClientMTLSCertificate(ctx context.Context, in *v1.SearchExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchExternalClientMTLSCertificateResponse, error) {
+	out := new(v1.SearchExternalClientMTLSCertificateResponse)
+	err := c.cc.Invoke(ctx, "/discount.administration.v1.DiscountAdministrationService/SearchExternalClientMTLSCertificate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *discountAdministrationServiceClient) CreateApiTokenConfiguration(ctx context.Context, in *v1.CreateApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.CreateApiTokenConfigurationResponse, error) {
+	out := new(v1.CreateApiTokenConfigurationResponse)
+	err := c.cc.Invoke(ctx, "/discount.administration.v1.DiscountAdministrationService/CreateApiTokenConfiguration", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -138,15 +159,6 @@ func (c *discountAdministrationServiceClient) GetApiTokenConfiguration(ctx conte
 func (c *discountAdministrationServiceClient) UpdateAPITokenAuthenticationConfiguration(ctx context.Context, in *v1.UpdateApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.UpdateApiTokenConfigurationResponse, error) {
 	out := new(v1.UpdateApiTokenConfigurationResponse)
 	err := c.cc.Invoke(ctx, "/discount.administration.v1.DiscountAdministrationService/UpdateAPITokenAuthenticationConfiguration", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *discountAdministrationServiceClient) UpdateApiTokenValue(ctx context.Context, in *v1.UpdateApiTokenValueRequest, opts ...grpc.CallOption) (*v1.UpdateApiTokenValueResponse, error) {
-	out := new(v1.UpdateApiTokenValueResponse)
-	err := c.cc.Invoke(ctx, "/discount.administration.v1.DiscountAdministrationService/UpdateApiTokenValue", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -174,17 +186,20 @@ type DiscountAdministrationServiceServer interface {
 	SearchMTLSCertificate(context.Context, *v1.SearchMTLSCertificateRequest) (*v1.SearchMTLSCertificateResponse, error)
 	GetMTLSCertificate(context.Context, *v1.GetMTLSCertificateRequest) (*v1.GetMTLSCertificateResponse, error)
 	// External authentication mechanisms for Mica to call provider endpoints
-	GenerateClientMTLSCertificate(context.Context, *v1.GenerateClientMTLSCertificateRequest) (*v1.GenerateClientMTLSCertificateResponse, error)
-	UpdateClientMTLSCertificate(context.Context, *v1.UpdateClientMTLSCertificateRequest) (*v1.UpdateClientMTLSCertificateResponse, error)
-	SearchClientMTLSCertificate(context.Context, *v1.SearchClientMTLSCertificateRequest) (*v1.SearchClientMTLSCertificateResponse, error)
-	// if the provider cannot enable certificate authentication this can configure
-	ConfigureApiTokenAuthentication(context.Context, *v1.ApiTokenConfigurationRequest) (*v1.ApiTokenConfigurationResponse, error)
+	GetExternalClientSettings(context.Context, *v1.GetExternalClientSettingsRequest) (*v1.GetExternalClientSettingsResponse, error)
+	UpdateExternalClientCallbackAddress(context.Context, *v1.UpdateExternalClientCallBackAddressRequest) (*v1.UpdateExternalClientCallBackAddressResponse, error)
+	// Client certificates are used when mica needs to call out to a customers environment.
+	GenerateExternalClientMTLSCertificate(context.Context, *v1.GenerateExternalClientMTLSCertificateRequest) (*v1.GenerateExternalClientMTLSCertificateResponse, error)
+	UpdateExternalClientMTLSCertificate(context.Context, *v1.UpdateExternalClientMTLSCertificateRequest) (*v1.UpdateExternalClientMTLSCertificateResponse, error)
+	SearchExternalClientMTLSCertificate(context.Context, *v1.SearchExternalClientMTLSCertificateRequest) (*v1.SearchExternalClientMTLSCertificateResponse, error)
+	// creates the token configuration
+	CreateApiTokenConfiguration(context.Context, *v1.CreateApiTokenConfigurationRequest) (*v1.CreateApiTokenConfigurationResponse, error)
+	// if the authentication type is api token use these methods to properly setup the api token
 	// retrieves the api token configuration including the token itself
 	GetApiTokenConfiguration(context.Context, *v1.GetApiTokenConfigurationRequest) (*v1.GetApiTokenConfigurationResponse, error)
-	// Update the configutation of the token, does not include the token itself
+	// Update the configuration of the token, the set fields will be modified
 	UpdateAPITokenAuthenticationConfiguration(context.Context, *v1.UpdateApiTokenConfigurationRequest) (*v1.UpdateApiTokenConfigurationResponse, error)
-	// Updates the values for either the token or the ca certificate or both
-	UpdateApiTokenValue(context.Context, *v1.UpdateApiTokenValueRequest) (*v1.UpdateApiTokenValueResponse, error)
+	// tests the external call to verify proper configuration and connectivity
 	PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
 	mustEmbedUnimplementedDiscountAdministrationServiceServer()
 }
@@ -205,26 +220,29 @@ func (UnimplementedDiscountAdministrationServiceServer) SearchMTLSCertificate(co
 func (UnimplementedDiscountAdministrationServiceServer) GetMTLSCertificate(context.Context, *v1.GetMTLSCertificateRequest) (*v1.GetMTLSCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMTLSCertificate not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) GenerateClientMTLSCertificate(context.Context, *v1.GenerateClientMTLSCertificateRequest) (*v1.GenerateClientMTLSCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GenerateClientMTLSCertificate not implemented")
+func (UnimplementedDiscountAdministrationServiceServer) GetExternalClientSettings(context.Context, *v1.GetExternalClientSettingsRequest) (*v1.GetExternalClientSettingsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetExternalClientSettings not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) UpdateClientMTLSCertificate(context.Context, *v1.UpdateClientMTLSCertificateRequest) (*v1.UpdateClientMTLSCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateClientMTLSCertificate not implemented")
+func (UnimplementedDiscountAdministrationServiceServer) UpdateExternalClientCallbackAddress(context.Context, *v1.UpdateExternalClientCallBackAddressRequest) (*v1.UpdateExternalClientCallBackAddressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateExternalClientCallbackAddress not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) SearchClientMTLSCertificate(context.Context, *v1.SearchClientMTLSCertificateRequest) (*v1.SearchClientMTLSCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchClientMTLSCertificate not implemented")
+func (UnimplementedDiscountAdministrationServiceServer) GenerateExternalClientMTLSCertificate(context.Context, *v1.GenerateExternalClientMTLSCertificateRequest) (*v1.GenerateExternalClientMTLSCertificateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateExternalClientMTLSCertificate not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) ConfigureApiTokenAuthentication(context.Context, *v1.ApiTokenConfigurationRequest) (*v1.ApiTokenConfigurationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ConfigureApiTokenAuthentication not implemented")
+func (UnimplementedDiscountAdministrationServiceServer) UpdateExternalClientMTLSCertificate(context.Context, *v1.UpdateExternalClientMTLSCertificateRequest) (*v1.UpdateExternalClientMTLSCertificateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateExternalClientMTLSCertificate not implemented")
+}
+func (UnimplementedDiscountAdministrationServiceServer) SearchExternalClientMTLSCertificate(context.Context, *v1.SearchExternalClientMTLSCertificateRequest) (*v1.SearchExternalClientMTLSCertificateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchExternalClientMTLSCertificate not implemented")
+}
+func (UnimplementedDiscountAdministrationServiceServer) CreateApiTokenConfiguration(context.Context, *v1.CreateApiTokenConfigurationRequest) (*v1.CreateApiTokenConfigurationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateApiTokenConfiguration not implemented")
 }
 func (UnimplementedDiscountAdministrationServiceServer) GetApiTokenConfiguration(context.Context, *v1.GetApiTokenConfigurationRequest) (*v1.GetApiTokenConfigurationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApiTokenConfiguration not implemented")
 }
 func (UnimplementedDiscountAdministrationServiceServer) UpdateAPITokenAuthenticationConfiguration(context.Context, *v1.UpdateApiTokenConfigurationRequest) (*v1.UpdateApiTokenConfigurationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAPITokenAuthenticationConfiguration not implemented")
-}
-func (UnimplementedDiscountAdministrationServiceServer) UpdateApiTokenValue(context.Context, *v1.UpdateApiTokenValueRequest) (*v1.UpdateApiTokenValueResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateApiTokenValue not implemented")
 }
 func (UnimplementedDiscountAdministrationServiceServer) PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PingExternal not implemented")
@@ -315,74 +333,110 @@ func _DiscountAdministrationService_GetMTLSCertificate_Handler(srv interface{}, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DiscountAdministrationService_GenerateClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GenerateClientMTLSCertificateRequest)
+func _DiscountAdministrationService_GetExternalClientSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.GetExternalClientSettingsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DiscountAdministrationServiceServer).GenerateClientMTLSCertificate(ctx, in)
+		return srv.(DiscountAdministrationServiceServer).GetExternalClientSettings(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/discount.administration.v1.DiscountAdministrationService/GenerateClientMTLSCertificate",
+		FullMethod: "/discount.administration.v1.DiscountAdministrationService/GetExternalClientSettings",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).GenerateClientMTLSCertificate(ctx, req.(*v1.GenerateClientMTLSCertificateRequest))
+		return srv.(DiscountAdministrationServiceServer).GetExternalClientSettings(ctx, req.(*v1.GetExternalClientSettingsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DiscountAdministrationService_UpdateClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.UpdateClientMTLSCertificateRequest)
+func _DiscountAdministrationService_UpdateExternalClientCallbackAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.UpdateExternalClientCallBackAddressRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DiscountAdministrationServiceServer).UpdateClientMTLSCertificate(ctx, in)
+		return srv.(DiscountAdministrationServiceServer).UpdateExternalClientCallbackAddress(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/discount.administration.v1.DiscountAdministrationService/UpdateClientMTLSCertificate",
+		FullMethod: "/discount.administration.v1.DiscountAdministrationService/UpdateExternalClientCallbackAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).UpdateClientMTLSCertificate(ctx, req.(*v1.UpdateClientMTLSCertificateRequest))
+		return srv.(DiscountAdministrationServiceServer).UpdateExternalClientCallbackAddress(ctx, req.(*v1.UpdateExternalClientCallBackAddressRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DiscountAdministrationService_SearchClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.SearchClientMTLSCertificateRequest)
+func _DiscountAdministrationService_GenerateExternalClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.GenerateExternalClientMTLSCertificateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DiscountAdministrationServiceServer).SearchClientMTLSCertificate(ctx, in)
+		return srv.(DiscountAdministrationServiceServer).GenerateExternalClientMTLSCertificate(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/discount.administration.v1.DiscountAdministrationService/SearchClientMTLSCertificate",
+		FullMethod: "/discount.administration.v1.DiscountAdministrationService/GenerateExternalClientMTLSCertificate",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).SearchClientMTLSCertificate(ctx, req.(*v1.SearchClientMTLSCertificateRequest))
+		return srv.(DiscountAdministrationServiceServer).GenerateExternalClientMTLSCertificate(ctx, req.(*v1.GenerateExternalClientMTLSCertificateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DiscountAdministrationService_ConfigureApiTokenAuthentication_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.ApiTokenConfigurationRequest)
+func _DiscountAdministrationService_UpdateExternalClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.UpdateExternalClientMTLSCertificateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DiscountAdministrationServiceServer).ConfigureApiTokenAuthentication(ctx, in)
+		return srv.(DiscountAdministrationServiceServer).UpdateExternalClientMTLSCertificate(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/discount.administration.v1.DiscountAdministrationService/ConfigureApiTokenAuthentication",
+		FullMethod: "/discount.administration.v1.DiscountAdministrationService/UpdateExternalClientMTLSCertificate",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).ConfigureApiTokenAuthentication(ctx, req.(*v1.ApiTokenConfigurationRequest))
+		return srv.(DiscountAdministrationServiceServer).UpdateExternalClientMTLSCertificate(ctx, req.(*v1.UpdateExternalClientMTLSCertificateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DiscountAdministrationService_SearchExternalClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.SearchExternalClientMTLSCertificateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiscountAdministrationServiceServer).SearchExternalClientMTLSCertificate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/discount.administration.v1.DiscountAdministrationService/SearchExternalClientMTLSCertificate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiscountAdministrationServiceServer).SearchExternalClientMTLSCertificate(ctx, req.(*v1.SearchExternalClientMTLSCertificateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DiscountAdministrationService_CreateApiTokenConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.CreateApiTokenConfigurationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiscountAdministrationServiceServer).CreateApiTokenConfiguration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/discount.administration.v1.DiscountAdministrationService/CreateApiTokenConfiguration",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiscountAdministrationServiceServer).CreateApiTokenConfiguration(ctx, req.(*v1.CreateApiTokenConfigurationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -419,24 +473,6 @@ func _DiscountAdministrationService_UpdateAPITokenAuthenticationConfiguration_Ha
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(DiscountAdministrationServiceServer).UpdateAPITokenAuthenticationConfiguration(ctx, req.(*v1.UpdateApiTokenConfigurationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DiscountAdministrationService_UpdateApiTokenValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.UpdateApiTokenValueRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DiscountAdministrationServiceServer).UpdateApiTokenValue(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/discount.administration.v1.DiscountAdministrationService/UpdateApiTokenValue",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).UpdateApiTokenValue(ctx, req.(*v1.UpdateApiTokenValueRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -483,20 +519,28 @@ var DiscountAdministrationService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DiscountAdministrationService_GetMTLSCertificate_Handler,
 		},
 		{
-			MethodName: "GenerateClientMTLSCertificate",
-			Handler:    _DiscountAdministrationService_GenerateClientMTLSCertificate_Handler,
+			MethodName: "GetExternalClientSettings",
+			Handler:    _DiscountAdministrationService_GetExternalClientSettings_Handler,
 		},
 		{
-			MethodName: "UpdateClientMTLSCertificate",
-			Handler:    _DiscountAdministrationService_UpdateClientMTLSCertificate_Handler,
+			MethodName: "UpdateExternalClientCallbackAddress",
+			Handler:    _DiscountAdministrationService_UpdateExternalClientCallbackAddress_Handler,
 		},
 		{
-			MethodName: "SearchClientMTLSCertificate",
-			Handler:    _DiscountAdministrationService_SearchClientMTLSCertificate_Handler,
+			MethodName: "GenerateExternalClientMTLSCertificate",
+			Handler:    _DiscountAdministrationService_GenerateExternalClientMTLSCertificate_Handler,
 		},
 		{
-			MethodName: "ConfigureApiTokenAuthentication",
-			Handler:    _DiscountAdministrationService_ConfigureApiTokenAuthentication_Handler,
+			MethodName: "UpdateExternalClientMTLSCertificate",
+			Handler:    _DiscountAdministrationService_UpdateExternalClientMTLSCertificate_Handler,
+		},
+		{
+			MethodName: "SearchExternalClientMTLSCertificate",
+			Handler:    _DiscountAdministrationService_SearchExternalClientMTLSCertificate_Handler,
+		},
+		{
+			MethodName: "CreateApiTokenConfiguration",
+			Handler:    _DiscountAdministrationService_CreateApiTokenConfiguration_Handler,
 		},
 		{
 			MethodName: "GetApiTokenConfiguration",
@@ -505,10 +549,6 @@ var DiscountAdministrationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateAPITokenAuthenticationConfiguration",
 			Handler:    _DiscountAdministrationService_UpdateAPITokenAuthenticationConfiguration_Handler,
-		},
-		{
-			MethodName: "UpdateApiTokenValue",
-			Handler:    _DiscountAdministrationService_UpdateApiTokenValue_Handler,
 		},
 		{
 			MethodName: "PingExternal",

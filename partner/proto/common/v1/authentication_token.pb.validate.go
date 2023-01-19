@@ -326,31 +326,32 @@ var _ interface {
 	ErrorName() string
 } = ApiTokenConfigurationValidationError{}
 
-// Validate checks the field values on ApiTokenConfigurationRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ApiTokenConfigurationRequest) Validate() error {
+// Validate checks the field values on CreateApiTokenConfigurationRequest with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *CreateApiTokenConfigurationRequest) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ApiTokenConfigurationRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// ApiTokenConfigurationRequestMultiError, or nil if none found.
-func (m *ApiTokenConfigurationRequest) ValidateAll() error {
+// ValidateAll checks the field values on CreateApiTokenConfigurationRequest
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// CreateApiTokenConfigurationRequestMultiError, or nil if none found.
+func (m *CreateApiTokenConfigurationRequest) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ApiTokenConfigurationRequest) validate(all bool) error {
+func (m *CreateApiTokenConfigurationRequest) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	if m.GetTokenConfiguration() == nil {
-		err := ApiTokenConfigurationRequestValidationError{
-			field:  "TokenConfiguration",
+	if m.GetHeaderConfiguration() == nil {
+		err := CreateApiTokenConfigurationRequestValidationError{
+			field:  "HeaderConfiguration",
 			reason: "value is required",
 		}
 		if !all {
@@ -360,48 +361,71 @@ func (m *ApiTokenConfigurationRequest) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetTokenConfiguration()).(type) {
+		switch v := interface{}(m.GetHeaderConfiguration()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ApiTokenConfigurationRequestValidationError{
-					field:  "TokenConfiguration",
+				errors = append(errors, CreateApiTokenConfigurationRequestValidationError{
+					field:  "HeaderConfiguration",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ApiTokenConfigurationRequestValidationError{
-					field:  "TokenConfiguration",
+				errors = append(errors, CreateApiTokenConfigurationRequestValidationError{
+					field:  "HeaderConfiguration",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetTokenConfiguration()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetHeaderConfiguration()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ApiTokenConfigurationRequestValidationError{
-				field:  "TokenConfiguration",
+			return CreateApiTokenConfigurationRequestValidationError{
+				field:  "HeaderConfiguration",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
 		}
 	}
 
+	if utf8.RuneCountInString(m.GetApiTokenValue()) < 1 {
+		err := CreateApiTokenConfigurationRequestValidationError{
+			field:  "ApiTokenValue",
+			reason: "value length must be at least 1 runes",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if len(m.GetPemCaChain()) < 1 {
+		err := CreateApiTokenConfigurationRequestValidationError{
+			field:  "PemCaChain",
+			reason: "value must contain at least 1 item(s)",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
-		return ApiTokenConfigurationRequestMultiError(errors)
+		return CreateApiTokenConfigurationRequestMultiError(errors)
 	}
 
 	return nil
 }
 
-// ApiTokenConfigurationRequestMultiError is an error wrapping multiple
-// validation errors returned by ApiTokenConfigurationRequest.ValidateAll() if
-// the designated constraints aren't met.
-type ApiTokenConfigurationRequestMultiError []error
+// CreateApiTokenConfigurationRequestMultiError is an error wrapping multiple
+// validation errors returned by
+// CreateApiTokenConfigurationRequest.ValidateAll() if the designated
+// constraints aren't met.
+type CreateApiTokenConfigurationRequestMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ApiTokenConfigurationRequestMultiError) Error() string {
+func (m CreateApiTokenConfigurationRequestMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -410,12 +434,12 @@ func (m ApiTokenConfigurationRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ApiTokenConfigurationRequestMultiError) AllErrors() []error { return m }
+func (m CreateApiTokenConfigurationRequestMultiError) AllErrors() []error { return m }
 
-// ApiTokenConfigurationRequestValidationError is the validation error returned
-// by ApiTokenConfigurationRequest.Validate if the designated constraints
-// aren't met.
-type ApiTokenConfigurationRequestValidationError struct {
+// CreateApiTokenConfigurationRequestValidationError is the validation error
+// returned by CreateApiTokenConfigurationRequest.Validate if the designated
+// constraints aren't met.
+type CreateApiTokenConfigurationRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -423,24 +447,24 @@ type ApiTokenConfigurationRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e ApiTokenConfigurationRequestValidationError) Field() string { return e.field }
+func (e CreateApiTokenConfigurationRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ApiTokenConfigurationRequestValidationError) Reason() string { return e.reason }
+func (e CreateApiTokenConfigurationRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ApiTokenConfigurationRequestValidationError) Cause() error { return e.cause }
+func (e CreateApiTokenConfigurationRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ApiTokenConfigurationRequestValidationError) Key() bool { return e.key }
+func (e CreateApiTokenConfigurationRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ApiTokenConfigurationRequestValidationError) ErrorName() string {
-	return "ApiTokenConfigurationRequestValidationError"
+func (e CreateApiTokenConfigurationRequestValidationError) ErrorName() string {
+	return "CreateApiTokenConfigurationRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ApiTokenConfigurationRequestValidationError) Error() string {
+func (e CreateApiTokenConfigurationRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -452,14 +476,14 @@ func (e ApiTokenConfigurationRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sApiTokenConfigurationRequest.%s: %s%s",
+		"invalid %sCreateApiTokenConfigurationRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ApiTokenConfigurationRequestValidationError{}
+var _ error = CreateApiTokenConfigurationRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -467,24 +491,25 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ApiTokenConfigurationRequestValidationError{}
+} = CreateApiTokenConfigurationRequestValidationError{}
 
-// Validate checks the field values on ApiTokenConfigurationResponse with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *ApiTokenConfigurationResponse) Validate() error {
+// Validate checks the field values on CreateApiTokenConfigurationResponse with
+// the rules defined in the proto definition for this message. If any rules
+// are violated, the first error encountered is returned, or nil if there are
+// no violations.
+func (m *CreateApiTokenConfigurationResponse) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on ApiTokenConfigurationResponse with
-// the rules defined in the proto definition for this message. If any rules
-// are violated, the result is a list of violation errors wrapped in
-// ApiTokenConfigurationResponseMultiError, or nil if none found.
-func (m *ApiTokenConfigurationResponse) ValidateAll() error {
+// ValidateAll checks the field values on CreateApiTokenConfigurationResponse
+// with the rules defined in the proto definition for this message. If any
+// rules are violated, the result is a list of violation errors wrapped in
+// CreateApiTokenConfigurationResponseMultiError, or nil if none found.
+func (m *CreateApiTokenConfigurationResponse) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *ApiTokenConfigurationResponse) validate(all bool) error {
+func (m *CreateApiTokenConfigurationResponse) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
@@ -497,7 +522,7 @@ func (m *ApiTokenConfigurationResponse) validate(all bool) error {
 		switch v := interface{}(m.GetError()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, ApiTokenConfigurationResponseValidationError{
+				errors = append(errors, CreateApiTokenConfigurationResponseValidationError{
 					field:  "Error",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -505,7 +530,7 @@ func (m *ApiTokenConfigurationResponse) validate(all bool) error {
 			}
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
-				errors = append(errors, ApiTokenConfigurationResponseValidationError{
+				errors = append(errors, CreateApiTokenConfigurationResponseValidationError{
 					field:  "Error",
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -514,7 +539,7 @@ func (m *ApiTokenConfigurationResponse) validate(all bool) error {
 		}
 	} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return ApiTokenConfigurationResponseValidationError{
+			return CreateApiTokenConfigurationResponseValidationError{
 				field:  "Error",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -522,20 +547,32 @@ func (m *ApiTokenConfigurationResponse) validate(all bool) error {
 		}
 	}
 
+	if m.GetVersion() < 0 {
+		err := CreateApiTokenConfigurationResponseValidationError{
+			field:  "Version",
+			reason: "value must be greater than or equal to 0",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
 	if len(errors) > 0 {
-		return ApiTokenConfigurationResponseMultiError(errors)
+		return CreateApiTokenConfigurationResponseMultiError(errors)
 	}
 
 	return nil
 }
 
-// ApiTokenConfigurationResponseMultiError is an error wrapping multiple
-// validation errors returned by ApiTokenConfigurationResponse.ValidateAll()
-// if the designated constraints aren't met.
-type ApiTokenConfigurationResponseMultiError []error
+// CreateApiTokenConfigurationResponseMultiError is an error wrapping multiple
+// validation errors returned by
+// CreateApiTokenConfigurationResponse.ValidateAll() if the designated
+// constraints aren't met.
+type CreateApiTokenConfigurationResponseMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m ApiTokenConfigurationResponseMultiError) Error() string {
+func (m CreateApiTokenConfigurationResponseMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -544,12 +581,12 @@ func (m ApiTokenConfigurationResponseMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m ApiTokenConfigurationResponseMultiError) AllErrors() []error { return m }
+func (m CreateApiTokenConfigurationResponseMultiError) AllErrors() []error { return m }
 
-// ApiTokenConfigurationResponseValidationError is the validation error
-// returned by ApiTokenConfigurationResponse.Validate if the designated
+// CreateApiTokenConfigurationResponseValidationError is the validation error
+// returned by CreateApiTokenConfigurationResponse.Validate if the designated
 // constraints aren't met.
-type ApiTokenConfigurationResponseValidationError struct {
+type CreateApiTokenConfigurationResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -557,24 +594,24 @@ type ApiTokenConfigurationResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e ApiTokenConfigurationResponseValidationError) Field() string { return e.field }
+func (e CreateApiTokenConfigurationResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e ApiTokenConfigurationResponseValidationError) Reason() string { return e.reason }
+func (e CreateApiTokenConfigurationResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e ApiTokenConfigurationResponseValidationError) Cause() error { return e.cause }
+func (e CreateApiTokenConfigurationResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e ApiTokenConfigurationResponseValidationError) Key() bool { return e.key }
+func (e CreateApiTokenConfigurationResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e ApiTokenConfigurationResponseValidationError) ErrorName() string {
-	return "ApiTokenConfigurationResponseValidationError"
+func (e CreateApiTokenConfigurationResponseValidationError) ErrorName() string {
+	return "CreateApiTokenConfigurationResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e ApiTokenConfigurationResponseValidationError) Error() string {
+func (e CreateApiTokenConfigurationResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -586,14 +623,14 @@ func (e ApiTokenConfigurationResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sApiTokenConfigurationResponse.%s: %s%s",
+		"invalid %sCreateApiTokenConfigurationResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = ApiTokenConfigurationResponseValidationError{}
+var _ error = CreateApiTokenConfigurationResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -601,7 +638,7 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = ApiTokenConfigurationResponseValidationError{}
+} = CreateApiTokenConfigurationResponseValidationError{}
 
 // Validate checks the field values on GetApiTokenConfigurationRequest with the
 // rules defined in the proto definition for this message. If any rules are
@@ -894,17 +931,6 @@ func (m *UpdateApiTokenConfigurationRequest) validate(all bool) error {
 
 	var errors []error
 
-	if m.GetHeaderConfiguration() == nil {
-		err := UpdateApiTokenConfigurationRequestValidationError{
-			field:  "HeaderConfiguration",
-			reason: "value is required",
-		}
-		if !all {
-			return err
-		}
-		errors = append(errors, err)
-	}
-
 	if all {
 		switch v := interface{}(m.GetHeaderConfiguration()).(type) {
 		case interface{ ValidateAll() error }:
@@ -933,6 +959,8 @@ func (m *UpdateApiTokenConfigurationRequest) validate(all bool) error {
 			}
 		}
 	}
+
+	// no validation rules for ApiTokenValue
 
 	if len(errors) > 0 {
 		return UpdateApiTokenConfigurationRequestMultiError(errors)
@@ -1070,35 +1098,6 @@ func (m *UpdateApiTokenConfigurationResponse) validate(all bool) error {
 		}
 	}
 
-	if all {
-		switch v := interface{}(m.GetHeaderConfiguration()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, UpdateApiTokenConfigurationResponseValidationError{
-					field:  "HeaderConfiguration",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, UpdateApiTokenConfigurationResponseValidationError{
-					field:  "HeaderConfiguration",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetHeaderConfiguration()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return UpdateApiTokenConfigurationResponseValidationError{
-				field:  "HeaderConfiguration",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
 	if len(errors) > 0 {
 		return UpdateApiTokenConfigurationResponseMultiError(errors)
 	}
@@ -1180,241 +1179,3 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateApiTokenConfigurationResponseValidationError{}
-
-// Validate checks the field values on UpdateApiTokenValueRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *UpdateApiTokenValueRequest) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on UpdateApiTokenValueRequest with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// UpdateApiTokenValueRequestMultiError, or nil if none found.
-func (m *UpdateApiTokenValueRequest) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *UpdateApiTokenValueRequest) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for ApiTokenValue
-
-	if len(errors) > 0 {
-		return UpdateApiTokenValueRequestMultiError(errors)
-	}
-
-	return nil
-}
-
-// UpdateApiTokenValueRequestMultiError is an error wrapping multiple
-// validation errors returned by UpdateApiTokenValueRequest.ValidateAll() if
-// the designated constraints aren't met.
-type UpdateApiTokenValueRequestMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m UpdateApiTokenValueRequestMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m UpdateApiTokenValueRequestMultiError) AllErrors() []error { return m }
-
-// UpdateApiTokenValueRequestValidationError is the validation error returned
-// by UpdateApiTokenValueRequest.Validate if the designated constraints aren't met.
-type UpdateApiTokenValueRequestValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e UpdateApiTokenValueRequestValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e UpdateApiTokenValueRequestValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e UpdateApiTokenValueRequestValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e UpdateApiTokenValueRequestValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e UpdateApiTokenValueRequestValidationError) ErrorName() string {
-	return "UpdateApiTokenValueRequestValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e UpdateApiTokenValueRequestValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUpdateApiTokenValueRequest.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = UpdateApiTokenValueRequestValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = UpdateApiTokenValueRequestValidationError{}
-
-// Validate checks the field values on UpdateApiTokenValueResponse with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *UpdateApiTokenValueResponse) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on UpdateApiTokenValueResponse with the
-// rules defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// UpdateApiTokenValueResponseMultiError, or nil if none found.
-func (m *UpdateApiTokenValueResponse) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *UpdateApiTokenValueResponse) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for Status
-
-	if all {
-		switch v := interface{}(m.GetError()).(type) {
-		case interface{ ValidateAll() error }:
-			if err := v.ValidateAll(); err != nil {
-				errors = append(errors, UpdateApiTokenValueResponseValidationError{
-					field:  "Error",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		case interface{ Validate() error }:
-			if err := v.Validate(); err != nil {
-				errors = append(errors, UpdateApiTokenValueResponseValidationError{
-					field:  "Error",
-					reason: "embedded message failed validation",
-					cause:  err,
-				})
-			}
-		}
-	} else if v, ok := interface{}(m.GetError()).(interface{ Validate() error }); ok {
-		if err := v.Validate(); err != nil {
-			return UpdateApiTokenValueResponseValidationError{
-				field:  "Error",
-				reason: "embedded message failed validation",
-				cause:  err,
-			}
-		}
-	}
-
-	if len(errors) > 0 {
-		return UpdateApiTokenValueResponseMultiError(errors)
-	}
-
-	return nil
-}
-
-// UpdateApiTokenValueResponseMultiError is an error wrapping multiple
-// validation errors returned by UpdateApiTokenValueResponse.ValidateAll() if
-// the designated constraints aren't met.
-type UpdateApiTokenValueResponseMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m UpdateApiTokenValueResponseMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m UpdateApiTokenValueResponseMultiError) AllErrors() []error { return m }
-
-// UpdateApiTokenValueResponseValidationError is the validation error returned
-// by UpdateApiTokenValueResponse.Validate if the designated constraints
-// aren't met.
-type UpdateApiTokenValueResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e UpdateApiTokenValueResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e UpdateApiTokenValueResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e UpdateApiTokenValueResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e UpdateApiTokenValueResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e UpdateApiTokenValueResponseValidationError) ErrorName() string {
-	return "UpdateApiTokenValueResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e UpdateApiTokenValueResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sUpdateApiTokenValueResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = UpdateApiTokenValueResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = UpdateApiTokenValueResponseValidationError{}
