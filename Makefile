@@ -51,7 +51,7 @@ generate:
 	go generate proto.go
 
 prepare: generate vendor
-	
+	cd proto && git pull
 
 clean: 
 	rm -rf vendor
