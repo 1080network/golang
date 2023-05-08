@@ -1,0 +1,37 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.enums.instrumenttype.v1;
+
+option go_package = "micashared/common/enums/instrumenttypev1";
+option java_outer_classname = "InstrumentTypeEnumProto";
+option java_package = "io.micashared.common.enums.v1";
+option objc_class_prefix = "MICA";
+
+enum InstrumentType {
+  INSTRUMENT_TYPE_UNSPECIFIED = 0;
+
+  INSTRUMENT_TYPE_CHECKING = 1;
+
+  INSTRUMENT_TYPE_SAVINGS = 2;
+
+  INSTRUMENT_TYPE_MONEY_MARKET = 3;
+
+  INSTRUMENT_TYPE_LINE_OF_CREDIT = 4;
+
+  // US only - Supplemental Nutrition Assistance Program
+  INSTRUMENT_TYPE_SNAP = 5;
+
+  // US only - Temporary Assistance for Needy Families
+  INSTRUMENT_TYPE_TANF = 6;
+
+  // US only - Special Supplemental Nutrition Program for Women, Infants, and Children
+  INSTRUMENT_TYPE_WIC = 7;
+}

@@ -1,0 +1,46 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.partner.instrument.v1;
+
+import "micashared/common/v1/error.proto";
+import "validate/validate.proto";
+
+option go_package = "mica/partner/instrumentv1";
+option java_outer_classname = "InstrumentProto";
+option java_package = "io.mica.partner.instrument.v1";
+option objc_class_prefix = "MICA";
+
+message ExchangeSessionKeyRequest {
+  // The session key that was established when the Widget was initialized
+  string session_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // Primary key on the external system.
+  string partner_instrument_ref = 2;
+}
+
+message ExchangeSessionKeyResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_MATCHING_CODE_MISMATCH = 3;
+    STATUS_NOT_FOUND = 4;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  // The payment token that the Partner can use to obtain or return value for this user.
+  string partner_payment_token = 3;
+}

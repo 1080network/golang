@@ -1,7 +1,7 @@
 package discount
 
 import (
-	discount "github.com/1080network/golang/discount/proto/discount/servicev1"
+	discount "github.com/1080network/golang/discount/proto/mica/discount/servicev1"
 	"google.golang.org/grpc"
 )
 

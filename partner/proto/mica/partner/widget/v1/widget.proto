@@ -1,0 +1,43 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.partner.widget.v1;
+
+import "micashared/common/v1/error.proto";
+import "micashared/common/v1/user.proto";
+import "validate/validate.proto";
+
+option go_package = "mica/partner/instrumentv1";
+option java_outer_classname = "WidgetProto";
+option java_package = "io.mica.partner.instrument.v1";
+option objc_class_prefix = "MICA";
+
+message InitializeWidgetRequest {
+  // Details of the user.
+  micashared.common.v1.UserDemographic user_demographic = 3;
+}
+
+message InitializeWidgetResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+
+    STATUS_SUCCESS = 1;
+    // generic error that's not one of the following
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  string session_key = 3 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+}

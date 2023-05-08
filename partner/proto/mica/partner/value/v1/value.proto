@@ -1,0 +1,312 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.partner.value.v1;
+
+import "google/protobuf/timestamp.proto";
+import "micashared/common/enums/approvaltype/v1/approval_type.proto";
+import "micashared/common/enums/channel/v1/channel.proto";
+import "micashared/common/enums/currency/v1/currency.proto";
+import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
+import "micashared/common/enums/valueoperationtype/v1/value_operation_type.proto";
+import "micashared/common/v1/error.proto";
+import "micashared/common/v1/line_item.proto";
+import "validate/validate.proto";
+
+option go_package = "mica/partner/valuev1";
+option java_outer_classname = "ValueProto";
+option java_package = "io.mica.partner.value.v1";
+option objc_class_prefix = "MICA";
+
+message Value {
+  // Mica's transaction record primary key.
+  string transaction_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // version of the user record, used for optimistic locking
+  int64 version = 2;
+
+  // Date that the Store was created at Mica.
+  google.protobuf.Timestamp created = 3;
+
+  // Date that the Store was last updated at Mica.
+  google.protobuf.Timestamp updated = 4;
+
+  micashared.common.enums.valueoperationtype.v1.ValueOperationType operation_type = 5;
+
+  // The payment token of the instrument either one specific to the partner or one provisioned by an Service Provider.
+  string payment_token = 6 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // A unique identifier at the Partner for this transaction.
+  string partner_transaction_ref = 7;
+
+  // How this transaction should be processed.
+  micashared.common.enums.channel.v1.Channel channel = 8;
+
+  // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
+  micashared.common.enums.currency.v1.Currency currency = 9;
+
+  // The organization this operation is being processed for.
+  string organization_key = 10 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // Organization category
+  micashared.common.enums.organizationcategory.v1.OrganizationCategory category = 11;
+
+  // The store where this operation occurred.
+  string store_key = 12 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // The clerk that processed this operation.
+  string clerk_identifier = 13;
+
+  // Total amount for this transaction.
+  //
+  // When Items are present then: `total_amount` = sum(`items.amount + items.tax_amount`)
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string total_amount = 14;
+
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string requested_amount = 15;
+
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string approved_amount = 16;
+
+  string order_number = 17;
+
+  // List of items bought or returned.
+  repeated micashared.common.v1.LineItemAndStatus line_item_and_statuses = 18;
+}
+
+// Type that represents the details of the value request (either to obtain or return).
+message ValueRequest {
+  // The payment token of the instrument is either one specific to the partner or one provisioned by a Service Provider.
+  string payment_token = 1;
+
+  // A unique identifier at the Partner for this transaction.
+  string partner_transaction_ref = 2;
+
+  // How this transaction should be processed.
+  micashared.common.enums.channel.v1.Channel channel = 3;
+
+  // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
+  micashared.common.enums.currency.v1.Currency currency = 4;
+
+  // The organization this operation is being processed for.
+  string organization_key = 5 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // Organization category
+  micashared.common.enums.organizationcategory.v1.OrganizationCategory category = 6;
+
+  // The store where this operation occurred.
+  string store_key = 7 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // The clerk that processed this operation.
+  string clerk_identifier = 8;
+
+  // Total amount for this transaction.
+  //
+  // When Items are present then: `total_amount` = sum(`items.amount + items.tax_amount`)
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string total_amount = 9;
+
+  string order_number = 10;
+
+  // List of items bought or returned.
+  repeated micashared.common.v1.LineItem line_items = 11;
+
+  repeated micashared.common.v1.Adjustment adjustments = 12;
+}
+
+message ObtainValueRequest {
+  micashared.common.enums.approvaltype.v1.ApprovalType approval_type = 1;
+
+  ValueRequest value = 2;
+}
+
+message ObtainValueResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    // An approval for the full amount
+    STATUS_FULL_APPROVAL = 1;
+    // An error occurred when processing the request
+    STATUS_ERROR = 2;
+    // An approval was given for a partial amount
+    STATUS_PARTIAL_APPROVAL = 3;
+    // User instrument doesn't have sufficient value to cover the transaction
+    STATUS_INSUFFICIENT_VALUE = 4;
+    // When all products are either ineligible or age restricted
+    STATUS_INELIGIBLE_PRODUCTS = 5;
+    // Instrument/account not found
+    STATUS_NOT_FOUND = 6;
+    // User instrument is closed
+    STATUS_INSTRUMENT_CLOSED = 7;
+    // Request triggered a transactional risk or fraud check resulting in a decline
+    STATUS_TRANSACTION_RISK_FRAUD = 8;
+    // Request triggered a bad actor risk or fraud check resulting in a decline
+    STATUS_BAD_ACTOR_RISK_FRAUD = 16;
+    // Request triggered a user-based risk or fraud check resulting in a decline
+    STATUS_USER_RISK_FRAUD = 17;
+    // Request triggered a instrument-based risk or fraud check resulting in a decline
+    STATUS_INSTRUMENT_RISK_FRAUD = 18;
+    // The user needs to call the Service Provider to resolve an issue
+    STATUS_USER_CALL_SERVICE_PROVIDER = 9;
+    // The operation isn't supported by the Service Provider
+    STATUS_UNSUPPORTED = 10;
+    // The Fi is unavailable at this time
+    STATUS_SERVICE_PROVIDER_UNAVAILABLE = 11;
+    // The payment token sent is invalid or not found
+    STATUS_INVALID_PAYMENT_TOKEN = 12;
+    // A valid PIN is required for this transaction
+    STATUS_PIN_REQUIRED = 13;
+    // returned when processing an EBT transaction but no line items have been given
+    STATUS_MISSING_LINE_ITEMS = 14;
+    // when partial approval is requested but not supported (i.e. non-EBT payment token passed)
+    STATUS_PARTIAL_APPROVAL_INVALID = 15;
+    // Request resulted in one or more limits being exceeded at the Service Provider
+    STATUS_LIMIT_EXCEEDED = 19;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  // Primary key of created transaction assigned by Mica.
+  string transaction_key = 3 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // Correlation ID of the request assigned by Mica.
+  string cid = 4;
+
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string approved_amount = 5;
+
+  // status of each line item based on processing by Mica. The list will be in the same order as the request and will
+  // will typically have a status of LINE_ITEM_STATUS_ELIGIBLE.
+  repeated micashared.common.v1.LineItemSequenceAndStatus line_item_sequence_and_statuses = 6;
+}
+
+message ReturnValueRequest {
+  ValueRequest value = 1;
+}
+
+message ReturnValueResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    // An approval for the full amount
+    STATUS_FULL_APPROVAL = 1;
+    // An error occurred when processing the request
+    STATUS_ERROR = 2;
+    // User instrument is closed
+    STATUS_INSTRUMENT_CLOSED = 3;
+    // Instrument/account not found
+    STATUS_NOT_FOUND = 4;
+    // Request triggered a transactional risk or fraud check resulting in a decline
+    STATUS_TRANSACTION_RISK_FRAUD = 5;
+    // Request triggered a bad actor risk or fraud check resulting in a decline
+    STATUS_BAD_ACTOR_RISK_FRAUD = 16;
+    // Request triggered a user-based risk or fraud check resulting in a decline
+    STATUS_USER_RISK_FRAUD = 17;
+    // Request triggered a instrument-based risk or fraud check resulting in a decline
+    STATUS_INSTRUMENT_RISK_FRAUD = 18;
+    // The user needs to call the Service Provider to resolve an issue
+    STATUS_USER_CALL_SERVICE_PROVIDER = 6;
+    // The operation isn't supported by the Service Provider
+    STATUS_UNSUPPORTED = 7;
+    // The Fi is unavailable at this time
+    STATUS_SERVICE_PROVIDER_UNAVAILABLE = 8;
+    // The payment token sent is invalid or not found
+    STATUS_INVALID_PAYMENT_TOKEN = 9;
+    // Request resulted in one or more limits being exceeded at the Service Provider
+    STATUS_LIMIT_EXCEEDED = 19;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  // Primary key of created transaction assigned by Mica.
+  string transaction_key = 3 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // Correlation ID of the request assigned by Mica.
+  string cid = 4;
+
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string approved_amount = 5;
+}
+
+message GetValueRequest {
+  oneof identifier {
+    string transaction_key = 1;
+
+    // the Partner's reference for this transaction
+    string partner_transaction_ref = 2;
+  }
+}
+
+message GetValueResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  Value value = 3;
+}
+
+message SearchValueRequest {
+  // the paymentToken to find Value operations for
+  string payment_token = 1;
+
+  // the Partner's reference for this transaction
+  string partner_transaction_ref = 4;
+
+  // filter based on created date from (inclusive)
+  google.protobuf.Timestamp date_from = 2;
+
+  // filter based on created date to (exclusive)
+  google.protobuf.Timestamp date_to = 3;
+}
+
+message SearchValueResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  // List of transactions that matched the search criteria.
+  repeated Value value = 3;
+}

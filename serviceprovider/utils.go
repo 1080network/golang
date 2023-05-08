@@ -1,7 +1,7 @@
 package serviceprovider
 
 import (
-	serviceprovider "github.com/1080network/golang/serviceprovider/proto/serviceprovider/servicev1"
+	serviceprovider "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/servicev1"
 	"google.golang.org/grpc"
 )
 

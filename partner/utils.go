@@ -1,7 +1,7 @@
 package partner
 
 import (
-	partner "github.com/1080network/golang/partner/proto/partner/servicev1"
+	partner "github.com/1080network/golang/partner/proto/mica/partner/servicev1"
 	"google.golang.org/grpc"
 )
 

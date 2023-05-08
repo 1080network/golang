@@ -1,0 +1,102 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.v1;
+
+import "google/protobuf/timestamp.proto";
+import "micashared/common/v1/error.proto";
+import "validate/validate.proto";
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "ExternalClient";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+enum ClientAuthenticationType {
+  CLIENT_AUTHENTICATION_TYPE_UNSPECIFIED = 0;
+  CLIENT_AUTHENTICATION_TYPE_CLIENT_CERTIFICATE = 1;
+  CLIENT_AUTHENTICATION_TYPE_API_TOKEN = 2;
+}
+
+message ExternalClientSettings {
+  int64 version = 1 [(validate.rules).int64.gte = 0];
+
+  google.protobuf.Timestamp created = 2;
+
+  google.protobuf.Timestamp updated = 3;
+
+  string callback_address = 4 [(validate.rules).string = {
+    min_len: 3,
+    max_len: 200
+  }];
+
+  ClientAuthenticationSettings client_authentication_settings = 5;
+}
+
+message ClientAuthenticationSettings {
+  repeated ClientAuthenticationType suported_client_authentication_types = 1;
+  ClientAuthenticationType current_authentication_type = 2;
+}
+
+message GetExternalClientSettingsRequest {}
+
+message GetExternalClientSettingsResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  ExternalClientSettings settings = 3;
+}
+
+message UpdateExternalClientCallBackAddressRequest {
+  int64 version = 1 [(validate.rules).int64.gte = 0];
+  string callback_address = 2 [(validate.rules).string = {
+    min_len: 3,
+    max_len: 200
+  }];
+}
+
+message UpdateExternalClientCallBackAddressResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  int64 version = 3 [(validate.rules).int64.gte = 0];
+}
+
+message UpdateExternalClientAuthenticationTypeRequest {
+  int64 version = 1 [(validate.rules).int64.gte = 0];
+  ClientAuthenticationType authentication_type = 3 [(validate.rules).enum = {
+    not_in: [0]
+  }];
+}
+
+message UpdateExternalClientAuthenticationTypeResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  int64 version = 3 [(validate.rules).int64.gte = 0];
+}

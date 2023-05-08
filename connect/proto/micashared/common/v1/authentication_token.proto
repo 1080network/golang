@@ -1,0 +1,100 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.v1;
+
+import "micashared/common/v1/error.proto";
+import "validate/validate.proto";
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "AuthenitcationToken";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+message AuthenticationHeaderConfiguration {
+  // this is the name of the header to attach the token on the request, usually authorization is the value
+  // due to grpc and http2 constrains the header key value will always be lowercased
+  string header_key = 1 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 20
+  }];
+
+  // adds a prefix to the value of the token the typical prefix is "Bearer" if ommited the value of the header will
+  // just be the value of the token. This is case sensitive so whatever value is used it will be attached. A space will
+  // always be added between this prefix and the actual token value:
+  // "<header_value_prefix> <token_value>"
+  string header_value_prefix = 2 [(validate.rules).string.max_len = 30];
+}
+
+// Configuration for using an api token style configuration for authenticaton from mica to a provider, tenant or member.
+// Since a token is attached in the request header mica does not allow insecure channels for this configuration, so a
+// CA certificate bundle is required
+message ApiTokenConfiguration {
+  AuthenticationHeaderConfiguration header_configuration = 2 [(validate.rules).message.required = true];
+
+  string api_token_value = 3 [(validate.rules).string.min_len = 1];
+
+  //The pem encoded certificate chain
+  repeated string pem_ca_chain = 4 [(validate.rules).repeated.min_items = 1];
+}
+
+message CreateApiTokenConfigurationRequest {
+  AuthenticationHeaderConfiguration header_configuration = 1 [(validate.rules).message.required = true];
+  string api_token_value = 2 [(validate.rules).string.min_len = 1];
+  //The pem encoded certificate chain
+  repeated string pem_ca_chain = 3 [(validate.rules).repeated.min_items = 1];
+}
+
+message CreateApiTokenConfigurationResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+  int64 version = 3 [(validate.rules).int64.gte = 0];
+}
+
+message GetApiTokenConfigurationRequest {}
+
+message GetApiTokenConfigurationResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  ApiTokenConfiguration api_token_configuration = 3;
+}
+
+message UpdateApiTokenConfigurationRequest {
+  AuthenticationHeaderConfiguration header_configuration = 2;
+  string api_token_value = 3;
+  //The pem encoded certificate chain
+  repeated string pem_ca_chain = 4;
+}
+
+message UpdateApiTokenConfigurationResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+}

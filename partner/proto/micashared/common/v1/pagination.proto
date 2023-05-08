@@ -1,0 +1,33 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.v1;
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "PaginationProto";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+message PaginationRequest {
+  // the number of records requested per page returned. This field is ignored when page_token is given
+  int32 page_size = 2;
+
+  // null on first request and subsequently populated with next_page_token on each subsequent request
+  bytes page_token = 3;
+}
+
+message PaginationResponse {
+  // the total number of records in the entire result set at the time of the original request. Subsequent changes in
+  // the number of records are ignored
+  int64 total_count = 4;
+
+  // a token representing the next page of these results
+  bytes next_page_token = 5;
+}

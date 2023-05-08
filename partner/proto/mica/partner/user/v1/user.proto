@@ -1,0 +1,62 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.partner.user.v1;
+
+import "google/protobuf/timestamp.proto";
+import "micashared/common/v1/error.proto";
+import "micashared/common/v1/user.proto";
+import "validate/validate.proto";
+
+option go_package = "mica/partner/userv1";
+option java_outer_classname = "UserProto";
+option java_package = "io.mica.partner.user.v1";
+option objc_class_prefix = "MICA";
+
+message User {
+  string user_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  int64 version = 2 [(validate.rules).int64.gte = 0];
+
+  google.protobuf.Timestamp created = 3;
+
+  google.protobuf.Timestamp updated = 4;
+
+  // Details of the user.
+  micashared.common.v1.UserDemographic user_demographic = 5;
+}
+
+message EnrollUserInstrumentRequest {
+  // The payment token that the Partner can use to obtain or return value for this user.
+  string partner_payment_token = 1;
+
+  micashared.common.v1.UserDemographic user_demographic = 2;
+}
+
+message EnrollUserInstrumentResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_PARTIAL_APPROVAL = 3;
+    STATUS_INSUFFICIENT_VALUE = 4;
+    STATUS_INELIGIBLE_PRODUCTS = 5;
+    STATUS_USER_CLOSED = 6;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  // Primary key on the external system.
+  string partner_instrument_ref = 3;
+}

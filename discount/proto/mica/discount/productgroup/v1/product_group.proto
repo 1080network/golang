@@ -1,0 +1,182 @@
+// Copyright (c) 2022 Mica, Inc. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.discount.productgroup.v1;
+
+import "google/protobuf/timestamp.proto";
+import "micashared/common/v1/error.proto";
+import "validate/validate.proto";
+
+option go_package = "mica/discount/productgroupv1";
+option java_outer_classname = "ProductProto";
+option java_package = "io.mica.discount.productgroup.v1";
+option objc_class_prefix = "MICA";
+
+message ProductGroup {
+  string product_group_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  int64 version = 2 [(validate.rules).int64.gte = 0];
+
+  google.protobuf.Timestamp created = 3;
+
+  google.protobuf.Timestamp updated = 4;
+
+  string name = 5 [(validate.rules).string.max_len = 100];
+
+  string product_group_ref = 6 [(validate.rules).string.max_len = 50];
+
+  repeated string product_match_filters = 7 [(validate.rules).repeated.max_items = 100];
+
+  repeated string product_codes = 8 [(validate.rules).repeated.max_items = 100];
+}
+
+message CreateProductGroupRequest {
+  string product_group_ref = 1 [(validate.rules).string.max_len = 50];
+
+  string name = 2 [(validate.rules).string.max_len = 100];
+
+  repeated string product_match_filters = 3 [(validate.rules).repeated.max_items = 100];
+
+  repeated string product_codes = 4 [(validate.rules).repeated.max_items = 100];
+}
+
+message CreateProductGroupResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_DUPLICATE = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  string product_group_key = 3 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  int64 version = 4 [(validate.rules).int64.gte = 0];
+}
+
+message GetProductGroupRequest {
+  oneof product_group_identifier {
+    string product_group_ref = 1 [(validate.rules).string = {
+      min_len: 1,
+      max_len: 50
+    }];
+
+    string product_group_key = 2 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+  }
+}
+
+message GetProductGroupResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  ProductGroup product_group = 3;
+}
+
+message UpdateProductGroupRequest {
+  oneof product_group_identifier {
+    string product_group_ref = 1 [(validate.rules).string = {
+      min_len: 1,
+      max_len: 50
+    }];
+
+    string product_group_key = 2 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+  }
+
+  int64 version = 3 [(validate.rules).int64.gte = 0];
+
+  string name = 4 [(validate.rules).string.max_len = 100];
+
+  repeated string product_match_filters = 5 [(validate.rules).repeated.max_items = 100];
+
+  repeated string product_codes = 6 [(validate.rules).repeated.max_items = 100];
+}
+
+message UpdateProductGroupResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  int64 version = 3 [(validate.rules).int64.gte = 0];
+}
+
+message RemoveProductGroupRequest {
+  oneof product_group_identifier {
+    string product_group_ref = 1 [(validate.rules).string = {
+      min_len: 1,
+      max_len: 50
+    }];
+
+    string product_group_key = 2 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+  }
+}
+
+message RemoveProductGroupResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+}
+
+message SearchProductGroupRequest {
+  string name = 1;
+
+  string product_match_filter = 2;
+
+  string product_code = 3;
+}
+
+message SearchProductGroupResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  repeated ProductGroup product_groups = 3;
+}

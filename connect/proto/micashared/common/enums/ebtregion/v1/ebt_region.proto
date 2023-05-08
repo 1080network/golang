@@ -1,0 +1,78 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.enums.ebtregion.v1;
+
+option go_package = "micashared/common/enums/ebtregionv1";
+option java_outer_classname = "EbtRegionEnumProto";
+option java_package = "io.micashared.common.enums.v1";
+option objc_class_prefix = "MICA";
+
+// ISO 3166-2:US
+enum EbtRegion {
+  EBT_REGION_UNSPECIFIED = 0;
+  EBT_REGION_US_AL = 1; // Alabama (state)
+  EBT_REGION_US_AK = 2; // Alaska (state)
+  EBT_REGION_US_AZ = 3; // Arizona (state)
+  EBT_REGION_US_AR = 4; // Arkansas (state)
+  EBT_REGION_US_CA = 5; // California (state)
+  EBT_REGION_US_CO = 6; // Colorado (state)
+  EBT_REGION_US_CT = 7; // Connecticut (state)
+  EBT_REGION_US_DE = 8; // Delaware (state)
+  EBT_REGION_US_FL = 9; // Florida (state)
+  EBT_REGION_US_GA = 10; // Georgia (state)
+  EBT_REGION_US_HI = 11; // Hawaii (state)
+  EBT_REGION_US_ID = 12; // Idaho (state)
+  EBT_REGION_US_IL = 13; // Illinois (state)
+  EBT_REGION_US_IN = 14; // Indiana (state)
+  EBT_REGION_US_IA = 15; // Iowa (state)
+  EBT_REGION_US_KS = 16; // Kansas (state)
+  EBT_REGION_US_KY = 17; // Kentucky (state)
+  EBT_REGION_US_LA = 18; // Louisiana (state)
+  EBT_REGION_US_ME = 19; // Maine (state)
+  EBT_REGION_US_MD = 20; // Maryland (state)
+  EBT_REGION_US_MA = 21; // Massachusetts (state)
+  EBT_REGION_US_MI = 22; // Michigan (state)
+  EBT_REGION_US_MN = 23; // Minnesota (state)
+  EBT_REGION_US_MS = 24; // Mississippi (state)
+  EBT_REGION_US_MO = 25; // Missouri (state)
+  EBT_REGION_US_MT = 26; // Montana (state)
+  EBT_REGION_US_NE = 27; // Nebraska (state)
+  EBT_REGION_US_NV = 28; // Nevada (state)
+  EBT_REGION_US_NH = 29; // New Hampshire (state)
+  EBT_REGION_US_NJ = 30; // New Jersey (state)
+  EBT_REGION_US_NM = 31; // New Mexico (state)
+  EBT_REGION_US_NY = 32; // New York (state)
+  EBT_REGION_US_NC = 33; // North Carolina (state)
+  EBT_REGION_US_ND = 34; // North Dakota (state)
+  EBT_REGION_US_OH = 35; // Ohio (state)
+  EBT_REGION_US_OK = 36; // Oklahoma (state)
+  EBT_REGION_US_OR = 37; // Oregon (state)
+  EBT_REGION_US_PA = 38; // Pennsylvania (state)
+  EBT_REGION_US_RI = 39; // Rhode Island (state)
+  EBT_REGION_US_SC = 40; // South Carolina (state)
+  EBT_REGION_US_SD = 41; // South Dakota (state)
+  EBT_REGION_US_TN = 42; // Tennessee (state)
+  EBT_REGION_US_TX = 43; // Texas (state)
+  EBT_REGION_US_UT = 44; // Utah (state)
+  EBT_REGION_US_VT = 45; // Vermont (state)
+  EBT_REGION_US_VA = 46; // Virginia (state)
+  EBT_REGION_US_WA = 47; // Washington (state)
+  EBT_REGION_US_WV = 48; // West Virginia (state)
+  EBT_REGION_US_WI = 49; // Wisconsin (state)
+  EBT_REGION_US_WY = 50; // Wyoming (state)
+  EBT_REGION_US_DC = 51; // District of Columbia (district)
+  EBT_REGION_US_AS = 52; // American Samoa
+  EBT_REGION_US_GU = 53; // Guam
+  EBT_REGION_US_MP = 54; // Northern Mariana Islands
+  EBT_REGION_US_PR = 55; // Puerto Rico
+  EBT_REGION_US_UM = 56; // United States Minor Outlying Islands
+  EBT_REGION_US_VI = 57; // U.S. Virgin Islands
+}

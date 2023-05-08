@@ -1,0 +1,104 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.discount.service.v1;
+
+import "mica/discount/discount/v1/discount.proto";
+import "mica/discount/discountdefinition/v1/discount_definition.proto";
+import "mica/discount/discountprovider/v1/discount_provider.proto";
+import "mica/discount/discountprovideraccount/v1/discount_provider_account.proto";
+import "mica/discount/productgroup/v1/product_group.proto";
+import "mica/discount/user/v1/user.proto";
+import "micashared/common/ping/v1/ping.proto";
+
+option go_package = "mica/discount/servicev1";
+option java_outer_classname = "DiscountToMicaServiceProto";
+option java_package = "io.mica.discount.service.v1";
+option objc_class_prefix = "MICA";
+
+service DiscountToMicaService {
+  //<editor-fold desc="Discount Provider Operations">
+
+  rpc GetDiscountProvider(mica.discount.discountprovider.v1.GetDiscountProviderRequest) returns (mica.discount.discountprovider.v1.GetDiscountProviderResponse) {}
+
+  rpc UpdateDiscountProvider(mica.discount.discountprovider.v1.UpdateDiscountProviderRequest) returns (mica.discount.discountprovider.v1.UpdateDiscountProviderResponse) {}
+
+  //</editor-fold>
+
+  //<editor-fold desc="Product Group Operations">
+
+  rpc CreateDiscountProviderAccount(mica.discount.discountprovideraccount.v1.CreateDiscountProviderAccountRequest) returns (mica.discount.discountprovideraccount.v1.CreateDiscountProviderAccountResponse) {}
+
+  rpc GetDiscountProviderAccount(mica.discount.discountprovideraccount.v1.GetDiscountProviderAccountRequest) returns (mica.discount.discountprovideraccount.v1.GetDiscountProviderAccountResponse) {}
+
+  rpc UpdateDiscountProviderAccount(mica.discount.discountprovideraccount.v1.UpdateDiscountProviderAccountRequest) returns (mica.discount.discountprovideraccount.v1.UpdateDiscountProviderAccountResponse) {}
+
+  rpc UpdateDiscountProviderAccountStatus(mica.discount.discountprovideraccount.v1.UpdateDiscountProviderAccountStatusRequest) returns (mica.discount.discountprovideraccount.v1.UpdateDiscountProviderAccountStatusResponse) {}
+
+  rpc RemoveDiscountProviderAccount(mica.discount.discountprovideraccount.v1.RemoveDiscountProviderAccountRequest) returns (mica.discount.discountprovideraccount.v1.RemoveDiscountProviderAccountResponse) {}
+
+  rpc SearchDiscountProviderAccount(mica.discount.discountprovideraccount.v1.SearchDiscountProviderAccountRequest) returns (mica.discount.discountprovideraccount.v1.SearchDiscountProviderAccountResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Product Group Operations">
+
+  rpc CreateProductGroup(mica.discount.productgroup.v1.CreateProductGroupRequest) returns (mica.discount.productgroup.v1.CreateProductGroupResponse) {}
+
+  rpc GetProductGroup(mica.discount.productgroup.v1.GetProductGroupRequest) returns (mica.discount.productgroup.v1.GetProductGroupResponse) {}
+
+  rpc UpdateProductGroup(mica.discount.productgroup.v1.UpdateProductGroupRequest) returns (mica.discount.productgroup.v1.UpdateProductGroupResponse) {}
+
+  rpc RemoveProductGroup(mica.discount.productgroup.v1.RemoveProductGroupRequest) returns (mica.discount.productgroup.v1.RemoveProductGroupResponse) {}
+
+  rpc SearchProductGroup(mica.discount.productgroup.v1.SearchProductGroupRequest) returns (mica.discount.productgroup.v1.SearchProductGroupResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="DiscountDefinition Group Operations">
+
+  rpc CreateDiscountDefinition(discountdefinition.v1.CreateDiscountDefinitionRequest) returns (discountdefinition.v1.CreateDiscountDefinitionResponse) {}
+
+  rpc GetDiscountDefinition(discountdefinition.v1.GetDiscountDefinitionRequest) returns (discountdefinition.v1.GetDiscountDefinitionResponse) {}
+
+  rpc UpdateDiscountDefinition(discountdefinition.v1.UpdateDiscountDefinitionRequest) returns (discountdefinition.v1.UpdateDiscountDefinitionResponse) {}
+
+  rpc UpdateDiscountDefinitionStatus(discountdefinition.v1.UpdateDiscountDefinitionStatusRequest) returns (discountdefinition.v1.UpdateDiscountDefinitionStatusResponse) {}
+
+  rpc RemoveDiscountDefinition(discountdefinition.v1.RemoveDiscountDefinitionRequest) returns (discountdefinition.v1.RemoveDiscountDefinitionResponse) {}
+
+  rpc SearchDiscountDefinition(discountdefinition.v1.SearchDiscountDefinitionRequest) returns (discountdefinition.v1.SearchDiscountDefinitionResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Discount Operations">
+
+  rpc CreateDiscount(discount.v1.CreateDiscountRequest) returns (discount.v1.CreateDiscountResponse) {}
+
+  rpc GetDiscount(discount.v1.GetDiscountRequest) returns (discount.v1.GetDiscountResponse) {}
+
+  rpc UpdateDiscount(discount.v1.UpdateDiscountRequest) returns (discount.v1.UpdateDiscountResponse) {}
+
+  rpc UpdateDiscountStatus(discount.v1.UpdateDiscountStatusRequest) returns (discount.v1.UpdateDiscountStatusResponse) {}
+
+  rpc RemoveDiscount(discount.v1.RemoveDiscountRequest) returns (discount.v1.RemoveDiscountResponse) {}
+
+  rpc SearchDiscount(discount.v1.SearchDiscountRequest) returns (discount.v1.SearchDiscountResponse) {}
+  //</editor-fold>
+
+  rpc GetUserKey(user.v1.GetUserKeyRequest) returns (user.v1.GetUserKeyResponse) {}
+
+  //<editor-fold desc="Admin Operations">
+
+  // An operation to ping the server to ensure it's up and running and that the connection is good.
+  rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+
+  // An operation that triggers a ping to the Mica servervice and that in turn triggers a ping to the discount provider service.
+  // This is a useful call to ensure that the connectivity and security between the mica an external services is working.
+  rpc PingWithRoundTrip(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+  //</editor-fold>
+}

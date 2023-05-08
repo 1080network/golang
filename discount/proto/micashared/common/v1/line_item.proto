@@ -1,0 +1,117 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.v1;
+
+import "micashared/common/enums/lineitemstatus/v1/line_item_status.proto";
+import "micashared/common/enums/unit/v1/unit.proto";
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "LineItemProto";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+message LineItem {
+  // unique number in a list of items that can be used to refer to a specific item
+  int32 sequence = 1;
+
+  // a header label that is shown on a receipt to group line items
+  string line_item_group = 2;
+
+  string product_code = 3;
+
+  string description = 4;
+
+  // an integer or decimal number
+  string quantity = 5;
+
+  micashared.common.enums.unit.v1.Unit unit = 6;
+
+  string unit_amount = 7;
+
+  string unit_tax_amount = 8;
+
+  // The total amount for this line item excluding tax.
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string line_amount = 9;
+
+  // The amount of tax for this line item.
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string line_tax_amount = 10;
+}
+
+enum AdjustmentType {
+  ADJUSTMENT_TYPE_UNSPECIFIED = 0;
+
+  ADJUSTMENT_TYPE_MANUFACTURER_DISCOUNT = 1;
+
+  ADJUSTMENT_TYPE_STORE_DISCOUNT = 2;
+
+  ADJUSTMENT_TYPE_RETURN = 3;
+
+  ADJUSTMENT_TYPE_PAYMENT_CASH = 4;
+
+  ADJUSTMENT_TYPE_PAYMENT_GIFT_CARD = 5;
+
+  ADJUSTMENT_TYPE_PAYMENT_OTHER = 6;
+}
+
+message LineItemWrapper {
+  repeated LineItem line_items = 1;
+}
+
+message Adjustment {
+  // unique number in a list of items that can be used to refer to a specific item
+  int32 sequence = 1;
+
+  AdjustmentType adjustment_type = 2;
+
+  string product_code = 3;
+
+  string description = 4;
+
+  // an integer or decimal number
+  string quantity = 5;
+
+  micashared.common.enums.unit.v1.Unit unit = 6;
+
+  string unit_amount = 7;
+
+  string unit_tax_amount = 8;
+
+  // The total amount for this line item excluding tax.
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string line_amount = 9;
+
+  // The amount of tax for this line item.
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string line_tax_amount = 10;
+}
+
+message LineItemSequenceAndStatus {
+  // unique number in a list of items that can be used to refer to a specific item
+  int32 sequence = 1;
+
+  micashared.common.enums.lineitemstatus.v1.LineItemStatus status = 2;
+}
+
+message LineItemSequenceAndStatusValue {
+  repeated LineItemSequenceAndStatus line_item_sequence_and_statuses = 1;
+}
+
+message LineItemAndStatus {
+  LineItem line_item = 1;
+
+  micashared.common.enums.lineitemstatus.v1.LineItemStatus status = 2;
+}
+
+message LineItemResponseValue {
+  repeated LineItemAndStatus line_item_and_statuses = 1;
+}

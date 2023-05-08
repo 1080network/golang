@@ -1,0 +1,121 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.partner.partner.v1;
+
+import "google/protobuf/timestamp.proto";
+import "micashared/common/enums/accounttype/v1/account_type.proto";
+import "micashared/common/enums/currency/v1/currency.proto";
+import "micashared/common/v1/address.proto";
+import "micashared/common/v1/error.proto";
+import "micashared/common/v1/organization.proto";
+import "validate/validate.proto";
+
+option go_package = "mica/partner/partnerv1";
+option java_outer_classname = "PartnerProto";
+option java_package = "io.mica.partner.partner.v1";
+option objc_class_prefix = "MICA";
+
+message PartnerAccount {
+  string partner_account_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  int64 version = 2 [(validate.rules).int64.gte = 0];
+
+  google.protobuf.Timestamp created = 3;
+
+  google.protobuf.Timestamp updated = 4;
+
+  string partner_key = 5 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  micashared.common.enums.accounttype.v1.AccountType account_type = 6;
+
+  micashared.common.enums.currency.v1.Currency currency = 7;
+}
+
+message Partner {
+  string partner_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  int64 version = 2 [(validate.rules).int64.gte = 0];
+
+  google.protobuf.Timestamp created = 3;
+
+  google.protobuf.Timestamp updated = 4;
+
+  string name = 5;
+
+  string tax_identifier = 6;
+
+  micashared.common.v1.Address address = 7;
+
+  string callback_address = 8;
+
+  repeated PartnerAccount partner_accounts = 9;
+}
+
+message GetPartnerRequest {}
+
+message GetPartnerResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  Partner partner = 3;
+}
+
+message GetPartnerLegacyConfigurationRequest {}
+
+message GetPartnerLegacyConfigurationResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  micashared.common.v1.LegacyConfiguration partner_legacy_configuration = 3;
+}
+
+message UpdatePartnerLegacyConfigurationRequest {
+  micashared.common.v1.LegacyConfiguration legacy_configuration = 1;
+
+  int64 version = 2;
+}
+
+message UpdatePartnerLegacyConfigurationResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  int64 version = 3;
+}

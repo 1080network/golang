@@ -1,0 +1,30 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.enums.channel.v1;
+
+option go_package = "micashared/common/enums/channelv1";
+option java_outer_classname = "ChannelEnumProto";
+option java_package = "io.micashared.common.enums.v1";
+option objc_class_prefix = "MICA";
+
+enum Channel {
+  CHANNEL_UNSPECIFIED = 0;
+
+  CHANNEL_DOMESTIC_ACH = 1;
+
+  CHANNEL_INTERNATIONAL_ACH = 2;
+
+  CHANNEL_WIRE_TRANSFER = 3;
+
+  CHANNEL_SWIFT_TRANSFER = 4;
+
+  CHANNEL_REAL_TIME_PAYMENTS = 5;
+}

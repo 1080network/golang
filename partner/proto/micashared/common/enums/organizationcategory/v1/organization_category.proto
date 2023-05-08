@@ -1,0 +1,48 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.enums.organizationcategory.v1;
+
+option go_package = "micashared/common/enums/organizationcategoryv1";
+option java_outer_classname = "OrganizationCategoryEnumProto";
+option java_package = "io.micashared.common.enums.v1";
+option objc_class_prefix = "MICA";
+
+enum OrganizationCategory {
+  ORGANIZATION_CATEGORY_UNSPECIFIED = 0;
+  ORGANIZATION_CATEGORY_ADULT_SERVICES = 1000;
+  ORGANIZATION_CATEGORY_AIRLINE = 1010;
+  ORGANIZATION_CATEGORY_ANTIQUES_AND_ARTWORK = 1020;
+  ORGANIZATION_CATEGORY_APPAREL = 1030;
+  ORGANIZATION_CATEGORY_AUTOMOTIVE_REPAIR = 1040;
+  ORGANIZATION_CATEGORY_AUTOMOTIVE_SALES = 1050;
+  ORGANIZATION_CATEGORY_BOOKSTORE = 1060;
+  ORGANIZATION_CATEGORY_CAR_RENTAL = 1070;
+  ORGANIZATION_CATEGORY_CONSUMER_ELECTRONICS = 1080;
+  ORGANIZATION_CATEGORY_CONSUMER_ELECTRONICS_REPAIR = 1090;
+  ORGANIZATION_CATEGORY_CONVENIENCE_STORE = 1100;
+  ORGANIZATION_CATEGORY_COSMETICS = 1110;
+  ORGANIZATION_CATEGORY_CRUISE = 1120;
+  ORGANIZATION_CATEGORY_FAST_CASUAL_DINING = 1130;
+  ORGANIZATION_CATEGORY_FINANCIAL_SERVICES = 1140;
+  ORGANIZATION_CATEGORY_FUEL = 1150;
+  ORGANIZATION_CATEGORY_FURNITURE = 1160;
+  ORGANIZATION_CATEGORY_GROCERY = 1170;
+  ORGANIZATION_CATEGORY_HEALTH_CARE = 1180;
+  ORGANIZATION_CATEGORY_HOME_IMPROVEMENT = 1190;
+  ORGANIZATION_CATEGORY_HOTEL = 1200;
+  ORGANIZATION_CATEGORY_MONEY_TRANSMISSION = 1210;
+  ORGANIZATION_CATEGORY_PHARMACY = 1220;
+  ORGANIZATION_CATEGORY_PROFESSIONAL_SERVICES = 1230;
+  ORGANIZATION_CATEGORY_QUICK_SERVICE_RESTAURANT = 1240;
+  ORGANIZATION_CATEGORY_RESTAURANT = 1250;
+  ORGANIZATION_CATEGORY_STREAMING_MEDIA = 1260;
+  ORGANIZATION_CATEGORY_TELEPHONY_AND_INTERNET = 1270;
+}

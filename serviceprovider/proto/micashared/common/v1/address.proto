@@ -1,0 +1,36 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.v1;
+
+import "micashared/common/enums/country/v1/country.proto";
+import "micashared/common/enums/region/v1/region.proto";
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "AddressProto";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+message Address {
+  repeated string street_lines = 1;
+
+  // typically city
+  string locality = 2;
+
+  // this would be state in the US (ISO 3166-2:US), prefecture in Japan (ISO 3166-2:JP) or
+  // territory in Australia (ISO 3166-2:AU)
+  micashared.common.enums.region.v1.Region region = 3;
+
+  // postal code, in the US this would be zip code
+  string postal_code = 4;
+
+  // https://en.wikipedia.org/wiki/ISO_3166-2
+  micashared.common.enums.country.v1.Country country = 5;
+}

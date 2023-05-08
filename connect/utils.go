@@ -1,7 +1,7 @@
 package connect
 
 import (
-	connect "github.com/1080network/golang/connect/proto/connect/servicev1"
+	connect "github.com/1080network/golang/connect/proto/mica/connect/servicev1"
 	"google.golang.org/grpc"
 )
 

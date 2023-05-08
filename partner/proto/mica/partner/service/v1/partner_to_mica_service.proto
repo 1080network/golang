@@ -1,0 +1,131 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.partner.service.v1;
+
+import "mica/partner/instrument/v1/instrument.proto";
+import "mica/partner/organization/v1/organization.proto";
+import "mica/partner/partner/v1/partner.proto";
+import "mica/partner/paymenttoken/v1/payment_token.proto";
+import "mica/partner/serviceprovider/v1/service_provider.proto";
+import "mica/partner/store/v1/store.proto";
+import "mica/partner/transaction/v1/transaction.proto";
+import "mica/partner/value/v1/value.proto";
+import "mica/partner/widget/v1/widget.proto";
+import "micashared/common/ping/v1/ping.proto";
+
+option go_package = "mica/partner/servicev1";
+option java_outer_classname = "PartnerToMicaServiceProto";
+option java_package = "io.mica.partner.service.v1";
+option objc_class_prefix = "MICA";
+
+service PartnerToMicaService {
+  //<editor-fold desc="Partner Operations">
+
+  // Retrieves the details of the Partner at mica.
+  rpc GetPartner(partner.v1.GetPartnerRequest) returns (partner.v1.GetPartnerResponse) {}
+
+  // Retrieve an partner's legacy configuration based on it's key.
+  rpc GetPartnerLegacyConfiguration(partner.v1.GetPartnerLegacyConfigurationRequest) returns (partner.v1.GetPartnerLegacyConfigurationResponse) {}
+
+  // Update a given partner's legacy configuration.
+  rpc UpdatePartnerLegacyConfiguration(partner.v1.UpdatePartnerLegacyConfigurationRequest) returns (partner.v1.UpdatePartnerLegacyConfigurationResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Organization Operations">
+
+  // Retrieve an organization based on it's key.
+  rpc GetOrganization(organization.v1.GetOrganizationRequest) returns (organization.v1.GetOrganizationResponse) {}
+
+  // Update a given organization.
+  rpc UpdateOrganization(organization.v1.UpdateOrganizationRequest) returns (organization.v1.UpdateOrganizationResponse) {}
+
+  // Like GetOrganization, can be used to retrieve Organizations based on the criteria in the request.
+  rpc SearchOrganization(organization.v1.SearchOrganizationRequest) returns (organization.v1.SearchOrganizationResponse) {}
+
+  // Retrieve an organization's legacy configuration based on it's key.
+  rpc GetOrganizationLegacyConfiguration(organization.v1.GetOrganizationLegacyConfigurationRequest) returns (organization.v1.GetOrganizationLegacyConfigurationResponse) {}
+
+  // Update a given organization's legacy configuration.
+  rpc UpdateOrganizationLegacyConfiguration(organization.v1.UpdateOrganizationLegacyConfigurationRequest) returns (organization.v1.UpdateOrganizationLegacyConfigurationResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Store Operations">
+
+  // Create a store that sits under an Organization.
+  rpc CreateStore(store.v1.CreateStoreRequest) returns (store.v1.CreateStoreResponse) {}
+
+  // Retrieve a store based on it's key.
+  rpc GetStore(store.v1.GetStoreRequest) returns (store.v1.GetStoreResponse) {}
+
+  // Update the store number and address of a Store.
+  rpc UpdateStore(store.v1.UpdateStoreRequest) returns (store.v1.UpdateStoreResponse) {}
+
+  // Remove an existing Store.
+  rpc RemoveStore(store.v1.RemoveStoreRequest) returns (store.v1.RemoveStoreResponse) {}
+
+  // Like GetStore, can be used to retrieve Stores based on the criteria in the request.
+  rpc SearchStore(store.v1.SearchStoreRequest) returns (store.v1.SearchStoreResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Service Provider Operations">
+
+  // Used to retrieve SPs based on the criteria in the request.
+  rpc SearchServiceProvider(serviceprovider.v1.SearchServiceProviderRequest) returns (serviceprovider.v1.SearchServiceProviderResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Payment Token Operations">
+
+  // When a user no longer wishes to use their payment tokens this operation can remove them from mica.
+  rpc RemovePaymentToken(paymenttoken.v1.RemovePaymentTokenRequest) returns (paymenttoken.v1.RemovePaymentTokenResponse) {}
+
+  // A Partner can proactively replace a payment token with a new one for future use.
+  rpc ExchangePaymentToken(paymenttoken.v1.ExchangePaymentTokenRequest) returns (paymenttoken.v1.ExchangePaymentTokenResponse) {}
+
+  // Search for Payment Tokens that the Partner has created.
+  rpc SearchPaymentToken(paymenttoken.v1.SearchPaymentTokenRequest) returns (paymenttoken.v1.SearchPaymentTokenResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Value Operations">
+
+  // An operation to obtain value from a user in order to pay for goods or services rendered to the user.
+  rpc ObtainValue(value.v1.ObtainValueRequest) returns (value.v1.ObtainValueResponse) {}
+
+  // An operation to return value to a user in order to refund them for goods or services.
+  rpc ReturnValue(value.v1.ReturnValueRequest) returns (value.v1.ReturnValueResponse) {}
+
+  // An operation to search for Value operations either Obtain or Return that the Partner has requested of mica.
+  rpc SearchValue(value.v1.SearchValueRequest) returns (value.v1.SearchValueResponse) {}
+
+  rpc GetValue(value.v1.GetValueRequest) returns (value.v1.GetValueResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Admin Operations">
+
+  // An operation to ping the server to ensure it's up and running and that the connection is good.
+  rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Widget Operations">
+
+  rpc InitializeWidget(widget.v1.InitializeWidgetRequest) returns (widget.v1.InitializeWidgetResponse) {}
+
+  rpc ExchangeSessionKey(instrument.v1.ExchangeSessionKeyRequest) returns (instrument.v1.ExchangeSessionKeyResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Dashboard Operations">
+
+  rpc SearchTransactionData(transaction.v1.SearchTransactionDataRequest) returns (transaction.v1.SearchTransactionDataResponse) {}
+
+  rpc SearchTransactionGeographyData(transaction.v1.SearchTransactionGeographyDataRequest) returns (transaction.v1.SearchTransactionGeographyDataResponse) {}
+
+  rpc SearchTransactionServiceProviderData(transaction.v1.SearchTransactionServiceProviderDataRequest) returns (transaction.v1.SearchTransactionServiceProviderDataResponse) {}
+  //</editor-fold>
+}

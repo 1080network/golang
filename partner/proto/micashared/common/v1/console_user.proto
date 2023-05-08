@@ -1,0 +1,111 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.v1;
+
+import "google/protobuf/timestamp.proto";
+import "micashared/common/v1/error.proto";
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "ConsoleUser";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+message SingleSignOnConsoleUser {
+  string principal_reference = 1;
+
+  google.protobuf.Timestamp created = 2;
+
+  google.protobuf.Timestamp updated = 3;
+
+  bool enabled = 4;
+
+  repeated string roles = 5;
+}
+
+message EmailActivationChannel {
+  string email_address = 1;
+}
+
+message CreateSingleSignOnConsoleUserRequest {
+  string principal_reference = 1;
+  repeated string roles = 2;
+  oneof activation_channel {
+    EmailActivationChannel email_activation_channel = 3;
+  }
+}
+
+message CreateSingleSignOnConsoleUserResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  SingleSignOnConsoleUser single_sign_on_user = 3;
+  string one_time_access_code = 4;
+}
+
+message GetSingleSignOnConsoleUserRequest {
+  string principal_reference = 1;
+}
+
+message GetSingleSignOnConsoleUserResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND = 2;
+    STATUS_ERROR = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  SingleSignOnConsoleUser single_sign_on_user = 3;
+}
+
+message UpdateSingleSignOnConsoleUserRequest {
+  string principal_reference = 1;
+  bool enabled = 2;
+  repeated string roles = 3;
+}
+
+message UpdateSingleSignOnConsoleUserResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND = 2;
+    STATUS_ERROR = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  SingleSignOnConsoleUser single_sign_on_user = 3;
+}
+
+message SearchSingleSignOnConsoleUserRequest {}
+
+message SearchSingleSignOnConsoleUserResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND = 2;
+    STATUS_ERROR = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  repeated SingleSignOnConsoleUser single_sign_on_users = 3;
+}

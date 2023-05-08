@@ -1,0 +1,137 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.v1;
+
+import "google/protobuf/timestamp.proto";
+import "micashared/common/enums/channel/v1/channel.proto";
+import "micashared/common/enums/currency/v1/currency.proto";
+import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
+import "micashared/common/enums/valueoperationtype/v1/value_operation_type.proto";
+import "micashared/common/v1/address.proto";
+import "micashared/common/v1/discount.proto";
+import "micashared/common/v1/error.proto";
+import "micashared/common/v1/line_item.proto";
+import "validate/validate.proto";
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "ReceiptProto";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+message Receipt {
+  // Mica's transaction record primary key.
+  string transaction_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // version of the user record, used for optimistic locking
+  int64 version = 2;
+
+  // Date that the Store was created at Mica.
+  google.protobuf.Timestamp created = 3;
+
+  // Date that the Store was last updated at Mica.
+  google.protobuf.Timestamp updated = 4;
+
+  micashared.common.enums.valueoperationtype.v1.ValueOperationType operation_type = 5;
+
+  // A unique identifier at the Partner for this transaction.
+  string partner_transaction_ref = 6;
+
+  // The Mica generated key for this instrument.
+  string service_provider_instrument_key = 7 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // Service Provider's primary key for their instrument.
+  string service_provider_instrument_ref = 8;
+
+  // How this transaction should be processed.
+  micashared.common.enums.channel.v1.Channel channel = 9;
+
+  // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
+  micashared.common.enums.currency.v1.Currency currency = 10;
+
+  // The organization this operation is being processed for.
+  string organization_key = 11 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // The organization name this operation is being processed for.
+  string organization_name = 12;
+
+  // The organization address this operation is being processed for.
+  micashared.common.v1.Address organization_address = 13;
+
+  // The organizations category.
+  micashared.common.enums.organizationcategory.v1.OrganizationCategory category = 14;
+
+  // The store where this operation occurred.
+  string store_key = 15 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // The number of this store (an alternative unique value).
+  string store_number = 16;
+
+  // The street address of this store.
+  micashared.common.v1.Address store_address = 17;
+
+  // The clerk that processed this operation.
+  string clerk_identifier = 18;
+
+  // Total amount for this transaction.
+  //
+  // When Items are present then: `total_amount` = sum(`items.amount + items.tax_amount`)
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string total_amount = 19;
+
+  // The amount requested for this transaction. Note that this will be the same as total_amount if all products are eligible
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string requested_amount = 20;
+
+  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  string approved_amount = 21;
+
+  string order_number = 22;
+
+  // List of items bought or returned.
+  repeated micashared.common.v1.LineItemAndStatus line_item_and_statuses = 23;
+
+  repeated AppliedDiscount applied_discounts = 24;
+
+  repeated micashared.common.v1.Adjustment adjustments = 25;
+}
+
+message GetReceiptRequest {
+  string transaction_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+}
+
+message GetReceiptResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  micashared.common.v1.Receipt receipt = 3;
+}

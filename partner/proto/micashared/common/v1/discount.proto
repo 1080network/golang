@@ -1,0 +1,47 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.v1;
+
+import "micashared/common/enums/discounttype/v1/discount_type.proto";
+import "micashared/common/enums/unit/v1/unit.proto";
+import "validate/validate.proto";
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "DiscountProto";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+message DiscountLineItem {
+  int32 sequence = 1;
+
+  // quantity of this line item that was applicable to the given discount
+  string quantity = 2;
+
+  // unit of this line item that was applicable to the given discount
+  micashared.common.enums.unit.v1.Unit unit = 3;
+}
+
+message AppliedDiscount {
+  string discount_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  string receipt_description = 2;
+
+  enums.discounttype.v1.DiscountType discount_type = 3;
+
+  string discount_amount = 4;
+
+  string discount_tax_amount = 5;
+
+  repeated DiscountLineItem discount_line_items = 6;
+}

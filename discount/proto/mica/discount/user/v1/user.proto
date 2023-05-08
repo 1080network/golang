@@ -1,0 +1,38 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.discount.user.v1;
+
+import "micashared/common/v1/error.proto";
+import "micashared/common/v1/user.proto";
+import "validate/validate.proto";
+
+option go_package = "mica/discount/userv1";
+option java_outer_classname = "UserProto";
+option java_package = "io.mica.discount.user.v1";
+option objc_class_prefix = "MICA";
+
+message GetUserKeyRequest {
+  micashared.common.v1.UserDemographic user_demographic = 1;
+}
+
+message GetUserKeyResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  string user_key = 3 [(validate.rules).string.max_len = 50];
+}

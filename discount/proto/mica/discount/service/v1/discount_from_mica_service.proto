@@ -1,0 +1,28 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.discount.service.v1;
+
+import "mica/discount/discount/v1/discount.proto";
+import "micashared/common/ping/v1/ping.proto";
+
+option go_package = "mica/discount/servicev1";
+option java_outer_classname = "DiscountFromMicaServiceProto";
+option java_package = "io.mica.discount.service.v1";
+option objc_class_prefix = "MICA";
+
+service DiscountFromMicaService {
+  rpc ApplyDiscountNotification(discount.v1.ApplyDiscountNotificationRequest) returns (discount.v1.ApplyDiscountNotificationResponse) {}
+  //<editor-fold desc="Admin Operations">
+
+  // An operation to ping the server to ensure it's up and running and that the connection is good.
+  rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+  //</editor-fold>
+}
