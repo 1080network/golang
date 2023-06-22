@@ -40,7 +40,7 @@ message UserDemographic {
 }
 
 message User {
-  // version of the user record, used for optimistic locking
+  // version of the user record, used for optimistic locking.
   int64 version = 1;
 
   // Date that the Store was created at Mica.

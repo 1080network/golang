@@ -264,7 +264,16 @@ func (m *EnrollUserInstrumentRequest) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for PartnerPaymentToken
+	if l := utf8.RuneCountInString(m.GetPartnerUuek()); l < 30 || l > 50 {
+		err := EnrollUserInstrumentRequestValidationError{
+			field:  "PartnerUuek",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetUserDemographic()).(type) {

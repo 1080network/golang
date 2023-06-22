@@ -35,46 +35,74 @@ var (
 	_ = sort.Sort
 )
 
-// Validate checks the field values on PaginationRequest with the rules defined
-// in the proto definition for this message. If any rules are violated, the
-// first error encountered is returned, or nil if there are no violations.
-func (m *PaginationRequest) Validate() error {
+// Validate checks the field values on Pagination with the rules defined in the
+// proto definition for this message. If any rules are violated, the first
+// error encountered is returned, or nil if there are no violations.
+func (m *Pagination) Validate() error {
 	return m.validate(false)
 }
 
-// ValidateAll checks the field values on PaginationRequest with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// PaginationRequestMultiError, or nil if none found.
-func (m *PaginationRequest) ValidateAll() error {
+// ValidateAll checks the field values on Pagination with the rules defined in
+// the proto definition for this message. If any rules are violated, the
+// result is a list of violation errors wrapped in PaginationMultiError, or
+// nil if none found.
+func (m *Pagination) ValidateAll() error {
 	return m.validate(true)
 }
 
-func (m *PaginationRequest) validate(all bool) error {
+func (m *Pagination) validate(all bool) error {
 	if m == nil {
 		return nil
 	}
 
 	var errors []error
 
-	// no validation rules for PageSize
+	if m.GetPageSize() > 10000 {
+		err := PaginationValidationError{
+			field:  "PageSize",
+			reason: "value must be less than or equal to 10000",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
-	// no validation rules for PageToken
+	if val := m.GetPageNumber(); val < 0 || val > 1000000 {
+		err := PaginationValidationError{
+			field:  "PageNumber",
+			reason: "value must be inside range [0, 1000000]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if m.GetTotalCount() < -1 {
+		err := PaginationValidationError{
+			field:  "TotalCount",
+			reason: "value must be greater than or equal to -1",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
-		return PaginationRequestMultiError(errors)
+		return PaginationMultiError(errors)
 	}
 
 	return nil
 }
 
-// PaginationRequestMultiError is an error wrapping multiple validation errors
-// returned by PaginationRequest.ValidateAll() if the designated constraints
-// aren't met.
-type PaginationRequestMultiError []error
+// PaginationMultiError is an error wrapping multiple validation errors
+// returned by Pagination.ValidateAll() if the designated constraints aren't met.
+type PaginationMultiError []error
 
 // Error returns a concatenation of all the error messages it wraps.
-func (m PaginationRequestMultiError) Error() string {
+func (m PaginationMultiError) Error() string {
 	var msgs []string
 	for _, err := range m {
 		msgs = append(msgs, err.Error())
@@ -83,11 +111,11 @@ func (m PaginationRequestMultiError) Error() string {
 }
 
 // AllErrors returns a list of validation violation errors.
-func (m PaginationRequestMultiError) AllErrors() []error { return m }
+func (m PaginationMultiError) AllErrors() []error { return m }
 
-// PaginationRequestValidationError is the validation error returned by
-// PaginationRequest.Validate if the designated constraints aren't met.
-type PaginationRequestValidationError struct {
+// PaginationValidationError is the validation error returned by
+// Pagination.Validate if the designated constraints aren't met.
+type PaginationValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -95,24 +123,22 @@ type PaginationRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e PaginationRequestValidationError) Field() string { return e.field }
+func (e PaginationValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e PaginationRequestValidationError) Reason() string { return e.reason }
+func (e PaginationValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e PaginationRequestValidationError) Cause() error { return e.cause }
+func (e PaginationValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e PaginationRequestValidationError) Key() bool { return e.key }
+func (e PaginationValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e PaginationRequestValidationError) ErrorName() string {
-	return "PaginationRequestValidationError"
-}
+func (e PaginationValidationError) ErrorName() string { return "PaginationValidationError" }
 
 // Error satisfies the builtin error interface
-func (e PaginationRequestValidationError) Error() string {
+func (e PaginationValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -124,14 +150,14 @@ func (e PaginationRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sPaginationRequest.%s: %s%s",
+		"invalid %sPagination.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = PaginationRequestValidationError{}
+var _ error = PaginationValidationError{}
 
 var _ interface {
 	Field() string
@@ -139,110 +165,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = PaginationRequestValidationError{}
-
-// Validate checks the field values on PaginationResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the first error encountered is returned, or nil if there are no violations.
-func (m *PaginationResponse) Validate() error {
-	return m.validate(false)
-}
-
-// ValidateAll checks the field values on PaginationResponse with the rules
-// defined in the proto definition for this message. If any rules are
-// violated, the result is a list of violation errors wrapped in
-// PaginationResponseMultiError, or nil if none found.
-func (m *PaginationResponse) ValidateAll() error {
-	return m.validate(true)
-}
-
-func (m *PaginationResponse) validate(all bool) error {
-	if m == nil {
-		return nil
-	}
-
-	var errors []error
-
-	// no validation rules for TotalCount
-
-	// no validation rules for NextPageToken
-
-	if len(errors) > 0 {
-		return PaginationResponseMultiError(errors)
-	}
-
-	return nil
-}
-
-// PaginationResponseMultiError is an error wrapping multiple validation errors
-// returned by PaginationResponse.ValidateAll() if the designated constraints
-// aren't met.
-type PaginationResponseMultiError []error
-
-// Error returns a concatenation of all the error messages it wraps.
-func (m PaginationResponseMultiError) Error() string {
-	var msgs []string
-	for _, err := range m {
-		msgs = append(msgs, err.Error())
-	}
-	return strings.Join(msgs, "; ")
-}
-
-// AllErrors returns a list of validation violation errors.
-func (m PaginationResponseMultiError) AllErrors() []error { return m }
-
-// PaginationResponseValidationError is the validation error returned by
-// PaginationResponse.Validate if the designated constraints aren't met.
-type PaginationResponseValidationError struct {
-	field  string
-	reason string
-	cause  error
-	key    bool
-}
-
-// Field function returns field value.
-func (e PaginationResponseValidationError) Field() string { return e.field }
-
-// Reason function returns reason value.
-func (e PaginationResponseValidationError) Reason() string { return e.reason }
-
-// Cause function returns cause value.
-func (e PaginationResponseValidationError) Cause() error { return e.cause }
-
-// Key function returns key value.
-func (e PaginationResponseValidationError) Key() bool { return e.key }
-
-// ErrorName returns error name.
-func (e PaginationResponseValidationError) ErrorName() string {
-	return "PaginationResponseValidationError"
-}
-
-// Error satisfies the builtin error interface
-func (e PaginationResponseValidationError) Error() string {
-	cause := ""
-	if e.cause != nil {
-		cause = fmt.Sprintf(" | caused by: %v", e.cause)
-	}
-
-	key := ""
-	if e.key {
-		key = "key for "
-	}
-
-	return fmt.Sprintf(
-		"invalid %sPaginationResponse.%s: %s%s",
-		key,
-		e.field,
-		e.reason,
-		cause)
-}
-
-var _ error = PaginationResponseValidationError{}
-
-var _ interface {
-	Field() string
-	Reason() string
-	Key() bool
-	Cause() error
-	ErrorName() string
-} = PaginationResponseValidationError{}
+} = PaginationValidationError{}

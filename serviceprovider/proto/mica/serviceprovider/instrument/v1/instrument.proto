@@ -37,7 +37,7 @@ message RegisterInstrumentRequest {
   micashared.common.enums.currency.v1.Currency currency = 4;
 
   // Last 4 digits of this instrument.
-  string last_four = 5;
+  string nickname = 5;
 
   // List of previous settled transactions
   repeated Transaction settled_transactions = 6;
@@ -92,7 +92,7 @@ message Instrument {
     max_len: 50
   }];
 
-  // version of the user record, used for optimistic locking
+  // version of the user record, used for optimistic locking.
   int64 version = 2;
 
   // Date that the Store was created at Mica.
@@ -119,7 +119,7 @@ message Instrument {
   micashared.common.enums.currency.v1.Currency currency = 9;
 
   // Last for characters of this instrument.
-  string last_four = 10;
+  string nickname = 10;
 }
 
 message GetInstrumentResponse {

@@ -547,7 +547,16 @@ func (m *CreateDiscountDefinitionRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for Status
+	if _, ok := _CreateDiscountDefinitionRequest_Status_NotInLookup[m.GetStatus()]; ok {
+		err := CreateDiscountDefinitionRequestValidationError{
+			field:  "Status",
+			reason: "value must not be in list [DISCOUNT_DEFINITION_STATUS_UNSPECIFIED]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Type
 
@@ -817,6 +826,10 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateDiscountDefinitionRequestValidationError{}
+
+var _CreateDiscountDefinitionRequest_Status_NotInLookup = map[DiscountDefinitionStatus]struct{}{
+	0: {},
+}
 
 // Validate checks the field values on CreateDiscountDefinitionResponse with
 // the rules defined in the proto definition for this message. If any rules
@@ -1372,7 +1385,16 @@ func (m *UpdateDiscountDefinitionRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for Status
+	if _, ok := _UpdateDiscountDefinitionRequest_Status_NotInLookup[m.GetStatus()]; ok {
+		err := UpdateDiscountDefinitionRequestValidationError{
+			field:  "Status",
+			reason: "value must not be in list [DISCOUNT_DEFINITION_STATUS_UNSPECIFIED]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	// no validation rules for Type
 
@@ -1681,6 +1703,10 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateDiscountDefinitionRequestValidationError{}
+
+var _UpdateDiscountDefinitionRequest_Status_NotInLookup = map[DiscountDefinitionStatus]struct{}{
+	0: {},
+}
 
 // Validate checks the field values on UpdateDiscountDefinitionResponse with
 // the rules defined in the proto definition for this message. If any rules

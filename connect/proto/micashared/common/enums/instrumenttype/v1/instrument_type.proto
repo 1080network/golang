@@ -34,4 +34,7 @@ enum InstrumentType {
 
   // US only - Special Supplemental Nutrition Program for Women, Infants, and Children
   INSTRUMENT_TYPE_WIC = 7;
+
+  // Program that helps to pay for nycloop
+  INSTRUMENT_TYPE_NYCLOOP = 8;
 }

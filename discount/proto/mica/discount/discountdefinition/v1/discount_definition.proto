@@ -104,7 +104,8 @@ message CreateDiscountDefinitionRequest {
 
   string receipt_description = 3 [(validate.rules).string.max_len = 100];
 
-  DiscountDefinitionStatus status = 4;
+  //the initial status of the discount definition has to be set and it cannot be unspecified
+  DiscountDefinitionStatus status = 4 [(validate.rules).enum = {not_in: [0]}];
 
   micashared.common.enums.discounttype.v1.DiscountType type = 5;
 
@@ -201,7 +202,8 @@ message UpdateDiscountDefinitionRequest {
 
   string receipt_description = 4 [(validate.rules).string.max_len = 100];
 
-  DiscountDefinitionStatus status = 5;
+  // the update status of the discount definition has to be set and it cannot be unspecified
+  DiscountDefinitionStatus status = 5 [(validate.rules).enum = {not_in: [0]}];
 
   micashared.common.enums.discounttype.v1.DiscountType type = 6;
 

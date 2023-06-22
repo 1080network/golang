@@ -22,7 +22,7 @@ option objc_class_prefix = "MICA";
 message SearchServiceProviderRequest {
   string name = 1;
 
-  micashared.common.v1.PaginationRequest pagination_request = 2;
+  micashared.common.v1.Pagination pagination = 3;
 }
 
 message SearchServiceProviderResponse {
@@ -37,7 +37,7 @@ message SearchServiceProviderResponse {
 
   repeated ServiceProvider service_providers = 3;
 
-  micashared.common.v1.PaginationResponse pagination_response = 4;
+  micashared.common.v1.Pagination pagination = 5;
 }
 
 message ServiceProvider {

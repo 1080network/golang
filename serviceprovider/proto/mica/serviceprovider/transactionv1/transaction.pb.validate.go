@@ -1311,7 +1311,16 @@ func (m *SearchTransactionPartnerDataItem) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for PartnerName
+	if l := utf8.RuneCountInString(m.GetPartnerName()); l < 1 || l > 100 {
+		err := SearchTransactionPartnerDataItemValidationError{
+			field:  "PartnerName",
+			reason: "value length must be between 1 and 100 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if all {
 		switch v := interface{}(m.GetCountAmountItem()).(type) {

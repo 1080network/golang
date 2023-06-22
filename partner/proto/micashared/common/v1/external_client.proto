@@ -62,10 +62,9 @@ message GetExternalClientSettingsResponse {
 
 message UpdateExternalClientCallBackAddressRequest {
   int64 version = 1 [(validate.rules).int64.gte = 0];
-  string callback_address = 2 [(validate.rules).string = {
-    min_len: 3,
-    max_len: 200
-  }];
+  // the callback address must folow a <hostname>:<port> pattern for example
+  // mycallbackservicie.somecompany.io:443
+  string callback_address = 2 [(validate.rules).string.pattern = "^[^/]+:\\d{3,6}$"];
 }
 
 message UpdateExternalClientCallBackAddressResponse {

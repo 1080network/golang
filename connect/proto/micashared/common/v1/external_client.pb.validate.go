@@ -656,10 +656,10 @@ func (m *UpdateExternalClientCallBackAddressRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetCallbackAddress()); l < 3 || l > 200 {
+	if !_UpdateExternalClientCallBackAddressRequest_CallbackAddress_Pattern.MatchString(m.GetCallbackAddress()) {
 		err := UpdateExternalClientCallBackAddressRequestValidationError{
 			field:  "CallbackAddress",
-			reason: "value length must be between 3 and 200 runes, inclusive",
+			reason: "value does not match regex pattern \"^[^/]+:\\\\d{3,6}$\"",
 		}
 		if !all {
 			return err
@@ -748,6 +748,8 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateExternalClientCallBackAddressRequestValidationError{}
+
+var _UpdateExternalClientCallBackAddressRequest_CallbackAddress_Pattern = regexp.MustCompile("^[^/]+:\\d{3,6}$")
 
 // Validate checks the field values on
 // UpdateExternalClientCallBackAddressResponse with the rules defined in the

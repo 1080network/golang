@@ -13,7 +13,7 @@ package mica.partner.service.v1;
 import "mica/partner/instrument/v1/instrument.proto";
 import "mica/partner/organization/v1/organization.proto";
 import "mica/partner/partner/v1/partner.proto";
-import "mica/partner/paymenttoken/v1/payment_token.proto";
+import "mica/partner/uuek/v1/uuek.proto";
 import "mica/partner/serviceprovider/v1/service_provider.proto";
 import "mica/partner/store/v1/store.proto";
 import "mica/partner/transaction/v1/transaction.proto";
@@ -81,16 +81,16 @@ service PartnerToMicaService {
   rpc SearchServiceProvider(serviceprovider.v1.SearchServiceProviderRequest) returns (serviceprovider.v1.SearchServiceProviderResponse) {}
   //</editor-fold>
 
-  //<editor-fold desc="Payment Token Operations">
+  //<editor-fold desc="UUEK Operations">
 
-  // When a user no longer wishes to use their payment tokens this operation can remove them from mica.
-  rpc RemovePaymentToken(paymenttoken.v1.RemovePaymentTokenRequest) returns (paymenttoken.v1.RemovePaymentTokenResponse) {}
+  // When a user no longer wishes to use their UUEKs this operation can remove them from mica.
+  rpc RemoveUUEK(uuek.v1.RemoveUUEKRequest) returns (uuek.v1.RemoveUUEKResponse) {}
 
-  // A Partner can proactively replace a payment token with a new one for future use.
-  rpc ExchangePaymentToken(paymenttoken.v1.ExchangePaymentTokenRequest) returns (paymenttoken.v1.ExchangePaymentTokenResponse) {}
+  // A Partner can proactively replace a UUEK with a new one for future use.
+  rpc ExchangeUUEK(uuek.v1.ExchangeUUEKRequest) returns (uuek.v1.ExchangeUUEKResponse) {}
 
-  // Search for Payment Tokens that the Partner has created.
-  rpc SearchPaymentToken(paymenttoken.v1.SearchPaymentTokenRequest) returns (paymenttoken.v1.SearchPaymentTokenResponse) {}
+  // Search for UUEKs that the Partner has created.
+  rpc SearchUUEK(uuek.v1.SearchUUEKRequest) returns (uuek.v1.SearchUUEKResponse) {}
   //</editor-fold>
 
   //<editor-fold desc="Value Operations">

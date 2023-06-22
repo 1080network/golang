@@ -37,8 +37,11 @@ message User {
 }
 
 message EnrollUserInstrumentRequest {
-  // The payment token that the Partner can use to obtain or return value for this user.
-  string partner_payment_token = 1;
+  // The UUEK that the Partner can use to obtain or return value for this user.
+  string partner_uuek = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
 
   micashared.common.v1.UserDemographic user_demographic = 2;
 }

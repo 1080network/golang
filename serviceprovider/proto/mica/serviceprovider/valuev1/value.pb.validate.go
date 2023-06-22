@@ -1125,7 +1125,7 @@ func (m *From) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for PaymentToken
+	// no validation rules for Uuek
 
 	// no validation rules for FirstName
 
@@ -1817,7 +1817,7 @@ func (m *SearchValueRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for ServiceProviderPaymentToken
+	// no validation rules for ServiceProviderUuek
 
 	// no validation rules for ServiceProviderInstrumentRef
 
@@ -2170,9 +2170,9 @@ func (m *SendValueRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if l := utf8.RuneCountInString(m.GetToPaymentToken()); l < 30 || l > 50 {
+	if l := utf8.RuneCountInString(m.GetToUuek()); l < 30 || l > 50 {
 		err := SendValueRequestValidationError{
-			field:  "ToPaymentToken",
+			field:  "ToUuek",
 			reason: "value length must be between 30 and 50 runes, inclusive",
 		}
 		if !all {

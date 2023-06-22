@@ -39,7 +39,10 @@ message TransactionDetails {
     max_len: 50
   }];
 
-  string partner_name = 4;
+  string partner_name = 4 [(validate.rules).string = {
+    min_len:  1,
+    max_len: 100
+  }];
 
   string organization_key = 5 [(validate.rules).string = {
     min_len: 30,
@@ -204,7 +207,8 @@ message CreateDiscountRequest {
 
   string receipt_description = 3 [(validate.rules).string.max_len = 100];
 
-  DiscountStatus status = 4;
+  //the intial status of the discount has to be set and it cannot be unspecified
+  DiscountStatus status = 4 [(validate.rules).enum = {not_in: [0]}];
 
   google.protobuf.Timestamp valid_from = 5 [(validate.rules).timestamp.required = false];
 
@@ -293,7 +297,8 @@ message UpdateDiscountRequest {
 
   string receipt_description = 3 [(validate.rules).string.max_len = 100];
 
-  DiscountStatus status = 4;
+  // the update status of the discount has to be set and it cannot be unspecified
+  DiscountStatus status = 4 [(validate.rules).enum = {not_in: [0]}];
 
   google.protobuf.Timestamp valid_from = 5 [(validate.rules).timestamp.required = false];
 
@@ -421,7 +426,10 @@ message ApplyDiscountNotificationRequest {
     max_len: 50
   }];
 
-  string partner_name = 14 [(validate.rules).string.max_len = 100];
+  string partner_name = 14 [(validate.rules).string = {
+    min_len:  1,
+    max_len: 100
+  }];
 
   string organization_key = 15 [(validate.rules).string = {
     min_len: 30,

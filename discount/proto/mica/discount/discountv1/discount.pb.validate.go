@@ -97,7 +97,16 @@ func (m *TransactionDetails) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for PartnerName
+	if l := utf8.RuneCountInString(m.GetPartnerName()); l < 1 || l > 100 {
+		err := TransactionDetailsValidationError{
+			field:  "PartnerName",
+			reason: "value length must be between 1 and 100 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if l := utf8.RuneCountInString(m.GetOrganizationKey()); l < 30 || l > 50 {
 		err := TransactionDetailsValidationError{
@@ -1360,7 +1369,16 @@ func (m *CreateDiscountRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for Status
+	if _, ok := _CreateDiscountRequest_Status_NotInLookup[m.GetStatus()]; ok {
+		err := CreateDiscountRequestValidationError{
+			field:  "Status",
+			reason: "value must not be in list [DISCOUNT_STATUS_UNSPECIFIED]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if t := m.GetValidTo(); t != nil {
 		ts, err := t.AsTime(), t.CheckValid()
@@ -1614,6 +1632,10 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = CreateDiscountRequestValidationError{}
+
+var _CreateDiscountRequest_Status_NotInLookup = map[DiscountStatus]struct{}{
+	0: {},
+}
 
 // Validate checks the field values on CreateDiscountResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -2120,7 +2142,16 @@ func (m *UpdateDiscountRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for Status
+	if _, ok := _UpdateDiscountRequest_Status_NotInLookup[m.GetStatus()]; ok {
+		err := UpdateDiscountRequestValidationError{
+			field:  "Status",
+			reason: "value must not be in list [DISCOUNT_STATUS_UNSPECIFIED]",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if t := m.GetValidTo(); t != nil {
 		ts, err := t.AsTime(), t.CheckValid()
@@ -2415,6 +2446,10 @@ var _ interface {
 	Cause() error
 	ErrorName() string
 } = UpdateDiscountRequestValidationError{}
+
+var _UpdateDiscountRequest_Status_NotInLookup = map[DiscountStatus]struct{}{
+	0: {},
+}
 
 // Validate checks the field values on UpdateDiscountResponse with the rules
 // defined in the proto definition for this message. If any rules are
@@ -3289,10 +3324,10 @@ func (m *ApplyDiscountNotificationRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	if utf8.RuneCountInString(m.GetPartnerName()) > 100 {
+	if l := utf8.RuneCountInString(m.GetPartnerName()); l < 1 || l > 100 {
 		err := ApplyDiscountNotificationRequestValidationError{
 			field:  "PartnerName",
-			reason: "value length must be at most 100 runes",
+			reason: "value length must be between 1 and 100 runes, inclusive",
 		}
 		if !all {
 			return err

@@ -221,7 +221,10 @@ message SearchTransactionPartnerDataItem {
     max_len: 50
   }];
 
-  string partner_name = 2;
+  string partner_name = 2 [(validate.rules).string = {
+    min_len:  1,
+    max_len: 100
+  }];
 
   CountAmountItem count_amount_item = 3;
 }

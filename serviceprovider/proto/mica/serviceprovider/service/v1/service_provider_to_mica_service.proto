@@ -12,7 +12,7 @@ package mica.serviceprovider.service.v1;
 
 import "mica/serviceprovider/discount/v1/discount.proto";
 import "mica/serviceprovider/instrument/v1/instrument.proto";
-import "mica/serviceprovider/paymenttoken/v1/payment_token.proto";
+import "mica/serviceprovider/uuek/v1/uuek.proto";
 import "mica/serviceprovider/serviceprovider/v1/service_provider.proto";
 import "mica/serviceprovider/transaction/v1/transaction.proto";
 import "mica/serviceprovider/user/v1/user.proto";
@@ -29,7 +29,7 @@ option objc_class_prefix = "MICA";
 // the user's instruments (accounts).  In addition there are operations to update, retrieve, search
 // and delete those users and instruments. The SP can retrieve/search Organizations to retrieve
 // information about them that is not passed via ValueObtain or ValueReturn. Finally the SP can
-// provision it's own Payment Tokens which it can distribute to it's own users.
+// provision it's own UUEKs which it can distribute to it's own users.
 // The SP starts by authenticating themselves after which they can call the other operations in
 // this service. At a minimum, the SP will need to call RegisterUser and RegisterInstrument for
 // each user and instrument they want to make available for their users at mica. For both Users and
@@ -71,7 +71,7 @@ service ServiceProviderToMicaService {
   // Retrieve an instrument based on it's key.
   rpc GetInstrument(instrument.v1.GetInstrumentRequest) returns (instrument.v1.GetInstrumentResponse) {}
 
-  // Remove an instrument (and any SP or Partner Payment Tokens) from mica. This renders any existing Payment Tokens as inoperative.
+  // Remove an instrument (and any SP or Partner UUEKs) from mica. This renders any existing UUEKs as inoperative.
   rpc RemoveInstrument(instrument.v1.RemoveInstrumentRequest) returns (instrument.v1.RemoveInstrumentResponse) {}
 
   // Like GetInstrument, can be used to retrieve Instruments based on the criteria in the request.
@@ -87,16 +87,16 @@ service ServiceProviderToMicaService {
   rpc RemovePIN(instrument.v1.RemovePINRequest) returns (instrument.v1.RemovePINResponse) {}
   //</editor-fold>
 
-  //<editor-fold desc="Payment Token Operations">
+  //<editor-fold desc="UUEK Operations">
 
-  // Used to create a payment token that can be given to the SP's users in order to transact at Partners (merhants) that support mica.
-  rpc ProvisionServiceProviderPaymentToken(paymenttoken.v1.ProvisionServiceProviderPaymentTokenRequest) returns (paymenttoken.v1.ProvisionServiceProviderPaymentTokenResponse) {}
+  // Used to create a UUEK that can be given to the SP's users in order to transact at Partners (merhants) that support mica.
+  rpc ProvisionServiceProviderUUEK(uuek.v1.ProvisionServiceProviderUUEKRequest) returns (uuek.v1.ProvisionServiceProviderUUEKResponse) {}
 
-  // Used to remove an existing Payment Token from mica rendering it inoperable.
-  rpc RemoveServiceProviderPaymentToken(paymenttoken.v1.RemoveServiceProviderPaymentTokenRequest) returns (paymenttoken.v1.RemoveServiceProviderPaymentTokenResponse) {}
+  // Used to remove an existing UUEK from mica rendering it inoperable.
+  rpc RemoveServiceProviderUUEK(uuek.v1.RemoveServiceProviderUUEKRequest) returns (uuek.v1.RemoveServiceProviderUUEKResponse) {}
 
-  // Searches for Payment Tokens by criteria.
-  rpc SearchServiceProviderPaymentToken(paymenttoken.v1.SearchServiceProviderPaymentTokenRequest) returns (paymenttoken.v1.SearchServiceProviderPaymentTokenResponse) {}
+  // Searches for UUEKs by criteria.
+  rpc SearchServiceProviderUUEK(uuek.v1.SearchServiceProviderUUEKRequest) returns (uuek.v1.SearchServiceProviderUUEKResponse) {}
   //</editor-fold>
 
   //<editor-fold desc="Person to Person Operations">

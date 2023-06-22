@@ -75,7 +75,7 @@ message SearchUserDiscountRequest {
 
   micashared.common.enums.discounttype.v1.DiscountType type = 3;
 
-  micashared.common.v1.PaginationRequest pagination_request = 4;
+  micashared.common.v1.Pagination pagination = 5;
 }
 
 message SearchUserDiscountResponse {
@@ -90,5 +90,5 @@ message SearchUserDiscountResponse {
 
   repeated ServiceProviderUserDiscount user_discounts = 3;
 
-  micashared.common.v1.PaginationResponse pagination_response = 4;
+  micashared.common.v1.Pagination pagination = 5;
 }

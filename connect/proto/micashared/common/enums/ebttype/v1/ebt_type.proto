@@ -26,4 +26,7 @@ enum EbtType {
 
   // US only - Special Supplemental Nutrition Program for Women, Infants, and Children
   EBT_TYPE_WIC = 3;
+
+  // Program that helps to pay for nycloop
+  EBT_TYPE_NYCLOOP = 4;
 }

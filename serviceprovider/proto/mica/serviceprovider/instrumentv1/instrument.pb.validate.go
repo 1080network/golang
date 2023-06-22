@@ -82,7 +82,7 @@ func (m *RegisterInstrumentRequest) validate(all bool) error {
 
 	// no validation rules for Currency
 
-	// no validation rules for LastFour
+	// no validation rules for Nickname
 
 	for idx, item := range m.GetSettledTransactions() {
 		_, _ = idx, item
@@ -730,7 +730,7 @@ func (m *Instrument) validate(all bool) error {
 
 	// no validation rules for Currency
 
-	// no validation rules for LastFour
+	// no validation rules for Nickname
 
 	if len(errors) > 0 {
 		return InstrumentMultiError(errors)

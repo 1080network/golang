@@ -15,19 +15,16 @@ option java_outer_classname = "PaginationProto";
 option java_package = "io.micashared.common.v1";
 option objc_class_prefix = "MICA";
 
-message PaginationRequest {
+import "validate/validate.proto";
+
+message Pagination {
   // the number of records requested per page returned. This field is ignored when page_token is given
-  int32 page_size = 2;
+  int32 page_size = 1 [(validate.rules).int32 = {lte: 10000}];
 
-  // null on first request and subsequently populated with next_page_token on each subsequent request
-  bytes page_token = 3;
-}
+  // page number requested/returned
+  int32 page_number = 2 [(validate.rules).int32 = {gte: 0, lte: 1000000}];
 
-message PaginationResponse {
-  // the total number of records in the entire result set at the time of the original request. Subsequent changes in
-  // the number of records are ignored
-  int64 total_count = 4;
-
-  // a token representing the next page of these results
-  bytes next_page_token = 5;
+  // set to -1 if the server hasn't counted the total count. This will be filled in on the first request that includes
+  // this type where the value is -1
+  int64 total_count = 3 [(validate.rules).int64 = {gte: -1}];
 }

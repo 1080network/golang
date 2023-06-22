@@ -60,11 +60,11 @@ func (m *SearchServiceProviderRequest) validate(all bool) error {
 	// no validation rules for Name
 
 	if all {
-		switch v := interface{}(m.GetPaginationRequest()).(type) {
+		switch v := interface{}(m.GetPagination()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, SearchServiceProviderRequestValidationError{
-					field:  "PaginationRequest",
+					field:  "Pagination",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -72,16 +72,16 @@ func (m *SearchServiceProviderRequest) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, SearchServiceProviderRequestValidationError{
-					field:  "PaginationRequest",
+					field:  "Pagination",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetPaginationRequest()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetPagination()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return SearchServiceProviderRequestValidationError{
-				field:  "PaginationRequest",
+				field:  "Pagination",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}
@@ -257,11 +257,11 @@ func (m *SearchServiceProviderResponse) validate(all bool) error {
 	}
 
 	if all {
-		switch v := interface{}(m.GetPaginationResponse()).(type) {
+		switch v := interface{}(m.GetPagination()).(type) {
 		case interface{ ValidateAll() error }:
 			if err := v.ValidateAll(); err != nil {
 				errors = append(errors, SearchServiceProviderResponseValidationError{
-					field:  "PaginationResponse",
+					field:  "Pagination",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
@@ -269,16 +269,16 @@ func (m *SearchServiceProviderResponse) validate(all bool) error {
 		case interface{ Validate() error }:
 			if err := v.Validate(); err != nil {
 				errors = append(errors, SearchServiceProviderResponseValidationError{
-					field:  "PaginationResponse",
+					field:  "Pagination",
 					reason: "embedded message failed validation",
 					cause:  err,
 				})
 			}
 		}
-	} else if v, ok := interface{}(m.GetPaginationResponse()).(interface{ Validate() error }); ok {
+	} else if v, ok := interface{}(m.GetPagination()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
 			return SearchServiceProviderResponseValidationError{
-				field:  "PaginationResponse",
+				field:  "Pagination",
 				reason: "embedded message failed validation",
 				cause:  err,
 			}

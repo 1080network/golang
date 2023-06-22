@@ -68,7 +68,38 @@ func (m *ExchangeSessionKeyRequest) validate(all bool) error {
 		errors = append(errors, err)
 	}
 
-	// no validation rules for PartnerInstrumentRef
+	if l := utf8.RuneCountInString(m.GetPartnerUserRef()); l < 1 || l > 100 {
+		err := ExchangeSessionKeyRequestValidationError{
+			field:  "PartnerUserRef",
+			reason: "value length must be between 1 and 100 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetPartnerInstrumentRef()); l < 1 || l > 100 {
+		err := ExchangeSessionKeyRequestValidationError{
+			field:  "PartnerInstrumentRef",
+			reason: "value length must be between 1 and 100 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if l := utf8.RuneCountInString(m.GetPartnerUuekRef()); l < 1 || l > 100 {
+		err := ExchangeSessionKeyRequestValidationError{
+			field:  "PartnerUuekRef",
+			reason: "value length must be between 1 and 100 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return ExchangeSessionKeyRequestMultiError(errors)
@@ -203,7 +234,16 @@ func (m *ExchangeSessionKeyResponse) validate(all bool) error {
 		}
 	}
 
-	// no validation rules for PartnerPaymentToken
+	if l := utf8.RuneCountInString(m.GetPartnerUuek()); l < 30 || l > 50 {
+		err := ExchangeSessionKeyResponseValidationError{
+			field:  "PartnerUuek",
+			reason: "value length must be between 30 and 50 runes, inclusive",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
 
 	if len(errors) > 0 {
 		return ExchangeSessionKeyResponseMultiError(errors)

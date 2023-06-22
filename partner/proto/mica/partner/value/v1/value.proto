@@ -43,8 +43,8 @@ message Value {
 
   micashared.common.enums.valueoperationtype.v1.ValueOperationType operation_type = 5;
 
-  // The payment token of the instrument either one specific to the partner or one provisioned by an Service Provider.
-  string payment_token = 6 [(validate.rules).string = {
+  // The UUEK of the instrument either one specific to the partner or one provisioned by an Service Provider.
+  string uuek = 6 [(validate.rules).string = {
     min_len: 30,
     max_len: 50
   }];
@@ -96,8 +96,11 @@ message Value {
 
 // Type that represents the details of the value request (either to obtain or return).
 message ValueRequest {
-  // The payment token of the instrument is either one specific to the partner or one provisioned by a Service Provider.
-  string payment_token = 1;
+  // The UUEK of the instrument is either one specific to the partner or one provisioned by a Service Provider.
+  string uuek = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
 
   // A unique identifier at the Partner for this transaction.
   string partner_transaction_ref = 2;
@@ -177,13 +180,13 @@ message ObtainValueResponse {
     STATUS_UNSUPPORTED = 10;
     // The Fi is unavailable at this time
     STATUS_SERVICE_PROVIDER_UNAVAILABLE = 11;
-    // The payment token sent is invalid or not found
-    STATUS_INVALID_PAYMENT_TOKEN = 12;
+    // The UUEK sent is invalid or not found
+    STATUS_INVALID_UUEK = 12;
     // A valid PIN is required for this transaction
     STATUS_PIN_REQUIRED = 13;
     // returned when processing an EBT transaction but no line items have been given
     STATUS_MISSING_LINE_ITEMS = 14;
-    // when partial approval is requested but not supported (i.e. non-EBT payment token passed)
+    // when partial approval is requested but not supported (i.e. non-EBT UUEK passed)
     STATUS_PARTIAL_APPROVAL_INVALID = 15;
     // Request resulted in one or more limits being exceeded at the Service Provider
     STATUS_LIMIT_EXCEEDED = 19;
@@ -238,8 +241,8 @@ message ReturnValueResponse {
     STATUS_UNSUPPORTED = 7;
     // The Fi is unavailable at this time
     STATUS_SERVICE_PROVIDER_UNAVAILABLE = 8;
-    // The payment token sent is invalid or not found
-    STATUS_INVALID_PAYMENT_TOKEN = 9;
+    // The UUEK sent is invalid or not found
+    STATUS_INVALID_UUEK = 9;
     // Request resulted in one or more limits being exceeded at the Service Provider
     STATUS_LIMIT_EXCEEDED = 19;
   }
@@ -284,8 +287,8 @@ message GetValueResponse {
 }
 
 message SearchValueRequest {
-  // the paymentToken to find Value operations for
-  string payment_token = 1;
+  // the UUEK to find Value operations for
+  string uuek = 1;
 
   // the Partner's reference for this transaction
   string partner_transaction_ref = 4;

@@ -26,7 +26,13 @@ message ExchangeSessionKeyRequest {
   }];
 
   // Primary key on the external system.
-  string partner_instrument_ref = 2;
+  string partner_user_ref = 3 [(validate.rules).string = {min_len: 1, max_len: 100}];
+
+  // Primary key on the external system.
+  string partner_instrument_ref = 2 [(validate.rules).string = {min_len: 1, max_len: 100}];
+
+  // Primary key on the external system.
+  string partner_uuek_ref = 4 [(validate.rules).string = {min_len: 1, max_len: 100}];
 }
 
 message ExchangeSessionKeyResponse {
@@ -41,6 +47,9 @@ message ExchangeSessionKeyResponse {
 
   micashared.common.v1.Error error = 2;
 
-  // The payment token that the Partner can use to obtain or return value for this user.
-  string partner_payment_token = 3;
+  // The UUEK that the Partner can use to obtain or return value for this user.
+  string partner_uuek = 3 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
 }

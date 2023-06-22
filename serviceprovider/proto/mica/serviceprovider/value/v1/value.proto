@@ -33,7 +33,7 @@ message Value {
     max_len: 50
   }];
 
-  // version of the user record, used for optimistic locking
+  // version of the user record, used for optimistic locking.
   int64 version = 2;
 
   // Date that the Store was created at Mica.
@@ -219,8 +219,8 @@ message ObtainValueResponse {
     STATUS_UNSUPPORTED = 10;
     // The Service Provider is temporarily unavailable
     STATUS_SERVICE_PROVIDER_UNAVAILABLE = 11;
-    // The payment token sent is invalid or not found
-    STATUS_INVALID_PAYMENT_TOKEN = 12;
+    // The UUEK sent is invalid or not found
+    STATUS_INVALID_UUEK = 12;
     // A valid PIN is required for this transaction
     STATUS_PIN_REQUIRED = 13;
     // Request resulted in one or more limits being exceeded at the Service Provider
@@ -266,8 +266,8 @@ message ReturnValueResponse {
     STATUS_UNSUPPORTED = 10;
     // The Service Provider is temporarily unavailable
     STATUS_SERVICE_PROVIDER_UNAVAILABLE = 11;
-    // The payment token sent is invalid or not found
-    STATUS_INVALID_PAYMENT_TOKEN = 12;
+    // The UUEK sent is invalid or not found
+    STATUS_INVALID_UUEK = 12;
     // A valid PIN is required for this transaction
     STATUS_PIN_REQUIRED = 13;
     // Request resulted in one or more limits being exceeded at the Service Provider
@@ -284,8 +284,8 @@ message ReturnValueResponse {
 }
 
 message From {
-  // the sender payment_token
-  string payment_token = 4;
+  // the sender uuek
+  string uuek = 4;
 
   // The first name of the sender.
   string first_name = 5;
@@ -362,8 +362,8 @@ message SearchValueRequest {
     max_len: 50
   }];
 
-  // The payment token of the user.
-  string service_provider_payment_token = 2;
+  // The UUEK of the user.
+  string service_provider_uuek = 2;
 
   // Service Provider's primary key for their instrument.
   string service_provider_instrument_ref = 3;
@@ -402,7 +402,7 @@ message SendValueRequest {
   }];
 
   // @gotags: mask:"security"
-  string to_payment_token = 3 [(validate.rules).string = {
+  string to_uuek = 3 [(validate.rules).string = {
     min_len: 30,
     max_len: 50
   }];
