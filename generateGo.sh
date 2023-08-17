@@ -9,9 +9,14 @@ VENDOR=$PWD/vendor
 
 pushd $INPUT_DIR
 echo "GENERATING GOLANG proto bindings"
+#protoc --go_out $OUTPUT_DIR --go_opt paths=import \
+#      --go-grpc_out $OUTPUT_DIR --go-grpc_opt paths=import \
+#      --validate_out="lang=go:$OUTPUT_DIR" \
+#      -I . \
+#      -I $VENDOR/github.com/envoyproxy/protoc-gen-validate \
+#      $(find . -name \*.proto)
 protoc --go_out $OUTPUT_DIR --go_opt paths=import \
       --go-grpc_out $OUTPUT_DIR --go-grpc_opt paths=import \
-      --validate_out="lang=go:$OUTPUT_DIR" \
       -I . \
       -I $VENDOR/github.com/envoyproxy/protoc-gen-validate \
       $(find . -name \*.proto)

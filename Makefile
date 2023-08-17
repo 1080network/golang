@@ -48,6 +48,7 @@ vendor:
 
 .PHONY: generate
 generate:
+	pushd proto && git pull && popd
 	go generate proto.go
 
 prepare: generate vendor

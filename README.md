@@ -1,32 +1,24 @@
 # Go
 
 ## Introduction
-This repository contains the generated Go code from the 1080 Proto
-(see: [proto repository](https://github.com/1080network/proto)) files
-along with a small sample for showing how to use it.
+This repository contains the Mica Network SDK for golang.
+The APIs use [gRPC](https://grpc.io) to communicate to or listen from the Mica Network. Most of the code in this repository
+is generated from the [proto repository](https://github.com/1080network/proto)
 
-## Getting Started
+### Cloning this repo
+This repository uses a git submodule to get the proto definition code. You can clone with the following command to get the submodule initialized 
 
+```shell
+git clone --recurse-submodules git@github.com:1080network/golang.git
+```
 ### Build
-A sample main file is provided that makes Ping, Authenticate, and CreateServiceAccount calls. 
+To build this code you need to install the pre-requisites listed [here](https://grpc.io/docs/languages/go/quickstart/#prerequisites) and have gnu Make.
 
-To build run:
-```shell script
-go build
+Once you have the pre-requisites just run the following command:
+
+```shell
+make all
 ```
 
-### Test connectivity by calling Ping
-The following two commands run the ten80 application and ping either the
-partner or sp service:
-```shell script
-./ten80 partner ping -endpoint grpc.5m9gg.demo.1080.network:443
-./ten80 sp ping -endpoint grpc.uparn.demo.1080.network:443
-```
-
-### To see how to do authentication and authorization
-The command's usage text provides a step-by-step walkthrough of setting up your own jwt private key credential.
-
-To print usage information run:
-```shell script
-./ten80 -h
-```
+### Code examples
+Check the examples directory for references on how to use the SDK
