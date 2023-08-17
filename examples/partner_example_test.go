@@ -22,7 +22,7 @@ func initializeClient() (partnersvc.PartnerToMicaServiceClient, error) {
 	return partnerClient, nil
 }
 
-func Test_ping(t *testing.T) {
+func Test_Ping(t *testing.T) {
 	client, err := initializeClient()
 	assert.NoError(t, err)
 	response, err := client.Ping(context.TODO(), &pingv1.PingRequest{})
