@@ -30,6 +30,16 @@ message DiscountLineItem {
 }
 
 message AppliedDiscount {
+  string discount_provider_key = 7 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  string discount_provider_account_key = 8 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
   string discount_key = 1 [(validate.rules).string = {
     min_len: 30,
     max_len: 50
@@ -44,4 +54,12 @@ message AppliedDiscount {
   string discount_tax_amount = 5;
 
   repeated DiscountLineItem discount_line_items = 6;
+}
+
+message DiscountSummary {
+  // the total amount that was discounted
+  string discount_amount = 1; 
+
+  // number of discounts applied 0 or more
+  int32 discounts_applied = 2 [(validate.rules).int32.gte = 0];
 }

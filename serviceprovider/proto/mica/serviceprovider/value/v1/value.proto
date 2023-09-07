@@ -12,7 +12,6 @@ package mica.serviceprovider.value.v1;
 
 import "google/protobuf/timestamp.proto";
 import "micashared/common/enums/approvaltype/v1/approval_type.proto";
-import "micashared/common/enums/channel/v1/channel.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
 import "micashared/common/enums/valueoperationtype/v1/value_operation_type.proto";
@@ -49,9 +48,6 @@ message Value {
 
   // Service Provider's primary key for their instrument.
   string service_provider_instrument_ref = 7;
-
-  // How this transaction should be processed.
-  micashared.common.enums.channel.v1.Channel channel = 8;
 
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
   micashared.common.enums.currency.v1.Currency currency = 9;
@@ -119,9 +115,6 @@ message ValueRequest {
 
   // Service Provider's primary key for their instrument.
   string service_provider_instrument_ref = 3;
-
-  // How this transaction should be processed.
-  micashared.common.enums.channel.v1.Channel channel = 4;
 
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
   micashared.common.enums.currency.v1.Currency currency = 5;

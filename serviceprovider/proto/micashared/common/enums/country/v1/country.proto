@@ -20,4 +20,6 @@ enum Country {
   COUNTRY_UNSPECIFIED = 0;
 
   COUNTRY_US = 1; // United States
+
+  COUNTRY_JM = 2; // Jamacia
 }

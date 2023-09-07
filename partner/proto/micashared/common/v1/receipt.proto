@@ -11,7 +11,8 @@ syntax = "proto3";
 package micashared.common.v1;
 
 import "google/protobuf/timestamp.proto";
-import "micashared/common/enums/channel/v1/channel.proto";
+import "micashared/common/enums/barcodelocation/v1/barcode_location.proto";
+import "micashared/common/enums/barcodetype/v1/barcode_type.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
 import "micashared/common/enums/valueoperationtype/v1/value_operation_type.proto";
@@ -55,9 +56,6 @@ message Receipt {
 
   // Service Provider's primary key for their instrument.
   string service_provider_instrument_ref = 8;
-
-  // How this transaction should be processed.
-  micashared.common.enums.channel.v1.Channel channel = 9;
 
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
   micashared.common.enums.currency.v1.Currency currency = 10;
@@ -113,6 +111,12 @@ message Receipt {
   repeated AppliedDiscount applied_discounts = 24;
 
   repeated micashared.common.v1.Adjustment adjustments = 25;
+
+  micashared.common.enums.barcodetype.v1.BarcodeType barcode_type = 26;
+
+  micashared.common.enums.barcodelocation.v1.BarcodeLocation barcode_location = 27;
+
+  string barcode_text = 28;
 }
 
 message GetReceiptRequest {

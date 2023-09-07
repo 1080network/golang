@@ -12,7 +12,6 @@ package mica.discount.discountprovider.v1;
 
 import "google/protobuf/timestamp.proto";
 import "micashared/common/v1/address.proto";
-import "micashared/common/v1/bank_account_detail.proto";
 import "micashared/common/v1/error.proto";
 import "validate/validate.proto";
 
@@ -42,9 +41,6 @@ message DiscountProvider {
   string email = 9;
 
   string phone = 10;
-
-  // Bank account of the Discount Provider to send revenue to
-  micashared.common.v1.BankAccountDetail bank_account_detail = 11;
 }
 
 message GetDiscountProviderRequest {}
@@ -75,8 +71,6 @@ message UpdateDiscountProviderRequest {
   string email = 5;
 
   string phone = 6;
-
-  micashared.common.v1.BankAccountDetail bank_account_detail = 7;
 }
 
 message UpdateDiscountProviderResponse {

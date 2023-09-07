@@ -152,11 +152,13 @@ message SearchUserRequest {
   // The key representing this user in Mica.
   string service_provider_user_key = 1;
 
-  string first_name = 2;
+  string first_name = 2; // @gotags: mask:"pii"
 
-  string last_name = 3;
+  string last_name = 3; // @gotags: mask:"pii"
 
-  string username = 4;
+  string email = 4; // @gotags: mask:"pii"
+
+  string phone = 5; // @gotags: mask:"pii"
 }
 
 message SearchUserResponse {

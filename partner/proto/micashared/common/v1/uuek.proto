@@ -41,6 +41,17 @@ message CommonUUEK {
 
   google.protobuf.Timestamp valid_to = 7;
 
+  // a maximum transaction that is allowed for this UUEK if the value request exceeds this
+  // amount it will fail. If not set any transaction amount is allowed.
+  string spend_limit = 10;
+
+  oneof use_criteria {
+    option (validate.required) = true;
+    uint32 number_of_uses = 11 [(validate.rules).uint32.gt = 0]; 
+
+    bool unlimited = 12;
+  }
+
   // The 3-letter currency code defined in ISO 4217.
   micashared.common.enums.currency.v1.Currency currency = 8;
 }

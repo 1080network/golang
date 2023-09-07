@@ -15,6 +15,8 @@ import "micashared/common/v1/console_user.proto";
 import "micashared/common/v1/external_client.proto";
 import "micashared/common/v1/mtls_certificate.proto";
 
+import "validate/validate.proto";
+
 option go_package = "mica/serviceprovider/administrationv1";
 option java_outer_classname = "AdministrationService";
 option java_package = "io.mica.serviceprovider.administration.v1";
@@ -55,4 +57,19 @@ service ServiceProviderAdministrationService {
 
   // tests the external call to verify proper configuration and connectivity
   rpc PingExternal(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+
+  rpc PingExternalWithCertificate(PingExternalWithCertificateRequest) returns (PingExternalWithCertificateResponse) {}
+}
+
+
+message PingExternalWithCertificateRequest {
+  string certificate_ref_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+}
+
+message PingExternalWithCertificateResponse {
+  string certificate_ref_key = 1;
+  micashared.common.ping.v1.PingResponse response = 2;
 }

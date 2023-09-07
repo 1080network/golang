@@ -23,7 +23,7 @@ protoc --go_out $OUTPUT_DIR --go_opt paths=import \
 
 if [[ $? -ne 0 ]] ; then
 	popd
-	echo "Miserable failure on your part man"
+	echo "Unable to generate grpc bindings"
 	exit 1
 fi
 

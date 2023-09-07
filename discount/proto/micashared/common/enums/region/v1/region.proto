@@ -15,7 +15,7 @@ option java_outer_classname = "RegionEnumProto";
 option java_package = "io.micashared.common.enums.v1";
 option objc_class_prefix = "MICA";
 
-// ISO 3166-2:US
+// ISO 3166-2
 enum Region {
   REGION_UNSPECIFIED = 0;
 
@@ -76,4 +76,18 @@ enum Region {
   REGION_US_PR = 55; // Puerto Rico
   REGION_US_UM = 56; // United States Minor Outlying Islands
   REGION_US_VI = 57; // U.S. Virgin Islands
+  REGION_JM_01 = 58; // Kingston
+  REGION_JM_02 = 59; // Saint Andrew
+  REGION_JM_03 = 60; // Saint Thomas
+  REGION_JM_04 = 61; // Portland
+  REGION_JM_05 = 62; // Saint Mary
+  REGION_JM_06 = 63; // Saint Ann
+  REGION_JM_07 = 64; // Trelawny
+  REGION_JM_08 = 65; // Saint James
+  REGION_JM_09 = 66; // Hanover
+  REGION_JM_10 = 67; // Westmoreland
+  REGION_JM_11 = 68; // Saint Elizabeth
+  REGION_JM_12 = 69; // Manchester
+  REGION_JM_13 = 70; // Clarendon
+  REGION_JM_14 = 71; // Saint Catherine
 }

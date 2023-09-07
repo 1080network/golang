@@ -12,12 +12,12 @@ package mica.partner.value.v1;
 
 import "google/protobuf/timestamp.proto";
 import "micashared/common/enums/approvaltype/v1/approval_type.proto";
-import "micashared/common/enums/channel/v1/channel.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
 import "micashared/common/enums/valueoperationtype/v1/value_operation_type.proto";
 import "micashared/common/v1/error.proto";
 import "micashared/common/v1/line_item.proto";
+import "micashared/common/v1/discount.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/partner/valuev1";
@@ -51,9 +51,6 @@ message Value {
 
   // A unique identifier at the Partner for this transaction.
   string partner_transaction_ref = 7;
-
-  // How this transaction should be processed.
-  micashared.common.enums.channel.v1.Channel channel = 8;
 
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
   micashared.common.enums.currency.v1.Currency currency = 9;
@@ -105,9 +102,6 @@ message ValueRequest {
   // A unique identifier at the Partner for this transaction.
   string partner_transaction_ref = 2;
 
-  // How this transaction should be processed.
-  micashared.common.enums.channel.v1.Channel channel = 3;
-
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
   micashared.common.enums.currency.v1.Currency currency = 4;
 
@@ -141,6 +135,8 @@ message ValueRequest {
   repeated micashared.common.v1.LineItem line_items = 11;
 
   repeated micashared.common.v1.Adjustment adjustments = 12;
+
+  string barcode_text = 13;
 }
 
 message ObtainValueRequest {
@@ -206,6 +202,9 @@ message ObtainValueResponse {
 
   // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
   string approved_amount = 5;
+
+  // summary of discounts that were applied
+  micashared.common.v1.DiscountSummary discount_summary = 7;
 
   // status of each line item based on processing by Mica. The list will be in the same order as the request and will
   // will typically have a status of LINE_ITEM_STATUS_ELIGIBLE.

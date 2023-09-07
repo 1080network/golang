@@ -12,9 +12,12 @@ package micashared.common.v1;
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
+import "micashared/common/enums/barcodelocation/v1/barcode_location.proto";
+import "micashared/common/enums/barcodetype/v1/barcode_type.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
 import "micashared/common/v1/address.proto";
+import "micashared/common/v1/bank_account_detail.proto";
 import "validate/validate.proto";
 
 option go_package = "micashared/common/v1;commonv1";
@@ -52,20 +55,13 @@ message Organization {
   // The street address of the organization.
   micashared.common.v1.Address address = 9;
 
-  // The organizations domestic ACH routing number (9 characters)
-  string domestic_ach_routing_number = 10 [(validate.rules).string.pattern = "^|\\w{9}$"];
+  micashared.common.v1.BankAccountDetail operating_account = 15;
 
-  // The organizations international ACH routing number (9 characters)
-  string international_ach_routing_number = 11 [(validate.rules).string.pattern = "^|\\w{9}$"];
+  micashared.common.v1.BankAccountDetail revenue_account = 16;
 
-  // The organizations wire routing number (9 characters)
-  string wire_routing_number = 12 [(validate.rules).string.pattern = "^|\\w{9}$"];
+  micashared.common.enums.barcodetype.v1.BarcodeType barcode_type = 17 [(validate.rules).enum = {not_in: [0]}];
 
-  // The organizations swift routing number (9 characters)
-  string swift_routing_number = 13 [(validate.rules).string.pattern = "^|\\w{9}$"];
-
-  // The organizations bank account number (14 digits)
-  string bank_account_number = 14 [(validate.rules).string.pattern = "^|\\w{14}$"];
+  micashared.common.enums.barcodelocation.v1.BarcodeLocation barcode_location = 18 [(validate.rules).enum = {not_in: [0]}];
 }
 
 message LegacyConfiguration {

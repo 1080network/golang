@@ -43,6 +43,7 @@ const (
 	ServiceProviderAdministrationService_UpdateExternalClientMTLSCertificate_FullMethodName   = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateExternalClientMTLSCertificate"
 	ServiceProviderAdministrationService_SearchExternalClientMTLSCertificate_FullMethodName   = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/SearchExternalClientMTLSCertificate"
 	ServiceProviderAdministrationService_PingExternal_FullMethodName                          = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/PingExternal"
+	ServiceProviderAdministrationService_PingExternalWithCertificate_FullMethodName           = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/PingExternalWithCertificate"
 )
 
 // ServiceProviderAdministrationServiceClient is the client API for ServiceProviderAdministrationService service.
@@ -69,6 +70,7 @@ type ServiceProviderAdministrationServiceClient interface {
 	SearchExternalClientMTLSCertificate(ctx context.Context, in *v1.SearchExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchExternalClientMTLSCertificateResponse, error)
 	// tests the external call to verify proper configuration and connectivity
 	PingExternal(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
+	PingExternalWithCertificate(ctx context.Context, in *PingExternalWithCertificateRequest, opts ...grpc.CallOption) (*PingExternalWithCertificateResponse, error)
 }
 
 type serviceProviderAdministrationServiceClient struct {
@@ -205,6 +207,15 @@ func (c *serviceProviderAdministrationServiceClient) PingExternal(ctx context.Co
 	return out, nil
 }
 
+func (c *serviceProviderAdministrationServiceClient) PingExternalWithCertificate(ctx context.Context, in *PingExternalWithCertificateRequest, opts ...grpc.CallOption) (*PingExternalWithCertificateResponse, error) {
+	out := new(PingExternalWithCertificateResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_PingExternalWithCertificate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceProviderAdministrationServiceServer is the server API for ServiceProviderAdministrationService service.
 // All implementations must embed UnimplementedServiceProviderAdministrationServiceServer
 // for forward compatibility
@@ -229,6 +240,7 @@ type ServiceProviderAdministrationServiceServer interface {
 	SearchExternalClientMTLSCertificate(context.Context, *v1.SearchExternalClientMTLSCertificateRequest) (*v1.SearchExternalClientMTLSCertificateResponse, error)
 	// tests the external call to verify proper configuration and connectivity
 	PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
+	PingExternalWithCertificate(context.Context, *PingExternalWithCertificateRequest) (*PingExternalWithCertificateResponse, error)
 	mustEmbedUnimplementedServiceProviderAdministrationServiceServer()
 }
 
@@ -277,6 +289,9 @@ func (UnimplementedServiceProviderAdministrationServiceServer) SearchExternalCli
 }
 func (UnimplementedServiceProviderAdministrationServiceServer) PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PingExternal not implemented")
+}
+func (UnimplementedServiceProviderAdministrationServiceServer) PingExternalWithCertificate(context.Context, *PingExternalWithCertificateRequest) (*PingExternalWithCertificateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PingExternalWithCertificate not implemented")
 }
 func (UnimplementedServiceProviderAdministrationServiceServer) mustEmbedUnimplementedServiceProviderAdministrationServiceServer() {
 }
@@ -544,6 +559,24 @@ func _ServiceProviderAdministrationService_PingExternal_Handler(srv interface{},
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceProviderAdministrationService_PingExternalWithCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PingExternalWithCertificateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderAdministrationServiceServer).PingExternalWithCertificate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderAdministrationService_PingExternalWithCertificate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderAdministrationServiceServer).PingExternalWithCertificate(ctx, req.(*PingExternalWithCertificateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ServiceProviderAdministrationService_ServiceDesc is the grpc.ServiceDesc for ServiceProviderAdministrationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -606,6 +639,10 @@ var ServiceProviderAdministrationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "PingExternal",
 			Handler:    _ServiceProviderAdministrationService_PingExternal_Handler,
+		},
+		{
+			MethodName: "PingExternalWithCertificate",
+			Handler:    _ServiceProviderAdministrationService_PingExternalWithCertificate_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

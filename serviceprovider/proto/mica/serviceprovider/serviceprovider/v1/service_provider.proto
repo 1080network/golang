@@ -13,6 +13,7 @@ package mica.serviceprovider.serviceprovider.v1;
 import "google/protobuf/timestamp.proto";
 import "micashared/common/enums/accounttype/v1/account_type.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
+import "micashared/common/v1/bank_account_detail.proto";
 import "micashared/common/v1/error.proto";
 import "validate/validate.proto";
 
@@ -55,6 +56,10 @@ message ServiceProvider {
   string service_provider_url = 6;
 
   repeated ServiceProviderAccount service_provider_accounts = 7;
+
+  micashared.common.v1.BankAccountDetail operating_account = 8;
+
+  micashared.common.v1.BankAccountDetail revenue_account = 9;
 }
 
 message GetServiceProviderRequest {}

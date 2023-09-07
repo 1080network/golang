@@ -42,7 +42,9 @@ message DiscountProviderAccount {
 
   string name = 7 [(validate.rules).string.max_len = 100];
 
-  micashared.common.v1.BankAccountDetail bank_account_detail = 8;
+  micashared.common.v1.BankAccountDetail operating_account = 8;
+
+  micashared.common.v1.BankAccountDetail revenue_account = 9;
 }
 
 enum DiscountProviderAccountStatus {
@@ -65,7 +67,9 @@ message CreateDiscountProviderAccountRequest {
 
   DiscountProviderAccountStatus discount_provider_account_status = 3;
 
-  micashared.common.v1.BankAccountDetail bank_account_detail = 4;
+  micashared.common.v1.BankAccountDetail operating_account = 4;
+
+  micashared.common.v1.BankAccountDetail revenue_account = 5;
 }
 
 message CreateDiscountProviderAccountResponse {
@@ -130,7 +134,9 @@ message UpdateDiscountProviderAccountRequest {
 
   string name = 4 [(validate.rules).string.max_len = 100];
 
-  micashared.common.v1.BankAccountDetail bank_account_detail = 5;
+  micashared.common.v1.BankAccountDetail operating_account = 5;
+
+  micashared.common.v1.BankAccountDetail revenue_account = 7;
 }
 
 message UpdateDiscountProviderAccountResponse {
@@ -209,7 +215,9 @@ message SearchDiscountProviderAccountRequest {
 
   string name = 2 [(validate.rules).string.max_len = 100];
 
-  micashared.common.v1.BankAccountDetail bank_account_detail = 3;
+  micashared.common.v1.BankAccountDetailSearch operating_account = 3;
+
+  micashared.common.v1.BankAccountDetailSearch revenue_account = 4;
 }
 
 message SearchDiscountProviderAccountResponse {

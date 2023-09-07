@@ -30,11 +30,12 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ConnectService_SearchServiceProvider_FullMethodName               = "/mica.connect.service.v1.ConnectService/SearchServiceProvider"
-	ConnectService_WidgetRegisterInstrumentInitiate_FullMethodName    = "/mica.connect.service.v1.ConnectService/WidgetRegisterInstrumentInitiate"
-	ConnectService_WidgetRegisterInstrumentWithAccount_FullMethodName = "/mica.connect.service.v1.ConnectService/WidgetRegisterInstrumentWithAccount"
-	ConnectService_WidgetRegisterInstrumentComplete_FullMethodName    = "/mica.connect.service.v1.ConnectService/WidgetRegisterInstrumentComplete"
-	ConnectService_Ping_FullMethodName                                = "/mica.connect.service.v1.ConnectService/Ping"
+	ConnectService_SearchServiceProvider_FullMethodName                        = "/mica.connect.service.v1.ConnectService/SearchServiceProvider"
+	ConnectService_WidgetRegisterInstrumentWithVerificationCode_FullMethodName = "/mica.connect.service.v1.ConnectService/WidgetRegisterInstrumentWithVerificationCode"
+	ConnectService_WidgetRegisterInstrumentInitiate_FullMethodName             = "/mica.connect.service.v1.ConnectService/WidgetRegisterInstrumentInitiate"
+	ConnectService_WidgetRegisterInstrumentWithAccount_FullMethodName          = "/mica.connect.service.v1.ConnectService/WidgetRegisterInstrumentWithAccount"
+	ConnectService_WidgetRegisterInstrumentComplete_FullMethodName             = "/mica.connect.service.v1.ConnectService/WidgetRegisterInstrumentComplete"
+	ConnectService_Ping_FullMethodName                                         = "/mica.connect.service.v1.ConnectService/Ping"
 )
 
 // ConnectServiceClient is the client API for ConnectService service.
@@ -44,6 +45,8 @@ type ConnectServiceClient interface {
 	// Find Service Providers that match a given name. This includes pagination. Called by the mica Widget to populate
 	// the list of Service Providers the user can choose from. Called from Widget.
 	SearchServiceProvider(ctx context.Context, in *serviceproviderv1.SearchServiceProviderRequest, opts ...grpc.CallOption) (*serviceproviderv1.SearchServiceProviderResponse, error)
+	// Initiate an enrollemt where the user has already obtained a verification code
+	WidgetRegisterInstrumentWithVerificationCode(ctx context.Context, in *WidgetRegisterInstrumentWithVerificationCodeRequest, opts ...grpc.CallOption) (*WidgetRegisterInstrumentWithVerificationCodeResponse, error)
 	// Following the call from Partner to InitializeWidget, this call is the first one that the Widget makes after the
 	// user has provided the necessary details to determine their identity. It returns a list of instruments that the
 	// user has. Called from Widget.
@@ -69,6 +72,15 @@ func NewConnectServiceClient(cc grpc.ClientConnInterface) ConnectServiceClient {
 func (c *connectServiceClient) SearchServiceProvider(ctx context.Context, in *serviceproviderv1.SearchServiceProviderRequest, opts ...grpc.CallOption) (*serviceproviderv1.SearchServiceProviderResponse, error) {
 	out := new(serviceproviderv1.SearchServiceProviderResponse)
 	err := c.cc.Invoke(ctx, ConnectService_SearchServiceProvider_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *connectServiceClient) WidgetRegisterInstrumentWithVerificationCode(ctx context.Context, in *WidgetRegisterInstrumentWithVerificationCodeRequest, opts ...grpc.CallOption) (*WidgetRegisterInstrumentWithVerificationCodeResponse, error) {
+	out := new(WidgetRegisterInstrumentWithVerificationCodeResponse)
+	err := c.cc.Invoke(ctx, ConnectService_WidgetRegisterInstrumentWithVerificationCode_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -118,6 +130,8 @@ type ConnectServiceServer interface {
 	// Find Service Providers that match a given name. This includes pagination. Called by the mica Widget to populate
 	// the list of Service Providers the user can choose from. Called from Widget.
 	SearchServiceProvider(context.Context, *serviceproviderv1.SearchServiceProviderRequest) (*serviceproviderv1.SearchServiceProviderResponse, error)
+	// Initiate an enrollemt where the user has already obtained a verification code
+	WidgetRegisterInstrumentWithVerificationCode(context.Context, *WidgetRegisterInstrumentWithVerificationCodeRequest) (*WidgetRegisterInstrumentWithVerificationCodeResponse, error)
 	// Following the call from Partner to InitializeWidget, this call is the first one that the Widget makes after the
 	// user has provided the necessary details to determine their identity. It returns a list of instruments that the
 	// user has. Called from Widget.
@@ -139,6 +153,9 @@ type UnimplementedConnectServiceServer struct {
 
 func (UnimplementedConnectServiceServer) SearchServiceProvider(context.Context, *serviceproviderv1.SearchServiceProviderRequest) (*serviceproviderv1.SearchServiceProviderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchServiceProvider not implemented")
+}
+func (UnimplementedConnectServiceServer) WidgetRegisterInstrumentWithVerificationCode(context.Context, *WidgetRegisterInstrumentWithVerificationCodeRequest) (*WidgetRegisterInstrumentWithVerificationCodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method WidgetRegisterInstrumentWithVerificationCode not implemented")
 }
 func (UnimplementedConnectServiceServer) WidgetRegisterInstrumentInitiate(context.Context, *instrumentv1.WidgetRegisterInstrumentInitiateRequest) (*instrumentv1.WidgetRegisterInstrumentInitiateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WidgetRegisterInstrumentInitiate not implemented")
@@ -179,6 +196,24 @@ func _ConnectService_SearchServiceProvider_Handler(srv interface{}, ctx context.
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ConnectServiceServer).SearchServiceProvider(ctx, req.(*serviceproviderv1.SearchServiceProviderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ConnectService_WidgetRegisterInstrumentWithVerificationCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WidgetRegisterInstrumentWithVerificationCodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ConnectServiceServer).WidgetRegisterInstrumentWithVerificationCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ConnectService_WidgetRegisterInstrumentWithVerificationCode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ConnectServiceServer).WidgetRegisterInstrumentWithVerificationCode(ctx, req.(*WidgetRegisterInstrumentWithVerificationCodeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -265,6 +300,10 @@ var ConnectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchServiceProvider",
 			Handler:    _ConnectService_SearchServiceProvider_Handler,
+		},
+		{
+			MethodName: "WidgetRegisterInstrumentWithVerificationCode",
+			Handler:    _ConnectService_WidgetRegisterInstrumentWithVerificationCode_Handler,
 		},
 		{
 			MethodName: "WidgetRegisterInstrumentInitiate",

@@ -45,6 +45,7 @@ message ServiceProviderUUEK {
 // to Mica
 message ProvisionServiceProviderUUEKRequest {
   oneof criteria {
+    option (validate.required) = true;
     // The key representing this instrument in Mica.
     string service_provider_instrument_key = 1 [(validate.rules).string = {
       min_len: 30,
@@ -60,6 +61,19 @@ message ProvisionServiceProviderUUEKRequest {
 
   // if set the provisioned UUEK will expired at the specified time, if not set it will be used untile removed
   google.protobuf.Timestamp valid_to = 4;
+
+  // a maximum transaction that is allowed for this UUEK if the value request exceeds this
+  // amount it will fail. If not set any transaction amount is allowed.
+  string spend_limit = 5;
+
+  // the number of transactions that this UUEK can be used 
+  // either a positive value greater than 0 or make it unlimited
+  oneof use_criteria {
+    option (validate.required) = true;
+    uint32 number_of_uses = 6 [(validate.rules).uint32.gt = 0]; 
+
+    bool unlimited = 7;
+  }
 }
 
 message ProvisionServiceProviderUUEKResponse {
