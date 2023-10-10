@@ -18,7 +18,7 @@ import "micashared/common/v1/user.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/serviceprovider/servicev1";
-option java_outer_classname = "ServiceProviderToMicaServiceProto";
+option java_outer_classname = "ServiceProviderToMicaWIPServiceProto";
 option java_package = "io.mica.serviceprovider.service.v1";
 option objc_class_prefix = "MICA";
 
@@ -154,6 +154,9 @@ message ProvisionEnrollmentValidationCodeRequest {
     string service_provider_instrument_ref = 3;
     string service_provider_instrument_key = 4;
   }
+
+  //if this is set the values will be shared with the other side that is performing the enrollment
+  micashared.common.v1.UserDemographic shared_user_information = 5;
 }
 
 message ProvisionEnrollmentValidationCodeResponse {

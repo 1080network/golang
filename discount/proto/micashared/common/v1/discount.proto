@@ -10,51 +10,12 @@ syntax = "proto3";
 
 package micashared.common.v1;
 
-import "micashared/common/enums/discounttype/v1/discount_type.proto";
-import "micashared/common/enums/unit/v1/unit.proto";
 import "validate/validate.proto";
 
 option go_package = "micashared/common/v1;commonv1";
 option java_outer_classname = "DiscountProto";
 option java_package = "io.micashared.common.v1";
 option objc_class_prefix = "MICA";
-
-message DiscountLineItem {
-  int32 sequence = 1;
-
-  // quantity of this line item that was applicable to the given discount
-  string quantity = 2;
-
-  // unit of this line item that was applicable to the given discount
-  micashared.common.enums.unit.v1.Unit unit = 3;
-}
-
-message AppliedDiscount {
-  string discount_provider_key = 7 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-
-  string discount_provider_account_key = 8 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-
-  string discount_key = 1 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-
-  string receipt_description = 2;
-
-  enums.discounttype.v1.DiscountType discount_type = 3;
-
-  string discount_amount = 4;
-
-  string discount_tax_amount = 5;
-
-  repeated DiscountLineItem discount_line_items = 6;
-}
 
 message DiscountSummary {
   // the total amount that was discounted

@@ -2,8 +2,6 @@ package example
 
 import (
 	"context"
-	"encoding/base64"
-	"errors"
 	"fmt"
 	"github.com/1080network/golang/partner"
 	"github.com/1080network/golang/partner/proto/mica/partner/organizationv1"
@@ -21,7 +19,6 @@ import (
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"google.golang.org/grpc"
-	"os"
 	"testing"
 )
 
@@ -99,6 +96,9 @@ func TestGetOrganization(t *testing.T) {
 }
 
 func TestUpdateOrganization(t *testing.T) {
+	//this test works but a bug in the backend trashes the organization because we loose the categories
+	t.SkipNow()
+	return
 	ctx := context.TODO()
 	micaClient, conn, err := initializeClient()
 	defer func() {
@@ -129,6 +129,38 @@ func TestUpdateOrganization(t *testing.T) {
 	assert.Equal(t, organizationv1.UpdateOrganizationResponse_STATUS_SUCCESS, updateResponse.Status)
 }
 
+func TestObtainValueWithoutBasked(t *testing.T) {
+	ctx := context.TODO()
+	micaClient, conn, err := initializeClient()
+	defer func() {
+		if conn != nil {
+			conn.Close()
+		}
+	}()
+	//bh9ndiSEVFhRiyjyREKw47tm6B6Pmg
+	assert.NoError(t, err)
+	valueRequest := &valuev1.ValueRequest{
+		Uuek:                  "bh9ndiSEVFhRiyjyREKw47tm6B6Pmg",
+		PartnerTransactionRef: uuid.NewString(),
+		OrderNumber:           uuid.NewString(),
+		Currency:              currencyv1.Currency_CURRENCY_USD,
+		OrganizationKey:       "hron3n00MDV90UjuTAi71blY95IkwA",
+		StoreKey:              "hron3n00RJFObOfhRfKxf1JJDHXnvw",
+		Category:              organizationcategoryv1.OrganizationCategory_ORGANIZATION_CATEGORY_GROCERY,
+		ClerkIdentifier:       "Clerk logged int",
+		TotalAmount:           "30.672",
+		Adjustments:           nil,
+	}
+	obtainValueRequest := &valuev1.ObtainValueRequest{
+		ApprovalType: approvaltypev1.ApprovalType_APPROVAL_TYPE_FULL,
+		Value:        valueRequest,
+	}
+	response, err := micaClient.ObtainValue(ctx, obtainValueRequest)
+	assert.NoError(t, err)
+	assert.NotEqual(t, valuev1.ObtainValueResponse_STATUS_ERROR, response.Status)
+	fmt.Println(fmt.Sprintf("%v", response))
+}
+
 func TestObtainValueWithBasket(t *testing.T) {
 	ctx := context.TODO()
 	micaClient, conn, err := initializeClient()
@@ -137,58 +169,33 @@ func TestObtainValueWithBasket(t *testing.T) {
 			conn.Close()
 		}
 	}()
+	assert.NoError(t, err)
 	lineItems := []*commonv1.LineItem{
 		{
 			Sequence:      1,
-			LineItemGroup: "Boxed Items",
+			LineItemGroup: "Pasta and Grains",
 			ProductCode:   "021000658930",
-			Description:   "Velveta Cheese",
-			Quantity:      "1",
+			Description:   "Velveta Shells and Cheese Original",
+			Quantity:      "2",
 			Unit:          unitv1.Unit_UNIT_ITEM,
 			UnitAmount:    "3.79",
-			UnitTaxAmount: "0",
-			LineAmount:    "3.79",
-			LineTaxAmount: "0",
+			UnitTaxAmount: "0.3127",
+			LineAmount:    "7.58",
+			LineTaxAmount: "0.6254",
 		},
 		{
 			Sequence:      2,
-			LineItemGroup: "Tobacco",
-			ProductCode:   "028200003034",
-			Description:   "Marlboro Red 20 pack",
-			Quantity:      "1",
-			Unit:          unitv1.Unit_UNIT_ITEM,
-			UnitAmount:    "22.50",
-			UnitTaxAmount: "1.912",
-			LineAmount:    "22.50",
-			LineTaxAmount: "1.912",
-		},
-		{
-			Sequence:      3,
 			LineItemGroup: "Produce",
 			ProductCode:   "90099332322",
 			Description:   "Organic Bananas",
 			Quantity:      "1",
 			Unit:          unitv1.Unit_UNIT_POUND,
 			UnitAmount:    "0.99",
-			UnitTaxAmount: "0",
+			UnitTaxAmount: "0.082",
 			LineAmount:    "0.99",
-			LineTaxAmount: "0",
-		},
-		{
-			Sequence:      4,
-			LineItemGroup: "Produce",
-			ProductCode:   "90099332322",
-			Description:   "Organic Bananas",
-			Quantity:      "1",
-			Unit:          unitv1.Unit_UNIT_POUND,
-			UnitAmount:    "0.99",
-			UnitTaxAmount: "0",
-			LineAmount:    "0.99",
-			LineTaxAmount: "0",
+			LineTaxAmount: "0.082",
 		},
 	}
-	//bh9ndiSEVFhRiyjyREKw47tm6B6Pmg
-	assert.NoError(t, err)
 	valueRequest := &valuev1.ValueRequest{
 		Uuek:                  "bh9ndiSEVFhRiyjyREKw47tm6B6Pmg",
 		PartnerTransactionRef: uuid.NewString(),
@@ -210,13 +217,4 @@ func TestObtainValueWithBasket(t *testing.T) {
 	assert.NoError(t, err)
 	assert.NotEqual(t, valuev1.ObtainValueResponse_STATUS_ERROR, response.Status)
 	fmt.Println(fmt.Sprintf("%v", response))
-}
-
-func loadPemBlob(envVar string) ([]byte, error) {
-	//expect the pem blob to be base64 encoded
-	value, ok := os.LookupEnv(envVar)
-	if !ok {
-		return nil, errors.New(fmt.Sprintf("environment varible %s is not set", envVar))
-	}
-	return base64.StdEncoding.DecodeString(value)
 }

@@ -45,8 +45,14 @@ service ServiceProviderFromMicaService {
   // above), it includes an approval type of either FULL or PARTIAL.
   rpc ObtainValue(value.v1.ObtainValueRequest) returns (value.v1.ObtainValueResponse) {}
 
+  // Reverse a ObtainValue transaction
+  rpc ReverseObtainValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseValueResponse) {}
+
   // Operation to return value to a given instrument.
   rpc ReturnValue(value.v1.ReturnValueRequest) returns (value.v1.ReturnValueResponse) {}
+
+  // Reverse a ReturnValue transaction
+  rpc ReverseReturnValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseValueResponse) {}
 
   rpc ReceiveValue(value.v1.ReceiveValueRequest) returns (value.v1.ReceiveValueResponse) {}
   //</editor-fold>

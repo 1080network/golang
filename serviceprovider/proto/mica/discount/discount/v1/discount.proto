@@ -67,7 +67,7 @@ message TransactionDetails {
 
 message Discount {
   string discount_definition_key = 1 [(validate.rules).string = {
-    min_len: 30,
+    min_len: 27,
     max_len: 50
   }];
 
@@ -77,9 +77,11 @@ message Discount {
   }];
 
   string discount_key = 3 [(validate.rules).string = {
-    min_len: 30,
+    min_len: 27,
     max_len: 50
   }];
+
+  int32 discount_version = 23;
 
   int64 version = 4 [(validate.rules).int64.gte = 0];
 
@@ -121,7 +123,7 @@ message Discount {
   micashared.common.enums.currency.v1.Currency currency = 14;
 
   string user_key = 15 [(validate.rules).string = {
-    min_len: 30,
+    min_len: 27,
     max_len: 50
   }];
 
@@ -222,7 +224,7 @@ message CreateDiscountRequest {
   repeated DiscountCriteria discount_criteria = 7;
 
   string user_key = 8 [(validate.rules).string = {
-    min_len: 30,
+    min_len: 27,
     max_len: 50
   }];
 
@@ -249,6 +251,8 @@ message CreateDiscountResponse {
 
   string discount_key = 3;
 
+  int32 discount_version = 5;
+
   int64 version = 4 [(validate.rules).int64.gte = 0];
 }
 
@@ -260,7 +264,7 @@ message GetDiscountRequest {
     }];
 
     string discount_key = 2 [(validate.rules).string = {
-      min_len: 30,
+      min_len: 27,
       max_len: 50
     }];
   }
@@ -288,7 +292,7 @@ message UpdateDiscountRequest {
     }];
 
     string discount_key = 12 [(validate.rules).string = {
-      min_len: 30,
+      min_len: 27,
       max_len: 50
     }];
   }
@@ -346,7 +350,7 @@ message UpdateDiscountStatusRequest {
     }];
 
     string discount_key = 3 [(validate.rules).string = {
-      min_len: 30,
+      min_len: 27,
       max_len: 50
     }];
   }
@@ -377,7 +381,7 @@ message RemoveDiscountRequest {
     }];
 
     string discount_key = 2 [(validate.rules).string = {
-      min_len: 30,
+      min_len: 27,
       max_len: 50
     }];
   }
@@ -398,7 +402,7 @@ message RemoveDiscountResponse {
 message ApplyDiscountNotificationRequest {
   // discount details
   string discount_key = 1 [(validate.rules).string = {
-    min_len: 30,
+    min_len: 27,
     max_len: 50
   }];
 
@@ -406,6 +410,8 @@ message ApplyDiscountNotificationRequest {
     min_len: 1,
     max_len: 50
   }];
+
+  int32 discount_version = 23;
 
   DiscountStatus status = 3; // only USED supported initially
 

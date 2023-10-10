@@ -4,16 +4,19 @@ go 1.19
 
 replace (
 	github.com/1080network/golang/partner => ../partner
+	github.com/1080network/golang/serviceprovider => ../serviceprovider
 	github.com/1080network/golang/shared => ../shared
 )
 
 require (
 	github.com/1080network/golang/partner v1.0.0
+	github.com/1080network/golang/serviceprovider v1.0.0
 	github.com/1080network/golang/shared v1.0.0
 	github.com/stretchr/testify v1.8.1
 )
 
 require (
+	github.com/cockroachdb/apd/v3 v3.2.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.1.0 // indirect
 	github.com/envoyproxy/protoc-gen-validate v0.1.0 // indirect
@@ -26,6 +29,7 @@ require (
 	github.com/lestrrat-go/iter v1.0.2 // indirect
 	github.com/lestrrat-go/jwx/v2 v2.0.6 // indirect
 	github.com/lestrrat-go/option v1.0.0 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	golang.org/x/crypto v0.0.0-20220427172511-eb4f295cb31f // indirect
 	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect

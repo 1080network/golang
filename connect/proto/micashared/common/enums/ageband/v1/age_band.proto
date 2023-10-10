@@ -1,0 +1,47 @@
+// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.enums.ageband.v1;
+
+option go_package = "micashared/common/enums/agebandv1";
+option java_outer_classname = "ApprovalTypeEnumProto";
+option java_package = "io.micashared.common.enums.v1";
+option objc_class_prefix = "MICA";
+
+enum AgeBand {
+  AGE_BAND_UNSPECIFIED = 0;
+  AGE_BAND_UNDER_13 = 1;
+  AGE_BAND_UNDER_14 = 2;
+  AGE_BAND_UNDER_15 = 3;
+  AGE_BAND_UNDER_16 = 4;
+  AGE_BAND_UNDER_17 = 5;
+  AGE_BAND_UNDER_18 = 6;
+  AGE_BAND_UNDER_19 = 7;
+  AGE_BAND_UNDER_20 = 8;
+  AGE_BAND_UNDER_21 = 9;
+  AGE_BAND_UNDER_22 = 10;
+  AGE_BAND_UNDER_23 = 11;
+  AGE_BAND_UNDER_24 = 12;
+  AGE_BAND_UNDER_25 = 13;
+  AGE_BAND_OVER_13 = 14;
+  AGE_BAND_OVER_14 = 15;
+  AGE_BAND_OVER_15 = 16;
+  AGE_BAND_OVER_16 = 17;
+  AGE_BAND_OVER_17 = 18;
+  AGE_BAND_OVER_18 = 19;
+  AGE_BAND_OVER_19 = 20;
+  AGE_BAND_OVER_20 = 21;
+  AGE_BAND_OVER_21 = 22;
+  AGE_BAND_OVER_22 = 23;
+  AGE_BAND_OVER_23 = 24;
+  AGE_BAND_OVER_24 = 25;
+  AGE_BAND_OVER_25 = 26;
+}
+

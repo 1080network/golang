@@ -49,6 +49,12 @@ message MTLSCertificate {
 
   //The roles the certificate has
   repeated string roles = 9;
+
+  //The friendly name of the certificate
+  string display_name = 10;
+
+  //The last usage of the certificate
+  google.protobuf.Timestamp last_used = 11;
 }
 
 message GenerateMTLSCertificateRequest {
@@ -56,6 +62,7 @@ message GenerateMTLSCertificateRequest {
   //TODO we should probably enum this with the few roles that are allowed for mTLS?
   repeated string roles = 3 [(validate.rules).repeated.min_items = 1];
   string expire_in_duration = 4;
+  string display_name = 5;
 }
 
 message GenerateMTLSCertificateResponse {

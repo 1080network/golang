@@ -21,7 +21,7 @@ option objc_class_prefix = "MICA";
 
 message ProductGroup {
   string product_group_key = 1 [(validate.rules).string = {
-    min_len: 30,
+    min_len: 27,
     max_len: 50
   }];
 
@@ -62,7 +62,7 @@ message CreateProductGroupResponse {
   micashared.common.v1.Error error = 2;
 
   string product_group_key = 3 [(validate.rules).string = {
-    min_len: 30,
+    min_len: 27,
     max_len: 50
   }];
 
@@ -77,7 +77,7 @@ message GetProductGroupRequest {
     }];
 
     string product_group_key = 2 [(validate.rules).string = {
-      min_len: 30,
+      min_len: 27,
       max_len: 50
     }];
   }
@@ -105,7 +105,7 @@ message UpdateProductGroupRequest {
     }];
 
     string product_group_key = 2 [(validate.rules).string = {
-      min_len: 30,
+      min_len: 27,
       max_len: 50
     }];
   }
@@ -141,7 +141,7 @@ message RemoveProductGroupRequest {
     }];
 
     string product_group_key = 2 [(validate.rules).string = {
-      min_len: 30,
+      min_len: 27,
       max_len: 50
     }];
   }

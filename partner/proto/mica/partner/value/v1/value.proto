@@ -15,9 +15,10 @@ import "micashared/common/enums/approvaltype/v1/approval_type.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
 import "micashared/common/enums/valueoperationtype/v1/value_operation_type.proto";
+import "micashared/common/v1/discount.proto";
 import "micashared/common/v1/error.proto";
 import "micashared/common/v1/line_item.proto";
-import "micashared/common/v1/discount.proto";
+import "micashared/common/v1/receipt.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/partner/valuev1";
@@ -93,6 +94,7 @@ message Value {
 
 // Type that represents the details of the value request (either to obtain or return).
 message ValueRequest {
+  reserved 3, 13;
   // The UUEK of the instrument is either one specific to the partner or one provisioned by a Service Provider.
   string uuek = 1 [(validate.rules).string = {
     min_len: 30,
@@ -136,7 +138,7 @@ message ValueRequest {
 
   repeated micashared.common.v1.Adjustment adjustments = 12;
 
-  string barcode_text = 13;
+  micashared.common.v1.ReceiptTransactionData receipt_data = 14;
 }
 
 message ObtainValueRequest {
@@ -311,4 +313,79 @@ message SearchValueResponse {
 
   // List of transactions that matched the search criteria.
   repeated Value value = 3;
+}
+
+message ReverseValueRequest {
+  oneof identifier {
+    // Mica primary key, returned when the original transaction was processed by Mica
+    string original_transaction_key = 1 [(validate.rules).string = {
+      min_len: 27,
+      max_len: 50
+    }];
+
+    // A unique identifier at the Partner for the transaction being reversed.
+    string partner_original_transaction_ref = 2 [(validate.rules).string.min_len = 1];
+  }
+}
+
+message ReverseObtainValueResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    // Reversal approved and successful
+    STATUS_SUCCESS = 1;
+    // An error occurred when processing the request
+    STATUS_ERROR = 2;
+    // An approval was given for a partial amount
+    STATUS_NOT_FOUND = 3;
+    // The user needs to call the Service Provider to resolve an issue
+    STATUS_USER_CALL_SERVICE_PROVIDER = 4;
+    // The operation isn't supported by the Service Provider
+    STATUS_UNSUPPORTED = 5;
+    // The Fi is unavailable at this time
+    STATUS_SERVICE_PROVIDER_UNAVAILABLE = 6;
+    // The UUEK sent is invalid or not found
+    STATUS_INVALID_UUEK = 7;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  // Primary key of created transaction assigned by Mica.
+  string transaction_key = 3 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  // TODO list of discounts that were reversed
+
+}
+
+// TODO if this remains the same as ObtainReversalResponse, dedupe. probably not because of discounts
+message ReverseReturnValueResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    // An approval for the full amount
+    STATUS_APPROVAL = 1;
+    // An error occurred when processing the request
+    STATUS_ERROR = 2;
+    // Transaction ID, instrument, SP, or other component not found
+    STATUS_NOT_FOUND = 3;
+    // The user needs to call the Service Provider to resolve an issue
+    STATUS_USER_CALL_SERVICE_PROVIDER = 4;
+    // The operation isn't supported by the Service Provider
+    STATUS_UNSUPPORTED = 5;
+    // The Fi is unavailable at this time
+    STATUS_SERVICE_PROVIDER_UNAVAILABLE = 6;
+    // The UUEK sent is invalid or not found
+    STATUS_INVALID_UUEK = 7;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  // Primary key of created transaction assigned by Mica.
+  string transaction_key = 3 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
 }

@@ -22,7 +22,7 @@ option objc_class_prefix = "MICA";
 
 message DiscountProvider {
   string discount_provider_key = 1 [(validate.rules).string = {
-    min_len: 30,
+    min_len: 27,
     max_len: 50
   }];
 

@@ -36,33 +36,31 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	PartnerToMicaService_GetPartner_FullMethodName                            = "/mica.partner.service.v1.PartnerToMicaService/GetPartner"
-	PartnerToMicaService_GetPartnerLegacyConfiguration_FullMethodName         = "/mica.partner.service.v1.PartnerToMicaService/GetPartnerLegacyConfiguration"
-	PartnerToMicaService_UpdatePartnerLegacyConfiguration_FullMethodName      = "/mica.partner.service.v1.PartnerToMicaService/UpdatePartnerLegacyConfiguration"
-	PartnerToMicaService_GetOrganization_FullMethodName                       = "/mica.partner.service.v1.PartnerToMicaService/GetOrganization"
-	PartnerToMicaService_UpdateOrganization_FullMethodName                    = "/mica.partner.service.v1.PartnerToMicaService/UpdateOrganization"
-	PartnerToMicaService_SearchOrganization_FullMethodName                    = "/mica.partner.service.v1.PartnerToMicaService/SearchOrganization"
-	PartnerToMicaService_GetOrganizationLegacyConfiguration_FullMethodName    = "/mica.partner.service.v1.PartnerToMicaService/GetOrganizationLegacyConfiguration"
-	PartnerToMicaService_UpdateOrganizationLegacyConfiguration_FullMethodName = "/mica.partner.service.v1.PartnerToMicaService/UpdateOrganizationLegacyConfiguration"
-	PartnerToMicaService_CreateStore_FullMethodName                           = "/mica.partner.service.v1.PartnerToMicaService/CreateStore"
-	PartnerToMicaService_GetStore_FullMethodName                              = "/mica.partner.service.v1.PartnerToMicaService/GetStore"
-	PartnerToMicaService_UpdateStore_FullMethodName                           = "/mica.partner.service.v1.PartnerToMicaService/UpdateStore"
-	PartnerToMicaService_RemoveStore_FullMethodName                           = "/mica.partner.service.v1.PartnerToMicaService/RemoveStore"
-	PartnerToMicaService_SearchStore_FullMethodName                           = "/mica.partner.service.v1.PartnerToMicaService/SearchStore"
-	PartnerToMicaService_SearchServiceProvider_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/SearchServiceProvider"
-	PartnerToMicaService_RemoveUUEK_FullMethodName                            = "/mica.partner.service.v1.PartnerToMicaService/RemoveUUEK"
-	PartnerToMicaService_ExchangeUUEK_FullMethodName                          = "/mica.partner.service.v1.PartnerToMicaService/ExchangeUUEK"
-	PartnerToMicaService_SearchUUEK_FullMethodName                            = "/mica.partner.service.v1.PartnerToMicaService/SearchUUEK"
-	PartnerToMicaService_ObtainValue_FullMethodName                           = "/mica.partner.service.v1.PartnerToMicaService/ObtainValue"
-	PartnerToMicaService_ReturnValue_FullMethodName                           = "/mica.partner.service.v1.PartnerToMicaService/ReturnValue"
-	PartnerToMicaService_SearchValue_FullMethodName                           = "/mica.partner.service.v1.PartnerToMicaService/SearchValue"
-	PartnerToMicaService_GetValue_FullMethodName                              = "/mica.partner.service.v1.PartnerToMicaService/GetValue"
-	PartnerToMicaService_Ping_FullMethodName                                  = "/mica.partner.service.v1.PartnerToMicaService/Ping"
-	PartnerToMicaService_InitializeWidget_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/InitializeWidget"
-	PartnerToMicaService_ExchangeSessionKey_FullMethodName                    = "/mica.partner.service.v1.PartnerToMicaService/ExchangeSessionKey"
-	PartnerToMicaService_SearchTransactionData_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/SearchTransactionData"
-	PartnerToMicaService_SearchTransactionGeographyData_FullMethodName        = "/mica.partner.service.v1.PartnerToMicaService/SearchTransactionGeographyData"
-	PartnerToMicaService_SearchTransactionServiceProviderData_FullMethodName  = "/mica.partner.service.v1.PartnerToMicaService/SearchTransactionServiceProviderData"
+	PartnerToMicaService_GetPartner_FullMethodName                           = "/mica.partner.service.v1.PartnerToMicaService/GetPartner"
+	PartnerToMicaService_GetOrganization_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/GetOrganization"
+	PartnerToMicaService_UpdateOrganization_FullMethodName                   = "/mica.partner.service.v1.PartnerToMicaService/UpdateOrganization"
+	PartnerToMicaService_SearchOrganization_FullMethodName                   = "/mica.partner.service.v1.PartnerToMicaService/SearchOrganization"
+	PartnerToMicaService_CreateStore_FullMethodName                          = "/mica.partner.service.v1.PartnerToMicaService/CreateStore"
+	PartnerToMicaService_GetStore_FullMethodName                             = "/mica.partner.service.v1.PartnerToMicaService/GetStore"
+	PartnerToMicaService_UpdateStore_FullMethodName                          = "/mica.partner.service.v1.PartnerToMicaService/UpdateStore"
+	PartnerToMicaService_RemoveStore_FullMethodName                          = "/mica.partner.service.v1.PartnerToMicaService/RemoveStore"
+	PartnerToMicaService_SearchStore_FullMethodName                          = "/mica.partner.service.v1.PartnerToMicaService/SearchStore"
+	PartnerToMicaService_SearchServiceProvider_FullMethodName                = "/mica.partner.service.v1.PartnerToMicaService/SearchServiceProvider"
+	PartnerToMicaService_RemoveUUEK_FullMethodName                           = "/mica.partner.service.v1.PartnerToMicaService/RemoveUUEK"
+	PartnerToMicaService_ExchangeUUEK_FullMethodName                         = "/mica.partner.service.v1.PartnerToMicaService/ExchangeUUEK"
+	PartnerToMicaService_SearchUUEK_FullMethodName                           = "/mica.partner.service.v1.PartnerToMicaService/SearchUUEK"
+	PartnerToMicaService_ObtainValue_FullMethodName                          = "/mica.partner.service.v1.PartnerToMicaService/ObtainValue"
+	PartnerToMicaService_ReverseObtainValue_FullMethodName                   = "/mica.partner.service.v1.PartnerToMicaService/ReverseObtainValue"
+	PartnerToMicaService_ReturnValue_FullMethodName                          = "/mica.partner.service.v1.PartnerToMicaService/ReturnValue"
+	PartnerToMicaService_ReverseReturnValue_FullMethodName                   = "/mica.partner.service.v1.PartnerToMicaService/ReverseReturnValue"
+	PartnerToMicaService_SearchValue_FullMethodName                          = "/mica.partner.service.v1.PartnerToMicaService/SearchValue"
+	PartnerToMicaService_GetValue_FullMethodName                             = "/mica.partner.service.v1.PartnerToMicaService/GetValue"
+	PartnerToMicaService_Ping_FullMethodName                                 = "/mica.partner.service.v1.PartnerToMicaService/Ping"
+	PartnerToMicaService_InitializeWidget_FullMethodName                     = "/mica.partner.service.v1.PartnerToMicaService/InitializeWidget"
+	PartnerToMicaService_ExchangeSessionKey_FullMethodName                   = "/mica.partner.service.v1.PartnerToMicaService/ExchangeSessionKey"
+	PartnerToMicaService_SearchTransactionData_FullMethodName                = "/mica.partner.service.v1.PartnerToMicaService/SearchTransactionData"
+	PartnerToMicaService_SearchTransactionGeographyData_FullMethodName       = "/mica.partner.service.v1.PartnerToMicaService/SearchTransactionGeographyData"
+	PartnerToMicaService_SearchTransactionServiceProviderData_FullMethodName = "/mica.partner.service.v1.PartnerToMicaService/SearchTransactionServiceProviderData"
 )
 
 // PartnerToMicaServiceClient is the client API for PartnerToMicaService service.
@@ -71,20 +69,12 @@ const (
 type PartnerToMicaServiceClient interface {
 	// Retrieves the details of the Partner at mica.
 	GetPartner(ctx context.Context, in *partnerv1.GetPartnerRequest, opts ...grpc.CallOption) (*partnerv1.GetPartnerResponse, error)
-	// Retrieve an partner's legacy configuration based on it's key.
-	GetPartnerLegacyConfiguration(ctx context.Context, in *partnerv1.GetPartnerLegacyConfigurationRequest, opts ...grpc.CallOption) (*partnerv1.GetPartnerLegacyConfigurationResponse, error)
-	// Update a given partner's legacy configuration.
-	UpdatePartnerLegacyConfiguration(ctx context.Context, in *partnerv1.UpdatePartnerLegacyConfigurationRequest, opts ...grpc.CallOption) (*partnerv1.UpdatePartnerLegacyConfigurationResponse, error)
 	// Retrieve an organization based on it's key.
 	GetOrganization(ctx context.Context, in *organizationv1.GetOrganizationRequest, opts ...grpc.CallOption) (*organizationv1.GetOrganizationResponse, error)
 	// Update a given organization.
 	UpdateOrganization(ctx context.Context, in *organizationv1.UpdateOrganizationRequest, opts ...grpc.CallOption) (*organizationv1.UpdateOrganizationResponse, error)
 	// Like GetOrganization, can be used to retrieve Organizations based on the criteria in the request.
 	SearchOrganization(ctx context.Context, in *organizationv1.SearchOrganizationRequest, opts ...grpc.CallOption) (*organizationv1.SearchOrganizationResponse, error)
-	// Retrieve an organization's legacy configuration based on it's key.
-	GetOrganizationLegacyConfiguration(ctx context.Context, in *organizationv1.GetOrganizationLegacyConfigurationRequest, opts ...grpc.CallOption) (*organizationv1.GetOrganizationLegacyConfigurationResponse, error)
-	// Update a given organization's legacy configuration.
-	UpdateOrganizationLegacyConfiguration(ctx context.Context, in *organizationv1.UpdateOrganizationLegacyConfigurationRequest, opts ...grpc.CallOption) (*organizationv1.UpdateOrganizationLegacyConfigurationResponse, error)
 	// Create a store that sits under an Organization.
 	CreateStore(ctx context.Context, in *storev1.CreateStoreRequest, opts ...grpc.CallOption) (*storev1.CreateStoreResponse, error)
 	// Retrieve a store based on it's key.
@@ -105,8 +95,12 @@ type PartnerToMicaServiceClient interface {
 	SearchUUEK(ctx context.Context, in *uuekv1.SearchUUEKRequest, opts ...grpc.CallOption) (*uuekv1.SearchUUEKResponse, error)
 	// An operation to obtain value from a user in order to pay for goods or services rendered to the user.
 	ObtainValue(ctx context.Context, in *valuev1.ObtainValueRequest, opts ...grpc.CallOption) (*valuev1.ObtainValueResponse, error)
+	// An operation to reverse obtain value, including transaction fees and discounts for a given transaction
+	ReverseObtainValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseObtainValueResponse, error)
 	// An operation to return value to a user in order to refund them for goods or services.
 	ReturnValue(ctx context.Context, in *valuev1.ReturnValueRequest, opts ...grpc.CallOption) (*valuev1.ReturnValueResponse, error)
+	// An operation to reverse return value for a given transaction
+	ReverseReturnValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseReturnValueResponse, error)
 	// An operation to search for Value operations either Obtain or Return that the Partner has requested of mica.
 	SearchValue(ctx context.Context, in *valuev1.SearchValueRequest, opts ...grpc.CallOption) (*valuev1.SearchValueResponse, error)
 	GetValue(ctx context.Context, in *valuev1.GetValueRequest, opts ...grpc.CallOption) (*valuev1.GetValueResponse, error)
@@ -136,24 +130,6 @@ func (c *partnerToMicaServiceClient) GetPartner(ctx context.Context, in *partner
 	return out, nil
 }
 
-func (c *partnerToMicaServiceClient) GetPartnerLegacyConfiguration(ctx context.Context, in *partnerv1.GetPartnerLegacyConfigurationRequest, opts ...grpc.CallOption) (*partnerv1.GetPartnerLegacyConfigurationResponse, error) {
-	out := new(partnerv1.GetPartnerLegacyConfigurationResponse)
-	err := c.cc.Invoke(ctx, PartnerToMicaService_GetPartnerLegacyConfiguration_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *partnerToMicaServiceClient) UpdatePartnerLegacyConfiguration(ctx context.Context, in *partnerv1.UpdatePartnerLegacyConfigurationRequest, opts ...grpc.CallOption) (*partnerv1.UpdatePartnerLegacyConfigurationResponse, error) {
-	out := new(partnerv1.UpdatePartnerLegacyConfigurationResponse)
-	err := c.cc.Invoke(ctx, PartnerToMicaService_UpdatePartnerLegacyConfiguration_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *partnerToMicaServiceClient) GetOrganization(ctx context.Context, in *organizationv1.GetOrganizationRequest, opts ...grpc.CallOption) (*organizationv1.GetOrganizationResponse, error) {
 	out := new(organizationv1.GetOrganizationResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_GetOrganization_FullMethodName, in, out, opts...)
@@ -175,24 +151,6 @@ func (c *partnerToMicaServiceClient) UpdateOrganization(ctx context.Context, in 
 func (c *partnerToMicaServiceClient) SearchOrganization(ctx context.Context, in *organizationv1.SearchOrganizationRequest, opts ...grpc.CallOption) (*organizationv1.SearchOrganizationResponse, error) {
 	out := new(organizationv1.SearchOrganizationResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_SearchOrganization_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *partnerToMicaServiceClient) GetOrganizationLegacyConfiguration(ctx context.Context, in *organizationv1.GetOrganizationLegacyConfigurationRequest, opts ...grpc.CallOption) (*organizationv1.GetOrganizationLegacyConfigurationResponse, error) {
-	out := new(organizationv1.GetOrganizationLegacyConfigurationResponse)
-	err := c.cc.Invoke(ctx, PartnerToMicaService_GetOrganizationLegacyConfiguration_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *partnerToMicaServiceClient) UpdateOrganizationLegacyConfiguration(ctx context.Context, in *organizationv1.UpdateOrganizationLegacyConfigurationRequest, opts ...grpc.CallOption) (*organizationv1.UpdateOrganizationLegacyConfigurationResponse, error) {
-	out := new(organizationv1.UpdateOrganizationLegacyConfigurationResponse)
-	err := c.cc.Invoke(ctx, PartnerToMicaService_UpdateOrganizationLegacyConfiguration_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -289,9 +247,27 @@ func (c *partnerToMicaServiceClient) ObtainValue(ctx context.Context, in *valuev
 	return out, nil
 }
 
+func (c *partnerToMicaServiceClient) ReverseObtainValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseObtainValueResponse, error) {
+	out := new(valuev1.ReverseObtainValueResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_ReverseObtainValue_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *partnerToMicaServiceClient) ReturnValue(ctx context.Context, in *valuev1.ReturnValueRequest, opts ...grpc.CallOption) (*valuev1.ReturnValueResponse, error) {
 	out := new(valuev1.ReturnValueResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_ReturnValue_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) ReverseReturnValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseReturnValueResponse, error) {
+	out := new(valuev1.ReverseReturnValueResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_ReverseReturnValue_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -376,20 +352,12 @@ func (c *partnerToMicaServiceClient) SearchTransactionServiceProviderData(ctx co
 type PartnerToMicaServiceServer interface {
 	// Retrieves the details of the Partner at mica.
 	GetPartner(context.Context, *partnerv1.GetPartnerRequest) (*partnerv1.GetPartnerResponse, error)
-	// Retrieve an partner's legacy configuration based on it's key.
-	GetPartnerLegacyConfiguration(context.Context, *partnerv1.GetPartnerLegacyConfigurationRequest) (*partnerv1.GetPartnerLegacyConfigurationResponse, error)
-	// Update a given partner's legacy configuration.
-	UpdatePartnerLegacyConfiguration(context.Context, *partnerv1.UpdatePartnerLegacyConfigurationRequest) (*partnerv1.UpdatePartnerLegacyConfigurationResponse, error)
 	// Retrieve an organization based on it's key.
 	GetOrganization(context.Context, *organizationv1.GetOrganizationRequest) (*organizationv1.GetOrganizationResponse, error)
 	// Update a given organization.
 	UpdateOrganization(context.Context, *organizationv1.UpdateOrganizationRequest) (*organizationv1.UpdateOrganizationResponse, error)
 	// Like GetOrganization, can be used to retrieve Organizations based on the criteria in the request.
 	SearchOrganization(context.Context, *organizationv1.SearchOrganizationRequest) (*organizationv1.SearchOrganizationResponse, error)
-	// Retrieve an organization's legacy configuration based on it's key.
-	GetOrganizationLegacyConfiguration(context.Context, *organizationv1.GetOrganizationLegacyConfigurationRequest) (*organizationv1.GetOrganizationLegacyConfigurationResponse, error)
-	// Update a given organization's legacy configuration.
-	UpdateOrganizationLegacyConfiguration(context.Context, *organizationv1.UpdateOrganizationLegacyConfigurationRequest) (*organizationv1.UpdateOrganizationLegacyConfigurationResponse, error)
 	// Create a store that sits under an Organization.
 	CreateStore(context.Context, *storev1.CreateStoreRequest) (*storev1.CreateStoreResponse, error)
 	// Retrieve a store based on it's key.
@@ -410,8 +378,12 @@ type PartnerToMicaServiceServer interface {
 	SearchUUEK(context.Context, *uuekv1.SearchUUEKRequest) (*uuekv1.SearchUUEKResponse, error)
 	// An operation to obtain value from a user in order to pay for goods or services rendered to the user.
 	ObtainValue(context.Context, *valuev1.ObtainValueRequest) (*valuev1.ObtainValueResponse, error)
+	// An operation to reverse obtain value, including transaction fees and discounts for a given transaction
+	ReverseObtainValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseObtainValueResponse, error)
 	// An operation to return value to a user in order to refund them for goods or services.
 	ReturnValue(context.Context, *valuev1.ReturnValueRequest) (*valuev1.ReturnValueResponse, error)
+	// An operation to reverse return value for a given transaction
+	ReverseReturnValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseReturnValueResponse, error)
 	// An operation to search for Value operations either Obtain or Return that the Partner has requested of mica.
 	SearchValue(context.Context, *valuev1.SearchValueRequest) (*valuev1.SearchValueResponse, error)
 	GetValue(context.Context, *valuev1.GetValueRequest) (*valuev1.GetValueResponse, error)
@@ -432,12 +404,6 @@ type UnimplementedPartnerToMicaServiceServer struct {
 func (UnimplementedPartnerToMicaServiceServer) GetPartner(context.Context, *partnerv1.GetPartnerRequest) (*partnerv1.GetPartnerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPartner not implemented")
 }
-func (UnimplementedPartnerToMicaServiceServer) GetPartnerLegacyConfiguration(context.Context, *partnerv1.GetPartnerLegacyConfigurationRequest) (*partnerv1.GetPartnerLegacyConfigurationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetPartnerLegacyConfiguration not implemented")
-}
-func (UnimplementedPartnerToMicaServiceServer) UpdatePartnerLegacyConfiguration(context.Context, *partnerv1.UpdatePartnerLegacyConfigurationRequest) (*partnerv1.UpdatePartnerLegacyConfigurationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdatePartnerLegacyConfiguration not implemented")
-}
 func (UnimplementedPartnerToMicaServiceServer) GetOrganization(context.Context, *organizationv1.GetOrganizationRequest) (*organizationv1.GetOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrganization not implemented")
 }
@@ -446,12 +412,6 @@ func (UnimplementedPartnerToMicaServiceServer) UpdateOrganization(context.Contex
 }
 func (UnimplementedPartnerToMicaServiceServer) SearchOrganization(context.Context, *organizationv1.SearchOrganizationRequest) (*organizationv1.SearchOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchOrganization not implemented")
-}
-func (UnimplementedPartnerToMicaServiceServer) GetOrganizationLegacyConfiguration(context.Context, *organizationv1.GetOrganizationLegacyConfigurationRequest) (*organizationv1.GetOrganizationLegacyConfigurationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetOrganizationLegacyConfiguration not implemented")
-}
-func (UnimplementedPartnerToMicaServiceServer) UpdateOrganizationLegacyConfiguration(context.Context, *organizationv1.UpdateOrganizationLegacyConfigurationRequest) (*organizationv1.UpdateOrganizationLegacyConfigurationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrganizationLegacyConfiguration not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) CreateStore(context.Context, *storev1.CreateStoreRequest) (*storev1.CreateStoreResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateStore not implemented")
@@ -483,8 +443,14 @@ func (UnimplementedPartnerToMicaServiceServer) SearchUUEK(context.Context, *uuek
 func (UnimplementedPartnerToMicaServiceServer) ObtainValue(context.Context, *valuev1.ObtainValueRequest) (*valuev1.ObtainValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ObtainValue not implemented")
 }
+func (UnimplementedPartnerToMicaServiceServer) ReverseObtainValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseObtainValueResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReverseObtainValue not implemented")
+}
 func (UnimplementedPartnerToMicaServiceServer) ReturnValue(context.Context, *valuev1.ReturnValueRequest) (*valuev1.ReturnValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReturnValue not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) ReverseReturnValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseReturnValueResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReverseReturnValue not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) SearchValue(context.Context, *valuev1.SearchValueRequest) (*valuev1.SearchValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchValue not implemented")
@@ -541,42 +507,6 @@ func _PartnerToMicaService_GetPartner_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PartnerToMicaService_GetPartnerLegacyConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(partnerv1.GetPartnerLegacyConfigurationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).GetPartnerLegacyConfiguration(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PartnerToMicaService_GetPartnerLegacyConfiguration_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).GetPartnerLegacyConfiguration(ctx, req.(*partnerv1.GetPartnerLegacyConfigurationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PartnerToMicaService_UpdatePartnerLegacyConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(partnerv1.UpdatePartnerLegacyConfigurationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).UpdatePartnerLegacyConfiguration(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PartnerToMicaService_UpdatePartnerLegacyConfiguration_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).UpdatePartnerLegacyConfiguration(ctx, req.(*partnerv1.UpdatePartnerLegacyConfigurationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _PartnerToMicaService_GetOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(organizationv1.GetOrganizationRequest)
 	if err := dec(in); err != nil {
@@ -627,42 +557,6 @@ func _PartnerToMicaService_SearchOrganization_Handler(srv interface{}, ctx conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartnerToMicaServiceServer).SearchOrganization(ctx, req.(*organizationv1.SearchOrganizationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PartnerToMicaService_GetOrganizationLegacyConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(organizationv1.GetOrganizationLegacyConfigurationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).GetOrganizationLegacyConfiguration(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PartnerToMicaService_GetOrganizationLegacyConfiguration_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).GetOrganizationLegacyConfiguration(ctx, req.(*organizationv1.GetOrganizationLegacyConfigurationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PartnerToMicaService_UpdateOrganizationLegacyConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(organizationv1.UpdateOrganizationLegacyConfigurationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).UpdateOrganizationLegacyConfiguration(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PartnerToMicaService_UpdateOrganizationLegacyConfiguration_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).UpdateOrganizationLegacyConfiguration(ctx, req.(*organizationv1.UpdateOrganizationLegacyConfigurationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -847,6 +741,24 @@ func _PartnerToMicaService_ObtainValue_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PartnerToMicaService_ReverseObtainValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(valuev1.ReverseValueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).ReverseObtainValue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_ReverseObtainValue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).ReverseObtainValue(ctx, req.(*valuev1.ReverseValueRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PartnerToMicaService_ReturnValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(valuev1.ReturnValueRequest)
 	if err := dec(in); err != nil {
@@ -861,6 +773,24 @@ func _PartnerToMicaService_ReturnValue_Handler(srv interface{}, ctx context.Cont
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartnerToMicaServiceServer).ReturnValue(ctx, req.(*valuev1.ReturnValueRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_ReverseReturnValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(valuev1.ReverseValueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).ReverseReturnValue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_ReverseReturnValue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).ReverseReturnValue(ctx, req.(*valuev1.ReverseValueRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1021,14 +951,6 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PartnerToMicaService_GetPartner_Handler,
 		},
 		{
-			MethodName: "GetPartnerLegacyConfiguration",
-			Handler:    _PartnerToMicaService_GetPartnerLegacyConfiguration_Handler,
-		},
-		{
-			MethodName: "UpdatePartnerLegacyConfiguration",
-			Handler:    _PartnerToMicaService_UpdatePartnerLegacyConfiguration_Handler,
-		},
-		{
 			MethodName: "GetOrganization",
 			Handler:    _PartnerToMicaService_GetOrganization_Handler,
 		},
@@ -1039,14 +961,6 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchOrganization",
 			Handler:    _PartnerToMicaService_SearchOrganization_Handler,
-		},
-		{
-			MethodName: "GetOrganizationLegacyConfiguration",
-			Handler:    _PartnerToMicaService_GetOrganizationLegacyConfiguration_Handler,
-		},
-		{
-			MethodName: "UpdateOrganizationLegacyConfiguration",
-			Handler:    _PartnerToMicaService_UpdateOrganizationLegacyConfiguration_Handler,
 		},
 		{
 			MethodName: "CreateStore",
@@ -1089,8 +1003,16 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PartnerToMicaService_ObtainValue_Handler,
 		},
 		{
+			MethodName: "ReverseObtainValue",
+			Handler:    _PartnerToMicaService_ReverseObtainValue_Handler,
+		},
+		{
 			MethodName: "ReturnValue",
 			Handler:    _PartnerToMicaService_ReturnValue_Handler,
+		},
+		{
+			MethodName: "ReverseReturnValue",
+			Handler:    _PartnerToMicaService_ReverseReturnValue_Handler,
 		},
 		{
 			MethodName: "SearchValue",

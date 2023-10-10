@@ -11,10 +11,8 @@ syntax = "proto3";
 package micashared.common.v1;
 
 import "google/protobuf/timestamp.proto";
-import "google/protobuf/wrappers.proto";
 import "micashared/common/enums/barcodelocation/v1/barcode_location.proto";
 import "micashared/common/enums/barcodetype/v1/barcode_type.proto";
-import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
 import "micashared/common/v1/address.proto";
 import "micashared/common/v1/bank_account_detail.proto";
@@ -62,22 +60,4 @@ message Organization {
   micashared.common.enums.barcodetype.v1.BarcodeType barcode_type = 17 [(validate.rules).enum = {not_in: [0]}];
 
   micashared.common.enums.barcodelocation.v1.BarcodeLocation barcode_location = 18 [(validate.rules).enum = {not_in: [0]}];
-}
-
-message LegacyConfiguration {
-  google.protobuf.StringValue interchange_percentage = 1;
-
-  google.protobuf.StringValue dispute_rate_percentage = 2;
-
-  micashared.common.enums.currency.v1.Currency currency = 3;
-
-  google.protobuf.StringValue dispute_fee = 4;
-
-  google.protobuf.StringValue dispute_management_cost = 5;
-
-  google.protobuf.StringValue network_membership_fee = 6;
-
-  google.protobuf.StringValue network_transaction_fee = 7;
-
-  google.protobuf.StringValue network_reporting_fee = 8;
 }

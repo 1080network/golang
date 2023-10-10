@@ -116,6 +116,9 @@ message ValueRequest {
   // Service Provider's primary key for their instrument.
   string service_provider_instrument_ref = 3;
 
+  // Service Provider's transaction record primary key. Not sent for obtain and refund transactions, but included in reverses (different ID *should* come back)
+  string transaction_ref = 4;
+
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
   micashared.common.enums.currency.v1.Currency currency = 5;
 
@@ -227,6 +230,47 @@ message ObtainValueResponse {
 
   // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
   string approved_amount = 4;
+}
+
+message ReverseValueRequest {
+  string transaction_key = 1;
+
+  string transaction_ref = 2;
+}
+
+// TODO(kuchlein): I'm not sold on this list but I think its a place to start
+message ReverseValueResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    // An approval for the full amount
+    STATUS_FULL_APPROVAL = 1;
+    // An error occurred when processing the request
+    STATUS_ERROR = 2;
+    // Instrument/account not found
+    STATUS_NOT_FOUND = 4;
+    // User instrument is closed
+    STATUS_INSTRUMENT_CLOSED = 5;
+    // Request triggered a transactional risk or fraud check resulting in a decline
+    STATUS_TRANSACTION_RISK_FRAUD = 6;
+    // Request triggered a bad actor risk or fraud check resulting in a decline
+    STATUS_BAD_ACTOR_RISK_FRAUD = 7;
+    // Request triggered a user-based risk or fraud check resulting in a decline
+    STATUS_USER_RISK_FRAUD = 8;
+    // Request triggered a instrument-based risk or fraud check resulting in a decline
+    STATUS_INSTRUMENT_RISK_FRAUD = 9;
+    // The operation isn't supported by the Service Provider
+    STATUS_UNSUPPORTED = 11;
+    // The Service Provider is temporarily unavailable
+    STATUS_SERVICE_PROVIDER_UNAVAILABLE = 12;
+    // Request resulted in one or more limits being exceeded at the Service Provider
+    STATUS_LIMIT_EXCEEDED = 13;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  // Service Provider's unique transaction ID, new for reversal transaction
+  string transaction_ref = 3;
 }
 
 message ReturnValueRequest {

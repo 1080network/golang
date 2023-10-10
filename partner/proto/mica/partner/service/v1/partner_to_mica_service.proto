@@ -31,12 +31,6 @@ service PartnerToMicaService {
 
   // Retrieves the details of the Partner at mica.
   rpc GetPartner(partner.v1.GetPartnerRequest) returns (partner.v1.GetPartnerResponse) {}
-
-  // Retrieve an partner's legacy configuration based on it's key.
-  rpc GetPartnerLegacyConfiguration(partner.v1.GetPartnerLegacyConfigurationRequest) returns (partner.v1.GetPartnerLegacyConfigurationResponse) {}
-
-  // Update a given partner's legacy configuration.
-  rpc UpdatePartnerLegacyConfiguration(partner.v1.UpdatePartnerLegacyConfigurationRequest) returns (partner.v1.UpdatePartnerLegacyConfigurationResponse) {}
   //</editor-fold>
 
   //<editor-fold desc="Organization Operations">
@@ -49,12 +43,6 @@ service PartnerToMicaService {
 
   // Like GetOrganization, can be used to retrieve Organizations based on the criteria in the request.
   rpc SearchOrganization(organization.v1.SearchOrganizationRequest) returns (organization.v1.SearchOrganizationResponse) {}
-
-  // Retrieve an organization's legacy configuration based on it's key.
-  rpc GetOrganizationLegacyConfiguration(organization.v1.GetOrganizationLegacyConfigurationRequest) returns (organization.v1.GetOrganizationLegacyConfigurationResponse) {}
-
-  // Update a given organization's legacy configuration.
-  rpc UpdateOrganizationLegacyConfiguration(organization.v1.UpdateOrganizationLegacyConfigurationRequest) returns (organization.v1.UpdateOrganizationLegacyConfigurationResponse) {}
   //</editor-fold>
 
   //<editor-fold desc="Store Operations">
@@ -98,8 +86,14 @@ service PartnerToMicaService {
   // An operation to obtain value from a user in order to pay for goods or services rendered to the user.
   rpc ObtainValue(value.v1.ObtainValueRequest) returns (value.v1.ObtainValueResponse) {}
 
+  // An operation to reverse obtain value, including transaction fees and discounts for a given transaction
+  rpc ReverseObtainValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseObtainValueResponse) {}
+
   // An operation to return value to a user in order to refund them for goods or services.
   rpc ReturnValue(value.v1.ReturnValueRequest) returns (value.v1.ReturnValueResponse) {}
+
+  // An operation to reverse return value for a given transaction
+  rpc ReverseReturnValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseReturnValueResponse) {}
 
   // An operation to search for Value operations either Obtain or Return that the Partner has requested of mica.
   rpc SearchValue(value.v1.SearchValueRequest) returns (value.v1.SearchValueResponse) {}
@@ -128,4 +122,5 @@ service PartnerToMicaService {
 
   rpc SearchTransactionServiceProviderData(transaction.v1.SearchTransactionServiceProviderDataRequest) returns (transaction.v1.SearchTransactionServiceProviderDataResponse) {}
   //</editor-fold>
+
 }

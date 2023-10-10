@@ -14,7 +14,6 @@ import "mica/serviceprovider/discount/v1/discount.proto";
 import "mica/serviceprovider/instrument/v1/instrument.proto";
 import "mica/serviceprovider/uuek/v1/uuek.proto";
 import "mica/serviceprovider/serviceprovider/v1/service_provider.proto";
-import "mica/serviceprovider/transaction/v1/transaction.proto";
 import "mica/serviceprovider/user/v1/user.proto";
 import "mica/serviceprovider/value/v1/value.proto";
 import "micashared/common/ping/v1/ping.proto";
@@ -109,20 +108,11 @@ service ServiceProviderToMicaService {
   rpc GetValue(value.v1.GetValueRequest) returns (value.v1.GetValueResponse) {}
   //</editor-fold>
 
-  //<editor-fold desc="Dashboard Operations">
-
-  rpc SearchTransactionData(transaction.v1.SearchTransactionDataRequest) returns (transaction.v1.SearchTransactionDataResponse) {}
-
-  rpc SearchTransactionGeographyData(transaction.v1.SearchTransactionGeographyDataRequest) returns (transaction.v1.SearchTransactionGeographyDataResponse) {}
-
-  rpc SearchTransactionPartnerData(transaction.v1.SearchTransactionPartnerDataRequest) returns (transaction.v1.SearchTransactionPartnerDataResponse) {}
-  //</editor-fold>
-
   rpc SearchUserDiscount(discount.v1.SearchUserDiscountRequest) returns (discount.v1.SearchUserDiscountResponse) {}
 
   //<editor-fold desc="Transaction Operations">
 
-  // Retrieve a transaction based on it's key.
+  // Retrieve a receipt based on the transaction key.
   rpc GetReceipt(micashared.common.v1.GetReceiptRequest) returns (micashared.common.v1.GetReceiptResponse) {}
   //</editor-fold>
 

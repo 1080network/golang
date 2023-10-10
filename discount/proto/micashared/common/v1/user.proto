@@ -11,8 +11,8 @@ syntax = "proto3";
 package micashared.common.v1;
 
 import "google/protobuf/timestamp.proto";
+import "micashared/common/enums/ageband/v1/age_band.proto";
 import "micashared/common/v1/address.proto";
-import "micashared/common/v1/date.proto";
 
 option go_package = "micashared/common/v1;commonv1";
 option java_outer_classname = "UserProto";
@@ -32,8 +32,8 @@ message UserDemographic {
   // The street address of the user.
   micashared.common.v1.Address address = 4;
 
-  // The birthday of the user.
-  micashared.common.v1.Date birthday = 5;
+  // The age band of the user.
+  micashared.common.enums.ageband.v1.AgeBand age_band = 7;
 
   // E.164 format.
   string phone = 6; // @gotags: mask:"pii"

@@ -24,7 +24,7 @@ option objc_class_prefix = "MICA";
 
 message DiscountDefinition {
   string discount_definition_key = 1 [(validate.rules).string = {
-    min_len: 30,
+    min_len: 27,
     max_len: 50
   }];
 
@@ -151,7 +151,7 @@ message GetDiscountDefinitionRequest {
     }];
 
     string discount_definition_key = 2 [(validate.rules).string = {
-      min_len: 30,
+      min_len: 27,
       max_len: 50
     }];
   }
@@ -179,7 +179,7 @@ message UpdateDiscountDefinitionRequest {
     }];
 
     string discount_definition_key = 13 [(validate.rules).string = {
-      min_len: 30,
+      min_len: 27,
       max_len: 50
     }];
   }
@@ -245,7 +245,7 @@ message UpdateDiscountDefinitionStatusRequest {
     }];
 
     string discount_definition_key = 3 [(validate.rules).string = {
-      min_len: 30,
+      min_len: 27,
       max_len: 50
     }];
   }
@@ -276,7 +276,7 @@ message RemoveDiscountDefinitionRequest {
     }];
 
     string discount_definition_key = 2 [(validate.rules).string = {
-      min_len: 30,
+      min_len: 27,
       max_len: 50
     }];
   }

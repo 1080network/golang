@@ -14,6 +14,7 @@ import "micashared/common/ping/v1/ping.proto";
 import "micashared/common/v1/console_user.proto";
 import "micashared/common/v1/external_client.proto";
 import "micashared/common/v1/mtls_certificate.proto";
+import "micashared/common/v1/data_extraction.proto";
 
 option go_package = "mica/partner/administrationv1";
 option java_outer_classname = "AdministrationService";
@@ -52,6 +53,8 @@ service PartnerAdministrationService {
   rpc UpdateExternalClientMTLSCertificate(micashared.common.v1.UpdateExternalClientMTLSCertificateRequest) returns (micashared.common.v1.UpdateExternalClientMTLSCertificateResponse) {}
 
   rpc SearchExternalClientMTLSCertificate(micashared.common.v1.SearchExternalClientMTLSCertificateRequest) returns (micashared.common.v1.SearchExternalClientMTLSCertificateResponse) {}
+
+  rpc SearchDataExtractionStatistics(micashared.common.v1.SearchDataExtractionRequest) returns (micashared.common.v1.SearchDataExtractionResponse) {}
 
   // tests the external call to verify proper configuration and connectivity
   rpc PingExternal(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}

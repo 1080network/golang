@@ -40,9 +40,6 @@ message User {
   string service_provider_user_ref = 5;
 
   micashared.common.v1.UserDemographic user_demographic = 6;
-
-  // TODO(kuchlein): determine if we should have this at all
-  string federated_user_key = 7;
 }
 
 // to Mica

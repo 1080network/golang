@@ -20,7 +20,8 @@ option java_package = "io.mica.discount.user.v1";
 option objc_class_prefix = "MICA";
 
 message GetUserKeyRequest {
-  micashared.common.v1.UserDemographic user_demographic = 1;
+  // for a get user key request one or more demographic info entries need to be set
+  micashared.common.v1.UserDemographic user_demographic = 1 [(validate.rules).message.required = true];
 }
 
 message GetUserKeyResponse {

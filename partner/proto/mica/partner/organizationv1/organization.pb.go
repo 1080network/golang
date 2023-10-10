@@ -195,116 +195,6 @@ func (SearchOrganizationResponse_Status) EnumDescriptor() ([]byte, []int) {
 	return file_mica_partner_organization_v1_organization_proto_rawDescGZIP(), []int{5, 0}
 }
 
-type GetOrganizationLegacyConfigurationResponse_Status int32
-
-const (
-	GetOrganizationLegacyConfigurationResponse_STATUS_UNSPECIFIED        GetOrganizationLegacyConfigurationResponse_Status = 0
-	GetOrganizationLegacyConfigurationResponse_STATUS_SUCCESS            GetOrganizationLegacyConfigurationResponse_Status = 1
-	GetOrganizationLegacyConfigurationResponse_STATUS_ERROR              GetOrganizationLegacyConfigurationResponse_Status = 2
-	GetOrganizationLegacyConfigurationResponse_STATUS_INVALID_PARTNER_ID GetOrganizationLegacyConfigurationResponse_Status = 3
-	GetOrganizationLegacyConfigurationResponse_STATUS_NOT_FOUND          GetOrganizationLegacyConfigurationResponse_Status = 4
-)
-
-// Enum value maps for GetOrganizationLegacyConfigurationResponse_Status.
-var (
-	GetOrganizationLegacyConfigurationResponse_Status_name = map[int32]string{
-		0: "STATUS_UNSPECIFIED",
-		1: "STATUS_SUCCESS",
-		2: "STATUS_ERROR",
-		3: "STATUS_INVALID_PARTNER_ID",
-		4: "STATUS_NOT_FOUND",
-	}
-	GetOrganizationLegacyConfigurationResponse_Status_value = map[string]int32{
-		"STATUS_UNSPECIFIED":        0,
-		"STATUS_SUCCESS":            1,
-		"STATUS_ERROR":              2,
-		"STATUS_INVALID_PARTNER_ID": 3,
-		"STATUS_NOT_FOUND":          4,
-	}
-)
-
-func (x GetOrganizationLegacyConfigurationResponse_Status) Enum() *GetOrganizationLegacyConfigurationResponse_Status {
-	p := new(GetOrganizationLegacyConfigurationResponse_Status)
-	*p = x
-	return p
-}
-
-func (x GetOrganizationLegacyConfigurationResponse_Status) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (GetOrganizationLegacyConfigurationResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_partner_organization_v1_organization_proto_enumTypes[3].Descriptor()
-}
-
-func (GetOrganizationLegacyConfigurationResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_partner_organization_v1_organization_proto_enumTypes[3]
-}
-
-func (x GetOrganizationLegacyConfigurationResponse_Status) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use GetOrganizationLegacyConfigurationResponse_Status.Descriptor instead.
-func (GetOrganizationLegacyConfigurationResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_partner_organization_v1_organization_proto_rawDescGZIP(), []int{7, 0}
-}
-
-type UpdateOrganizationLegacyConfigurationResponse_Status int32
-
-const (
-	UpdateOrganizationLegacyConfigurationResponse_STATUS_UNSPECIFIED        UpdateOrganizationLegacyConfigurationResponse_Status = 0
-	UpdateOrganizationLegacyConfigurationResponse_STATUS_SUCCESS            UpdateOrganizationLegacyConfigurationResponse_Status = 1
-	UpdateOrganizationLegacyConfigurationResponse_STATUS_ERROR              UpdateOrganizationLegacyConfigurationResponse_Status = 2
-	UpdateOrganizationLegacyConfigurationResponse_STATUS_INVALID_PARTNER_ID UpdateOrganizationLegacyConfigurationResponse_Status = 3
-	UpdateOrganizationLegacyConfigurationResponse_STATUS_NOT_FOUND          UpdateOrganizationLegacyConfigurationResponse_Status = 4
-)
-
-// Enum value maps for UpdateOrganizationLegacyConfigurationResponse_Status.
-var (
-	UpdateOrganizationLegacyConfigurationResponse_Status_name = map[int32]string{
-		0: "STATUS_UNSPECIFIED",
-		1: "STATUS_SUCCESS",
-		2: "STATUS_ERROR",
-		3: "STATUS_INVALID_PARTNER_ID",
-		4: "STATUS_NOT_FOUND",
-	}
-	UpdateOrganizationLegacyConfigurationResponse_Status_value = map[string]int32{
-		"STATUS_UNSPECIFIED":        0,
-		"STATUS_SUCCESS":            1,
-		"STATUS_ERROR":              2,
-		"STATUS_INVALID_PARTNER_ID": 3,
-		"STATUS_NOT_FOUND":          4,
-	}
-)
-
-func (x UpdateOrganizationLegacyConfigurationResponse_Status) Enum() *UpdateOrganizationLegacyConfigurationResponse_Status {
-	p := new(UpdateOrganizationLegacyConfigurationResponse_Status)
-	*p = x
-	return p
-}
-
-func (x UpdateOrganizationLegacyConfigurationResponse_Status) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (UpdateOrganizationLegacyConfigurationResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_partner_organization_v1_organization_proto_enumTypes[4].Descriptor()
-}
-
-func (UpdateOrganizationLegacyConfigurationResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_partner_organization_v1_organization_proto_enumTypes[4]
-}
-
-func (x UpdateOrganizationLegacyConfigurationResponse_Status) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use UpdateOrganizationLegacyConfigurationResponse_Status.Descriptor instead.
-func (UpdateOrganizationLegacyConfigurationResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_partner_organization_v1_organization_proto_rawDescGZIP(), []int{9, 0}
-}
-
 type GetOrganizationRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -701,250 +591,6 @@ func (x *SearchOrganizationResponse) GetOrganizations() []*v1.Organization {
 	return nil
 }
 
-type GetOrganizationLegacyConfigurationRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	OrganizationKey string `protobuf:"bytes,1,opt,name=organization_key,json=organizationKey,proto3" json:"organization_key,omitempty"`
-}
-
-func (x *GetOrganizationLegacyConfigurationRequest) Reset() {
-	*x = GetOrganizationLegacyConfigurationRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_partner_organization_v1_organization_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetOrganizationLegacyConfigurationRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetOrganizationLegacyConfigurationRequest) ProtoMessage() {}
-
-func (x *GetOrganizationLegacyConfigurationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_partner_organization_v1_organization_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetOrganizationLegacyConfigurationRequest.ProtoReflect.Descriptor instead.
-func (*GetOrganizationLegacyConfigurationRequest) Descriptor() ([]byte, []int) {
-	return file_mica_partner_organization_v1_organization_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *GetOrganizationLegacyConfigurationRequest) GetOrganizationKey() string {
-	if x != nil {
-		return x.OrganizationKey
-	}
-	return ""
-}
-
-type GetOrganizationLegacyConfigurationResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Status                          GetOrganizationLegacyConfigurationResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=mica.partner.organization.v1.GetOrganizationLegacyConfigurationResponse_Status" json:"status,omitempty"`
-	Error                           *v1.Error                                         `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
-	PartnerLegacyConfiguration      *v1.LegacyConfiguration                           `protobuf:"bytes,3,opt,name=partner_legacy_configuration,json=partnerLegacyConfiguration,proto3" json:"partner_legacy_configuration,omitempty"`
-	OrganizationLegacyConfiguration *v1.LegacyConfiguration                           `protobuf:"bytes,4,opt,name=organization_legacy_configuration,json=organizationLegacyConfiguration,proto3" json:"organization_legacy_configuration,omitempty"`
-}
-
-func (x *GetOrganizationLegacyConfigurationResponse) Reset() {
-	*x = GetOrganizationLegacyConfigurationResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_partner_organization_v1_organization_proto_msgTypes[7]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetOrganizationLegacyConfigurationResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetOrganizationLegacyConfigurationResponse) ProtoMessage() {}
-
-func (x *GetOrganizationLegacyConfigurationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_partner_organization_v1_organization_proto_msgTypes[7]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetOrganizationLegacyConfigurationResponse.ProtoReflect.Descriptor instead.
-func (*GetOrganizationLegacyConfigurationResponse) Descriptor() ([]byte, []int) {
-	return file_mica_partner_organization_v1_organization_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *GetOrganizationLegacyConfigurationResponse) GetStatus() GetOrganizationLegacyConfigurationResponse_Status {
-	if x != nil {
-		return x.Status
-	}
-	return GetOrganizationLegacyConfigurationResponse_STATUS_UNSPECIFIED
-}
-
-func (x *GetOrganizationLegacyConfigurationResponse) GetError() *v1.Error {
-	if x != nil {
-		return x.Error
-	}
-	return nil
-}
-
-func (x *GetOrganizationLegacyConfigurationResponse) GetPartnerLegacyConfiguration() *v1.LegacyConfiguration {
-	if x != nil {
-		return x.PartnerLegacyConfiguration
-	}
-	return nil
-}
-
-func (x *GetOrganizationLegacyConfigurationResponse) GetOrganizationLegacyConfiguration() *v1.LegacyConfiguration {
-	if x != nil {
-		return x.OrganizationLegacyConfiguration
-	}
-	return nil
-}
-
-type UpdateOrganizationLegacyConfigurationRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	OrganizationKey     string                  `protobuf:"bytes,1,opt,name=organization_key,json=organizationKey,proto3" json:"organization_key,omitempty"`
-	LegacyConfiguration *v1.LegacyConfiguration `protobuf:"bytes,2,opt,name=legacy_configuration,json=legacyConfiguration,proto3" json:"legacy_configuration,omitempty"`
-	Version             int64                   `protobuf:"varint,3,opt,name=version,proto3" json:"version,omitempty"`
-}
-
-func (x *UpdateOrganizationLegacyConfigurationRequest) Reset() {
-	*x = UpdateOrganizationLegacyConfigurationRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_partner_organization_v1_organization_proto_msgTypes[8]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *UpdateOrganizationLegacyConfigurationRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpdateOrganizationLegacyConfigurationRequest) ProtoMessage() {}
-
-func (x *UpdateOrganizationLegacyConfigurationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_partner_organization_v1_organization_proto_msgTypes[8]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpdateOrganizationLegacyConfigurationRequest.ProtoReflect.Descriptor instead.
-func (*UpdateOrganizationLegacyConfigurationRequest) Descriptor() ([]byte, []int) {
-	return file_mica_partner_organization_v1_organization_proto_rawDescGZIP(), []int{8}
-}
-
-func (x *UpdateOrganizationLegacyConfigurationRequest) GetOrganizationKey() string {
-	if x != nil {
-		return x.OrganizationKey
-	}
-	return ""
-}
-
-func (x *UpdateOrganizationLegacyConfigurationRequest) GetLegacyConfiguration() *v1.LegacyConfiguration {
-	if x != nil {
-		return x.LegacyConfiguration
-	}
-	return nil
-}
-
-func (x *UpdateOrganizationLegacyConfigurationRequest) GetVersion() int64 {
-	if x != nil {
-		return x.Version
-	}
-	return 0
-}
-
-type UpdateOrganizationLegacyConfigurationResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Status  UpdateOrganizationLegacyConfigurationResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=mica.partner.organization.v1.UpdateOrganizationLegacyConfigurationResponse_Status" json:"status,omitempty"`
-	Error   *v1.Error                                            `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
-	Version int64                                                `protobuf:"varint,3,opt,name=version,proto3" json:"version,omitempty"`
-}
-
-func (x *UpdateOrganizationLegacyConfigurationResponse) Reset() {
-	*x = UpdateOrganizationLegacyConfigurationResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_partner_organization_v1_organization_proto_msgTypes[9]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *UpdateOrganizationLegacyConfigurationResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*UpdateOrganizationLegacyConfigurationResponse) ProtoMessage() {}
-
-func (x *UpdateOrganizationLegacyConfigurationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_partner_organization_v1_organization_proto_msgTypes[9]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use UpdateOrganizationLegacyConfigurationResponse.ProtoReflect.Descriptor instead.
-func (*UpdateOrganizationLegacyConfigurationResponse) Descriptor() ([]byte, []int) {
-	return file_mica_partner_organization_v1_organization_proto_rawDescGZIP(), []int{9}
-}
-
-func (x *UpdateOrganizationLegacyConfigurationResponse) GetStatus() UpdateOrganizationLegacyConfigurationResponse_Status {
-	if x != nil {
-		return x.Status
-	}
-	return UpdateOrganizationLegacyConfigurationResponse_STATUS_UNSPECIFIED
-}
-
-func (x *UpdateOrganizationLegacyConfigurationResponse) GetError() *v1.Error {
-	if x != nil {
-		return x.Error
-	}
-	return nil
-}
-
-func (x *UpdateOrganizationLegacyConfigurationResponse) GetVersion() int64 {
-	if x != nil {
-		return x.Version
-	}
-	return 0
-}
-
 var File_mica_partner_organization_v1_organization_proto protoreflect.FileDescriptor
 
 var file_mica_partner_organization_v1_organization_proto_rawDesc = []byte{
@@ -1090,90 +736,13 @@ var file_mica_partner_organization_v1_organization_proto_rawDesc = []byte{
 	0x10, 0x0a, 0x0c, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10,
 	0x02, 0x12, 0x1d, 0x0a, 0x19, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x49, 0x4e, 0x56, 0x41,
 	0x4c, 0x49, 0x44, 0x5f, 0x50, 0x41, 0x52, 0x54, 0x4e, 0x45, 0x52, 0x5f, 0x49, 0x44, 0x10, 0x03,
-	0x22, 0x61, 0x0a, 0x29, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x4c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75,
-	0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x34, 0x0a,
-	0x10, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6b, 0x65,
-	0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x09, 0xfa, 0x42, 0x06, 0x72, 0x04, 0x10, 0x1e,
-	0x18, 0x32, 0x52, 0x0f, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x4b, 0x65, 0x79, 0x22, 0xa9, 0x04, 0x0a, 0x2a, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x67, 0x61, 0x6e,
-	0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x43, 0x6f, 0x6e,
-	0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x67, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x0e, 0x32, 0x4f, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x6e, 0x65,
-	0x72, 0x2e, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x76,
-	0x31, 0x2e, 0x47, 0x65, 0x74, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x4c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x53, 0x74, 0x61,
-	0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x31, 0x0a, 0x05, 0x65,
-	0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x6d, 0x69, 0x63,
-	0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76,
-	0x31, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x6b,
-	0x0a, 0x1c, 0x70, 0x61, 0x72, 0x74, 0x6e, 0x65, 0x72, 0x5f, 0x6c, 0x65, 0x67, 0x61, 0x63, 0x79,
-	0x5f, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x03,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x29, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65,
-	0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x65, 0x67, 0x61,
-	0x63, 0x79, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
-	0x1a, 0x70, 0x61, 0x72, 0x74, 0x6e, 0x65, 0x72, 0x4c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x43, 0x6f,
-	0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x75, 0x0a, 0x21, 0x6f,
-	0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6c, 0x65, 0x67, 0x61,
-	0x63, 0x79, 0x5f, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x29, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61,
-	0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x65,
-	0x67, 0x61, 0x63, 0x79, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x52, 0x1f, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c,
-	0x65, 0x67, 0x61, 0x63, 0x79, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x22, 0x7b, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x16, 0x0a, 0x12,
-	0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49,
-	0x45, 0x44, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x53,
-	0x55, 0x43, 0x43, 0x45, 0x53, 0x53, 0x10, 0x01, 0x12, 0x10, 0x0a, 0x0c, 0x53, 0x54, 0x41, 0x54,
-	0x55, 0x53, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x12, 0x1d, 0x0a, 0x19, 0x53, 0x54,
-	0x41, 0x54, 0x55, 0x53, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x5f, 0x50, 0x41, 0x52,
-	0x54, 0x4e, 0x45, 0x52, 0x5f, 0x49, 0x44, 0x10, 0x03, 0x12, 0x14, 0x0a, 0x10, 0x53, 0x54, 0x41,
-	0x54, 0x55, 0x53, 0x5f, 0x4e, 0x4f, 0x54, 0x5f, 0x46, 0x4f, 0x55, 0x4e, 0x44, 0x10, 0x04, 0x22,
-	0xdc, 0x01, 0x0a, 0x2c, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69,
-	0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x43, 0x6f, 0x6e, 0x66,
-	0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x12, 0x34, 0x0a, 0x10, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x5f, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x09, 0xfa, 0x42, 0x06, 0x72,
-	0x04, 0x10, 0x1e, 0x18, 0x32, 0x52, 0x0f, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x4b, 0x65, 0x79, 0x12, 0x5c, 0x0a, 0x14, 0x6c, 0x65, 0x67, 0x61, 0x63, 0x79,
-	0x5f, 0x63, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02,
-	0x20, 0x01, 0x28, 0x0b, 0x32, 0x29, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65,
-	0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x4c, 0x65, 0x67, 0x61,
-	0x63, 0x79, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52,
-	0x13, 0x6c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x18, 0x0a, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18,
-	0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0xe5,
-	0x02, 0x0a, 0x2d, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x43, 0x6f, 0x6e, 0x66, 0x69,
-	0x67, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x12, 0x6a, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e,
-	0x32, 0x52, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x6e, 0x65, 0x72, 0x2e,
-	0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e,
-	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x4c, 0x65, 0x67, 0x61, 0x63, 0x79, 0x43, 0x6f, 0x6e, 0x66, 0x69, 0x67, 0x75, 0x72,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x53, 0x74,
-	0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x31, 0x0a, 0x05,
-	0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x6d, 0x69,
-	0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e,
-	0x76, 0x31, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x12,
-	0x18, 0x0a, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03,
-	0x52, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x22, 0x7b, 0x0a, 0x06, 0x53, 0x74, 0x61,
-	0x74, 0x75, 0x73, 0x12, 0x16, 0x0a, 0x12, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x4e,
-	0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e, 0x53,
-	0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x53, 0x55, 0x43, 0x43, 0x45, 0x53, 0x53, 0x10, 0x01, 0x12,
-	0x10, 0x0a, 0x0c, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10,
-	0x02, 0x12, 0x1d, 0x0a, 0x19, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x49, 0x4e, 0x56, 0x41,
-	0x4c, 0x49, 0x44, 0x5f, 0x50, 0x41, 0x52, 0x54, 0x4e, 0x45, 0x52, 0x5f, 0x49, 0x44, 0x10, 0x03,
-	0x12, 0x14, 0x0a, 0x10, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x4e, 0x4f, 0x54, 0x5f, 0x46,
-	0x4f, 0x55, 0x4e, 0x44, 0x10, 0x04, 0x42, 0x58, 0x0a, 0x1f, 0x69, 0x6f, 0x2e, 0x6d, 0x69, 0x63,
-	0x61, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x6e, 0x65, 0x72, 0x2e, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69,
-	0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x42, 0x11, 0x4f, 0x72, 0x67, 0x61, 0x6e,
-	0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x5a, 0x1b, 0x6d, 0x69,
-	0x63, 0x61, 0x2f, 0x70, 0x61, 0x72, 0x74, 0x6e, 0x65, 0x72, 0x2f, 0x6f, 0x72, 0x67, 0x61, 0x6e,
-	0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x76, 0x31, 0xa2, 0x02, 0x04, 0x4d, 0x49, 0x43, 0x41,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x42, 0x58, 0x0a, 0x1f, 0x69, 0x6f, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x2e, 0x70, 0x61, 0x72, 0x74,
+	0x6e, 0x65, 0x72, 0x2e, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x2e, 0x76, 0x31, 0x42, 0x11, 0x4f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x5a, 0x1b, 0x6d, 0x69, 0x63, 0x61, 0x2f, 0x70, 0x61, 0x72,
+	0x74, 0x6e, 0x65, 0x72, 0x2f, 0x6f, 0x72, 0x67, 0x61, 0x6e, 0x69, 0x7a, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x76, 0x31, 0xa2, 0x02, 0x04, 0x4d, 0x49, 0x43, 0x41, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -1188,60 +757,46 @@ func file_mica_partner_organization_v1_organization_proto_rawDescGZIP() []byte {
 	return file_mica_partner_organization_v1_organization_proto_rawDescData
 }
 
-var file_mica_partner_organization_v1_organization_proto_enumTypes = make([]protoimpl.EnumInfo, 5)
-var file_mica_partner_organization_v1_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_mica_partner_organization_v1_organization_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
+var file_mica_partner_organization_v1_organization_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_mica_partner_organization_v1_organization_proto_goTypes = []interface{}{
-	(GetOrganizationResponse_Status)(0),                       // 0: mica.partner.organization.v1.GetOrganizationResponse.Status
-	(UpdateOrganizationResponse_Status)(0),                    // 1: mica.partner.organization.v1.UpdateOrganizationResponse.Status
-	(SearchOrganizationResponse_Status)(0),                    // 2: mica.partner.organization.v1.SearchOrganizationResponse.Status
-	(GetOrganizationLegacyConfigurationResponse_Status)(0),    // 3: mica.partner.organization.v1.GetOrganizationLegacyConfigurationResponse.Status
-	(UpdateOrganizationLegacyConfigurationResponse_Status)(0), // 4: mica.partner.organization.v1.UpdateOrganizationLegacyConfigurationResponse.Status
-	(*GetOrganizationRequest)(nil),                            // 5: mica.partner.organization.v1.GetOrganizationRequest
-	(*GetOrganizationResponse)(nil),                           // 6: mica.partner.organization.v1.GetOrganizationResponse
-	(*UpdateOrganizationRequest)(nil),                         // 7: mica.partner.organization.v1.UpdateOrganizationRequest
-	(*UpdateOrganizationResponse)(nil),                        // 8: mica.partner.organization.v1.UpdateOrganizationResponse
-	(*SearchOrganizationRequest)(nil),                         // 9: mica.partner.organization.v1.SearchOrganizationRequest
-	(*SearchOrganizationResponse)(nil),                        // 10: mica.partner.organization.v1.SearchOrganizationResponse
-	(*GetOrganizationLegacyConfigurationRequest)(nil),         // 11: mica.partner.organization.v1.GetOrganizationLegacyConfigurationRequest
-	(*GetOrganizationLegacyConfigurationResponse)(nil),        // 12: mica.partner.organization.v1.GetOrganizationLegacyConfigurationResponse
-	(*UpdateOrganizationLegacyConfigurationRequest)(nil),      // 13: mica.partner.organization.v1.UpdateOrganizationLegacyConfigurationRequest
-	(*UpdateOrganizationLegacyConfigurationResponse)(nil),     // 14: mica.partner.organization.v1.UpdateOrganizationLegacyConfigurationResponse
-	(*v1.Error)(nil),                                 // 15: micashared.common.v1.Error
-	(*v1.Organization)(nil),                          // 16: micashared.common.v1.Organization
-	(*v1.Address)(nil),                               // 17: micashared.common.v1.Address
-	(*v1.BankAccountDetail)(nil),                     // 18: micashared.common.v1.BankAccountDetail
-	(barcodetypev1.BarcodeType)(0),                   // 19: micashared.common.enums.barcodetype.v1.BarcodeType
-	(barcodelocationv1.BarcodeLocation)(0),           // 20: micashared.common.enums.barcodelocation.v1.BarcodeLocation
-	(organizationcategoryv1.OrganizationCategory)(0), // 21: micashared.common.enums.organizationcategory.v1.OrganizationCategory
-	(*v1.LegacyConfiguration)(nil),                   // 22: micashared.common.v1.LegacyConfiguration
+	(GetOrganizationResponse_Status)(0),              // 0: mica.partner.organization.v1.GetOrganizationResponse.Status
+	(UpdateOrganizationResponse_Status)(0),           // 1: mica.partner.organization.v1.UpdateOrganizationResponse.Status
+	(SearchOrganizationResponse_Status)(0),           // 2: mica.partner.organization.v1.SearchOrganizationResponse.Status
+	(*GetOrganizationRequest)(nil),                   // 3: mica.partner.organization.v1.GetOrganizationRequest
+	(*GetOrganizationResponse)(nil),                  // 4: mica.partner.organization.v1.GetOrganizationResponse
+	(*UpdateOrganizationRequest)(nil),                // 5: mica.partner.organization.v1.UpdateOrganizationRequest
+	(*UpdateOrganizationResponse)(nil),               // 6: mica.partner.organization.v1.UpdateOrganizationResponse
+	(*SearchOrganizationRequest)(nil),                // 7: mica.partner.organization.v1.SearchOrganizationRequest
+	(*SearchOrganizationResponse)(nil),               // 8: mica.partner.organization.v1.SearchOrganizationResponse
+	(*v1.Error)(nil),                                 // 9: micashared.common.v1.Error
+	(*v1.Organization)(nil),                          // 10: micashared.common.v1.Organization
+	(*v1.Address)(nil),                               // 11: micashared.common.v1.Address
+	(*v1.BankAccountDetail)(nil),                     // 12: micashared.common.v1.BankAccountDetail
+	(barcodetypev1.BarcodeType)(0),                   // 13: micashared.common.enums.barcodetype.v1.BarcodeType
+	(barcodelocationv1.BarcodeLocation)(0),           // 14: micashared.common.enums.barcodelocation.v1.BarcodeLocation
+	(organizationcategoryv1.OrganizationCategory)(0), // 15: micashared.common.enums.organizationcategory.v1.OrganizationCategory
 }
 var file_mica_partner_organization_v1_organization_proto_depIdxs = []int32{
 	0,  // 0: mica.partner.organization.v1.GetOrganizationResponse.status:type_name -> mica.partner.organization.v1.GetOrganizationResponse.Status
-	15, // 1: mica.partner.organization.v1.GetOrganizationResponse.error:type_name -> micashared.common.v1.Error
-	16, // 2: mica.partner.organization.v1.GetOrganizationResponse.organization:type_name -> micashared.common.v1.Organization
-	17, // 3: mica.partner.organization.v1.UpdateOrganizationRequest.address:type_name -> micashared.common.v1.Address
-	18, // 4: mica.partner.organization.v1.UpdateOrganizationRequest.operating_account:type_name -> micashared.common.v1.BankAccountDetail
-	18, // 5: mica.partner.organization.v1.UpdateOrganizationRequest.revenue_account:type_name -> micashared.common.v1.BankAccountDetail
-	19, // 6: mica.partner.organization.v1.UpdateOrganizationRequest.barcode_type:type_name -> micashared.common.enums.barcodetype.v1.BarcodeType
-	20, // 7: mica.partner.organization.v1.UpdateOrganizationRequest.barcode_location:type_name -> micashared.common.enums.barcodelocation.v1.BarcodeLocation
+	9,  // 1: mica.partner.organization.v1.GetOrganizationResponse.error:type_name -> micashared.common.v1.Error
+	10, // 2: mica.partner.organization.v1.GetOrganizationResponse.organization:type_name -> micashared.common.v1.Organization
+	11, // 3: mica.partner.organization.v1.UpdateOrganizationRequest.address:type_name -> micashared.common.v1.Address
+	12, // 4: mica.partner.organization.v1.UpdateOrganizationRequest.operating_account:type_name -> micashared.common.v1.BankAccountDetail
+	12, // 5: mica.partner.organization.v1.UpdateOrganizationRequest.revenue_account:type_name -> micashared.common.v1.BankAccountDetail
+	13, // 6: mica.partner.organization.v1.UpdateOrganizationRequest.barcode_type:type_name -> micashared.common.enums.barcodetype.v1.BarcodeType
+	14, // 7: mica.partner.organization.v1.UpdateOrganizationRequest.barcode_location:type_name -> micashared.common.enums.barcodelocation.v1.BarcodeLocation
 	1,  // 8: mica.partner.organization.v1.UpdateOrganizationResponse.status:type_name -> mica.partner.organization.v1.UpdateOrganizationResponse.Status
-	15, // 9: mica.partner.organization.v1.UpdateOrganizationResponse.error:type_name -> micashared.common.v1.Error
-	21, // 10: mica.partner.organization.v1.SearchOrganizationRequest.category:type_name -> micashared.common.enums.organizationcategory.v1.OrganizationCategory
+	9,  // 9: mica.partner.organization.v1.UpdateOrganizationResponse.error:type_name -> micashared.common.v1.Error
+	15, // 10: mica.partner.organization.v1.SearchOrganizationRequest.category:type_name -> micashared.common.enums.organizationcategory.v1.OrganizationCategory
 	2,  // 11: mica.partner.organization.v1.SearchOrganizationResponse.status:type_name -> mica.partner.organization.v1.SearchOrganizationResponse.Status
-	15, // 12: mica.partner.organization.v1.SearchOrganizationResponse.error:type_name -> micashared.common.v1.Error
-	16, // 13: mica.partner.organization.v1.SearchOrganizationResponse.organizations:type_name -> micashared.common.v1.Organization
-	3,  // 14: mica.partner.organization.v1.GetOrganizationLegacyConfigurationResponse.status:type_name -> mica.partner.organization.v1.GetOrganizationLegacyConfigurationResponse.Status
-	15, // 15: mica.partner.organization.v1.GetOrganizationLegacyConfigurationResponse.error:type_name -> micashared.common.v1.Error
-	22, // 16: mica.partner.organization.v1.GetOrganizationLegacyConfigurationResponse.partner_legacy_configuration:type_name -> micashared.common.v1.LegacyConfiguration
-	22, // 17: mica.partner.organization.v1.GetOrganizationLegacyConfigurationResponse.organization_legacy_configuration:type_name -> micashared.common.v1.LegacyConfiguration
-	22, // 18: mica.partner.organization.v1.UpdateOrganizationLegacyConfigurationRequest.legacy_configuration:type_name -> micashared.common.v1.LegacyConfiguration
-	4,  // 19: mica.partner.organization.v1.UpdateOrganizationLegacyConfigurationResponse.status:type_name -> mica.partner.organization.v1.UpdateOrganizationLegacyConfigurationResponse.Status
-	15, // 20: mica.partner.organization.v1.UpdateOrganizationLegacyConfigurationResponse.error:type_name -> micashared.common.v1.Error
-	21, // [21:21] is the sub-list for method output_type
-	21, // [21:21] is the sub-list for method input_type
-	21, // [21:21] is the sub-list for extension type_name
-	21, // [21:21] is the sub-list for extension extendee
-	0,  // [0:21] is the sub-list for field type_name
+	9,  // 12: mica.partner.organization.v1.SearchOrganizationResponse.error:type_name -> micashared.common.v1.Error
+	10, // 13: mica.partner.organization.v1.SearchOrganizationResponse.organizations:type_name -> micashared.common.v1.Organization
+	14, // [14:14] is the sub-list for method output_type
+	14, // [14:14] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_mica_partner_organization_v1_organization_proto_init() }
@@ -1322,62 +877,14 @@ func file_mica_partner_organization_v1_organization_proto_init() {
 				return nil
 			}
 		}
-		file_mica_partner_organization_v1_organization_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetOrganizationLegacyConfigurationRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_mica_partner_organization_v1_organization_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetOrganizationLegacyConfigurationResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_mica_partner_organization_v1_organization_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateOrganizationLegacyConfigurationRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_mica_partner_organization_v1_organization_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateOrganizationLegacyConfigurationResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_mica_partner_organization_v1_organization_proto_rawDesc,
-			NumEnums:      5,
-			NumMessages:   10,
+			NumEnums:      3,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

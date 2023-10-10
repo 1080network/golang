@@ -22,7 +22,6 @@ import (
 	discountv1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/discountv1"
 	instrumentv1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/instrumentv1"
 	serviceproviderv1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/serviceproviderv1"
-	transactionv1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/transactionv1"
 	userv1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/userv1"
 	uuekv1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/uuekv1"
 	valuev1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/valuev1"
@@ -36,31 +35,28 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ServiceProviderToMicaService_GetServiceProvider_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetServiceProvider"
-	ServiceProviderToMicaService_RegisterUser_FullMethodName                   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RegisterUser"
-	ServiceProviderToMicaService_GetUser_FullMethodName                        = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetUser"
-	ServiceProviderToMicaService_UpdateUser_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/UpdateUser"
-	ServiceProviderToMicaService_RemoveUser_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveUser"
-	ServiceProviderToMicaService_SearchUser_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchUser"
-	ServiceProviderToMicaService_RegisterInstrument_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RegisterInstrument"
-	ServiceProviderToMicaService_GetInstrument_FullMethodName                  = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetInstrument"
-	ServiceProviderToMicaService_RemoveInstrument_FullMethodName               = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveInstrument"
-	ServiceProviderToMicaService_SearchInstrument_FullMethodName               = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchInstrument"
-	ServiceProviderToMicaService_SetPIN_FullMethodName                         = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SetPIN"
-	ServiceProviderToMicaService_ResetPIN_FullMethodName                       = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/ResetPIN"
-	ServiceProviderToMicaService_RemovePIN_FullMethodName                      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemovePIN"
-	ServiceProviderToMicaService_ProvisionServiceProviderUUEK_FullMethodName   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/ProvisionServiceProviderUUEK"
-	ServiceProviderToMicaService_RemoveServiceProviderUUEK_FullMethodName      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveServiceProviderUUEK"
-	ServiceProviderToMicaService_SearchServiceProviderUUEK_FullMethodName      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchServiceProviderUUEK"
-	ServiceProviderToMicaService_SendValue_FullMethodName                      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SendValue"
-	ServiceProviderToMicaService_SearchValue_FullMethodName                    = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchValue"
-	ServiceProviderToMicaService_GetValue_FullMethodName                       = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetValue"
-	ServiceProviderToMicaService_SearchTransactionData_FullMethodName          = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchTransactionData"
-	ServiceProviderToMicaService_SearchTransactionGeographyData_FullMethodName = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchTransactionGeographyData"
-	ServiceProviderToMicaService_SearchTransactionPartnerData_FullMethodName   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchTransactionPartnerData"
-	ServiceProviderToMicaService_SearchUserDiscount_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchUserDiscount"
-	ServiceProviderToMicaService_GetReceipt_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetReceipt"
-	ServiceProviderToMicaService_Ping_FullMethodName                           = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/Ping"
+	ServiceProviderToMicaService_GetServiceProvider_FullMethodName           = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetServiceProvider"
+	ServiceProviderToMicaService_RegisterUser_FullMethodName                 = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RegisterUser"
+	ServiceProviderToMicaService_GetUser_FullMethodName                      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetUser"
+	ServiceProviderToMicaService_UpdateUser_FullMethodName                   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/UpdateUser"
+	ServiceProviderToMicaService_RemoveUser_FullMethodName                   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveUser"
+	ServiceProviderToMicaService_SearchUser_FullMethodName                   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchUser"
+	ServiceProviderToMicaService_RegisterInstrument_FullMethodName           = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RegisterInstrument"
+	ServiceProviderToMicaService_GetInstrument_FullMethodName                = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetInstrument"
+	ServiceProviderToMicaService_RemoveInstrument_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveInstrument"
+	ServiceProviderToMicaService_SearchInstrument_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchInstrument"
+	ServiceProviderToMicaService_SetPIN_FullMethodName                       = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SetPIN"
+	ServiceProviderToMicaService_ResetPIN_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/ResetPIN"
+	ServiceProviderToMicaService_RemovePIN_FullMethodName                    = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemovePIN"
+	ServiceProviderToMicaService_ProvisionServiceProviderUUEK_FullMethodName = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/ProvisionServiceProviderUUEK"
+	ServiceProviderToMicaService_RemoveServiceProviderUUEK_FullMethodName    = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveServiceProviderUUEK"
+	ServiceProviderToMicaService_SearchServiceProviderUUEK_FullMethodName    = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchServiceProviderUUEK"
+	ServiceProviderToMicaService_SendValue_FullMethodName                    = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SendValue"
+	ServiceProviderToMicaService_SearchValue_FullMethodName                  = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchValue"
+	ServiceProviderToMicaService_GetValue_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetValue"
+	ServiceProviderToMicaService_SearchUserDiscount_FullMethodName           = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchUserDiscount"
+	ServiceProviderToMicaService_GetReceipt_FullMethodName                   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetReceipt"
+	ServiceProviderToMicaService_Ping_FullMethodName                         = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/Ping"
 )
 
 // ServiceProviderToMicaServiceClient is the client API for ServiceProviderToMicaService service.
@@ -100,11 +96,8 @@ type ServiceProviderToMicaServiceClient interface {
 	// An operation to search for Value operations either Obtain or Return that the Partner has requested of mica.
 	SearchValue(ctx context.Context, in *valuev1.SearchValueRequest, opts ...grpc.CallOption) (*valuev1.SearchValueResponse, error)
 	GetValue(ctx context.Context, in *valuev1.GetValueRequest, opts ...grpc.CallOption) (*valuev1.GetValueResponse, error)
-	SearchTransactionData(ctx context.Context, in *transactionv1.SearchTransactionDataRequest, opts ...grpc.CallOption) (*transactionv1.SearchTransactionDataResponse, error)
-	SearchTransactionGeographyData(ctx context.Context, in *transactionv1.SearchTransactionGeographyDataRequest, opts ...grpc.CallOption) (*transactionv1.SearchTransactionGeographyDataResponse, error)
-	SearchTransactionPartnerData(ctx context.Context, in *transactionv1.SearchTransactionPartnerDataRequest, opts ...grpc.CallOption) (*transactionv1.SearchTransactionPartnerDataResponse, error)
 	SearchUserDiscount(ctx context.Context, in *discountv1.SearchUserDiscountRequest, opts ...grpc.CallOption) (*discountv1.SearchUserDiscountResponse, error)
-	// Retrieve a transaction based on it's key.
+	// Retrieve a receipt based on the transaction key.
 	GetReceipt(ctx context.Context, in *v1.GetReceiptRequest, opts ...grpc.CallOption) (*v1.GetReceiptResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
 	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
@@ -289,33 +282,6 @@ func (c *serviceProviderToMicaServiceClient) GetValue(ctx context.Context, in *v
 	return out, nil
 }
 
-func (c *serviceProviderToMicaServiceClient) SearchTransactionData(ctx context.Context, in *transactionv1.SearchTransactionDataRequest, opts ...grpc.CallOption) (*transactionv1.SearchTransactionDataResponse, error) {
-	out := new(transactionv1.SearchTransactionDataResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_SearchTransactionData_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderToMicaServiceClient) SearchTransactionGeographyData(ctx context.Context, in *transactionv1.SearchTransactionGeographyDataRequest, opts ...grpc.CallOption) (*transactionv1.SearchTransactionGeographyDataResponse, error) {
-	out := new(transactionv1.SearchTransactionGeographyDataResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_SearchTransactionGeographyData_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderToMicaServiceClient) SearchTransactionPartnerData(ctx context.Context, in *transactionv1.SearchTransactionPartnerDataRequest, opts ...grpc.CallOption) (*transactionv1.SearchTransactionPartnerDataResponse, error) {
-	out := new(transactionv1.SearchTransactionPartnerDataResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_SearchTransactionPartnerData_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *serviceProviderToMicaServiceClient) SearchUserDiscount(ctx context.Context, in *discountv1.SearchUserDiscountRequest, opts ...grpc.CallOption) (*discountv1.SearchUserDiscountResponse, error) {
 	out := new(discountv1.SearchUserDiscountResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_SearchUserDiscount_FullMethodName, in, out, opts...)
@@ -380,11 +346,8 @@ type ServiceProviderToMicaServiceServer interface {
 	// An operation to search for Value operations either Obtain or Return that the Partner has requested of mica.
 	SearchValue(context.Context, *valuev1.SearchValueRequest) (*valuev1.SearchValueResponse, error)
 	GetValue(context.Context, *valuev1.GetValueRequest) (*valuev1.GetValueResponse, error)
-	SearchTransactionData(context.Context, *transactionv1.SearchTransactionDataRequest) (*transactionv1.SearchTransactionDataResponse, error)
-	SearchTransactionGeographyData(context.Context, *transactionv1.SearchTransactionGeographyDataRequest) (*transactionv1.SearchTransactionGeographyDataResponse, error)
-	SearchTransactionPartnerData(context.Context, *transactionv1.SearchTransactionPartnerDataRequest) (*transactionv1.SearchTransactionPartnerDataResponse, error)
 	SearchUserDiscount(context.Context, *discountv1.SearchUserDiscountRequest) (*discountv1.SearchUserDiscountResponse, error)
-	// Retrieve a transaction based on it's key.
+	// Retrieve a receipt based on the transaction key.
 	GetReceipt(context.Context, *v1.GetReceiptRequest) (*v1.GetReceiptResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
 	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
@@ -451,15 +414,6 @@ func (UnimplementedServiceProviderToMicaServiceServer) SearchValue(context.Conte
 }
 func (UnimplementedServiceProviderToMicaServiceServer) GetValue(context.Context, *valuev1.GetValueRequest) (*valuev1.GetValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetValue not implemented")
-}
-func (UnimplementedServiceProviderToMicaServiceServer) SearchTransactionData(context.Context, *transactionv1.SearchTransactionDataRequest) (*transactionv1.SearchTransactionDataResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchTransactionData not implemented")
-}
-func (UnimplementedServiceProviderToMicaServiceServer) SearchTransactionGeographyData(context.Context, *transactionv1.SearchTransactionGeographyDataRequest) (*transactionv1.SearchTransactionGeographyDataResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchTransactionGeographyData not implemented")
-}
-func (UnimplementedServiceProviderToMicaServiceServer) SearchTransactionPartnerData(context.Context, *transactionv1.SearchTransactionPartnerDataRequest) (*transactionv1.SearchTransactionPartnerDataResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchTransactionPartnerData not implemented")
 }
 func (UnimplementedServiceProviderToMicaServiceServer) SearchUserDiscount(context.Context, *discountv1.SearchUserDiscountRequest) (*discountv1.SearchUserDiscountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchUserDiscount not implemented")
@@ -826,60 +780,6 @@ func _ServiceProviderToMicaService_GetValue_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceProviderToMicaService_SearchTransactionData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(transactionv1.SearchTransactionDataRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderToMicaServiceServer).SearchTransactionData(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderToMicaService_SearchTransactionData_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderToMicaServiceServer).SearchTransactionData(ctx, req.(*transactionv1.SearchTransactionDataRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderToMicaService_SearchTransactionGeographyData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(transactionv1.SearchTransactionGeographyDataRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderToMicaServiceServer).SearchTransactionGeographyData(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderToMicaService_SearchTransactionGeographyData_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderToMicaServiceServer).SearchTransactionGeographyData(ctx, req.(*transactionv1.SearchTransactionGeographyDataRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderToMicaService_SearchTransactionPartnerData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(transactionv1.SearchTransactionPartnerDataRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderToMicaServiceServer).SearchTransactionPartnerData(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderToMicaService_SearchTransactionPartnerData_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderToMicaServiceServer).SearchTransactionPartnerData(ctx, req.(*transactionv1.SearchTransactionPartnerDataRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _ServiceProviderToMicaService_SearchUserDiscount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(discountv1.SearchUserDiscountRequest)
 	if err := dec(in); err != nil {
@@ -1016,18 +916,6 @@ var ServiceProviderToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetValue",
 			Handler:    _ServiceProviderToMicaService_GetValue_Handler,
-		},
-		{
-			MethodName: "SearchTransactionData",
-			Handler:    _ServiceProviderToMicaService_SearchTransactionData_Handler,
-		},
-		{
-			MethodName: "SearchTransactionGeographyData",
-			Handler:    _ServiceProviderToMicaService_SearchTransactionGeographyData_Handler,
-		},
-		{
-			MethodName: "SearchTransactionPartnerData",
-			Handler:    _ServiceProviderToMicaService_SearchTransactionPartnerData_Handler,
 		},
 		{
 			MethodName: "SearchUserDiscount",

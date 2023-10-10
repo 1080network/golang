@@ -11,8 +11,6 @@ syntax = "proto3";
 package mica.serviceprovider.serviceprovider.v1;
 
 import "google/protobuf/timestamp.proto";
-import "micashared/common/enums/accounttype/v1/account_type.proto";
-import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/v1/bank_account_detail.proto";
 import "micashared/common/v1/error.proto";
 import "validate/validate.proto";
@@ -21,23 +19,6 @@ option go_package = "mica/serviceprovider/serviceproviderv1";
 option java_outer_classname = "ServiceProviderProto";
 option java_package = "io.mica.serviceprovider.serviceprovider.v1";
 option objc_class_prefix = "MICA";
-
-message ServiceProviderAccount {
-  string service_provider_account_key = 1 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-
-  int64 version = 2 [(validate.rules).int64.gte = 0];
-
-  google.protobuf.Timestamp created = 3;
-
-  google.protobuf.Timestamp updated = 4;
-
-  micashared.common.enums.accounttype.v1.AccountType account_type = 5;
-
-  micashared.common.enums.currency.v1.Currency currency = 6;
-}
 
 message ServiceProvider {
   string service_provider_key = 1 [(validate.rules).string = {
@@ -54,8 +35,6 @@ message ServiceProvider {
   string name = 5;
 
   string service_provider_url = 6;
-
-  repeated ServiceProviderAccount service_provider_accounts = 7;
 
   micashared.common.v1.BankAccountDetail operating_account = 8;
 

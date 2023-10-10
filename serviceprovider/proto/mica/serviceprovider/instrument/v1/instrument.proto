@@ -38,9 +38,6 @@ message RegisterInstrumentRequest {
 
   // Last 4 digits of this instrument.
   string nickname = 5;
-
-  // List of previous settled transactions
-  repeated Transaction settled_transactions = 6;
 }
 
 message Transaction {
