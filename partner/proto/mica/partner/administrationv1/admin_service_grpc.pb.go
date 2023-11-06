@@ -43,6 +43,7 @@ const (
 	PartnerAdministrationService_UpdateExternalClientMTLSCertificate_FullMethodName   = "/mica.partner.administration.v1.PartnerAdministrationService/UpdateExternalClientMTLSCertificate"
 	PartnerAdministrationService_SearchExternalClientMTLSCertificate_FullMethodName   = "/mica.partner.administration.v1.PartnerAdministrationService/SearchExternalClientMTLSCertificate"
 	PartnerAdministrationService_SearchDataExtractionStatistics_FullMethodName        = "/mica.partner.administration.v1.PartnerAdministrationService/SearchDataExtractionStatistics"
+	PartnerAdministrationService_GetDataExtractionStatistics_FullMethodName           = "/mica.partner.administration.v1.PartnerAdministrationService/GetDataExtractionStatistics"
 	PartnerAdministrationService_PingExternal_FullMethodName                          = "/mica.partner.administration.v1.PartnerAdministrationService/PingExternal"
 )
 
@@ -69,6 +70,7 @@ type PartnerAdministrationServiceClient interface {
 	UpdateExternalClientMTLSCertificate(ctx context.Context, in *v1.UpdateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientMTLSCertificateResponse, error)
 	SearchExternalClientMTLSCertificate(ctx context.Context, in *v1.SearchExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchExternalClientMTLSCertificateResponse, error)
 	SearchDataExtractionStatistics(ctx context.Context, in *v1.SearchDataExtractionRequest, opts ...grpc.CallOption) (*v1.SearchDataExtractionResponse, error)
+	GetDataExtractionStatistics(ctx context.Context, in *v1.GetDataExtractionRequest, opts ...grpc.CallOption) (*v1.GetDataExtractionResponse, error)
 	// tests the external call to verify proper configuration and connectivity
 	PingExternal(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
 }
@@ -207,6 +209,15 @@ func (c *partnerAdministrationServiceClient) SearchDataExtractionStatistics(ctx 
 	return out, nil
 }
 
+func (c *partnerAdministrationServiceClient) GetDataExtractionStatistics(ctx context.Context, in *v1.GetDataExtractionRequest, opts ...grpc.CallOption) (*v1.GetDataExtractionResponse, error) {
+	out := new(v1.GetDataExtractionResponse)
+	err := c.cc.Invoke(ctx, PartnerAdministrationService_GetDataExtractionStatistics_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *partnerAdministrationServiceClient) PingExternal(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
 	out := new(pingv1.PingResponse)
 	err := c.cc.Invoke(ctx, PartnerAdministrationService_PingExternal_FullMethodName, in, out, opts...)
@@ -239,6 +250,7 @@ type PartnerAdministrationServiceServer interface {
 	UpdateExternalClientMTLSCertificate(context.Context, *v1.UpdateExternalClientMTLSCertificateRequest) (*v1.UpdateExternalClientMTLSCertificateResponse, error)
 	SearchExternalClientMTLSCertificate(context.Context, *v1.SearchExternalClientMTLSCertificateRequest) (*v1.SearchExternalClientMTLSCertificateResponse, error)
 	SearchDataExtractionStatistics(context.Context, *v1.SearchDataExtractionRequest) (*v1.SearchDataExtractionResponse, error)
+	GetDataExtractionStatistics(context.Context, *v1.GetDataExtractionRequest) (*v1.GetDataExtractionResponse, error)
 	// tests the external call to verify proper configuration and connectivity
 	PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
 	mustEmbedUnimplementedPartnerAdministrationServiceServer()
@@ -289,6 +301,9 @@ func (UnimplementedPartnerAdministrationServiceServer) SearchExternalClientMTLSC
 }
 func (UnimplementedPartnerAdministrationServiceServer) SearchDataExtractionStatistics(context.Context, *v1.SearchDataExtractionRequest) (*v1.SearchDataExtractionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchDataExtractionStatistics not implemented")
+}
+func (UnimplementedPartnerAdministrationServiceServer) GetDataExtractionStatistics(context.Context, *v1.GetDataExtractionRequest) (*v1.GetDataExtractionResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDataExtractionStatistics not implemented")
 }
 func (UnimplementedPartnerAdministrationServiceServer) PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PingExternal not implemented")
@@ -559,6 +574,24 @@ func _PartnerAdministrationService_SearchDataExtractionStatistics_Handler(srv in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PartnerAdministrationService_GetDataExtractionStatistics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.GetDataExtractionRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerAdministrationServiceServer).GetDataExtractionStatistics(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerAdministrationService_GetDataExtractionStatistics_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerAdministrationServiceServer).GetDataExtractionStatistics(ctx, req.(*v1.GetDataExtractionRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PartnerAdministrationService_PingExternal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(pingv1.PingRequest)
 	if err := dec(in); err != nil {
@@ -639,6 +672,10 @@ var PartnerAdministrationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchDataExtractionStatistics",
 			Handler:    _PartnerAdministrationService_SearchDataExtractionStatistics_Handler,
+		},
+		{
+			MethodName: "GetDataExtractionStatistics",
+			Handler:    _PartnerAdministrationService_GetDataExtractionStatistics_Handler,
 		},
 		{
 			MethodName: "PingExternal",

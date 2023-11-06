@@ -12,9 +12,9 @@ package mica.serviceprovider.service.v1;
 
 import "mica/serviceprovider/discount/v1/discount.proto";
 import "mica/serviceprovider/instrument/v1/instrument.proto";
-import "mica/serviceprovider/uuek/v1/uuek.proto";
 import "mica/serviceprovider/serviceprovider/v1/service_provider.proto";
 import "mica/serviceprovider/user/v1/user.proto";
+import "mica/serviceprovider/uuek/v1/uuek.proto";
 import "mica/serviceprovider/value/v1/value.proto";
 import "micashared/common/ping/v1/ping.proto";
 import "micashared/common/v1/receipt.proto";
@@ -80,6 +80,8 @@ service ServiceProviderToMicaService {
   //<editor-fold desc="PIN Operations">
 
   rpc SetPIN(instrument.v1.SetPINRequest) returns (instrument.v1.SetPINResponse) {}
+
+  rpc ValidatePIN(instrument.v1.ValidatePINRequest) returns (instrument.v1.ValidatePINResponse) {}
 
   rpc ResetPIN(instrument.v1.ResetPINRequest) returns (instrument.v1.ResetPINResponse) {}
 

@@ -46,8 +46,16 @@ message Store {
     max_len: 50
   }];
 
+  string organization_ref = 12 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100
+  }];
+
   // The primary key for this store at the Partner/Organization.
-  string store_ref = 7;
+  string store_ref = 7 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100
+  }];
 
   // The number of this store (an alternative unique value)
   string store_number = 8;

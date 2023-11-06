@@ -56,6 +56,8 @@ service PartnerAdministrationService {
 
   rpc SearchDataExtractionStatistics(micashared.common.v1.SearchDataExtractionRequest) returns (micashared.common.v1.SearchDataExtractionResponse) {}
 
+  rpc GetDataExtractionStatistics(micashared.common.v1.GetDataExtractionRequest) returns (micashared.common.v1.GetDataExtractionResponse) {}
+
   // tests the external call to verify proper configuration and connectivity
   rpc PingExternal(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
 }

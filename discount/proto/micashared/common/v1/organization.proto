@@ -44,6 +44,11 @@ message Organization {
     max_len: 50
   }];
 
+  string organization_ref = 8 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100
+  }];
+
   // The name of this organization.
   string name = 7;
 

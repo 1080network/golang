@@ -44,7 +44,7 @@ message ServiceProviderUUEK {
 
 // to Mica
 message ProvisionServiceProviderUUEKRequest {
-  oneof criteria {
+  oneof instrument_identifier {
     option (validate.required) = true;
     // The key representing this instrument in Mica.
     string service_provider_instrument_key = 1 [(validate.rules).string = {
@@ -66,11 +66,11 @@ message ProvisionServiceProviderUUEKRequest {
   // amount it will fail. If not set any transaction amount is allowed.
   string spend_limit = 5;
 
-  // the number of transactions that this UUEK can be used 
+  // the number of transactions that this UUEK can be used
   // either a positive value greater than 0 or make it unlimited
   oneof use_criteria {
     option (validate.required) = true;
-    uint32 number_of_uses = 6 [(validate.rules).uint32.gt = 0]; 
+    uint32 number_of_uses = 6 [(validate.rules).uint32.gt = 0];
 
     bool unlimited = 7;
   }
@@ -95,7 +95,7 @@ message ProvisionServiceProviderUUEKResponse {
 }
 
 message RemoveServiceProviderUUEKRequest {
-  oneof criteria {
+  oneof identifier {
     // The key representing this instrument in Mica.
     string service_provider_instrument_key = 1 [(validate.rules).string = {
       min_len: 30,
@@ -127,7 +127,11 @@ message RemoveServiceProviderUUEKResponse {
 message SearchServiceProviderUUEKRequest {
   string service_provider_user_key = 1 [(validate.rules).string = {max_len: 50}];
 
+  string service_provider_user_ref = 3 [(validate.rules).string = {max_len: 100}];
+
   string service_provider_instrument_key = 2 [(validate.rules).string = {max_len: 50}];
+
+  string service_provider_instrument_ref = 4 [(validate.rules).string = {max_len: 100}];
 }
 
 message SearchServiceProviderUUEKResponse {

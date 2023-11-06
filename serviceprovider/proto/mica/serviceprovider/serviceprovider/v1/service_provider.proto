@@ -39,6 +39,8 @@ message ServiceProvider {
   micashared.common.v1.BankAccountDetail operating_account = 8;
 
   micashared.common.v1.BankAccountDetail revenue_account = 9;
+
+  string mica_infra_notify_emails = 10;
 }
 
 message GetServiceProviderRequest {}

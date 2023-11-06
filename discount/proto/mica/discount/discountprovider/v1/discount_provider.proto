@@ -40,7 +40,7 @@ message DiscountProvider {
 
   string email = 9;
 
-  string phone = 10;
+  string phone = 10 [(validate.rules).string.pattern = "^$|^\\+[1-9]\\d{10,14}$"];
 }
 
 message GetDiscountProviderRequest {}
@@ -70,7 +70,7 @@ message UpdateDiscountProviderRequest {
 
   string email = 5;
 
-  string phone = 6;
+  string phone = 6 [(validate.rules).string.pattern = "^$|^\\+[1-9]\\d{10,14}$"];
 }
 
 message UpdateDiscountProviderResponse {

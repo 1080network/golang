@@ -7,11 +7,16 @@ import (
 	"errors"
 	"fmt"
 	"github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/administrationv1"
+	"github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/instrumentv1"
 	"github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/servicev1"
+	"github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/userv1"
 	"github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/uuekv1"
 	"github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/valuev1"
 	"github.com/1080network/golang/serviceprovider/proto/micashared/common/enums/approvaltypev1"
+	"github.com/1080network/golang/serviceprovider/proto/micashared/common/enums/currencyv1"
+	"github.com/1080network/golang/serviceprovider/proto/micashared/common/enums/instrumenttypev1"
 	"github.com/1080network/golang/serviceprovider/proto/micashared/common/pingv1"
+	commonv1 "github.com/1080network/golang/serviceprovider/proto/micashared/common/v1"
 	"github.com/1080network/golang/shared"
 	"github.com/cockroachdb/apd/v3"
 	"github.com/google/uuid"
@@ -126,6 +131,35 @@ func TestProvisionUuek(t *testing.T) {
 	response, err := micaClient.ProvisionServiceProviderUUEK(ctx, request)
 	assert.NoError(t, err)
 	assert.Equal(t, uuekv1.ProvisionServiceProviderUUEKResponse_STATUS_SUCCESS, response.Status)
+}
+
+func TestRegisterUser(t *testing.T) {
+	ctx := context.TODO()
+	micaClient := getServiceProviderClient()
+	request := &userv1.RegisterUserRequest{
+		ServiceProviderUserRef: "4b1519fc-dbf8-4156-b401-35b8058098f4",
+		UserDemographic: &commonv1.UserDemographic{
+			Phone: "19993214567",
+		},
+	}
+	response, err := micaClient.RegisterUser(ctx, request)
+	assert.NoError(t, err)
+	assert.Equal(t, userv1.RegisterUserResponse_STATUS_SUCCESS, response.Status)
+}
+
+func TestRegisterInstrument(t *testing.T) {
+	ctx := context.TODO()
+	micaClient := getServiceProviderClient()
+	request := &instrumentv1.RegisterInstrumentRequest{
+		ServiceProviderUserKey:       "EKmril69iaoeoQOadTiaFav2gKTJQLQ",
+		ServiceProviderInstrumentRef: "22419a4b-6b82-454e-8a10-78094369d62e",
+		InstrumentType:               instrumenttypev1.InstrumentType_INSTRUMENT_TYPE_CHECKING,
+		Currency:                     currencyv1.Currency_CURRENCY_USD,
+		Nickname:                     "1225",
+	}
+	response, err := micaClient.RegisterInstrument(ctx, request)
+	assert.NoError(t, err)
+	assert.Equal(t, instrumentv1.RegisterInstrumentResponse_STATUS_SUCCESS, response.Status)
 }
 
 func getServiceProviderClient() servicev1.ServiceProviderToMicaServiceClient {

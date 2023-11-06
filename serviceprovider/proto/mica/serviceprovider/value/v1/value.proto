@@ -116,6 +116,9 @@ message ValueRequest {
   // Service Provider's primary key for their instrument.
   string service_provider_instrument_ref = 3;
 
+  // If a Service Provier UUEK this value will be set so the service provier can do any management on their end
+  string service_provider_uuek = 19;
+
   // Service Provider's transaction record primary key. Not sent for obtain and refund transactions, but included in reverses (different ID *should* come back)
   string transaction_ref = 4;
 
@@ -428,15 +431,21 @@ message SearchValueResponse {
 //<editor-fold desc="Person to Person Operations">
 
 message SendValueRequest {
-  string from_service_provider_user_key = 1 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+  string from_service_provider_user_key = 1 [(validate.rules).string = {max_len: 50}];
+  oneof user_identifier {
+    // The key representing this user in Mica.
+    string service_provider_user_key = 6 [(validate.rules).string = {max_len: 50}];
 
-  string from_service_provider_instrument_key = 2 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+    string service_provider_user_ref = 7 [(validate.rules).string = {max_len: 100}];
+  }
+
+  string from_service_provider_instrument_key = 2 [(validate.rules).string = {max_len: 50}];
+  oneof instrument_identifier {
+    // The key representing this instrument in Mica.
+    string service_provider_instrument_key = 8 [(validate.rules).string = {max_len: 50}];
+
+    string service_provider_instrument_ref = 9 [(validate.rules).string = {max_len: 100}];
+  }
 
   // @gotags: mask:"security"
   string to_uuek = 3 [(validate.rules).string = {

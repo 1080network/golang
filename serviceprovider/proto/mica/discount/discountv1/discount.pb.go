@@ -1118,7 +1118,7 @@ type CreateDiscountRequest struct {
 	DiscountDefinitionRef string `protobuf:"bytes,1,opt,name=discount_definition_ref,json=discountDefinitionRef,proto3" json:"discount_definition_ref,omitempty"`
 	DiscountRef           string `protobuf:"bytes,2,opt,name=discount_ref,json=discountRef,proto3" json:"discount_ref,omitempty"`
 	ReceiptDescription    string `protobuf:"bytes,3,opt,name=receipt_description,json=receiptDescription,proto3" json:"receipt_description,omitempty"`
-	// the intial status of the discount has to be set and it cannot be unspecified
+	// the initial status of the discount has to be set and it cannot be unspecified
 	Status    DiscountStatus         `protobuf:"varint,4,opt,name=status,proto3,enum=mica.discount.discount.v1.DiscountStatus" json:"status,omitempty"`
 	ValidFrom *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=valid_from,json=validFrom,proto3" json:"valid_from,omitempty"`
 	ValidTo   *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=valid_to,json=validTo,proto3" json:"valid_to,omitempty"`

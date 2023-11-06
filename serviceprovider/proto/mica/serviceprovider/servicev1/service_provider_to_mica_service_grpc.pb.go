@@ -46,6 +46,7 @@ const (
 	ServiceProviderToMicaService_RemoveInstrument_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveInstrument"
 	ServiceProviderToMicaService_SearchInstrument_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchInstrument"
 	ServiceProviderToMicaService_SetPIN_FullMethodName                       = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SetPIN"
+	ServiceProviderToMicaService_ValidatePIN_FullMethodName                  = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/ValidatePIN"
 	ServiceProviderToMicaService_ResetPIN_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/ResetPIN"
 	ServiceProviderToMicaService_RemovePIN_FullMethodName                    = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemovePIN"
 	ServiceProviderToMicaService_ProvisionServiceProviderUUEK_FullMethodName = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/ProvisionServiceProviderUUEK"
@@ -84,6 +85,7 @@ type ServiceProviderToMicaServiceClient interface {
 	// Like GetInstrument, can be used to retrieve Instruments based on the criteria in the request.
 	SearchInstrument(ctx context.Context, in *instrumentv1.SearchInstrumentRequest, opts ...grpc.CallOption) (*instrumentv1.SearchInstrumentResponse, error)
 	SetPIN(ctx context.Context, in *instrumentv1.SetPINRequest, opts ...grpc.CallOption) (*instrumentv1.SetPINResponse, error)
+	ValidatePIN(ctx context.Context, in *instrumentv1.ValidatePINRequest, opts ...grpc.CallOption) (*instrumentv1.ValidatePINResponse, error)
 	ResetPIN(ctx context.Context, in *instrumentv1.ResetPINRequest, opts ...grpc.CallOption) (*instrumentv1.ResetPINResponse, error)
 	RemovePIN(ctx context.Context, in *instrumentv1.RemovePINRequest, opts ...grpc.CallOption) (*instrumentv1.RemovePINResponse, error)
 	// Used to create a UUEK that can be given to the SP's users in order to transact at Partners (merhants) that support mica.
@@ -204,6 +206,15 @@ func (c *serviceProviderToMicaServiceClient) SearchInstrument(ctx context.Contex
 func (c *serviceProviderToMicaServiceClient) SetPIN(ctx context.Context, in *instrumentv1.SetPINRequest, opts ...grpc.CallOption) (*instrumentv1.SetPINResponse, error) {
 	out := new(instrumentv1.SetPINResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_SetPIN_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceProviderToMicaServiceClient) ValidatePIN(ctx context.Context, in *instrumentv1.ValidatePINRequest, opts ...grpc.CallOption) (*instrumentv1.ValidatePINResponse, error) {
+	out := new(instrumentv1.ValidatePINResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_ValidatePIN_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -334,6 +345,7 @@ type ServiceProviderToMicaServiceServer interface {
 	// Like GetInstrument, can be used to retrieve Instruments based on the criteria in the request.
 	SearchInstrument(context.Context, *instrumentv1.SearchInstrumentRequest) (*instrumentv1.SearchInstrumentResponse, error)
 	SetPIN(context.Context, *instrumentv1.SetPINRequest) (*instrumentv1.SetPINResponse, error)
+	ValidatePIN(context.Context, *instrumentv1.ValidatePINRequest) (*instrumentv1.ValidatePINResponse, error)
 	ResetPIN(context.Context, *instrumentv1.ResetPINRequest) (*instrumentv1.ResetPINResponse, error)
 	RemovePIN(context.Context, *instrumentv1.RemovePINRequest) (*instrumentv1.RemovePINResponse, error)
 	// Used to create a UUEK that can be given to the SP's users in order to transact at Partners (merhants) that support mica.
@@ -390,6 +402,9 @@ func (UnimplementedServiceProviderToMicaServiceServer) SearchInstrument(context.
 }
 func (UnimplementedServiceProviderToMicaServiceServer) SetPIN(context.Context, *instrumentv1.SetPINRequest) (*instrumentv1.SetPINResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SetPIN not implemented")
+}
+func (UnimplementedServiceProviderToMicaServiceServer) ValidatePIN(context.Context, *instrumentv1.ValidatePINRequest) (*instrumentv1.ValidatePINResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValidatePIN not implemented")
 }
 func (UnimplementedServiceProviderToMicaServiceServer) ResetPIN(context.Context, *instrumentv1.ResetPINRequest) (*instrumentv1.ResetPINResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResetPIN not implemented")
@@ -632,6 +647,24 @@ func _ServiceProviderToMicaService_SetPIN_Handler(srv interface{}, ctx context.C
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ServiceProviderToMicaServiceServer).SetPIN(ctx, req.(*instrumentv1.SetPINRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceProviderToMicaService_ValidatePIN_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.ValidatePINRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderToMicaServiceServer).ValidatePIN(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderToMicaService_ValidatePIN_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderToMicaServiceServer).ValidatePIN(ctx, req.(*instrumentv1.ValidatePINRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -884,6 +917,10 @@ var ServiceProviderToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SetPIN",
 			Handler:    _ServiceProviderToMicaService_SetPIN_Handler,
+		},
+		{
+			MethodName: "ValidatePIN",
+			Handler:    _ServiceProviderToMicaService_ValidatePIN_Handler,
 		},
 		{
 			MethodName: "ResetPIN",

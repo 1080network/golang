@@ -28,7 +28,7 @@ message WidgetRegisterInstrumentInitiateRequest {
 
   // The financial institution which holds this account/instrument.
   string service_provider_key = 2 [(validate.rules).string = {
-    min_len: 30,
+    min_len: 27,
     max_len: 50
   }];
 

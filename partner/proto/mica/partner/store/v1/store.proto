@@ -22,11 +22,13 @@ option java_package = "io.mica.partner.store.v1";
 option objc_class_prefix = "MICA";
 
 message CreateStoreRequest {
-  // The organization that this store is in.
-  string organization_key = 1 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+  string obsolete_organization_key = 1 [deprecated = true, (validate.rules).string = {max_len: 50}];
+  oneof organization_identifier {
+    string organization_key = 5 [(validate.rules).string = {max_len: 50}];
+
+    // The primary key for this organization at the Partner.
+    string organization_ref = 6 [(validate.rules).string = {max_len: 100}];
+  }
 
   // The primary key for this store at the Partner/Organization.
   string store_ref = 2;
@@ -61,10 +63,14 @@ message CreateStoreResponse {
 }
 
 message GetStoreRequest {
-  string store_key = 1 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+  string obsolete_store_key = 1 [deprecated = true, (validate.rules).string = {max_len: 50}];
+  oneof store_identifier {
+    // The primary key of this store within Mica.
+    string store_key = 3 [(validate.rules).string = {max_len: 50}];
+
+    // The primary key for this store at the Partner/Organization.
+    StoreRef store_ref = 2;
+  }
 }
 
 message GetStoreResponse {
@@ -83,10 +89,14 @@ message GetStoreResponse {
 }
 
 message SearchStoreRequest {
-  // The organization that this store is in.
   string organization_key = 1 [(validate.rules).string = {max_len: 50}];
 
-  // The primary key for this store at the Partner/Organization.
+  // The primary key for this organization at the Partner.
+  string organization_ref = 4 [(validate.rules).string = {max_len: 100}];
+
+  string store_key = 5;
+
+  // The primary key for this store at the Partner.
   string store_ref = 2;
 
   // The number of this store (an alternative unique value)
@@ -110,24 +120,24 @@ message SearchStoreResponse {
 }
 
 message StoreRef {
-  string organization_key = 1 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+  string obsolete_organization_key = 1 [deprecated = true, (validate.rules).string = {max_len: 50}];
+  oneof organization_identifier {
+    string organization_key = 3 [(validate.rules).string = {max_len: 50}];
+
+    // The primary key for this organization at the Partner.
+    string organization_ref = 4 [(validate.rules).string = {max_len: 100}];
+  }
 
   string store_ref = 2;
 }
 
 message UpdateStoreRequest {
-  oneof criteria {
+  oneof store_identifier {
     // The primary key for this store at the Partner/Organization.
     StoreRef store_ref = 1;
 
     // The primary key of this store within Mica.
-    string store_key = 2 [(validate.rules).string = {
-      min_len: 30,
-      max_len: 50
-    }];
+    string store_key = 2 [(validate.rules).string = {max_len: 50}];
   }
 
   int64 version = 3;
@@ -157,15 +167,12 @@ message UpdateStoreResponse {
 }
 
 message RemoveStoreRequest {
-  oneof criteria {
+  oneof store_identifier {
     // The primary key for this store at the Partner/Organization.
     StoreRef store_ref = 1;
 
     // The primary key of this store within Mica.
-    string store_key = 2 [(validate.rules).string = {
-      min_len: 30,
-      max_len: 50
-    }];
+    string store_key = 2 [(validate.rules).string = {max_len: 50}];
   }
 }
 

@@ -50,7 +50,7 @@ var file_mica_partner_administration_v1_admin_service_proto_rawDesc = []byte{
 	0x66, 0x69, 0x63, 0x61, 0x74, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x2a, 0x6d, 0x69,
 	0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2f,
 	0x76, 0x31, 0x2f, 0x64, 0x61, 0x74, 0x61, 0x5f, 0x65, 0x78, 0x74, 0x72, 0x61, 0x63, 0x74, 0x69,
-	0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x32, 0xd4, 0x11, 0x0a, 0x1c, 0x50, 0x61, 0x72,
+	0x6f, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x32, 0xd7, 0x12, 0x0a, 0x1c, 0x50, 0x61, 0x72,
 	0x74, 0x6e, 0x65, 0x72, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x69, 0x73, 0x74, 0x72, 0x61, 0x74, 0x69,
 	0x6f, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x88, 0x01, 0x0a, 0x17, 0x47, 0x65,
 	0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x4d, 0x54, 0x4c, 0x53, 0x43, 0x65, 0x72, 0x74, 0x69, 0x66,
@@ -185,20 +185,28 @@ var file_mica_partner_administration_v1_admin_service_proto_rawDesc = []byte{
 	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x32, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61,
 	0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65,
 	0x61, 0x72, 0x63, 0x68, 0x44, 0x61, 0x74, 0x61, 0x45, 0x78, 0x74, 0x72, 0x61, 0x63, 0x74, 0x69,
-	0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x61, 0x0a, 0x0c,
-	0x50, 0x69, 0x6e, 0x67, 0x45, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x12, 0x26, 0x2e, 0x6d,
+	0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12, 0x80, 0x01, 0x0a,
+	0x1b, 0x47, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x45, 0x78, 0x74, 0x72, 0x61, 0x63, 0x74, 0x69,
+	0x6f, 0x6e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x73, 0x74, 0x69, 0x63, 0x73, 0x12, 0x2e, 0x2e, 0x6d,
 	0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e,
-	0x2e, 0x70, 0x69, 0x6e, 0x67, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65,
-	0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x70, 0x69, 0x6e, 0x67, 0x2e, 0x76, 0x31,
-	0x2e, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42,
-	0x60, 0x0a, 0x21, 0x69, 0x6f, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x2e, 0x70, 0x61, 0x72, 0x74, 0x6e,
-	0x65, 0x72, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x69, 0x73, 0x74, 0x72, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x2e, 0x76, 0x31, 0x42, 0x15, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x69, 0x73, 0x74, 0x72, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5a, 0x1d, 0x6d, 0x69, 0x63,
-	0x61, 0x2f, 0x70, 0x61, 0x72, 0x74, 0x6e, 0x65, 0x72, 0x2f, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x69,
-	0x73, 0x74, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x76, 0x31, 0xa2, 0x02, 0x04, 0x4d, 0x49, 0x43,
-	0x41, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x45, 0x78, 0x74, 0x72, 0x61,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2f, 0x2e, 0x6d,
+	0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e,
+	0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x45, 0x78, 0x74, 0x72, 0x61,
+	0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x12,
+	0x61, 0x0a, 0x0c, 0x50, 0x69, 0x6e, 0x67, 0x45, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x12,
+	0x26, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d,
+	0x6d, 0x6f, 0x6e, 0x2e, 0x70, 0x69, 0x6e, 0x67, 0x2e, 0x76, 0x31, 0x2e, 0x50, 0x69, 0x6e, 0x67,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x27, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68,
+	0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x70, 0x69, 0x6e, 0x67,
+	0x2e, 0x76, 0x31, 0x2e, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x22, 0x00, 0x42, 0x60, 0x0a, 0x21, 0x69, 0x6f, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x2e, 0x70, 0x61,
+	0x72, 0x74, 0x6e, 0x65, 0x72, 0x2e, 0x61, 0x64, 0x6d, 0x69, 0x6e, 0x69, 0x73, 0x74, 0x72, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x42, 0x15, 0x41, 0x64, 0x6d, 0x69, 0x6e, 0x69, 0x73,
+	0x74, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5a, 0x1d,
+	0x6d, 0x69, 0x63, 0x61, 0x2f, 0x70, 0x61, 0x72, 0x74, 0x6e, 0x65, 0x72, 0x2f, 0x61, 0x64, 0x6d,
+	0x69, 0x6e, 0x69, 0x73, 0x74, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x76, 0x31, 0xa2, 0x02, 0x04,
+	0x4d, 0x49, 0x43, 0x41, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var file_mica_partner_administration_v1_admin_service_proto_goTypes = []interface{}{
@@ -216,22 +224,24 @@ var file_mica_partner_administration_v1_admin_service_proto_goTypes = []interfac
 	(*v1.UpdateExternalClientMTLSCertificateRequest)(nil),    // 11: micashared.common.v1.UpdateExternalClientMTLSCertificateRequest
 	(*v1.SearchExternalClientMTLSCertificateRequest)(nil),    // 12: micashared.common.v1.SearchExternalClientMTLSCertificateRequest
 	(*v1.SearchDataExtractionRequest)(nil),                   // 13: micashared.common.v1.SearchDataExtractionRequest
-	(*pingv1.PingRequest)(nil),                               // 14: micashared.common.ping.v1.PingRequest
-	(*v1.GenerateMTLSCertificateResponse)(nil),               // 15: micashared.common.v1.GenerateMTLSCertificateResponse
-	(*v1.UpdateMTLSCertificateResponse)(nil),                 // 16: micashared.common.v1.UpdateMTLSCertificateResponse
-	(*v1.SearchMTLSCertificateResponse)(nil),                 // 17: micashared.common.v1.SearchMTLSCertificateResponse
-	(*v1.GetMTLSCertificateResponse)(nil),                    // 18: micashared.common.v1.GetMTLSCertificateResponse
-	(*v1.CreateSingleSignOnConsoleUserResponse)(nil),         // 19: micashared.common.v1.CreateSingleSignOnConsoleUserResponse
-	(*v1.UpdateSingleSignOnConsoleUserResponse)(nil),         // 20: micashared.common.v1.UpdateSingleSignOnConsoleUserResponse
-	(*v1.SearchSingleSignOnConsoleUserResponse)(nil),         // 21: micashared.common.v1.SearchSingleSignOnConsoleUserResponse
-	(*v1.GetSingleSignOnConsoleUserResponse)(nil),            // 22: micashared.common.v1.GetSingleSignOnConsoleUserResponse
-	(*v1.GetExternalClientSettingsResponse)(nil),             // 23: micashared.common.v1.GetExternalClientSettingsResponse
-	(*v1.UpdateExternalClientCallBackAddressResponse)(nil),   // 24: micashared.common.v1.UpdateExternalClientCallBackAddressResponse
-	(*v1.GenerateExternalClientMTLSCertificateResponse)(nil), // 25: micashared.common.v1.GenerateExternalClientMTLSCertificateResponse
-	(*v1.UpdateExternalClientMTLSCertificateResponse)(nil),   // 26: micashared.common.v1.UpdateExternalClientMTLSCertificateResponse
-	(*v1.SearchExternalClientMTLSCertificateResponse)(nil),   // 27: micashared.common.v1.SearchExternalClientMTLSCertificateResponse
-	(*v1.SearchDataExtractionResponse)(nil),                  // 28: micashared.common.v1.SearchDataExtractionResponse
-	(*pingv1.PingResponse)(nil),                              // 29: micashared.common.ping.v1.PingResponse
+	(*v1.GetDataExtractionRequest)(nil),                      // 14: micashared.common.v1.GetDataExtractionRequest
+	(*pingv1.PingRequest)(nil),                               // 15: micashared.common.ping.v1.PingRequest
+	(*v1.GenerateMTLSCertificateResponse)(nil),               // 16: micashared.common.v1.GenerateMTLSCertificateResponse
+	(*v1.UpdateMTLSCertificateResponse)(nil),                 // 17: micashared.common.v1.UpdateMTLSCertificateResponse
+	(*v1.SearchMTLSCertificateResponse)(nil),                 // 18: micashared.common.v1.SearchMTLSCertificateResponse
+	(*v1.GetMTLSCertificateResponse)(nil),                    // 19: micashared.common.v1.GetMTLSCertificateResponse
+	(*v1.CreateSingleSignOnConsoleUserResponse)(nil),         // 20: micashared.common.v1.CreateSingleSignOnConsoleUserResponse
+	(*v1.UpdateSingleSignOnConsoleUserResponse)(nil),         // 21: micashared.common.v1.UpdateSingleSignOnConsoleUserResponse
+	(*v1.SearchSingleSignOnConsoleUserResponse)(nil),         // 22: micashared.common.v1.SearchSingleSignOnConsoleUserResponse
+	(*v1.GetSingleSignOnConsoleUserResponse)(nil),            // 23: micashared.common.v1.GetSingleSignOnConsoleUserResponse
+	(*v1.GetExternalClientSettingsResponse)(nil),             // 24: micashared.common.v1.GetExternalClientSettingsResponse
+	(*v1.UpdateExternalClientCallBackAddressResponse)(nil),   // 25: micashared.common.v1.UpdateExternalClientCallBackAddressResponse
+	(*v1.GenerateExternalClientMTLSCertificateResponse)(nil), // 26: micashared.common.v1.GenerateExternalClientMTLSCertificateResponse
+	(*v1.UpdateExternalClientMTLSCertificateResponse)(nil),   // 27: micashared.common.v1.UpdateExternalClientMTLSCertificateResponse
+	(*v1.SearchExternalClientMTLSCertificateResponse)(nil),   // 28: micashared.common.v1.SearchExternalClientMTLSCertificateResponse
+	(*v1.SearchDataExtractionResponse)(nil),                  // 29: micashared.common.v1.SearchDataExtractionResponse
+	(*v1.GetDataExtractionResponse)(nil),                     // 30: micashared.common.v1.GetDataExtractionResponse
+	(*pingv1.PingResponse)(nil),                              // 31: micashared.common.ping.v1.PingResponse
 }
 var file_mica_partner_administration_v1_admin_service_proto_depIdxs = []int32{
 	0,  // 0: mica.partner.administration.v1.PartnerAdministrationService.GenerateMTLSCertificate:input_type -> micashared.common.v1.GenerateMTLSCertificateRequest
@@ -248,24 +258,26 @@ var file_mica_partner_administration_v1_admin_service_proto_depIdxs = []int32{
 	11, // 11: mica.partner.administration.v1.PartnerAdministrationService.UpdateExternalClientMTLSCertificate:input_type -> micashared.common.v1.UpdateExternalClientMTLSCertificateRequest
 	12, // 12: mica.partner.administration.v1.PartnerAdministrationService.SearchExternalClientMTLSCertificate:input_type -> micashared.common.v1.SearchExternalClientMTLSCertificateRequest
 	13, // 13: mica.partner.administration.v1.PartnerAdministrationService.SearchDataExtractionStatistics:input_type -> micashared.common.v1.SearchDataExtractionRequest
-	14, // 14: mica.partner.administration.v1.PartnerAdministrationService.PingExternal:input_type -> micashared.common.ping.v1.PingRequest
-	15, // 15: mica.partner.administration.v1.PartnerAdministrationService.GenerateMTLSCertificate:output_type -> micashared.common.v1.GenerateMTLSCertificateResponse
-	16, // 16: mica.partner.administration.v1.PartnerAdministrationService.UpdateMTLSCertificate:output_type -> micashared.common.v1.UpdateMTLSCertificateResponse
-	17, // 17: mica.partner.administration.v1.PartnerAdministrationService.SearchMTLSCertificate:output_type -> micashared.common.v1.SearchMTLSCertificateResponse
-	18, // 18: mica.partner.administration.v1.PartnerAdministrationService.GetMTLSCertificate:output_type -> micashared.common.v1.GetMTLSCertificateResponse
-	19, // 19: mica.partner.administration.v1.PartnerAdministrationService.CreateSingleSignOnConsoleUser:output_type -> micashared.common.v1.CreateSingleSignOnConsoleUserResponse
-	20, // 20: mica.partner.administration.v1.PartnerAdministrationService.UpdateSingleSignOnConsoleUser:output_type -> micashared.common.v1.UpdateSingleSignOnConsoleUserResponse
-	21, // 21: mica.partner.administration.v1.PartnerAdministrationService.SearchSingleSignOnUser:output_type -> micashared.common.v1.SearchSingleSignOnConsoleUserResponse
-	22, // 22: mica.partner.administration.v1.PartnerAdministrationService.GetSingleSignOnConsoleUser:output_type -> micashared.common.v1.GetSingleSignOnConsoleUserResponse
-	23, // 23: mica.partner.administration.v1.PartnerAdministrationService.GetExternalClientSettings:output_type -> micashared.common.v1.GetExternalClientSettingsResponse
-	24, // 24: mica.partner.administration.v1.PartnerAdministrationService.UpdateExternalClientCallbackAddress:output_type -> micashared.common.v1.UpdateExternalClientCallBackAddressResponse
-	25, // 25: mica.partner.administration.v1.PartnerAdministrationService.GenerateExternalClientMTLSCertificate:output_type -> micashared.common.v1.GenerateExternalClientMTLSCertificateResponse
-	26, // 26: mica.partner.administration.v1.PartnerAdministrationService.UpdateExternalClientMTLSCertificate:output_type -> micashared.common.v1.UpdateExternalClientMTLSCertificateResponse
-	27, // 27: mica.partner.administration.v1.PartnerAdministrationService.SearchExternalClientMTLSCertificate:output_type -> micashared.common.v1.SearchExternalClientMTLSCertificateResponse
-	28, // 28: mica.partner.administration.v1.PartnerAdministrationService.SearchDataExtractionStatistics:output_type -> micashared.common.v1.SearchDataExtractionResponse
-	29, // 29: mica.partner.administration.v1.PartnerAdministrationService.PingExternal:output_type -> micashared.common.ping.v1.PingResponse
-	15, // [15:30] is the sub-list for method output_type
-	0,  // [0:15] is the sub-list for method input_type
+	14, // 14: mica.partner.administration.v1.PartnerAdministrationService.GetDataExtractionStatistics:input_type -> micashared.common.v1.GetDataExtractionRequest
+	15, // 15: mica.partner.administration.v1.PartnerAdministrationService.PingExternal:input_type -> micashared.common.ping.v1.PingRequest
+	16, // 16: mica.partner.administration.v1.PartnerAdministrationService.GenerateMTLSCertificate:output_type -> micashared.common.v1.GenerateMTLSCertificateResponse
+	17, // 17: mica.partner.administration.v1.PartnerAdministrationService.UpdateMTLSCertificate:output_type -> micashared.common.v1.UpdateMTLSCertificateResponse
+	18, // 18: mica.partner.administration.v1.PartnerAdministrationService.SearchMTLSCertificate:output_type -> micashared.common.v1.SearchMTLSCertificateResponse
+	19, // 19: mica.partner.administration.v1.PartnerAdministrationService.GetMTLSCertificate:output_type -> micashared.common.v1.GetMTLSCertificateResponse
+	20, // 20: mica.partner.administration.v1.PartnerAdministrationService.CreateSingleSignOnConsoleUser:output_type -> micashared.common.v1.CreateSingleSignOnConsoleUserResponse
+	21, // 21: mica.partner.administration.v1.PartnerAdministrationService.UpdateSingleSignOnConsoleUser:output_type -> micashared.common.v1.UpdateSingleSignOnConsoleUserResponse
+	22, // 22: mica.partner.administration.v1.PartnerAdministrationService.SearchSingleSignOnUser:output_type -> micashared.common.v1.SearchSingleSignOnConsoleUserResponse
+	23, // 23: mica.partner.administration.v1.PartnerAdministrationService.GetSingleSignOnConsoleUser:output_type -> micashared.common.v1.GetSingleSignOnConsoleUserResponse
+	24, // 24: mica.partner.administration.v1.PartnerAdministrationService.GetExternalClientSettings:output_type -> micashared.common.v1.GetExternalClientSettingsResponse
+	25, // 25: mica.partner.administration.v1.PartnerAdministrationService.UpdateExternalClientCallbackAddress:output_type -> micashared.common.v1.UpdateExternalClientCallBackAddressResponse
+	26, // 26: mica.partner.administration.v1.PartnerAdministrationService.GenerateExternalClientMTLSCertificate:output_type -> micashared.common.v1.GenerateExternalClientMTLSCertificateResponse
+	27, // 27: mica.partner.administration.v1.PartnerAdministrationService.UpdateExternalClientMTLSCertificate:output_type -> micashared.common.v1.UpdateExternalClientMTLSCertificateResponse
+	28, // 28: mica.partner.administration.v1.PartnerAdministrationService.SearchExternalClientMTLSCertificate:output_type -> micashared.common.v1.SearchExternalClientMTLSCertificateResponse
+	29, // 29: mica.partner.administration.v1.PartnerAdministrationService.SearchDataExtractionStatistics:output_type -> micashared.common.v1.SearchDataExtractionResponse
+	30, // 30: mica.partner.administration.v1.PartnerAdministrationService.GetDataExtractionStatistics:output_type -> micashared.common.v1.GetDataExtractionResponse
+	31, // 31: mica.partner.administration.v1.PartnerAdministrationService.PingExternal:output_type -> micashared.common.ping.v1.PingResponse
+	16, // [16:32] is the sub-list for method output_type
+	0,  // [0:16] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name

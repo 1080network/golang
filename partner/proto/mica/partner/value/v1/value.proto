@@ -56,20 +56,26 @@ message Value {
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
   micashared.common.enums.currency.v1.Currency currency = 9;
 
+  string obsolete_organization_key = 10 [deprecated = true, (validate.rules).string = {max_len: 50}];
   // The organization this operation is being processed for.
-  string organization_key = 10 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+  oneof organization_identifier {
+    string organization_key = 19 [(validate.rules).string = {max_len: 50}];
+
+    // The primary key for this organization at the Partner.
+    string organization_ref = 8 [(validate.rules).string = {max_len: 100}];
+  }
 
   // Organization category
   micashared.common.enums.organizationcategory.v1.OrganizationCategory category = 11;
 
+  string obsolete_store_key = 12 [deprecated = true, (validate.rules).string = {max_len: 50}];
   // The store where this operation occurred.
-  string store_key = 12 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+  oneof store_identifier {
+    string store_key = 20 [(validate.rules).string = {max_len: 50}];
+
+    // The primary key for this store at the Partner.
+    string store_ref = 21 [(validate.rules).string = {max_len: 100}];
+  }
 
   // The clerk that processed this operation.
   string clerk_identifier = 13;
@@ -107,20 +113,26 @@ message ValueRequest {
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
   micashared.common.enums.currency.v1.Currency currency = 4;
 
+  string obsolete_organization_key = 5 [deprecated = true, (validate.rules).string = {max_len: 50}];
   // The organization this operation is being processed for.
-  string organization_key = 5 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+  oneof organization_identifier {
+    string organization_key = 16 [(validate.rules).string = {max_len: 50}];
+
+    // The primary key for this organization at the Partner.
+    string organization_ref = 15 [(validate.rules).string = {max_len: 100}];
+  }
 
   // Organization category
   micashared.common.enums.organizationcategory.v1.OrganizationCategory category = 6;
 
+  string obsolete_store_key = 7 [deprecated = true, (validate.rules).string = {max_len: 50}];
   // The store where this operation occurred.
-  string store_key = 7 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+  oneof store_identifier {
+    string store_key = 17 [(validate.rules).string = {max_len: 50}];
+
+    // The primary key for this store at the Partner.
+    string store_ref = 18 [(validate.rules).string = {max_len: 100}];
+  }
 
   // The clerk that processed this operation.
   string clerk_identifier = 8;
@@ -265,8 +277,8 @@ message ReturnValueResponse {
 }
 
 message GetValueRequest {
-  oneof identifier {
-    string transaction_key = 1;
+  oneof transaction_identifier {
+    string partner_transaction_key = 1;
 
     // the Partner's reference for this transaction
     string partner_transaction_ref = 2;
@@ -316,7 +328,7 @@ message SearchValueResponse {
 }
 
 message ReverseValueRequest {
-  oneof identifier {
+  oneof transaction_identifier {
     // Mica primary key, returned when the original transaction was processed by Mica
     string original_transaction_key = 1 [(validate.rules).string = {
       min_len: 27,
@@ -357,7 +369,6 @@ message ReverseObtainValueResponse {
   }];
 
   // TODO list of discounts that were reversed
-
 }
 
 // TODO if this remains the same as ObtainReversalResponse, dedupe. probably not because of discounts

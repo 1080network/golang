@@ -16,7 +16,6 @@ import "mica/partner/partner/v1/partner.proto";
 import "mica/partner/uuek/v1/uuek.proto";
 import "mica/partner/serviceprovider/v1/service_provider.proto";
 import "mica/partner/store/v1/store.proto";
-import "mica/partner/transaction/v1/transaction.proto";
 import "mica/partner/value/v1/value.proto";
 import "mica/partner/widget/v1/widget.proto";
 import "micashared/common/ping/v1/ping.proto";
@@ -36,6 +35,8 @@ service PartnerToMicaService {
   //<editor-fold desc="Organization Operations">
 
   // Retrieve an organization based on it's key.
+  rpc CreateOrganization(organization.v1.CreateOrganizationRequest) returns (organization.v1.CreateOrganizationResponse) {}
+
   rpc GetOrganization(organization.v1.GetOrganizationRequest) returns (organization.v1.GetOrganizationResponse) {}
 
   // Update a given organization.
@@ -113,14 +114,4 @@ service PartnerToMicaService {
 
   rpc ExchangeSessionKey(instrument.v1.ExchangeSessionKeyRequest) returns (instrument.v1.ExchangeSessionKeyResponse) {}
   //</editor-fold>
-
-  //<editor-fold desc="Dashboard Operations">
-
-  rpc SearchTransactionData(transaction.v1.SearchTransactionDataRequest) returns (transaction.v1.SearchTransactionDataResponse) {}
-
-  rpc SearchTransactionGeographyData(transaction.v1.SearchTransactionGeographyDataRequest) returns (transaction.v1.SearchTransactionGeographyDataResponse) {}
-
-  rpc SearchTransactionServiceProviderData(transaction.v1.SearchTransactionServiceProviderDataRequest) returns (transaction.v1.SearchTransactionServiceProviderDataResponse) {}
-  //</editor-fold>
-
 }

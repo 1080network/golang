@@ -61,5 +61,10 @@ message EnrollUserInstrumentResponse {
   micashared.common.v1.Error error = 2;
 
   // Primary key on the external system.
-  string partner_instrument_ref = 3;
+  string partner_user_ref = 4 [(validate.rules).string = {max_len: 100}];
+
+  // Primary key on the external system.
+  string partner_instrument_ref = 3 [(validate.rules).string = {max_len: 100}];
+
+  string partner_uuek_ref = 5 [(validate.rules).string = {max_len: 100}];
 }

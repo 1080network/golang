@@ -209,7 +209,7 @@ message CreateDiscountRequest {
 
   string receipt_description = 3 [(validate.rules).string.max_len = 100];
 
-  //the intial status of the discount has to be set and it cannot be unspecified
+  //the initial status of the discount has to be set and it cannot be unspecified
   DiscountStatus status = 4 [(validate.rules).enum = {not_in: [0]}];
 
   google.protobuf.Timestamp valid_from = 5 [(validate.rules).timestamp.required = false];
