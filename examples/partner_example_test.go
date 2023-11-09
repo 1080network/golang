@@ -6,12 +6,16 @@ import (
 	"github.com/1080network/golang/partner"
 	"github.com/1080network/golang/partner/proto/mica/partner/organizationv1"
 	partnersvc "github.com/1080network/golang/partner/proto/mica/partner/servicev1"
+	"github.com/1080network/golang/partner/proto/mica/partner/storev1"
 	"github.com/1080network/golang/partner/proto/mica/partner/valuev1"
 	"github.com/1080network/golang/partner/proto/micashared/common/enums/approvaltypev1"
 	"github.com/1080network/golang/partner/proto/micashared/common/enums/barcodelocationv1"
 	"github.com/1080network/golang/partner/proto/micashared/common/enums/barcodetypev1"
+	"github.com/1080network/golang/partner/proto/micashared/common/enums/countryv1"
 	"github.com/1080network/golang/partner/proto/micashared/common/enums/currencyv1"
+	"github.com/1080network/golang/partner/proto/micashared/common/enums/custodialbankv1"
 	"github.com/1080network/golang/partner/proto/micashared/common/enums/organizationcategoryv1"
+	"github.com/1080network/golang/partner/proto/micashared/common/enums/regionv1"
 	"github.com/1080network/golang/partner/proto/micashared/common/enums/unitv1"
 	"github.com/1080network/golang/partner/proto/micashared/common/pingv1"
 	commonv1 "github.com/1080network/golang/partner/proto/micashared/common/v1"
@@ -56,6 +60,71 @@ func TestPing(t *testing.T) {
 	assert.Equal(t, pingv1.PingResponse_STATUS_SUCCESS, response.Status)
 }
 
+func TestCreateOrganization(t *testing.T) {
+	ctx := context.TODO()
+	micaclient, conn, err := initializeClient()
+	defer func() {
+		if conn != nil {
+			conn.Close()
+		}
+	}()
+	assert.NoError(t, err)
+	request := &organizationv1.CreateOrganizationRequest{
+		OrganizationRef: "2d7b57ed-c67c-4296-a7d0-90f9cfc750a8",
+		Name:            "Example organization",
+		Address: &commonv1.Address{
+			StreetLines: []string{"1600 Pennsylvania Avenue, N.W."},
+			Locality:    "Washington",
+			Region:      regionv1.Region_REGION_US_DC,
+			PostalCode:  "20500",
+			Country:     countryv1.Country_COUNTRY_US,
+		},
+		Categories: []organizationcategoryv1.OrganizationCategory{organizationcategoryv1.OrganizationCategory_ORGANIZATION_CATEGORY_BOOKSTORE,
+			organizationcategoryv1.OrganizationCategory_ORGANIZATION_CATEGORY_APPAREL},
+		OperatingAccount: &commonv1.BankAccountDetail{
+			CustodialBank: custodialbankv1.CustodialBank_CUSTODIAL_BANK_TEST_BANK,
+			Bank:          "Example Bank",
+			AccountRef:    "c57b2a85-9650-46c3-8267-651cbcb62aa6",
+		},
+		RevenueAccount: &commonv1.BankAccountDetail{
+			CustodialBank: custodialbankv1.CustodialBank_CUSTODIAL_BANK_TEST_BANK,
+			Bank:          "Example Bank",
+			AccountRef:    "c57b2a85-9650-46c3-8267-651cbcb62aa6",
+		},
+		BarcodeType:     barcodetypev1.BarcodeType_BARCODE_TYPE_NONE,
+		BarcodeLocation: barcodelocationv1.BarcodeLocation_BARCODE_LOCATION_NONE,
+	}
+	response, err := micaclient.CreateOrganization(ctx, request)
+	assert.NoError(t, err)
+	assert.Equal(t, organizationv1.CreateOrganizationResponse_STATUS_SUCCESS, response.Status)
+}
+
+func TestCreateStore(t *testing.T) {
+	ctx := context.TODO()
+	micaclient, conn, err := initializeClient()
+	defer func() {
+		if conn != nil {
+			conn.Close()
+		}
+	}()
+	assert.NoError(t, err)
+	request := &storev1.CreateStoreRequest{
+		OrganizationIdentifier: &storev1.CreateStoreRequest_OrganizationRef{OrganizationRef: "2d7b57ed-c67c-4296-a7d0-90f9cfc750a8"},
+		StoreRef:               "20e97697-5b1c-46da-bf50-894da8bcaddc",
+		StoreNumber:            "001",
+		Address: &commonv1.Address{
+			StreetLines: []string{"1600 Pennsylvania Avenue, N.W."},
+			Locality:    "Washington",
+			Region:      regionv1.Region_REGION_US_DC,
+			PostalCode:  "20500",
+			Country:     countryv1.Country_COUNTRY_US,
+		},
+	}
+	response, err := micaclient.CreateStore(ctx, request)
+	assert.NoError(t, err)
+	assert.Equal(t, storev1.CreateStoreResponse_STATUS_SUCCESS, response.Status)
+}
+
 func TestSearchOrganization(t *testing.T) {
 	ctx := context.TODO()
 	client, conn, err := initializeClient()
@@ -87,7 +156,7 @@ func TestGetOrganization(t *testing.T) {
 	}()
 	assert.NoError(t, err)
 	request := &organizationv1.GetOrganizationRequest{
-		OrganizationKey: "hron3n00MDV90UjuTAi71blY95IkwA",
+		OrganizationIdentifier: &organizationv1.GetOrganizationRequest_OrganizationRef{OrganizationRef: "2d7b57ed-c67c-4296-a7d0-90f9cfc750a8"},
 	}
 	response, err := micaClient.GetOrganization(ctx, request)
 	assert.NoError(t, err)

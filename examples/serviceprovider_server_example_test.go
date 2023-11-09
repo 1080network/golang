@@ -121,7 +121,7 @@ func TestProvisionUuek(t *testing.T) {
 	ctx := context.TODO()
 	micaClient := getServiceProviderClient()
 	request := &uuekv1.ProvisionServiceProviderUUEKRequest{
-		Criteria: &uuekv1.ProvisionServiceProviderUUEKRequest_ServiceProviderInstrumentRef{
+		InstrumentIdentifier: &uuekv1.ProvisionServiceProviderUUEKRequest_ServiceProviderInstrumentRef{
 			ServiceProviderInstrumentRef: "11a431ab-1168-4b35-bc80-5a3cab2a4968",
 		},
 		UseCriteria: &uuekv1.ProvisionServiceProviderUUEKRequest_NumberOfUses{
@@ -151,7 +151,7 @@ func TestRegisterInstrument(t *testing.T) {
 	ctx := context.TODO()
 	micaClient := getServiceProviderClient()
 	request := &instrumentv1.RegisterInstrumentRequest{
-		ServiceProviderUserKey:       "EKmril69iaoeoQOadTiaFav2gKTJQLQ",
+		UserIdentifier:               &instrumentv1.RegisterInstrumentRequest_ServiceProviderUserKey{ServiceProviderUserKey: "EKmril69iaoeoQOadTiaFav2gKTJQLQ"},
 		ServiceProviderInstrumentRef: "22419a4b-6b82-454e-8a10-78094369d62e",
 		InstrumentType:               instrumenttypev1.InstrumentType_INSTRUMENT_TYPE_CHECKING,
 		Currency:                     currencyv1.Currency_CURRENCY_USD,
