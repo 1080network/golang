@@ -177,14 +177,16 @@ func TestUpdateOrganization(t *testing.T) {
 	}()
 	assert.NoError(t, err)
 	request := &organizationv1.GetOrganizationRequest{
-		OrganizationKey: "hron3n00MDV90UjuTAi71blY95IkwA",
+		OrganizationIdentifier: &organizationv1.GetOrganizationRequest_OrganizationKey{OrganizationKey: ""},
 	}
 	response, err := micaClient.GetOrganization(ctx, request)
 	assert.NoError(t, err)
 	assert.Equal(t, organizationv1.GetOrganizationResponse_STATUS_SUCCESS, response.Status)
 
 	updateRequest := &organizationv1.UpdateOrganizationRequest{
-		OrganizationKey:  response.Organization.OrganizationKey,
+		OrganizationIdentifier: &organizationv1.UpdateOrganizationRequest_OrganizationKey{
+			OrganizationKey: response.Organization.OrganizationKey,
+		},
 		Version:          response.Organization.Version,
 		Name:             response.Organization.Name + "updated",
 		Address:          response.Organization.Address,
@@ -213,12 +215,14 @@ func TestObtainValueWithoutBasked(t *testing.T) {
 		PartnerTransactionRef: uuid.NewString(),
 		OrderNumber:           uuid.NewString(),
 		Currency:              currencyv1.Currency_CURRENCY_USD,
-		OrganizationKey:       "hron3n00MDV90UjuTAi71blY95IkwA",
-		StoreKey:              "hron3n00RJFObOfhRfKxf1JJDHXnvw",
-		Category:              organizationcategoryv1.OrganizationCategory_ORGANIZATION_CATEGORY_GROCERY,
-		ClerkIdentifier:       "Clerk logged int",
-		TotalAmount:           "30.672",
-		Adjustments:           nil,
+		OrganizationIdentifier: &valuev1.ValueRequest_OrganizationKey{
+			OrganizationKey: "hron3n00MDV90UjuTAi71blY95IkwA",
+		},
+		StoreIdentifier: &valuev1.ValueRequest_StoreKey{StoreKey: "hron3n00RJFObOfhRfKxf1JJDHXnvw"},
+		Category:        organizationcategoryv1.OrganizationCategory_ORGANIZATION_CATEGORY_GROCERY,
+		ClerkIdentifier: "Clerk logged int",
+		TotalAmount:     "30.672",
+		Adjustments:     nil,
 	}
 	obtainValueRequest := &valuev1.ObtainValueRequest{
 		ApprovalType: approvaltypev1.ApprovalType_APPROVAL_TYPE_FULL,
@@ -270,13 +274,15 @@ func TestObtainValueWithBasket(t *testing.T) {
 		PartnerTransactionRef: uuid.NewString(),
 		OrderNumber:           uuid.NewString(),
 		Currency:              currencyv1.Currency_CURRENCY_USD,
-		OrganizationKey:       "hron3n00MDV90UjuTAi71blY95IkwA",
-		StoreKey:              "hron3n00RJFObOfhRfKxf1JJDHXnvw",
-		Category:              organizationcategoryv1.OrganizationCategory_ORGANIZATION_CATEGORY_GROCERY,
-		ClerkIdentifier:       uuid.NewString(),
-		LineItems:             lineItems,
-		TotalAmount:           "30.672",
-		Adjustments:           nil,
+		OrganizationIdentifier: &valuev1.ValueRequest_OrganizationKey{
+			OrganizationKey: "hron3n00MDV90UjuTAi71blY95IkwA",
+		},
+		StoreIdentifier: &valuev1.ValueRequest_StoreKey{StoreKey: "hron3n00RJFObOfhRfKxf1JJDHXnvw"},
+		Category:        organizationcategoryv1.OrganizationCategory_ORGANIZATION_CATEGORY_GROCERY,
+		ClerkIdentifier: uuid.NewString(),
+		LineItems:       lineItems,
+		TotalAmount:     "30.672",
+		Adjustments:     nil,
 	}
 	obtainValueRequest := &valuev1.ObtainValueRequest{
 		ApprovalType: approvaltypev1.ApprovalType_APPROVAL_TYPE_FULL,
