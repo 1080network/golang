@@ -37,7 +37,7 @@ message User {
   }];
 
   // Primary key on the external system.
-  string service_provider_user_ref = 5;
+  string service_provider_user_ref = 5 [(validate.rules).string.max_len = 100];
 
   micashared.common.v1.UserDemographic user_demographic = 6;
 }
@@ -46,7 +46,7 @@ message User {
 
 message RegisterUserRequest {
   // Primary key on the external system.
-  string service_provider_user_ref = 8;
+  string service_provider_user_ref = 8 [(validate.rules).string.max_len = 100];
 
   micashared.common.v1.UserDemographic user_demographic = 1;
 }
@@ -72,7 +72,10 @@ message RegisterUserResponse {
 }
 
 message UpdateUserRequest {
-  string obsolete_service_provider_user_key = 1 [deprecated = true, (validate.rules).string = {max_len: 50}];
+  string obsolete_service_provider_user_key = 1 [
+    deprecated = true,
+    (validate.rules).string = {max_len: 50}
+  ];
   oneof user_identifier {
     // The key representing this user in Mica.
     string service_provider_user_key = 5 [(validate.rules).string = {max_len: 50}];
@@ -101,7 +104,10 @@ message UpdateUserResponse {
 }
 
 message RemoveUserRequest {
-  string obsolete_service_provider_user_key = 1 [deprecated = true, (validate.rules).string = {max_len: 50}];
+  string obsolete_service_provider_user_key = 1 [
+    deprecated = true,
+    (validate.rules).string = {max_len: 50}
+  ];
   oneof user_identifier {
     // The key representing this user in Mica.
     string service_provider_user_key = 3 [(validate.rules).string = {max_len: 50}];
@@ -123,7 +129,10 @@ message RemoveUserResponse {
 }
 
 message GetUserRequest {
-  string obsolete_service_provider_user_key = 1 [deprecated = true, (validate.rules).string = {max_len: 50}];
+  string obsolete_service_provider_user_key = 1 [
+    deprecated = true,
+    (validate.rules).string = {max_len: 50}
+  ];
   oneof user_identifier {
     // The key representing this user in Mica.
     string service_provider_user_key = 3 [(validate.rules).string = {max_len: 50}];
@@ -179,7 +188,7 @@ message EnrollUserInstrumentRequest {
   }];
 
   // Primary key on the external system.
-  string service_provider_user_ref = 2;
+  string service_provider_user_ref = 2 [(validate.rules).string.max_len = 100];
 
   // The key representing this instrument in Mica.
   string service_provider_instrument_key = 3 [(validate.rules).string = {
@@ -188,7 +197,7 @@ message EnrollUserInstrumentRequest {
   }];
 
   // Primary key on the external system.
-  string service_provider_instrument_ref = 4;
+  string service_provider_instrument_ref = 4 [(validate.rules).string.max_len = 100];
 
   // The 8 character code that needs to be sent to the user
   string matching_code = 6;

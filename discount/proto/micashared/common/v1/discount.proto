@@ -19,7 +19,7 @@ option objc_class_prefix = "MICA";
 
 message DiscountSummary {
   // the total amount that was discounted
-  string discount_amount = 1; 
+  string discount_amount = 1;
 
   // number of discounts applied 0 or more
   int32 discounts_applied = 2 [(validate.rules).int32.gte = 0];

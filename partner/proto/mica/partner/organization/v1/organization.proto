@@ -71,7 +71,10 @@ message CreateOrganizationResponse {
 }
 
 message GetOrganizationRequest {
-  string obsolete_organization_key = 1 [deprecated = true, (validate.rules).string = {max_len: 50}];
+  string obsolete_organization_key = 1 [
+    deprecated = true,
+    (validate.rules).string = {max_len: 50}
+  ];
   oneof organization_identifier {
     string organization_key = 2 [(validate.rules).string = {max_len: 50}];
 
@@ -96,12 +99,15 @@ message GetOrganizationResponse {
 }
 
 message UpdateOrganizationRequest {
-  string obsolete_organization_key = 1 [deprecated = true, (validate.rules).string = {max_len: 50}];
+  string obsolete_organization_key = 1 [
+    deprecated = true,
+    (validate.rules).string = {max_len: 50}
+  ];
   oneof organization_identifier {
     string organization_key = 6 [(validate.rules).string = {max_len: 50}];
 
     // The primary key for this organization at the Partner.
-    string organization_ref = 7;
+    string organization_ref = 7 [(validate.rules).string.max_len = 100];
   }
 
   int64 version = 2;

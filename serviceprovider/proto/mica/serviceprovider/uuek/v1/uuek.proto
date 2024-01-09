@@ -28,7 +28,7 @@ message ServiceProviderUUEK {
   }];
 
   // the primary key of this user at the Service Provider.
-  string service_provider_user_ref = 2;
+  string service_provider_user_ref = 2 [(validate.rules).string.max_len = 100];
 
   // Mica generated key for the instrument that this UUEK represents.
   string service_provider_instrument_key = 3 [(validate.rules).string = {
@@ -37,7 +37,7 @@ message ServiceProviderUUEK {
   }];
 
   // the primary key of this instrument at the Service Provider.
-  string service_provider_instrument_ref = 4;
+  string service_provider_instrument_ref = 4 [(validate.rules).string.max_len = 100];
 
   micashared.common.v1.CommonUUEK uuek = 5;
 }
@@ -46,6 +46,7 @@ message ServiceProviderUUEK {
 message ProvisionServiceProviderUUEKRequest {
   oneof instrument_identifier {
     option (validate.required) = true;
+
     // The key representing this instrument in Mica.
     string service_provider_instrument_key = 1 [(validate.rules).string = {
       min_len: 30,
@@ -53,13 +54,13 @@ message ProvisionServiceProviderUUEKRequest {
     }];
 
     // Primary key on the external system.
-    string service_provider_instrument_ref = 2;
+    string service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100];
   }
 
   // if set the provisioned UUEK will not be valid until the specified time if not set the UUEK is valid immediately
   google.protobuf.Timestamp valid_from = 3;
 
-  // if set the provisioned UUEK will expired at the specified time, if not set it will be used untile removed
+  // if set the provisioned UUEK will expired at the specified time, if not set it will be used until removed
   google.protobuf.Timestamp valid_to = 4;
 
   // a maximum transaction that is allowed for this UUEK if the value request exceeds this
@@ -96,6 +97,8 @@ message ProvisionServiceProviderUUEKResponse {
 
 message RemoveServiceProviderUUEKRequest {
   oneof identifier {
+    option (validate.required) = true;
+
     // The key representing this instrument in Mica.
     string service_provider_instrument_key = 1 [(validate.rules).string = {
       min_len: 30,
@@ -103,7 +106,7 @@ message RemoveServiceProviderUUEKRequest {
     }];
 
     // Primary key on the external system.
-    string service_provider_instrument_ref = 2;
+    string service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100];
 
     // A UUEK that can be used at all partners.
     string service_provider_uuek = 3; // @gotags: mask:"security"

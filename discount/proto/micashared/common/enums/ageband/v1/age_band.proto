@@ -44,4 +44,3 @@ enum AgeBand {
   AGE_BAND_OVER_24 = 25;
   AGE_BAND_OVER_25 = 26;
 }
-

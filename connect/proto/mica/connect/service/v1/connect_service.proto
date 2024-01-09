@@ -34,7 +34,7 @@ service ConnectService {
 
   //<editor-fold desc="Instrument Operations">
 
-  // Initiate an enrollemt where the user has already obtained a verification code  
+  // Initiate an enrollment where the user has already obtained a verification code
   rpc WidgetRegisterInstrumentWithVerificationCode(WidgetRegisterInstrumentWithVerificationCodeRequest) returns (WidgetRegisterInstrumentWithVerificationCodeResponse) {}
 
   // Following the call from Partner to InitializeWidget, this call is the first one that the Widget makes after the
@@ -58,8 +58,7 @@ service ConnectService {
   //</editor-fold>
 }
 
-
-message WidgetRegisterInstrumentWithVerificationCodeRequest{
+message WidgetRegisterInstrumentWithVerificationCodeRequest {
   string session_key = 1 [(validate.rules).string = {
     min_len: 27,
     max_len: 50
@@ -69,10 +68,9 @@ message WidgetRegisterInstrumentWithVerificationCodeRequest{
     min_len: 1,
     max_len: 50
   }];
-
 }
 
-message WidgetRegisterInstrumentWithVerificationCodeResponse{
+message WidgetRegisterInstrumentWithVerificationCodeResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
 

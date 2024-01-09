@@ -12,9 +12,9 @@ package mica.partner.administration.v1;
 
 import "micashared/common/ping/v1/ping.proto";
 import "micashared/common/v1/console_user.proto";
+import "micashared/common/v1/data_extraction.proto";
 import "micashared/common/v1/external_client.proto";
 import "micashared/common/v1/mtls_certificate.proto";
-import "micashared/common/v1/data_extraction.proto";
 
 option go_package = "mica/partner/administrationv1";
 option java_outer_classname = "AdministrationService";

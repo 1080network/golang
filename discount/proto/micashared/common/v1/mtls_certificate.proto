@@ -20,8 +20,8 @@ option java_package = "io.micashared.common.v1";
 option objc_class_prefix = "MICA";
 
 message MTLSCertificateSignatureRequest {
-  //PEM encoded string
-  string pem_csr = 1 [(validate.rules).string.min_len = 1];
+  //Base64 standard encoded PEM string
+  string base64_pem_csr = 1 [(validate.rules).string.min_len = 1];
 }
 
 message MTLSCertificate {
@@ -38,14 +38,26 @@ message MTLSCertificate {
   //The pem encoded certificate generated
   string pem_certificate = 5;
 
+  //Base64 standard encoded PEM string
+  string base64_pem_certificate = 12;
+
   //The pem encoded issuing CA
   string pem_issuing_ca = 6;
+
+  //Base64 standard encoded PEM string
+  string base64_pem_issuing_ca = 13;
 
   //The pem encoded certificate chain
   repeated string pem_ca_chain = 7;
 
+  //Base64 standard encoded PEM string
+  repeated string base64_pem_ca_chain = 14;
+
   //Aggregate all in one pem bundle
   string pem_bundle = 8;
+
+  //Base64 standard encoded PEM string
+  string base64_pem_bundle = 15;
 
   //The roles the certificate has
   repeated string roles = 9;
@@ -138,8 +150,14 @@ message ClientMTLSCertificate {
   }]; // Used for lookups NOT the actual private key.
   string display_name = 2;
   string crt_pem = 3;
+  //Base64 standard encoded PEM string
+  string base64_crt_pem = 7;
   string csr_pem = 4;
+  //Base64 standard encoded PEM string
+  string base64_csr_pem = 8;
   string rootca_bundle_pem = 5;
+  //Base64 standard encoded PEM string
+  string base64_rootca_bundle_pem = 9;
   bool enabled = 6;
 }
 
@@ -167,8 +185,10 @@ message UpdateExternalClientMTLSCertificateRequest {
     max_len: 50
   }];
   string display_name = 2;
-  string signed_cert_pem_from_csr = 3;
-  string rootca_bundle_pem = 4;
+  //Base64 standard encoded PEM string
+  string base64_signed_cert_pem_from_csr = 3;
+  //Base64 standard encoded PEM string
+  string base64_rootca_bundle_pem = 4;
   bool enabled = 5;
 }
 

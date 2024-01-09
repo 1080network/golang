@@ -67,6 +67,8 @@ message DiscountDefinition {
   micashared.common.enums.currency.v1.Currency currency = 13;
 
   oneof discount_amount {
+    option (validate.required) = true;
+
     discount.v1.MonetaryAmount monetary_amount = 14;
     discount.v1.PercentageAmount percentage_amount = 15;
   }
@@ -105,7 +107,9 @@ message CreateDiscountDefinitionRequest {
   string receipt_description = 3 [(validate.rules).string.max_len = 100];
 
   //the initial status of the discount definition has to be set and it cannot be unspecified
-  DiscountDefinitionStatus status = 4 [(validate.rules).enum = {not_in: [0]}];
+  DiscountDefinitionStatus status = 4 [(validate.rules).enum = {
+    not_in: [0]
+  }];
 
   micashared.common.enums.discounttype.v1.DiscountType type = 5;
 
@@ -120,6 +124,8 @@ message CreateDiscountDefinitionRequest {
   micashared.common.enums.currency.v1.Currency currency = 9;
 
   oneof discount_amount {
+    option (validate.required) = true;
+
     discount.v1.MonetaryAmount monetary_amount = 10;
     discount.v1.PercentageAmount percentage_amount = 11;
   }
@@ -145,6 +151,8 @@ message CreateDiscountDefinitionResponse {
 
 message GetDiscountDefinitionRequest {
   oneof discount_definition_identifier {
+    option (validate.required) = true;
+
     string discount_definition_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50
@@ -173,6 +181,8 @@ message GetDiscountDefinitionResponse {
 
 message UpdateDiscountDefinitionRequest {
   oneof discount_definition_identifier {
+    option (validate.required) = true;
+
     string discount_definition_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50
@@ -203,7 +213,9 @@ message UpdateDiscountDefinitionRequest {
   string receipt_description = 4 [(validate.rules).string.max_len = 100];
 
   // the update status of the discount definition has to be set and it cannot be unspecified
-  DiscountDefinitionStatus status = 5 [(validate.rules).enum = {not_in: [0]}];
+  DiscountDefinitionStatus status = 5 [(validate.rules).enum = {
+    not_in: [0]
+  }];
 
   micashared.common.enums.discounttype.v1.DiscountType type = 6;
 
@@ -218,6 +230,8 @@ message UpdateDiscountDefinitionRequest {
   micashared.common.enums.currency.v1.Currency currency = 10;
 
   oneof discount_amount {
+    option (validate.required) = true;
+
     discount.v1.MonetaryAmount monetary_amount = 11;
     discount.v1.PercentageAmount percentage_amount = 12;
   }
@@ -239,6 +253,8 @@ message UpdateDiscountDefinitionResponse {
 
 message UpdateDiscountDefinitionStatusRequest {
   oneof discount_definition_identifier {
+    option (validate.required) = true;
+
     string discount_definition_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50
@@ -270,6 +286,8 @@ message UpdateDiscountDefinitionStatusResponse {
 
 message RemoveDiscountDefinitionRequest {
   oneof discount_definition_identifier {
+    option (validate.required) = true;
+
     string discount_definition_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50

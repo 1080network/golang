@@ -35,7 +35,18 @@ service ServiceProviderToMicaWIPService {
   rpc GetServiceProviderUUEK(GetServiceProviderUUEKRequest) returns (GetServiceProviderUUEKResponse) {}
   //</editor-fold>
 
-  //<editor-fold desc="Service Provider intiated enrollment authentication">
+  //<editor-fold desc="PIN Operations">
+
+  rpc SetPIN(SetPINRequest) returns (SetPINResponse) {}
+
+  rpc ValidatePIN(ValidatePINRequest) returns (ValidatePINResponse) {}
+
+  rpc ResetPIN(ResetPINRequest) returns (ResetPINResponse) {}
+
+  rpc RemovePIN(RemovePINRequest) returns (RemovePINResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Service Provider initiated enrollment authentication">
   rpc ProvisionEnrollmentValidationCode(ProvisionEnrollmentValidationCodeRequest) returns (ProvisionEnrollmentValidationCodeResponse) {}
   //</editor-fold>
 }
@@ -114,6 +125,126 @@ message GetServiceProviderUUEKResponse {
   micashared.common.v1.UserDemographic user_demographic = 3;
 }
 
+message SetPINRequest {
+  oneof user_identifier {
+    option (validate.required) = true;
+
+    // The key representing this user in Mica.
+    string service_provider_user_key = 1 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+
+    // Primary key on the external system.
+    string service_provider_user_ref = 2 [(validate.rules).string.max_len = 100];
+  }
+
+  string pin = 3; // @gotags: mask:"security"
+}
+
+message SetPINResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+    STATUS_PIN_ALREADY_SET = 4;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+}
+
+message ValidatePINRequest {
+  oneof user_identifier {
+    option (validate.required) = true;
+
+    // The key representing this user in Mica.
+    string service_provider_user_key = 1 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+
+    // Primary key on the external system.
+    string service_provider_user_ref = 2 [(validate.rules).string.max_len = 100];
+  }
+
+  string pin = 3; // @gotags: mask:"security"
+}
+
+message ValidatePINResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+    STATUS_PIN_MISMATCH = 4;
+    STATUS_PIN_LOCKED = 5;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+}
+
+message ResetPINRequest {
+  oneof user_identifier {
+    option (validate.required) = true;
+
+    // The key representing this user in Mica.
+    string service_provider_user_key = 1 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+
+    // Primary key on the external system.
+    string service_provider_user_ref = 2 [(validate.rules).string.max_len = 100];
+  }
+
+  string old_pin = 3; // @gotags: mask:"security"
+
+  string new_pin = 4; // @gotags: mask:"security"
+}
+
+message ResetPINResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+    STATUS_PIN_MISMATCH = 4;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+}
+
+message RemovePINRequest {
+  oneof user_identifier {
+    option (validate.required) = true;
+
+    // The key representing this user in Mica.
+    string service_provider_user_key = 1 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+
+    // Primary key on the external system.
+    string service_provider_user_ref = 2 [(validate.rules).string.max_len = 100];
+  }
+}
+
+message RemovePINResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+}
+
 message User {
   string service_provider_user_key = 1 [(validate.rules).string = {
     min_len: 30,
@@ -141,8 +272,9 @@ message User {
 message ProvisionEnrollmentValidationCodeRequest {
   oneof user_identifier {
     option (validate.required) = true;
+
     //this is the id in the service provider for the user that is requesting an enrollment
-    string service_provider_user_ref = 1;
+    string service_provider_user_ref = 1 [(validate.rules).string.max_len = 100];
     string service_provider_user_key = 2;
   }
 
@@ -150,7 +282,7 @@ message ProvisionEnrollmentValidationCodeRequest {
     option (validate.required) = true;
 
     //this is the id in the service provider for the instrument (account, etc) that will be used to transact.
-    string service_provider_instrument_ref = 3;
+    string service_provider_instrument_ref = 3 [(validate.rules).string.max_len = 100];
     string service_provider_instrument_key = 4;
   }
 

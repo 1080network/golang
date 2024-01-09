@@ -62,7 +62,11 @@ message Organization {
 
   micashared.common.v1.BankAccountDetail revenue_account = 16;
 
-  micashared.common.enums.barcodetype.v1.BarcodeType barcode_type = 17 [(validate.rules).enum = {not_in: [0]}];
+  micashared.common.enums.barcodetype.v1.BarcodeType barcode_type = 17 [(validate.rules).enum = {
+    not_in: [0]
+  }];
 
-  micashared.common.enums.barcodelocation.v1.BarcodeLocation barcode_location = 18 [(validate.rules).enum = {not_in: [0]}];
+  micashared.common.enums.barcodelocation.v1.BarcodeLocation barcode_location = 18 [(validate.rules).enum = {
+    not_in: [0]
+  }];
 }

@@ -77,17 +77,6 @@ service ServiceProviderToMicaService {
   rpc SearchInstrument(instrument.v1.SearchInstrumentRequest) returns (instrument.v1.SearchInstrumentResponse) {}
   //</editor-fold>
 
-  //<editor-fold desc="PIN Operations">
-
-  rpc SetPIN(instrument.v1.SetPINRequest) returns (instrument.v1.SetPINResponse) {}
-
-  rpc ValidatePIN(instrument.v1.ValidatePINRequest) returns (instrument.v1.ValidatePINResponse) {}
-
-  rpc ResetPIN(instrument.v1.ResetPINRequest) returns (instrument.v1.ResetPINResponse) {}
-
-  rpc RemovePIN(instrument.v1.RemovePINRequest) returns (instrument.v1.RemovePINResponse) {}
-  //</editor-fold>
-
   //<editor-fold desc="UUEK Operations">
 
   // Used to create a UUEK that can be given to the SP's users in order to transact at Partners (merhants) that support mica.
@@ -103,9 +92,6 @@ service ServiceProviderToMicaService {
   //<editor-fold desc="Person to Person Operations">
 
   rpc SendValue(value.v1.SendValueRequest) returns (value.v1.SendValueResponse) {}
-
-  // An operation to search for Value operations either Obtain or Return that the Partner has requested of mica.
-  rpc SearchValue(value.v1.SearchValueRequest) returns (value.v1.SearchValueResponse) {}
 
   rpc GetValue(value.v1.GetValueRequest) returns (value.v1.GetValueResponse) {}
   //</editor-fold>

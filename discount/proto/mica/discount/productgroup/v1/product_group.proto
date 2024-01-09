@@ -71,6 +71,8 @@ message CreateProductGroupResponse {
 
 message GetProductGroupRequest {
   oneof product_group_identifier {
+    option (validate.required) = true;
+
     string product_group_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50
@@ -99,6 +101,8 @@ message GetProductGroupResponse {
 
 message UpdateProductGroupRequest {
   oneof product_group_identifier {
+    option (validate.required) = true;
+
     string product_group_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50
@@ -135,6 +139,8 @@ message UpdateProductGroupResponse {
 
 message RemoveProductGroupRequest {
   oneof product_group_identifier {
+    option (validate.required) = true;
+
     string product_group_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50

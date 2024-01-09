@@ -21,14 +21,23 @@ option objc_class_prefix = "MICA";
 
 message UUEK {
   // reference to the user at the Partner
-  string partner_user_ref = 3 [(validate.rules).string = {min_len: 1, max_len: 100}];
+  string partner_user_ref = 3 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100
+  }];
 
   // reference to the user's instrument at the Partner
-  string partner_instrument_ref = 1 [(validate.rules).string = {min_len: 1, max_len: 100}];
+  string partner_instrument_ref = 1 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100
+  }];
 
   // depending on how the Partner handles instruments and UUEKs, this will either be their reference to this
   // UUEK or a random UUID value if they don't have this concept
-  string partner_uuek_ref = 4 [(validate.rules).string = {min_len: 1, max_len: 100}];
+  string partner_uuek_ref = 4 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100
+  }];
 
   micashared.common.v1.CommonUUEK uuek = 2;
 }
@@ -64,7 +73,10 @@ message ExchangeUUEKRequest {
   bool remove_existing = 2;
 
   // Primary key on the external system.
-  string partner_uuek_ref = 3 [(validate.rules).string = {min_len: 1, max_len: 100}];
+  string partner_uuek_ref = 3 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100
+  }];
 }
 
 message ExchangeUUEKResponse {
@@ -87,14 +99,14 @@ message ExchangeUUEKResponse {
 
 message SearchUUEKRequest {
   // reference to the user at the Partner
-  string partner_user_ref = 3;
+  string partner_user_ref = 3 [(validate.rules).string.max_len = 100];
 
   // reference to the user's instrument at the Partner
-  string partner_instrument_ref = 1;
+  string partner_instrument_ref = 1 [(validate.rules).string.max_len = 100];
 
   // depending on how the Partner handles instruments and UUEKs, this will either be their reference to this
   // UUEK or a random UUID value if they don't have this concept
-  string partner_uuek_ref = 4;
+  string partner_uuek_ref = 4 [(validate.rules).string.max_len = 100];
 }
 
 message SearchUUEKResponse {

@@ -47,11 +47,18 @@ message CommonUUEK {
 
   oneof use_criteria {
     option (validate.required) = true;
-    uint32 number_of_uses = 11 [(validate.rules).uint32.gt = 0]; 
+    uint32 number_of_uses = 11 [(validate.rules).uint32.gt = 0];
 
     bool unlimited = 12;
   }
 
   // The 3-letter currency code defined in ISO 4217.
   micashared.common.enums.currency.v1.Currency currency = 8;
+}
+
+// This message holds immutable details about the instruments that back UUEKs. These attributes 
+// can be used to have stable references or knowledge of a the instrument that was used to transact
+message ImmutableInstrumentDetails {
+  // non operable fix identifier guaranteed to be consistent across transactions 
+  string identifier = 1;
 }

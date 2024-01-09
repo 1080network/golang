@@ -1,5 +1,5 @@
 .PHONY: all
-all: shared connect discount partner serviceprovider
+all: clean prepare shared connect discount partner serviceprovider
 
 .PHONY: shared
 shared:

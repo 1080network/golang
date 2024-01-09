@@ -21,7 +21,7 @@ option objc_class_prefix = "MICA";
 message Receipt {
   oneof image {
     // The generated image bytes.
-    bytes  data = 29;
+    bytes data = 29;
     // The url where to pull the generated image from, if applicable.
     string url = 30;
   }
@@ -51,8 +51,8 @@ message GetReceiptResponse {
   micashared.common.v1.Receipt receipt = 3;
 }
 
-message ReceiptTransactionData{
+message ReceiptTransactionData {
   //if added the receipt will encode this value into barcode configured for the organization this can be later scanned
-  //to find the corresponding receipt in the store/merchant system 
-  string barcode_text = 1; 
+  //to find the corresponding receipt in the store/merchant system
+  string barcode_text = 1;
 }

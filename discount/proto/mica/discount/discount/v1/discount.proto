@@ -40,7 +40,7 @@ message TransactionDetails {
   }];
 
   string partner_name = 4 [(validate.rules).string = {
-    min_len:  1,
+    min_len: 1,
     max_len: 100
   }];
 
@@ -209,8 +209,10 @@ message CreateDiscountRequest {
 
   string receipt_description = 3 [(validate.rules).string.max_len = 100];
 
-  //the initial status of the discount has to be set and it cannot be unspecified
-  DiscountStatus status = 4 [(validate.rules).enum = {not_in: [0]}];
+  // the initial status of the discount has to be set and it cannot be unspecified
+  DiscountStatus status = 4 [(validate.rules).enum = {
+    not_in: [0]
+  }];
 
   google.protobuf.Timestamp valid_from = 5 [(validate.rules).timestamp.required = false];
 
@@ -258,6 +260,8 @@ message CreateDiscountResponse {
 
 message GetDiscountRequest {
   oneof discount_identifier {
+    option (validate.required) = true;
+
     string discount_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50
@@ -286,6 +290,8 @@ message GetDiscountResponse {
 
 message UpdateDiscountRequest {
   oneof discount_identifier {
+    option (validate.required) = true;
+
     string discount_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50
@@ -302,7 +308,9 @@ message UpdateDiscountRequest {
   string receipt_description = 3 [(validate.rules).string.max_len = 100];
 
   // the update status of the discount has to be set and it cannot be unspecified
-  DiscountStatus status = 4 [(validate.rules).enum = {not_in: [0]}];
+  DiscountStatus status = 4 [(validate.rules).enum = {
+    not_in: [0]
+  }];
 
   google.protobuf.Timestamp valid_from = 5 [(validate.rules).timestamp.required = false];
 
@@ -344,6 +352,8 @@ message UpdateDiscountResponse {
 
 message UpdateDiscountStatusRequest {
   oneof discount_identifier {
+    option (validate.required) = true;
+
     string discount_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50
@@ -375,6 +385,8 @@ message UpdateDiscountStatusResponse {
 
 message RemoveDiscountRequest {
   oneof discount_identifier {
+    option (validate.required) = true;
+
     string discount_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50
@@ -433,7 +445,7 @@ message ApplyDiscountNotificationRequest {
   }];
 
   string partner_name = 14 [(validate.rules).string = {
-    min_len:  1,
+    min_len: 1,
     max_len: 100
   }];
 
@@ -480,7 +492,7 @@ message ApplyDiscountNotificationResponse {
 }
 
 message SearchDiscountRequest {
-  string discount_definition_ref = 2;
+  string discount_definition_ref = 2 [(validate.rules).string.max_len = 100];
 
   string receipt_description = 3;
 
@@ -494,7 +506,7 @@ message SearchDiscountRequest {
 
   micashared.common.enums.currency.v1.Currency currency = 8;
 
-  string user_ref = 9;
+  string user_ref = 9 [(validate.rules).string.max_len = 100];
 }
 
 message SearchDiscountResponse {

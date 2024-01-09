@@ -22,7 +22,10 @@ option java_package = "io.mica.serviceprovider.instrument.v1";
 option objc_class_prefix = "MICA";
 
 message RegisterInstrumentRequest {
-  string obsolete_service_provider_user_key = 1 [deprecated = true, (validate.rules).string = {max_len: 50}];
+  string obsolete_service_provider_user_key = 1 [
+    deprecated = true,
+    (validate.rules).string = {max_len: 50}
+  ];
   oneof user_identifier {
     // The key representing this user in Mica.
     string service_provider_user_key = 7 [(validate.rules).string = {max_len: 50}];
@@ -31,7 +34,7 @@ message RegisterInstrumentRequest {
   }
 
   // Primary key on the external system.
-  string service_provider_instrument_ref = 2;
+  string service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100];
 
   micashared.common.enums.instrumenttype.v1.InstrumentType instrument_type = 3;
 
@@ -74,6 +77,8 @@ message RegisterInstrumentResponse {
 
 message GetInstrumentRequest {
   oneof instrument_identifier {
+    option (validate.required) = true;
+
     // The key representing this instrument in Mica.
     string service_provider_instrument_key = 1 [(validate.rules).string = {
       min_len: 30,
@@ -81,7 +86,7 @@ message GetInstrumentRequest {
     }];
 
     // Primary key on the external system.
-    string service_provider_instrument_ref = 2;
+    string service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100];
   }
 }
 
@@ -102,7 +107,7 @@ message Instrument {
   google.protobuf.Timestamp updated = 4;
 
   // Primary key on the external system.
-  string service_provider_instrument_ref = 5;
+  string service_provider_instrument_ref = 5 [(validate.rules).string.max_len = 100];
 
   // The key that represents this user.
   string service_provider_user_key = 6 [(validate.rules).string = {
@@ -111,7 +116,7 @@ message Instrument {
   }];
 
   // Primary key on the external system.
-  string service_provider_user_ref = 7;
+  string service_provider_user_ref = 7 [(validate.rules).string.max_len = 100];
 
   micashared.common.enums.instrumenttype.v1.InstrumentType instrument_type = 8;
 
@@ -138,6 +143,8 @@ message GetInstrumentResponse {
 
 message RemoveInstrumentRequest {
   oneof instrument_identifier {
+    option (validate.required) = true;
+
     // The key representing this instrument in Mica.
     string service_provider_instrument_key = 1 [(validate.rules).string = {
       min_len: 30,
@@ -145,7 +152,7 @@ message RemoveInstrumentRequest {
     }];
 
     // Primary key on the external system.
-    string service_provider_instrument_ref = 2;
+    string service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100];
   }
 }
 
@@ -185,119 +192,11 @@ message SearchInstrumentResponse {
   repeated Instrument instruments = 3;
 }
 
-message SetPINRequest {
-  oneof instrument_identifier {
-    // The key representing this instrument in Mica.
-    string service_provider_instrument_key = 1 [(validate.rules).string = {
-      min_len: 30,
-      max_len: 50
-    }];
-
-    // Primary key on the external system.
-    string service_provider_instrument_ref = 2;
-  }
-
-  string pin = 3; // @gotags: mask:"security"
-}
-
-message SetPINResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-    STATUS_NOT_FOUND = 3;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-}
-
-message ValidatePINRequest {
-  oneof instrument_identifier {
-    // The key representing this instrument in Mica.
-    string service_provider_instrument_key = 1 [(validate.rules).string = {
-      min_len: 30,
-      max_len: 50
-    }];
-
-    // Primary key on the external system.
-    string service_provider_instrument_ref = 2;
-  }
-
-  string pin = 3; // @gotags: mask:"security"
-}
-
-message ValidatePINResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-    STATUS_NOT_FOUND = 3;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-}
-
-message ResetPINRequest {
-  oneof instrument_identifier {
-    // The key representing this instrument in Mica.
-    string service_provider_instrument_key = 1 [(validate.rules).string = {
-      min_len: 30,
-      max_len: 50
-    }];
-
-    // Primary key on the external system.
-    string service_provider_instrument_ref = 2;
-  }
-
-  string old_pin = 3; // @gotags: mask:"security"
-
-  string new_pin = 4; // @gotags: mask:"security"
-}
-
-message ResetPINResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-    STATUS_NOT_FOUND = 3;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-}
-
-message RemovePINRequest {
-  oneof instrument_identifier {
-    // The key representing this instrument in Mica.
-    string service_provider_instrument_key = 1 [(validate.rules).string = {
-      min_len: 30,
-      max_len: 50
-    }];
-
-    // Primary key on the external system.
-    string service_provider_instrument_ref = 2;
-  }
-}
-
-message RemovePINResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-    STATUS_NOT_FOUND = 3;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-}
-
 message RetrieveTransactionRequest {
   string service_provider_instrument_key = 1;
 
   // Primary key on the external system.
-  string service_provider_instrument_ref = 2;
+  string service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100];
 
   // Transactions that occurred after this date (inclusive).
   google.protobuf.Timestamp date_from = 4;

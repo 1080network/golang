@@ -13,9 +13,9 @@ package mica.partner.service.v1;
 import "mica/partner/instrument/v1/instrument.proto";
 import "mica/partner/organization/v1/organization.proto";
 import "mica/partner/partner/v1/partner.proto";
-import "mica/partner/uuek/v1/uuek.proto";
 import "mica/partner/serviceprovider/v1/service_provider.proto";
 import "mica/partner/store/v1/store.proto";
+import "mica/partner/uuek/v1/uuek.proto";
 import "mica/partner/value/v1/value.proto";
 import "mica/partner/widget/v1/widget.proto";
 import "micashared/common/ping/v1/ping.proto";
@@ -34,9 +34,10 @@ service PartnerToMicaService {
 
   //<editor-fold desc="Organization Operations">
 
-  // Retrieve an organization based on it's key.
+  // A method to create an organization.
   rpc CreateOrganization(organization.v1.CreateOrganizationRequest) returns (organization.v1.CreateOrganizationResponse) {}
 
+  // Retrieve an organization based on it's key or ref.
   rpc GetOrganization(organization.v1.GetOrganizationRequest) returns (organization.v1.GetOrganizationResponse) {}
 
   // Update a given organization.
@@ -72,7 +73,7 @@ service PartnerToMicaService {
 
   //<editor-fold desc="UUEK Operations">
 
-  // When a user no longer wishes to use their UUEKs this operation can remove them from mica.
+  // When a user no longer wishes to use their UUEKs this method can remove them from mica.
   rpc RemoveUUEK(uuek.v1.RemoveUUEKRequest) returns (uuek.v1.RemoveUUEKResponse) {}
 
   // A Partner can proactively replace a UUEK with a new one for future use.
@@ -84,27 +85,34 @@ service PartnerToMicaService {
 
   //<editor-fold desc="Value Operations">
 
-  // An operation to obtain value from a user in order to pay for goods or services rendered to the user.
+  // A method to obtain value from a user in order to pay for goods or services rendered to the user.
   rpc ObtainValue(value.v1.ObtainValueRequest) returns (value.v1.ObtainValueResponse) {}
 
-  // An operation to reverse obtain value, including transaction fees and discounts for a given transaction
+  // A method to reverse obtain value, including transaction fees and discounts for a given transaction
   rpc ReverseObtainValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseObtainValueResponse) {}
 
-  // An operation to return value to a user in order to refund them for goods or services.
+  // A method to return value to a user in order to refund them for goods or services.
   rpc ReturnValue(value.v1.ReturnValueRequest) returns (value.v1.ReturnValueResponse) {}
 
-  // An operation to reverse return value for a given transaction
+  // A method to reverse return value for a given transaction
   rpc ReverseReturnValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseReturnValueResponse) {}
 
-  // An operation to search for Value operations either Obtain or Return that the Partner has requested of mica.
-  rpc SearchValue(value.v1.SearchValueRequest) returns (value.v1.SearchValueResponse) {}
-
+  // A method to retrieve a value transaction
   rpc GetValue(value.v1.GetValueRequest) returns (value.v1.GetValueResponse) {}
+
+  // A method to hold some value to be obtained at a later date via ObtainHoldValue
+  rpc HoldValue(value.v1.HoldValueRequest) returns (value.v1.HoldValueResponse) {}
+
+  // A method to release previously held value
+  rpc ReleaseHoldValue(value.v1.ReleaseHoldValueRequest) returns (value.v1.ReleaseHoldValueResponse) {}
+
+  // A method to obtain value that was previously held
+  rpc ObtainHoldValue(value.v1.ObtainHoldValueRequest) returns (value.v1.ObtainHoldValueResponse) {}
   //</editor-fold>
 
   //<editor-fold desc="Admin Operations">
 
-  // An operation to ping the server to ensure it's up and running and that the connection is good.
+  // A method to ping the server to ensure it's up and running and that the connection is good.
   rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
   //</editor-fold>
 

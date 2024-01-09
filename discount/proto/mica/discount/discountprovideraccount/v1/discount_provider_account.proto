@@ -89,6 +89,8 @@ message CreateDiscountProviderAccountResponse {
 
 message GetDiscountProviderAccountRequest {
   oneof discount_provider_account_identifier {
+    option (validate.required) = true;
+
     string discount_provider_account_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50
@@ -117,6 +119,8 @@ message GetDiscountProviderAccountResponse {
 
 message UpdateDiscountProviderAccountRequest {
   oneof discount_provider_account_identifier {
+    option (validate.required) = true;
+
     string discount_provider_account_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50
@@ -155,6 +159,8 @@ message UpdateDiscountProviderAccountResponse {
 
 message UpdateDiscountProviderAccountStatusRequest {
   oneof discount_provider_account_identifier {
+    option (validate.required) = true;
+
     string discount_provider_account_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50
@@ -186,6 +192,8 @@ message UpdateDiscountProviderAccountStatusResponse {
 
 message RemoveDiscountProviderAccountRequest {
   oneof discount_provider_account_identifier {
+    option (validate.required) = true;
+
     string discount_provider_account_ref = 1 [(validate.rules).string = {
       min_len: 1,
       max_len: 50

@@ -11,7 +11,6 @@ syntax = "proto3";
 package mica.partner.store.v1;
 
 import "micashared/common/v1/address.proto";
-import "micashared/common/v1/area.proto";
 import "micashared/common/v1/error.proto";
 import "micashared/common/v1/store.proto";
 import "validate/validate.proto";
@@ -22,7 +21,10 @@ option java_package = "io.mica.partner.store.v1";
 option objc_class_prefix = "MICA";
 
 message CreateStoreRequest {
-  string obsolete_organization_key = 1 [deprecated = true, (validate.rules).string = {max_len: 50}];
+  string obsolete_organization_key = 1 [
+    deprecated = true,
+    (validate.rules).string = {max_len: 50}
+  ];
   oneof organization_identifier {
     string organization_key = 5 [(validate.rules).string = {max_len: 50}];
 
@@ -31,7 +33,7 @@ message CreateStoreRequest {
   }
 
   // The primary key for this store at the Partner/Organization.
-  string store_ref = 2;
+  string store_ref = 2 [(validate.rules).string.max_len = 100];
 
   // The number of this store (an alternative unique value)
   string store_number = 3;
@@ -63,7 +65,10 @@ message CreateStoreResponse {
 }
 
 message GetStoreRequest {
-  string obsolete_store_key = 1 [deprecated = true, (validate.rules).string = {max_len: 50}];
+  string obsolete_store_key = 1 [
+    deprecated = true,
+    (validate.rules).string = {max_len: 50}
+  ];
   oneof store_identifier {
     // The primary key of this store within Mica.
     string store_key = 3 [(validate.rules).string = {max_len: 50}];
@@ -97,12 +102,10 @@ message SearchStoreRequest {
   string store_key = 5;
 
   // The primary key for this store at the Partner.
-  string store_ref = 2;
+  string store_ref = 2 [(validate.rules).string.max_len = 100];
 
   // The number of this store (an alternative unique value)
   string store_number = 3;
-
-  micashared.common.v1.Circle circle = 10;
 }
 
 message SearchStoreResponse {
@@ -120,7 +123,10 @@ message SearchStoreResponse {
 }
 
 message StoreRef {
-  string obsolete_organization_key = 1 [deprecated = true, (validate.rules).string = {max_len: 50}];
+  string obsolete_organization_key = 1 [
+    deprecated = true,
+    (validate.rules).string = {max_len: 50}
+  ];
   oneof organization_identifier {
     string organization_key = 3 [(validate.rules).string = {max_len: 50}];
 
@@ -128,11 +134,13 @@ message StoreRef {
     string organization_ref = 4 [(validate.rules).string = {max_len: 100}];
   }
 
-  string store_ref = 2;
+  string store_ref = 2 [(validate.rules).string.max_len = 100];
 }
 
 message UpdateStoreRequest {
   oneof store_identifier {
+    option (validate.required) = true;
+
     // The primary key for this store at the Partner/Organization.
     StoreRef store_ref = 1;
 
@@ -168,6 +176,8 @@ message UpdateStoreResponse {
 
 message RemoveStoreRequest {
   oneof store_identifier {
+    option (validate.required) = true;
+
     // The primary key for this store at the Partner/Organization.
     StoreRef store_ref = 1;
 

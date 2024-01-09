@@ -27,7 +27,7 @@ option objc_class_prefix = "MICA";
 // The two Value operations, Obtain and Return, have basically the same structure and content.
 // They primarily differ in the status codes they return. The main Value type includes information
 // about the instrument being used, the amount of the transaction (requested and total amounts),
-// the currency, the organization and store the transation occured in and optionally a list of
+// the currency, the organization and store the transaction occurred in and optionally a list of
 // items the user is purchasing or returning.
 service ServiceProviderFromMicaService {
   // When a User initiates an enrollment at a Partner, mica will call this operation in order to
@@ -54,7 +54,18 @@ service ServiceProviderFromMicaService {
   // Reverse a ReturnValue transaction
   rpc ReverseReturnValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseValueResponse) {}
 
+  // Hold a value for a given instrument to be used at a later time
+  rpc HoldValue(value.v1.HoldValueRequest) returns (value.v1.HoldValueResponse) {}
+
+  // Release a value that was previously held
+  rpc ReleaseHoldValue(value.v1.ReleaseHoldValueRequest) returns (value.v1.ReleaseHoldValueResponse) {}
+
+  // Obtain a value that was previously held
+  rpc ObtainHoldValue(value.v1.ObtainHoldValueRequest) returns (value.v1.ObtainHoldValueResponse) {}
+
   rpc ReceiveValue(value.v1.ReceiveValueRequest) returns (value.v1.ReceiveValueResponse) {}
+
+  rpc ValueAdvice(value.v1.ValueAdviceRequest) returns (value.v1.ValueAdviceResponse) {}
   //</editor-fold>
 
   //<editor-fold desc="Admin Operations">
