@@ -191,8 +191,8 @@ func (*CommonUUEK_NumberOfUses) isCommonUUEK_UseCriteria() {}
 
 func (*CommonUUEK_Unlimited) isCommonUUEK_UseCriteria() {}
 
-// This message holds immutable details about the instruments that back UUEKs. These attributes
-// can be used to have stable references or knowledge of a the instrument that was used to transact
+// This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
+// stable references or knowledge of the underlying instrument that was used to transact.
 type ImmutableInstrumentDetails struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

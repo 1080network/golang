@@ -211,10 +211,10 @@ func TestObtainValueWithoutBasked(t *testing.T) {
 	//bh9ndiSEVFhRiyjyREKw47tm6B6Pmg
 	assert.NoError(t, err)
 	valueRequest := &valuev1.ValueRequest{
-		Uuek:                  "bh9ndiSEVFhRiyjyREKw47tm6B6Pmg",
-		PartnerTransactionRef: uuid.NewString(),
-		OrderNumber:           uuid.NewString(),
-		Currency:              currencyv1.Currency_CURRENCY_USD,
+		Uuek:           "bh9ndiSEVFhRiyjyREKw47tm6B6Pmg",
+		TransactionRef: uuid.NewString(),
+		OrderNumber:    uuid.NewString(),
+		Currency:       currencyv1.Currency_CURRENCY_USD,
 		OrganizationIdentifier: &valuev1.ValueRequest_OrganizationKey{
 			OrganizationKey: "hron3n00MDV90UjuTAi71blY95IkwA",
 		},
@@ -270,10 +270,10 @@ func TestObtainValueWithBasket(t *testing.T) {
 		},
 	}
 	valueRequest := &valuev1.ValueRequest{
-		Uuek:                  "bh9ndiSEVFhRiyjyREKw47tm6B6Pmg",
-		PartnerTransactionRef: uuid.NewString(),
-		OrderNumber:           uuid.NewString(),
-		Currency:              currencyv1.Currency_CURRENCY_USD,
+		Uuek:           "bh9ndiSEVFhRiyjyREKw47tm6B6Pmg",
+		TransactionRef: uuid.NewString(),
+		OrderNumber:    uuid.NewString(),
+		Currency:       currencyv1.Currency_CURRENCY_USD,
 		OrganizationIdentifier: &valuev1.ValueRequest_OrganizationKey{
 			OrganizationKey: "hron3n00MDV90UjuTAi71blY95IkwA",
 		},

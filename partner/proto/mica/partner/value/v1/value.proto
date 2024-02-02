@@ -20,6 +20,7 @@ import "micashared/common/v1/error.proto";
 import "micashared/common/v1/line_item.proto";
 import "micashared/common/v1/receipt.proto";
 import "micashared/common/v1/uuek.proto";
+import "micashared/common/v1/risk_signals.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/partner/valuev1";
@@ -103,6 +104,13 @@ message Value {
 
   // List of items bought or returned.
   repeated micashared.common.v1.LineItemAndStatus line_item_and_statuses = 18;
+
+  google.protobuf.Timestamp expiration = 22;
+
+  // A unique identifier at the Partner that represents the initial transaction in the set of transactions. This
+  // would typically refer to the first Obtain transaction and passed in for Return transactions. The
+  // Service Provider can then use this field to match up Returns with the original Obtain.
+  string initial_transaction_ref = 23 [(validate.rules).string.max_len = 100];
 }
 
 // Type that represents the details of the value request (either to obtain or return).
@@ -175,6 +183,9 @@ message ObtainValueRequest {
   micashared.common.enums.approvaltype.v1.ApprovalType approval_type = 1;
 
   ValueRequest value = 2;
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 3;
 }
 
 message ObtainValueResponse {
@@ -244,13 +255,25 @@ message ObtainValueResponse {
   // will typically have a status of LINE_ITEM_STATUS_ELIGIBLE.
   repeated micashared.common.v1.LineItemSequenceAndStatus line_item_sequence_and_statuses = 6;
 
+  // This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
+  // stable references or knowledge of the underlying instrument that was used to transact.
   micashared.common.v1.ImmutableInstrumentDetails immutable_instrument_details = 8;
 }
 
 message ReturnValueRequest {
   ValueRequest value = 1;
-  //if set the return value must match the immutable identifier that the uuek abstracts. This value is returned in the value requests
+
+  // If set the return value must match the immutable identifier that the UUEK abstracts. This value is returned in
+  // the value requests as part of ImmutableInstrumentDetails.
   string immutable_identifier_must_match = 2;
+
+  // A unique identifier at the Partner that represents the initial transaction in the set of transactions. This
+  // would typically refer to the first Obtain transaction and passed in for Return transactions. The
+  // Service Provider can then use this field to match up Returns with the original Obtain.
+  string initial_partner_transaction_ref = 3 [(validate.rules).string.max_len = 100];
+
+   //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+   micashared.common.v1.RiskSignal risk_signal = 4;
 }
 
 message ReturnValueResponse {
@@ -299,6 +322,8 @@ message ReturnValueResponse {
   // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
   string approved_amount = 5;
 
+  // This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
+  // stable references or knowledge of the underlying instrument that was used to transact.
   micashared.common.v1.ImmutableInstrumentDetails immutable_instrument_details = 6;
 }
 
@@ -335,14 +360,20 @@ message ReverseValueRequest {
     option (validate.required) = true;
 
     // Mica primary key, returned when the original transaction was processed by Mica
-    string transaction_key = 1 [(validate.rules).string = {
+    string original_transaction_key = 1 [(validate.rules).string = {
       min_len: 27,
       max_len: 50
     }];
 
     // A unique identifier at the Partner for the transaction being reversed.
-    string transaction_ref = 2 [(validate.rules).string.min_len = 1];
+    string original_transaction_ref = 2 [(validate.rules).string.min_len = 1];
   }
+
+  // A unique identifier at the Partner for this reversal transaction
+  string transaction_ref = 3 [(validate.rules).string.max_len = 100];
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 4;
 }
 
 message ReverseObtainValueResponse {
@@ -429,6 +460,9 @@ message HoldValueRequest {
   // The additional cost for this transaction. This would hold the ATM fee or the tip at a restaurant.
   // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
   string surcharge_amount = 7;
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 8;
 }
 
 message HoldValueResponse {
@@ -486,6 +520,10 @@ message HoldValueResponse {
 
   // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
   string approved_amount = 5;
+
+  // This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
+  // stable references or knowledge of the underlying instrument that was used to transact.
+  micashared.common.v1.ImmutableInstrumentDetails immutable_instrument_details = 6;
 }
 
 message ReleaseHoldValueRequest {
@@ -500,6 +538,9 @@ message ReleaseHoldValueRequest {
 
   // the Partner's reference for the release transaction
   string transaction_ref = 3 [(validate.rules).string.max_len = 100];
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 4;
 }
 
 message ReleaseHoldValueResponse {
@@ -586,6 +627,9 @@ message ObtainHoldValueRequest {
   repeated micashared.common.v1.Adjustment adjustments = 12;
 
   micashared.common.v1.ReceiptTransactionData receipt_data = 13;
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 14;
 }
 
 message ObtainHoldValueResponse {
@@ -652,4 +696,8 @@ message ObtainHoldValueResponse {
   // status of each line item based on processing by Mica. The list will be in the same order as the request and will
   // will typically have a status of LINE_ITEM_STATUS_ELIGIBLE.
   repeated micashared.common.v1.LineItemSequenceAndStatus line_item_sequence_and_statuses = 6;
+
+  // This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
+  // stable references or knowledge of the underlying instrument that was used to transact.
+  micashared.common.v1.ImmutableInstrumentDetails immutable_instrument_details = 8;
 }

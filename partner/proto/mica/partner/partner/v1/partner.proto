@@ -39,6 +39,8 @@ message Partner {
   micashared.common.v1.Address address = 7;
 
   string callback_address = 8;
+
+  string network_group = 9;
 }
 
 message GetPartnerRequest {}

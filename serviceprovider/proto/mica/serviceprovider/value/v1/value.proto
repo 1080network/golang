@@ -17,6 +17,7 @@ import "micashared/common/enums/organizationcategory/v1/organization_category.pr
 import "micashared/common/enums/valueoperationtype/v1/value_operation_type.proto";
 import "micashared/common/v1/address.proto";
 import "micashared/common/v1/error.proto";
+import "micashared/common/v1/risk_signals.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/serviceprovider/valuev1";
@@ -48,6 +49,13 @@ message Value {
 
   // Service Provider's primary key for their instrument.
   string service_provider_instrument_ref = 7 [(validate.rules).string.max_len = 100];
+
+  // If a Service Provider UUEK this value will be set so the service provider can do any management on their end
+  string service_provider_uuek = 24;
+
+  // The Partner's transaction record primary key for this transaction. This is an optional value and is unique within
+  // a given Partner.
+  string partner_transaction_ref = 23 [(validate.rules).string.max_len = 100];
 
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
   micashared.common.enums.currency.v1.Currency currency = 9;
@@ -100,6 +108,14 @@ message Value {
   string requested_amount = 19;
 
   string order_number = 20;
+
+  // Set in the case of a Hold transaction
+  google.protobuf.Timestamp expiration = 25;
+
+  // A unique identifier at the Partner that represents the initial transaction in the set of transactions. This
+  // would typically refer to the first Obtain transaction and passed in for Return transactions. The
+  // Service Provider can then use this field to match up Returns with the original Obtain.
+  string initial_partner_transaction_ref = 26 [(validate.rules).string.max_len = 100];
 }
 
 // Type that represents the details of the value request (either to obtain or return).
@@ -119,8 +135,9 @@ message ValueRequest {
   // If a Service Provider UUEK this value will be set so the service provider can do any management on their end
   string service_provider_uuek = 19;
 
-  // Service Provider's transaction record primary key. Not sent for obtain and refund transactions, but included in reverses (different ID *should* come back)
-  string transaction_ref = 4 [(validate.rules).string.max_len = 100];
+  // The Partner's transaction record primary key for this transaction. This is an optional value and is unique within
+  // a given Partner.
+  string partner_transaction_ref = 4 [(validate.rules).string.max_len = 100];
 
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
   micashared.common.enums.currency.v1.Currency currency = 5;
@@ -185,6 +202,9 @@ message ObtainValueRequest {
   micashared.common.enums.approvaltype.v1.ApprovalType approval_type = 1;
 
   ValueRequest value = 2;
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 3;
 }
 
 message ObtainValueResponse {
@@ -239,6 +259,9 @@ message ReverseValueRequest {
   string transaction_key = 1;
 
   string transaction_ref = 2 [(validate.rules).string.max_len = 100];
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 3;
 }
 
 message ReverseValueResponse {
@@ -277,6 +300,15 @@ message ReverseValueResponse {
 
 message ReturnValueRequest {
   ValueRequest value = 1;
+
+  // A unique identifier at the Partner that represents the initial transaction in the set of transactions. This
+  // would typically refer to the first Obtain transaction and passed in for Return transactions. The
+  // Service Provider can then use this field to match up Returns with the original Obtain.
+  string initial_partner_transaction_ref = 2 [(validate.rules).string.max_len = 100];
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 3;
+
 }
 
 message ReturnValueResponse {
@@ -326,6 +358,9 @@ message HoldValueRequest {
   google.protobuf.Timestamp expiration = 1 [(validate.rules).timestamp = {required: true}];
 
   ValueRequest value = 2;
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 3;
 }
 
 message HoldValueResponse {
@@ -387,6 +422,9 @@ message ReleaseHoldValueRequest {
   string transaction_ref = 2 [(validate.rules).string.max_len = 100];
 
   google.protobuf.Timestamp release_timestamp = 3 [(validate.rules).timestamp.required = true];
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 4;
 }
 
 message ReleaseHoldValueResponse {
@@ -419,6 +457,9 @@ message ObtainHoldValueRequest {
   micashared.common.enums.approvaltype.v1.ApprovalType approval_type = 3;
 
   ValueRequest value = 4;
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 5;
 }
 
 message ObtainHoldValueResponse {
@@ -501,6 +542,9 @@ message ReceiveValueRequest {
   string amount = 4;
 
   serviceprovider.value.v1.From from = 5;
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 6;
 }
 
 message ReceiveValueResponse {
@@ -613,6 +657,9 @@ message SendValueRequest {
 
   // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
   string amount = 5;
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 10;
 }
 
 message SendValueResponse {

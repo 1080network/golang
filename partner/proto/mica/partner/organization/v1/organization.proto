@@ -65,7 +65,8 @@ message CreateOrganizationResponse {
 
   micashared.common.v1.Error error = 2;
 
-  bytes organization_id = 3 [(validate.rules).bytes.len = 16];
+  // The primary key of this organization within Mica.
+  string organization_key = 3;
 
   int64 version = 4;
 }

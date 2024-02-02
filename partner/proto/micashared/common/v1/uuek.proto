@@ -56,9 +56,9 @@ message CommonUUEK {
   micashared.common.enums.currency.v1.Currency currency = 8;
 }
 
-// This message holds immutable details about the instruments that back UUEKs. These attributes 
-// can be used to have stable references or knowledge of a the instrument that was used to transact
+// This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
+// stable references or knowledge of the underlying instrument that was used to transact.
 message ImmutableInstrumentDetails {
-  // non operable fix identifier guaranteed to be consistent across transactions 
+  // non operable fix identifier guaranteed to be consistent across transactions
   string identifier = 1;
 }
