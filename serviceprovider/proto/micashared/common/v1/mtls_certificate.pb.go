@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
 // code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
 // other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
 // post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
@@ -374,6 +374,55 @@ func (x SearchExternalClientMTLSCertificateResponse_Status) Number() protoreflec
 // Deprecated: Use SearchExternalClientMTLSCertificateResponse_Status.Descriptor instead.
 func (SearchExternalClientMTLSCertificateResponse_Status) EnumDescriptor() ([]byte, []int) {
 	return file_micashared_common_v1_mtls_certificate_proto_rawDescGZIP(), []int{16, 0}
+}
+
+type GenerateQuickstartPackageZipResponse_Status int32
+
+const (
+	GenerateQuickstartPackageZipResponse_STATUS_UNSPECIFIED GenerateQuickstartPackageZipResponse_Status = 0
+	GenerateQuickstartPackageZipResponse_STATUS_SUCCESS     GenerateQuickstartPackageZipResponse_Status = 1
+	GenerateQuickstartPackageZipResponse_STATUS_ERROR       GenerateQuickstartPackageZipResponse_Status = 2
+)
+
+// Enum value maps for GenerateQuickstartPackageZipResponse_Status.
+var (
+	GenerateQuickstartPackageZipResponse_Status_name = map[int32]string{
+		0: "STATUS_UNSPECIFIED",
+		1: "STATUS_SUCCESS",
+		2: "STATUS_ERROR",
+	}
+	GenerateQuickstartPackageZipResponse_Status_value = map[string]int32{
+		"STATUS_UNSPECIFIED": 0,
+		"STATUS_SUCCESS":     1,
+		"STATUS_ERROR":       2,
+	}
+)
+
+func (x GenerateQuickstartPackageZipResponse_Status) Enum() *GenerateQuickstartPackageZipResponse_Status {
+	p := new(GenerateQuickstartPackageZipResponse_Status)
+	*p = x
+	return p
+}
+
+func (x GenerateQuickstartPackageZipResponse_Status) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (GenerateQuickstartPackageZipResponse_Status) Descriptor() protoreflect.EnumDescriptor {
+	return file_micashared_common_v1_mtls_certificate_proto_enumTypes[7].Descriptor()
+}
+
+func (GenerateQuickstartPackageZipResponse_Status) Type() protoreflect.EnumType {
+	return &file_micashared_common_v1_mtls_certificate_proto_enumTypes[7]
+}
+
+func (x GenerateQuickstartPackageZipResponse_Status) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use GenerateQuickstartPackageZipResponse_Status.Descriptor instead.
+func (GenerateQuickstartPackageZipResponse_Status) EnumDescriptor() ([]byte, []int) {
+	return file_micashared_common_v1_mtls_certificate_proto_rawDescGZIP(), []int{18, 0}
 }
 
 type MTLSCertificateSignatureRequest struct {
@@ -1531,6 +1580,107 @@ func (x *SearchExternalClientMTLSCertificateResponse) GetCertificates() []*Clien
 	return nil
 }
 
+type GenerateQuickstartPackageZipRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *GenerateQuickstartPackageZipRequest) Reset() {
+	*x = GenerateQuickstartPackageZipRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_micashared_common_v1_mtls_certificate_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GenerateQuickstartPackageZipRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GenerateQuickstartPackageZipRequest) ProtoMessage() {}
+
+func (x *GenerateQuickstartPackageZipRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_micashared_common_v1_mtls_certificate_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GenerateQuickstartPackageZipRequest.ProtoReflect.Descriptor instead.
+func (*GenerateQuickstartPackageZipRequest) Descriptor() ([]byte, []int) {
+	return file_micashared_common_v1_mtls_certificate_proto_rawDescGZIP(), []int{17}
+}
+
+type GenerateQuickstartPackageZipResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status               GenerateQuickstartPackageZipResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=micashared.common.v1.GenerateQuickstartPackageZipResponse_Status" json:"status,omitempty"`
+	Error                *Error                                      `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
+	QuickstartPackageZip []byte                                      `protobuf:"bytes,3,opt,name=quickstart_package_zip,json=quickstartPackageZip,proto3" json:"quickstart_package_zip,omitempty"`
+}
+
+func (x *GenerateQuickstartPackageZipResponse) Reset() {
+	*x = GenerateQuickstartPackageZipResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_micashared_common_v1_mtls_certificate_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GenerateQuickstartPackageZipResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GenerateQuickstartPackageZipResponse) ProtoMessage() {}
+
+func (x *GenerateQuickstartPackageZipResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_micashared_common_v1_mtls_certificate_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GenerateQuickstartPackageZipResponse.ProtoReflect.Descriptor instead.
+func (*GenerateQuickstartPackageZipResponse) Descriptor() ([]byte, []int) {
+	return file_micashared_common_v1_mtls_certificate_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *GenerateQuickstartPackageZipResponse) GetStatus() GenerateQuickstartPackageZipResponse_Status {
+	if x != nil {
+		return x.Status
+	}
+	return GenerateQuickstartPackageZipResponse_STATUS_UNSPECIFIED
+}
+
+func (x *GenerateQuickstartPackageZipResponse) GetError() *Error {
+	if x != nil {
+		return x.Error
+	}
+	return nil
+}
+
+func (x *GenerateQuickstartPackageZipResponse) GetQuickstartPackageZip() []byte {
+	if x != nil {
+		return x.QuickstartPackageZip
+	}
+	return nil
+}
+
 var File_micashared_common_v1_mtls_certificate_proto protoreflect.FileDescriptor
 
 var file_micashared_common_v1_mtls_certificate_proto_rawDesc = []byte{
@@ -1811,13 +1961,35 @@ var file_micashared_common_v1_mtls_certificate_proto_rawDesc = []byte{
 	0x0a, 0x12, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49,
 	0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53,
 	0x5f, 0x53, 0x55, 0x43, 0x43, 0x45, 0x53, 0x53, 0x10, 0x01, 0x12, 0x10, 0x0a, 0x0c, 0x53, 0x54,
-	0x41, 0x54, 0x55, 0x53, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x42, 0x51, 0x0a, 0x17,
-	0x69, 0x6f, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f,
-	0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x42, 0x10, 0x4d, 0x54, 0x4c, 0x53, 0x43, 0x65, 0x72,
-	0x74, 0x69, 0x66, 0x69, 0x63, 0x61, 0x74, 0x65, 0x73, 0x5a, 0x1d, 0x6d, 0x69, 0x63, 0x61, 0x73,
-	0x68, 0x61, 0x72, 0x65, 0x64, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2f, 0x76, 0x31, 0x3b,
-	0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x76, 0x31, 0xa2, 0x02, 0x04, 0x4d, 0x49, 0x43, 0x41, 0x62,
-	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x41, 0x54, 0x55, 0x53, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x22, 0x25, 0x0a, 0x23,
+	0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x51, 0x75, 0x69, 0x63, 0x6b, 0x73, 0x74, 0x61,
+	0x72, 0x74, 0x50, 0x61, 0x63, 0x6b, 0x61, 0x67, 0x65, 0x5a, 0x69, 0x70, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x22, 0xb2, 0x02, 0x0a, 0x24, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65,
+	0x51, 0x75, 0x69, 0x63, 0x6b, 0x73, 0x74, 0x61, 0x72, 0x74, 0x50, 0x61, 0x63, 0x6b, 0x61, 0x67,
+	0x65, 0x5a, 0x69, 0x70, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x59, 0x0a, 0x06,
+	0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x41, 0x2e, 0x6d,
+	0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e,
+	0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x51, 0x75, 0x69, 0x63,
+	0x6b, 0x73, 0x74, 0x61, 0x72, 0x74, 0x50, 0x61, 0x63, 0x6b, 0x61, 0x67, 0x65, 0x5a, 0x69, 0x70,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52,
+	0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x31, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61,
+	0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x45, 0x72,
+	0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x34, 0x0a, 0x16, 0x71, 0x75,
+	0x69, 0x63, 0x6b, 0x73, 0x74, 0x61, 0x72, 0x74, 0x5f, 0x70, 0x61, 0x63, 0x6b, 0x61, 0x67, 0x65,
+	0x5f, 0x7a, 0x69, 0x70, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x14, 0x71, 0x75, 0x69, 0x63,
+	0x6b, 0x73, 0x74, 0x61, 0x72, 0x74, 0x50, 0x61, 0x63, 0x6b, 0x61, 0x67, 0x65, 0x5a, 0x69, 0x70,
+	0x22, 0x46, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x16, 0x0a, 0x12, 0x53, 0x54,
+	0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44,
+	0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x53, 0x55, 0x43,
+	0x43, 0x45, 0x53, 0x53, 0x10, 0x01, 0x12, 0x10, 0x0a, 0x0c, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53,
+	0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x42, 0x51, 0x0a, 0x17, 0x69, 0x6f, 0x2e, 0x6d,
+	0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e,
+	0x2e, 0x76, 0x31, 0x42, 0x10, 0x4d, 0x54, 0x4c, 0x53, 0x43, 0x65, 0x72, 0x74, 0x69, 0x66, 0x69,
+	0x63, 0x61, 0x74, 0x65, 0x73, 0x5a, 0x1d, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65,
+	0x64, 0x2f, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2f, 0x76, 0x31, 0x3b, 0x63, 0x6f, 0x6d, 0x6d,
+	0x6f, 0x6e, 0x76, 0x31, 0xa2, 0x02, 0x04, 0x4d, 0x49, 0x43, 0x41, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1832,8 +2004,8 @@ func file_micashared_common_v1_mtls_certificate_proto_rawDescGZIP() []byte {
 	return file_micashared_common_v1_mtls_certificate_proto_rawDescData
 }
 
-var file_micashared_common_v1_mtls_certificate_proto_enumTypes = make([]protoimpl.EnumInfo, 7)
-var file_micashared_common_v1_mtls_certificate_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_micashared_common_v1_mtls_certificate_proto_enumTypes = make([]protoimpl.EnumInfo, 8)
+var file_micashared_common_v1_mtls_certificate_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
 var file_micashared_common_v1_mtls_certificate_proto_goTypes = []interface{}{
 	(GenerateMTLSCertificateResponse_Status)(0),               // 0: micashared.common.v1.GenerateMTLSCertificateResponse.Status
 	(UpdateMTLSCertificateResponse_Status)(0),                 // 1: micashared.common.v1.UpdateMTLSCertificateResponse.Status
@@ -1842,56 +2014,61 @@ var file_micashared_common_v1_mtls_certificate_proto_goTypes = []interface{}{
 	(GenerateExternalClientMTLSCertificateResponse_Status)(0), // 4: micashared.common.v1.GenerateExternalClientMTLSCertificateResponse.Status
 	(UpdateExternalClientMTLSCertificateResponse_Status)(0),   // 5: micashared.common.v1.UpdateExternalClientMTLSCertificateResponse.Status
 	(SearchExternalClientMTLSCertificateResponse_Status)(0),   // 6: micashared.common.v1.SearchExternalClientMTLSCertificateResponse.Status
-	(*MTLSCertificateSignatureRequest)(nil),                   // 7: micashared.common.v1.MTLSCertificateSignatureRequest
-	(*MTLSCertificate)(nil),                                   // 8: micashared.common.v1.MTLSCertificate
-	(*GenerateMTLSCertificateRequest)(nil),                    // 9: micashared.common.v1.GenerateMTLSCertificateRequest
-	(*GenerateMTLSCertificateResponse)(nil),                   // 10: micashared.common.v1.GenerateMTLSCertificateResponse
-	(*UpdateMTLSCertificateRequest)(nil),                      // 11: micashared.common.v1.UpdateMTLSCertificateRequest
-	(*UpdateMTLSCertificateResponse)(nil),                     // 12: micashared.common.v1.UpdateMTLSCertificateResponse
-	(*GetMTLSCertificateRequest)(nil),                         // 13: micashared.common.v1.GetMTLSCertificateRequest
-	(*GetMTLSCertificateResponse)(nil),                        // 14: micashared.common.v1.GetMTLSCertificateResponse
-	(*SearchMTLSCertificateRequest)(nil),                      // 15: micashared.common.v1.SearchMTLSCertificateRequest
-	(*SearchMTLSCertificateResponse)(nil),                     // 16: micashared.common.v1.SearchMTLSCertificateResponse
-	(*ClientMTLSCertificate)(nil),                             // 17: micashared.common.v1.ClientMTLSCertificate
-	(*GenerateExternalClientMTLSCertificateRequest)(nil),      // 18: micashared.common.v1.GenerateExternalClientMTLSCertificateRequest
-	(*GenerateExternalClientMTLSCertificateResponse)(nil),     // 19: micashared.common.v1.GenerateExternalClientMTLSCertificateResponse
-	(*UpdateExternalClientMTLSCertificateRequest)(nil),        // 20: micashared.common.v1.UpdateExternalClientMTLSCertificateRequest
-	(*UpdateExternalClientMTLSCertificateResponse)(nil),       // 21: micashared.common.v1.UpdateExternalClientMTLSCertificateResponse
-	(*SearchExternalClientMTLSCertificateRequest)(nil),        // 22: micashared.common.v1.SearchExternalClientMTLSCertificateRequest
-	(*SearchExternalClientMTLSCertificateResponse)(nil),       // 23: micashared.common.v1.SearchExternalClientMTLSCertificateResponse
-	(*timestamppb.Timestamp)(nil),                             // 24: google.protobuf.Timestamp
-	(*Error)(nil),                                             // 25: micashared.common.v1.Error
+	(GenerateQuickstartPackageZipResponse_Status)(0),          // 7: micashared.common.v1.GenerateQuickstartPackageZipResponse.Status
+	(*MTLSCertificateSignatureRequest)(nil),                   // 8: micashared.common.v1.MTLSCertificateSignatureRequest
+	(*MTLSCertificate)(nil),                                   // 9: micashared.common.v1.MTLSCertificate
+	(*GenerateMTLSCertificateRequest)(nil),                    // 10: micashared.common.v1.GenerateMTLSCertificateRequest
+	(*GenerateMTLSCertificateResponse)(nil),                   // 11: micashared.common.v1.GenerateMTLSCertificateResponse
+	(*UpdateMTLSCertificateRequest)(nil),                      // 12: micashared.common.v1.UpdateMTLSCertificateRequest
+	(*UpdateMTLSCertificateResponse)(nil),                     // 13: micashared.common.v1.UpdateMTLSCertificateResponse
+	(*GetMTLSCertificateRequest)(nil),                         // 14: micashared.common.v1.GetMTLSCertificateRequest
+	(*GetMTLSCertificateResponse)(nil),                        // 15: micashared.common.v1.GetMTLSCertificateResponse
+	(*SearchMTLSCertificateRequest)(nil),                      // 16: micashared.common.v1.SearchMTLSCertificateRequest
+	(*SearchMTLSCertificateResponse)(nil),                     // 17: micashared.common.v1.SearchMTLSCertificateResponse
+	(*ClientMTLSCertificate)(nil),                             // 18: micashared.common.v1.ClientMTLSCertificate
+	(*GenerateExternalClientMTLSCertificateRequest)(nil),      // 19: micashared.common.v1.GenerateExternalClientMTLSCertificateRequest
+	(*GenerateExternalClientMTLSCertificateResponse)(nil),     // 20: micashared.common.v1.GenerateExternalClientMTLSCertificateResponse
+	(*UpdateExternalClientMTLSCertificateRequest)(nil),        // 21: micashared.common.v1.UpdateExternalClientMTLSCertificateRequest
+	(*UpdateExternalClientMTLSCertificateResponse)(nil),       // 22: micashared.common.v1.UpdateExternalClientMTLSCertificateResponse
+	(*SearchExternalClientMTLSCertificateRequest)(nil),        // 23: micashared.common.v1.SearchExternalClientMTLSCertificateRequest
+	(*SearchExternalClientMTLSCertificateResponse)(nil),       // 24: micashared.common.v1.SearchExternalClientMTLSCertificateResponse
+	(*GenerateQuickstartPackageZipRequest)(nil),               // 25: micashared.common.v1.GenerateQuickstartPackageZipRequest
+	(*GenerateQuickstartPackageZipResponse)(nil),              // 26: micashared.common.v1.GenerateQuickstartPackageZipResponse
+	(*timestamppb.Timestamp)(nil),                             // 27: google.protobuf.Timestamp
+	(*Error)(nil),                                             // 28: micashared.common.v1.Error
 }
 var file_micashared_common_v1_mtls_certificate_proto_depIdxs = []int32{
-	24, // 0: micashared.common.v1.MTLSCertificate.issued:type_name -> google.protobuf.Timestamp
-	24, // 1: micashared.common.v1.MTLSCertificate.expiry:type_name -> google.protobuf.Timestamp
-	24, // 2: micashared.common.v1.MTLSCertificate.last_used:type_name -> google.protobuf.Timestamp
-	7,  // 3: micashared.common.v1.GenerateMTLSCertificateRequest.csr:type_name -> micashared.common.v1.MTLSCertificateSignatureRequest
+	27, // 0: micashared.common.v1.MTLSCertificate.issued:type_name -> google.protobuf.Timestamp
+	27, // 1: micashared.common.v1.MTLSCertificate.expiry:type_name -> google.protobuf.Timestamp
+	27, // 2: micashared.common.v1.MTLSCertificate.last_used:type_name -> google.protobuf.Timestamp
+	8,  // 3: micashared.common.v1.GenerateMTLSCertificateRequest.csr:type_name -> micashared.common.v1.MTLSCertificateSignatureRequest
 	0,  // 4: micashared.common.v1.GenerateMTLSCertificateResponse.status:type_name -> micashared.common.v1.GenerateMTLSCertificateResponse.Status
-	25, // 5: micashared.common.v1.GenerateMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
-	8,  // 6: micashared.common.v1.GenerateMTLSCertificateResponse.certificate:type_name -> micashared.common.v1.MTLSCertificate
+	28, // 5: micashared.common.v1.GenerateMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
+	9,  // 6: micashared.common.v1.GenerateMTLSCertificateResponse.certificate:type_name -> micashared.common.v1.MTLSCertificate
 	1,  // 7: micashared.common.v1.UpdateMTLSCertificateResponse.status:type_name -> micashared.common.v1.UpdateMTLSCertificateResponse.Status
-	25, // 8: micashared.common.v1.UpdateMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
+	28, // 8: micashared.common.v1.UpdateMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
 	2,  // 9: micashared.common.v1.GetMTLSCertificateResponse.status:type_name -> micashared.common.v1.GetMTLSCertificateResponse.Status
-	25, // 10: micashared.common.v1.GetMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
-	8,  // 11: micashared.common.v1.GetMTLSCertificateResponse.certificate:type_name -> micashared.common.v1.MTLSCertificate
+	28, // 10: micashared.common.v1.GetMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
+	9,  // 11: micashared.common.v1.GetMTLSCertificateResponse.certificate:type_name -> micashared.common.v1.MTLSCertificate
 	3,  // 12: micashared.common.v1.SearchMTLSCertificateResponse.status:type_name -> micashared.common.v1.SearchMTLSCertificateResponse.Status
-	25, // 13: micashared.common.v1.SearchMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
-	8,  // 14: micashared.common.v1.SearchMTLSCertificateResponse.certificates:type_name -> micashared.common.v1.MTLSCertificate
+	28, // 13: micashared.common.v1.SearchMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
+	9,  // 14: micashared.common.v1.SearchMTLSCertificateResponse.certificates:type_name -> micashared.common.v1.MTLSCertificate
 	4,  // 15: micashared.common.v1.GenerateExternalClientMTLSCertificateResponse.status:type_name -> micashared.common.v1.GenerateExternalClientMTLSCertificateResponse.Status
-	25, // 16: micashared.common.v1.GenerateExternalClientMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
-	17, // 17: micashared.common.v1.GenerateExternalClientMTLSCertificateResponse.certificate_to_sign:type_name -> micashared.common.v1.ClientMTLSCertificate
+	28, // 16: micashared.common.v1.GenerateExternalClientMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
+	18, // 17: micashared.common.v1.GenerateExternalClientMTLSCertificateResponse.certificate_to_sign:type_name -> micashared.common.v1.ClientMTLSCertificate
 	5,  // 18: micashared.common.v1.UpdateExternalClientMTLSCertificateResponse.status:type_name -> micashared.common.v1.UpdateExternalClientMTLSCertificateResponse.Status
-	25, // 19: micashared.common.v1.UpdateExternalClientMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
-	17, // 20: micashared.common.v1.UpdateExternalClientMTLSCertificateResponse.certificate:type_name -> micashared.common.v1.ClientMTLSCertificate
+	28, // 19: micashared.common.v1.UpdateExternalClientMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
+	18, // 20: micashared.common.v1.UpdateExternalClientMTLSCertificateResponse.certificate:type_name -> micashared.common.v1.ClientMTLSCertificate
 	6,  // 21: micashared.common.v1.SearchExternalClientMTLSCertificateResponse.status:type_name -> micashared.common.v1.SearchExternalClientMTLSCertificateResponse.Status
-	25, // 22: micashared.common.v1.SearchExternalClientMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
-	17, // 23: micashared.common.v1.SearchExternalClientMTLSCertificateResponse.certificates:type_name -> micashared.common.v1.ClientMTLSCertificate
-	24, // [24:24] is the sub-list for method output_type
-	24, // [24:24] is the sub-list for method input_type
-	24, // [24:24] is the sub-list for extension type_name
-	24, // [24:24] is the sub-list for extension extendee
-	0,  // [0:24] is the sub-list for field type_name
+	28, // 22: micashared.common.v1.SearchExternalClientMTLSCertificateResponse.error:type_name -> micashared.common.v1.Error
+	18, // 23: micashared.common.v1.SearchExternalClientMTLSCertificateResponse.certificates:type_name -> micashared.common.v1.ClientMTLSCertificate
+	7,  // 24: micashared.common.v1.GenerateQuickstartPackageZipResponse.status:type_name -> micashared.common.v1.GenerateQuickstartPackageZipResponse.Status
+	28, // 25: micashared.common.v1.GenerateQuickstartPackageZipResponse.error:type_name -> micashared.common.v1.Error
+	26, // [26:26] is the sub-list for method output_type
+	26, // [26:26] is the sub-list for method input_type
+	26, // [26:26] is the sub-list for extension type_name
+	26, // [26:26] is the sub-list for extension extendee
+	0,  // [0:26] is the sub-list for field type_name
 }
 
 func init() { file_micashared_common_v1_mtls_certificate_proto_init() }
@@ -2105,14 +2282,38 @@ func file_micashared_common_v1_mtls_certificate_proto_init() {
 				return nil
 			}
 		}
+		file_micashared_common_v1_mtls_certificate_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GenerateQuickstartPackageZipRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_micashared_common_v1_mtls_certificate_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GenerateQuickstartPackageZipResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_micashared_common_v1_mtls_certificate_proto_rawDesc,
-			NumEnums:      7,
-			NumMessages:   17,
+			NumEnums:      8,
+			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

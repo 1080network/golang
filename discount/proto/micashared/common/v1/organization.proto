@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
 // code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
 // other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
 // post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
@@ -14,6 +14,7 @@ import "google/protobuf/timestamp.proto";
 import "micashared/common/enums/barcodelocation/v1/barcode_location.proto";
 import "micashared/common/enums/barcodetype/v1/barcode_type.proto";
 import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
+import "micashared/common/enums/organizationstatus/v1/organization_status.proto";
 import "micashared/common/v1/address.proto";
 import "micashared/common/v1/bank_account_detail.proto";
 import "validate/validate.proto";
@@ -51,6 +52,8 @@ message Organization {
 
   // The name of this organization.
   string name = 7;
+
+  micashared.common.enums.organizationstatus.v1.OrganizationStatus status = 10;
 
   // The list of categories of this organization (used by Service Provider's to as part of their processing rules).
   repeated micashared.common.enums.organizationcategory.v1.OrganizationCategory categories = 6;

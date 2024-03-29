@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
 // code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
 // other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
 // post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
@@ -16,6 +16,17 @@ option go_package = "micashared/common/v1;commonv1";
 option java_outer_classname = "BankAccountDetailProto";
 option java_package = "io.micashared.common.v1";
 option objc_class_prefix = "MICA";
+
+message ABAAccountNumber {
+  // The name of the bank.
+  string name = 1;
+
+  // The 9 digit ABA routing number.
+  string routing_number = 2;
+
+  // The account number.
+  string account_number = 3;
+}
 
 message BankAccountDetail {
   // the custodial bank where this transaction will be settled

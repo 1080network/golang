@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
 // code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
 // other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
 // post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
@@ -42,6 +42,12 @@ service PartnerToMicaService {
 
   // Update a given organization.
   rpc UpdateOrganization(organization.v1.UpdateOrganizationRequest) returns (organization.v1.UpdateOrganizationResponse) {}
+
+  // Activate an organization that is currently inactive assuming the preconditions are met.
+  rpc ActivateOrganization(organization.v1.ActivateOrganizationRequest) returns (organization.v1.ActivateOrganizationResponse) {}
+
+  // Deactivate an organization that is currently active.
+  rpc DeactivateOrganization(organization.v1.DeactivateOrganizationRequest) returns (organization.v1.DeactivateOrganizationResponse) {}
 
   // Like GetOrganization, can be used to retrieve Organizations based on the criteria in the request.
   rpc SearchOrganization(organization.v1.SearchOrganizationRequest) returns (organization.v1.SearchOrganizationResponse) {}

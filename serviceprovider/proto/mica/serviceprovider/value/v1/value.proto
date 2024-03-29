@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
 // code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
 // other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
 // post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
@@ -18,6 +18,7 @@ import "micashared/common/enums/valueoperationtype/v1/value_operation_type.proto
 import "micashared/common/v1/address.proto";
 import "micashared/common/v1/error.proto";
 import "micashared/common/v1/risk_signals.proto";
+import "micashared/common/v1/transaction.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/serviceprovider/valuev1";
@@ -190,6 +191,8 @@ message ValueRequest {
   string requested_amount = 15;
 
   string order_number = 16;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 20;
 }
 
 enum PINStatus {
@@ -262,6 +265,8 @@ message ReverseValueRequest {
 
   //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 3;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 4;
 }
 
 message ReverseValueResponse {
@@ -308,7 +313,6 @@ message ReturnValueRequest {
 
   //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 3;
-
 }
 
 message ReturnValueResponse {
@@ -425,6 +429,8 @@ message ReleaseHoldValueRequest {
 
   //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 4;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 5;
 }
 
 message ReleaseHoldValueResponse {
@@ -545,6 +551,8 @@ message ReceiveValueRequest {
 
   //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 6;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 7;
 }
 
 message ReceiveValueResponse {
@@ -564,16 +572,23 @@ message ReceiveValueResponse {
 enum AdviceReason {
   ADVICE_REASON_UNSPECIFIED = 0;
 
+  // While processing a Value request, there was a non-specific error.
   ADVICE_REASON_ERROR = 1;
 
+  // While processing a Value request, the UUEK was invalid.
   ADVICE_REASON_INVALID_UUEK = 2;
 
+  // While processing a Value request, the user or instrument record was not found.
   ADVICE_REASON_NOT_FOUND = 3;
 
+  // While processing a Value request, the required line items were missing.
   ADVICE_REASON_MISSING_LINE_ITEMS = 4;
 
+  // While processing a Value request, all of the products were ineligible (i.e., the requested amount was zero).
   ADVICE_REASON_INELIGIBLE_PRODUCTS = 5;
 
+  // While processing a Value request, the Service Provider was unavailable. This could be due to a network issue or
+  // timeout and would need to be resolved by the Issuer in the event that the Issuer did process the original request.
   ADVICE_REASON_SERVICE_PROVIDER_UNAVAILABLE = 6;
 }
 
@@ -626,6 +641,8 @@ message GetValueResponse {
 
   // The oldest transaction available
   google.protobuf.Timestamp oldest_transaction_time = 4;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 5;
 }
 
 //<editor-fold desc="Person to Person Operations">

@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
 // code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
 // other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
 // post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
@@ -40,6 +40,7 @@ const (
 	PartnerAdministrationService_GetExternalClientSettings_FullMethodName             = "/mica.partner.administration.v1.PartnerAdministrationService/GetExternalClientSettings"
 	PartnerAdministrationService_UpdateExternalClientCallbackAddress_FullMethodName   = "/mica.partner.administration.v1.PartnerAdministrationService/UpdateExternalClientCallbackAddress"
 	PartnerAdministrationService_GenerateExternalClientMTLSCertificate_FullMethodName = "/mica.partner.administration.v1.PartnerAdministrationService/GenerateExternalClientMTLSCertificate"
+	PartnerAdministrationService_GenerateQuickstartPackageZip_FullMethodName          = "/mica.partner.administration.v1.PartnerAdministrationService/GenerateQuickstartPackageZip"
 	PartnerAdministrationService_UpdateExternalClientMTLSCertificate_FullMethodName   = "/mica.partner.administration.v1.PartnerAdministrationService/UpdateExternalClientMTLSCertificate"
 	PartnerAdministrationService_SearchExternalClientMTLSCertificate_FullMethodName   = "/mica.partner.administration.v1.PartnerAdministrationService/SearchExternalClientMTLSCertificate"
 	PartnerAdministrationService_SearchDataExtractionStatistics_FullMethodName        = "/mica.partner.administration.v1.PartnerAdministrationService/SearchDataExtractionStatistics"
@@ -51,7 +52,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PartnerAdministrationServiceClient interface {
-	// Generate a new MTLS certificate.
+	// Generate a new mTLS certificate.
 	GenerateMTLSCertificate(ctx context.Context, in *v1.GenerateMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateMTLSCertificateResponse, error)
 	// Update the certificate with a given serial number, only supports enable/disable for now
 	UpdateMTLSCertificate(ctx context.Context, in *v1.UpdateMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateMTLSCertificateResponse, error)
@@ -67,6 +68,7 @@ type PartnerAdministrationServiceClient interface {
 	UpdateExternalClientCallbackAddress(ctx context.Context, in *v1.UpdateExternalClientCallBackAddressRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientCallBackAddressResponse, error)
 	// Client certificates are used when mica needs to call out to a customers environment.
 	GenerateExternalClientMTLSCertificate(ctx context.Context, in *v1.GenerateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateExternalClientMTLSCertificateResponse, error)
+	GenerateQuickstartPackageZip(ctx context.Context, in *v1.GenerateQuickstartPackageZipRequest, opts ...grpc.CallOption) (*v1.GenerateQuickstartPackageZipResponse, error)
 	UpdateExternalClientMTLSCertificate(ctx context.Context, in *v1.UpdateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientMTLSCertificateResponse, error)
 	SearchExternalClientMTLSCertificate(ctx context.Context, in *v1.SearchExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchExternalClientMTLSCertificateResponse, error)
 	SearchDataExtractionStatistics(ctx context.Context, in *v1.SearchDataExtractionRequest, opts ...grpc.CallOption) (*v1.SearchDataExtractionResponse, error)
@@ -182,6 +184,15 @@ func (c *partnerAdministrationServiceClient) GenerateExternalClientMTLSCertifica
 	return out, nil
 }
 
+func (c *partnerAdministrationServiceClient) GenerateQuickstartPackageZip(ctx context.Context, in *v1.GenerateQuickstartPackageZipRequest, opts ...grpc.CallOption) (*v1.GenerateQuickstartPackageZipResponse, error) {
+	out := new(v1.GenerateQuickstartPackageZipResponse)
+	err := c.cc.Invoke(ctx, PartnerAdministrationService_GenerateQuickstartPackageZip_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *partnerAdministrationServiceClient) UpdateExternalClientMTLSCertificate(ctx context.Context, in *v1.UpdateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientMTLSCertificateResponse, error) {
 	out := new(v1.UpdateExternalClientMTLSCertificateResponse)
 	err := c.cc.Invoke(ctx, PartnerAdministrationService_UpdateExternalClientMTLSCertificate_FullMethodName, in, out, opts...)
@@ -231,7 +242,7 @@ func (c *partnerAdministrationServiceClient) PingExternal(ctx context.Context, i
 // All implementations must embed UnimplementedPartnerAdministrationServiceServer
 // for forward compatibility
 type PartnerAdministrationServiceServer interface {
-	// Generate a new MTLS certificate.
+	// Generate a new mTLS certificate.
 	GenerateMTLSCertificate(context.Context, *v1.GenerateMTLSCertificateRequest) (*v1.GenerateMTLSCertificateResponse, error)
 	// Update the certificate with a given serial number, only supports enable/disable for now
 	UpdateMTLSCertificate(context.Context, *v1.UpdateMTLSCertificateRequest) (*v1.UpdateMTLSCertificateResponse, error)
@@ -247,6 +258,7 @@ type PartnerAdministrationServiceServer interface {
 	UpdateExternalClientCallbackAddress(context.Context, *v1.UpdateExternalClientCallBackAddressRequest) (*v1.UpdateExternalClientCallBackAddressResponse, error)
 	// Client certificates are used when mica needs to call out to a customers environment.
 	GenerateExternalClientMTLSCertificate(context.Context, *v1.GenerateExternalClientMTLSCertificateRequest) (*v1.GenerateExternalClientMTLSCertificateResponse, error)
+	GenerateQuickstartPackageZip(context.Context, *v1.GenerateQuickstartPackageZipRequest) (*v1.GenerateQuickstartPackageZipResponse, error)
 	UpdateExternalClientMTLSCertificate(context.Context, *v1.UpdateExternalClientMTLSCertificateRequest) (*v1.UpdateExternalClientMTLSCertificateResponse, error)
 	SearchExternalClientMTLSCertificate(context.Context, *v1.SearchExternalClientMTLSCertificateRequest) (*v1.SearchExternalClientMTLSCertificateResponse, error)
 	SearchDataExtractionStatistics(context.Context, *v1.SearchDataExtractionRequest) (*v1.SearchDataExtractionResponse, error)
@@ -292,6 +304,9 @@ func (UnimplementedPartnerAdministrationServiceServer) UpdateExternalClientCallb
 }
 func (UnimplementedPartnerAdministrationServiceServer) GenerateExternalClientMTLSCertificate(context.Context, *v1.GenerateExternalClientMTLSCertificateRequest) (*v1.GenerateExternalClientMTLSCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateExternalClientMTLSCertificate not implemented")
+}
+func (UnimplementedPartnerAdministrationServiceServer) GenerateQuickstartPackageZip(context.Context, *v1.GenerateQuickstartPackageZipRequest) (*v1.GenerateQuickstartPackageZipResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateQuickstartPackageZip not implemented")
 }
 func (UnimplementedPartnerAdministrationServiceServer) UpdateExternalClientMTLSCertificate(context.Context, *v1.UpdateExternalClientMTLSCertificateRequest) (*v1.UpdateExternalClientMTLSCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateExternalClientMTLSCertificate not implemented")
@@ -520,6 +535,24 @@ func _PartnerAdministrationService_GenerateExternalClientMTLSCertificate_Handler
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PartnerAdministrationService_GenerateQuickstartPackageZip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.GenerateQuickstartPackageZipRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerAdministrationServiceServer).GenerateQuickstartPackageZip(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerAdministrationService_GenerateQuickstartPackageZip_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerAdministrationServiceServer).GenerateQuickstartPackageZip(ctx, req.(*v1.GenerateQuickstartPackageZipRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PartnerAdministrationService_UpdateExternalClientMTLSCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(v1.UpdateExternalClientMTLSCertificateRequest)
 	if err := dec(in); err != nil {
@@ -660,6 +693,10 @@ var PartnerAdministrationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GenerateExternalClientMTLSCertificate",
 			Handler:    _PartnerAdministrationService_GenerateExternalClientMTLSCertificate_Handler,
+		},
+		{
+			MethodName: "GenerateQuickstartPackageZip",
+			Handler:    _PartnerAdministrationService_GenerateQuickstartPackageZip_Handler,
 		},
 		{
 			MethodName: "UpdateExternalClientMTLSCertificate",

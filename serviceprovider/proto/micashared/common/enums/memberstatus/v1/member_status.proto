@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
 // code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
 // other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
 // post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
@@ -16,18 +16,11 @@ option java_package = "io.micashared.common.enums.v1";
 option objc_class_prefix = "MICA";
 
 // State transition diagram:
-//   PROVISIONING (initial state) -> PROVISIONED
-//   PROVISIONED -> ACTIVE
-//   ACTIVE -> SUSPENDED
-//   SUSPENDED -> ACTIVE
+//   INACTIVE (initial state) -> ACTIVE
+//   ACTIVE -> INACTIVE
 enum MemberStatus {
+  reserved 1, 2, 4;
   MEMBER_STATUS_UNSPECIFIED = 0;
-
-  MEMBER_STATUS_PROVISIONING = 1;
-
-  MEMBER_STATUS_PROVISIONED = 2;
-
   MEMBER_STATUS_ACTIVE = 3;
-
-  MEMBER_STATUS_SUSPENDED = 4;
+  MEMBER_STATUS_INACTIVE = 5;
 }

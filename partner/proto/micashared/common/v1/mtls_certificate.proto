@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
 // code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
 // other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
 // post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
@@ -141,7 +141,7 @@ message SearchMTLSCertificateResponse {
   repeated MTLSCertificate certificates = 3;
 }
 
-// Client MTLS certificate operations.
+// Client mTLS certificate operations.
 
 message ClientMTLSCertificate {
   string certificate_ref_key = 1 [(validate.rules).string = {
@@ -216,4 +216,19 @@ message SearchExternalClientMTLSCertificateResponse {
 
   micashared.common.v1.Error error = 2;
   repeated ClientMTLSCertificate certificates = 3;
+}
+
+message GenerateQuickstartPackageZipRequest {}
+
+message GenerateQuickstartPackageZipResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  bytes quickstart_package_zip = 3;
 }

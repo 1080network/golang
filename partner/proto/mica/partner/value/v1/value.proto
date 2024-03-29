@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
 // code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
 // other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
 // post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
@@ -19,8 +19,9 @@ import "micashared/common/v1/discount.proto";
 import "micashared/common/v1/error.proto";
 import "micashared/common/v1/line_item.proto";
 import "micashared/common/v1/receipt.proto";
-import "micashared/common/v1/uuek.proto";
 import "micashared/common/v1/risk_signals.proto";
+import "micashared/common/v1/transaction.proto";
+import "micashared/common/v1/uuek.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/partner/valuev1";
@@ -231,6 +232,8 @@ message ObtainValueResponse {
     STATUS_LIMIT_EXCEEDED = 19;
     // This request has already been processed and this is a duplicate request
     STATUS_DUPLICATE = 20;
+    // The referenced Organization of this request isn't fully configured to process transactions
+    STATUS_ORGANIZATION_NOT_CONFIGURED = 21;
   }
   Status status = 1;
 
@@ -258,6 +261,8 @@ message ObtainValueResponse {
   // This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
   // stable references or knowledge of the underlying instrument that was used to transact.
   micashared.common.v1.ImmutableInstrumentDetails immutable_instrument_details = 8;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 9;
 }
 
 message ReturnValueRequest {
@@ -272,8 +277,8 @@ message ReturnValueRequest {
   // Service Provider can then use this field to match up Returns with the original Obtain.
   string initial_partner_transaction_ref = 3 [(validate.rules).string.max_len = 100];
 
-   //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
-   micashared.common.v1.RiskSignal risk_signal = 4;
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 4;
 }
 
 message ReturnValueResponse {
@@ -305,6 +310,8 @@ message ReturnValueResponse {
     STATUS_INVALID_UUEK = 9;
     // Request resulted in one or more limits being exceeded at the Service Provider
     STATUS_LIMIT_EXCEEDED = 19;
+    // The referenced Organization of this request isn't fully configured to process transactions
+    STATUS_ORGANIZATION_NOT_CONFIGURED = 20;
   }
   Status status = 1;
 
@@ -325,6 +332,8 @@ message ReturnValueResponse {
   // This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
   // stable references or knowledge of the underlying instrument that was used to transact.
   micashared.common.v1.ImmutableInstrumentDetails immutable_instrument_details = 6;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 7;
 }
 
 message GetValueRequest {
@@ -353,6 +362,8 @@ message GetValueResponse {
 
   // The oldest transaction available
   google.protobuf.Timestamp oldest_transaction_time = 4;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 5;
 }
 
 message ReverseValueRequest {
@@ -405,6 +416,8 @@ message ReverseObtainValueResponse {
   }];
 
   // TODO list of discounts that were reversed
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 4;
 }
 
 // TODO if this remains the same as ObtainReversalResponse, dedupe. probably not because of discounts
@@ -412,7 +425,7 @@ message ReverseReturnValueResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     // An approval for the full amount
-    STATUS_APPROVAL = 1;
+    STATUS_SUCCESS = 1;
     // An error occurred when processing the request
     STATUS_ERROR = 2;
     // Transaction ID, instrument, SP, or other component not found
@@ -435,6 +448,8 @@ message ReverseReturnValueResponse {
     min_len: 30,
     max_len: 50
   }];
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 4;
 }
 
 message HoldValueRequest {
@@ -504,6 +519,10 @@ message HoldValueResponse {
     STATUS_LIMIT_EXCEEDED = 19;
     // This request has already been processed and this is a duplicate request
     STATUS_DUPLICATE = 20;
+    // A request for a hold on an instrument that can't support holds
+    STATUS_INSTRUMENT_TYPE_NOT_SUPPORTED = 21;
+    // The referenced Organization of this request isn't fully configured to process transactions
+    STATUS_ORGANIZATION_NOT_CONFIGURED = 22;
   }
   Status status = 1;
 
@@ -524,6 +543,8 @@ message HoldValueResponse {
   // This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
   // stable references or knowledge of the underlying instrument that was used to transact.
   micashared.common.v1.ImmutableInstrumentDetails immutable_instrument_details = 6;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 7;
 }
 
 message ReleaseHoldValueRequest {
@@ -564,6 +585,8 @@ message ReleaseHoldValueResponse {
 
   // Correlation ID of the request assigned by Mica.
   string cid = 4;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 5;
 }
 
 message LocationDetails {
@@ -673,6 +696,10 @@ message ObtainHoldValueResponse {
     STATUS_DUPLICATE = 20;
     // The hold was already expired or released or not found (as it's already been released or expired and purged)
     STATUS_INVALID_HOLD = 21;
+    // A request for a hold on an instrument that can't support holds
+    STATUS_INSTRUMENT_TYPE_NOT_SUPPORTED = 22;
+    // The referenced Organization of this request isn't fully configured to process transactions
+    STATUS_ORGANIZATION_NOT_CONFIGURED = 23;
   }
   Status status = 1;
 
@@ -700,4 +727,6 @@ message ObtainHoldValueResponse {
   // This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
   // stable references or knowledge of the underlying instrument that was used to transact.
   micashared.common.v1.ImmutableInstrumentDetails immutable_instrument_details = 8;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 9;
 }

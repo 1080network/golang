@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
 // code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
 // other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
 // post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
@@ -14,7 +14,6 @@ import "micashared/common/enums/barcodelocation/v1/barcode_location.proto";
 import "micashared/common/enums/barcodetype/v1/barcode_type.proto";
 import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
 import "micashared/common/v1/address.proto";
-import "micashared/common/v1/bank_account_detail.proto";
 import "micashared/common/v1/error.proto";
 import "micashared/common/v1/organization.proto";
 import "validate/validate.proto";
@@ -39,10 +38,6 @@ message CreateOrganizationRequest {
   micashared.common.v1.Address address = 3 [(validate.rules).message.required = true];
 
   repeated micashared.common.enums.organizationcategory.v1.OrganizationCategory categories = 4;
-
-  micashared.common.v1.BankAccountDetail operating_account = 5;
-
-  micashared.common.v1.BankAccountDetail revenue_account = 6;
 
   micashared.common.enums.barcodetype.v1.BarcodeType barcode_type = 7 [(validate.rules).enum = {
     not_in: [0]
@@ -119,10 +114,6 @@ message UpdateOrganizationRequest {
 
   repeated micashared.common.enums.organizationcategory.v1.OrganizationCategory categories = 5; // [(validate.rules) .repeated.min_items = 1];
 
-  micashared.common.v1.BankAccountDetail operating_account = 10;
-
-  micashared.common.v1.BankAccountDetail revenue_account = 11;
-
   micashared.common.enums.barcodetype.v1.BarcodeType barcode_type = 16;
 
   micashared.common.enums.barcodelocation.v1.BarcodeLocation barcode_location = 17;
@@ -135,6 +126,65 @@ message UpdateOrganizationResponse {
     STATUS_ERROR = 2;
     STATUS_NOT_FOUND = 3;
     STATUS_VERSION_MISMATCH = 4;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  int64 version = 3;
+}
+
+message ActivateOrganizationRequest {
+  oneof organization_identifier {
+    option (validate.required) = true;
+
+    string organization_key = 1 [(validate.rules).string = {max_len: 50}];
+
+    // The primary key for this organization at the Partner.
+    string organization_ref = 2 [(validate.rules).string.max_len = 100];
+  }
+
+  int64 version = 3;
+}
+
+message ActivateOrganizationResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+    STATUS_VERSION_MISMATCH = 4;
+    STATUS_INVALID_STATE_TRANSITION = 5;
+    STATUS_MISSING_ACCOUNT_DETAILS = 6;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  int64 version = 3;
+}
+
+message DeactivateOrganizationRequest {
+  oneof organization_identifier {
+    option (validate.required) = true;
+
+    string organization_key = 1 [(validate.rules).string = {max_len: 50}];
+
+    // The primary key for this organization at the Partner.
+    string organization_ref = 2 [(validate.rules).string.max_len = 100];
+  }
+
+  int64 version = 3;
+}
+
+message DeactivateOrganizationResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+    STATUS_VERSION_MISMATCH = 4;
+    STATUS_INVALID_STATE_TRANSITION = 5;
   }
   Status status = 1;
 

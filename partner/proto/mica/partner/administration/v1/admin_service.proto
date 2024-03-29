@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
 // code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
 // other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
 // post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
@@ -23,7 +23,7 @@ option objc_class_prefix = "MICA";
 
 // This is the administrative interface for a Partner member
 service PartnerAdministrationService {
-  //  Generate a new MTLS certificate.
+  //  Generate a new mTLS certificate.
   rpc GenerateMTLSCertificate(micashared.common.v1.GenerateMTLSCertificateRequest) returns (micashared.common.v1.GenerateMTLSCertificateResponse) {}
 
   // Update the certificate with a given serial number, only supports enable/disable for now
@@ -49,6 +49,8 @@ service PartnerAdministrationService {
 
   // Client certificates are used when mica needs to call out to a customers environment.
   rpc GenerateExternalClientMTLSCertificate(micashared.common.v1.GenerateExternalClientMTLSCertificateRequest) returns (micashared.common.v1.GenerateExternalClientMTLSCertificateResponse) {}
+
+  rpc GenerateQuickstartPackageZip(micashared.common.v1.GenerateQuickstartPackageZipRequest) returns (micashared.common.v1.GenerateQuickstartPackageZipResponse) {}
 
   rpc UpdateExternalClientMTLSCertificate(micashared.common.v1.UpdateExternalClientMTLSCertificateRequest) returns (micashared.common.v1.UpdateExternalClientMTLSCertificateResponse) {}
 

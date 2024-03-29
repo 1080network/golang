@@ -1,4 +1,4 @@
-// Copyright (c) 2022 Mica. All rights reserved. All software, including, without limitation, all source
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
 // code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
 // other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
 // post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
@@ -42,6 +42,7 @@ const (
 	ServiceProviderAdministrationService_GenerateExternalClientMTLSCertificate_FullMethodName = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/GenerateExternalClientMTLSCertificate"
 	ServiceProviderAdministrationService_UpdateExternalClientMTLSCertificate_FullMethodName   = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateExternalClientMTLSCertificate"
 	ServiceProviderAdministrationService_SearchExternalClientMTLSCertificate_FullMethodName   = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/SearchExternalClientMTLSCertificate"
+	ServiceProviderAdministrationService_GenerateQuickstartPackageZip_FullMethodName          = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/GenerateQuickstartPackageZip"
 	ServiceProviderAdministrationService_SearchDataExtractionStatistics_FullMethodName        = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/SearchDataExtractionStatistics"
 	ServiceProviderAdministrationService_GetDataExtractionStatistics_FullMethodName           = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/GetDataExtractionStatistics"
 	ServiceProviderAdministrationService_PingExternal_FullMethodName                          = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/PingExternal"
@@ -52,7 +53,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceProviderAdministrationServiceClient interface {
-	// Generate a new MTLS certificate.
+	// Generate a new mTLS certificate.
 	GenerateMTLSCertificate(ctx context.Context, in *v1.GenerateMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateMTLSCertificateResponse, error)
 	// Update the certificate with a given serial number, only supports enable/disable for now
 	UpdateMTLSCertificate(ctx context.Context, in *v1.UpdateMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateMTLSCertificateResponse, error)
@@ -70,6 +71,7 @@ type ServiceProviderAdministrationServiceClient interface {
 	GenerateExternalClientMTLSCertificate(ctx context.Context, in *v1.GenerateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateExternalClientMTLSCertificateResponse, error)
 	UpdateExternalClientMTLSCertificate(ctx context.Context, in *v1.UpdateExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateExternalClientMTLSCertificateResponse, error)
 	SearchExternalClientMTLSCertificate(ctx context.Context, in *v1.SearchExternalClientMTLSCertificateRequest, opts ...grpc.CallOption) (*v1.SearchExternalClientMTLSCertificateResponse, error)
+	GenerateQuickstartPackageZip(ctx context.Context, in *v1.GenerateQuickstartPackageZipRequest, opts ...grpc.CallOption) (*v1.GenerateQuickstartPackageZipResponse, error)
 	SearchDataExtractionStatistics(ctx context.Context, in *v1.SearchDataExtractionRequest, opts ...grpc.CallOption) (*v1.SearchDataExtractionResponse, error)
 	GetDataExtractionStatistics(ctx context.Context, in *v1.GetDataExtractionRequest, opts ...grpc.CallOption) (*v1.GetDataExtractionResponse, error)
 	// tests the external call to verify proper configuration and connectivity
@@ -202,6 +204,15 @@ func (c *serviceProviderAdministrationServiceClient) SearchExternalClientMTLSCer
 	return out, nil
 }
 
+func (c *serviceProviderAdministrationServiceClient) GenerateQuickstartPackageZip(ctx context.Context, in *v1.GenerateQuickstartPackageZipRequest, opts ...grpc.CallOption) (*v1.GenerateQuickstartPackageZipResponse, error) {
+	out := new(v1.GenerateQuickstartPackageZipResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_GenerateQuickstartPackageZip_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *serviceProviderAdministrationServiceClient) SearchDataExtractionStatistics(ctx context.Context, in *v1.SearchDataExtractionRequest, opts ...grpc.CallOption) (*v1.SearchDataExtractionResponse, error) {
 	out := new(v1.SearchDataExtractionResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_SearchDataExtractionStatistics_FullMethodName, in, out, opts...)
@@ -242,7 +253,7 @@ func (c *serviceProviderAdministrationServiceClient) PingExternalWithCertificate
 // All implementations must embed UnimplementedServiceProviderAdministrationServiceServer
 // for forward compatibility
 type ServiceProviderAdministrationServiceServer interface {
-	// Generate a new MTLS certificate.
+	// Generate a new mTLS certificate.
 	GenerateMTLSCertificate(context.Context, *v1.GenerateMTLSCertificateRequest) (*v1.GenerateMTLSCertificateResponse, error)
 	// Update the certificate with a given serial number, only supports enable/disable for now
 	UpdateMTLSCertificate(context.Context, *v1.UpdateMTLSCertificateRequest) (*v1.UpdateMTLSCertificateResponse, error)
@@ -260,6 +271,7 @@ type ServiceProviderAdministrationServiceServer interface {
 	GenerateExternalClientMTLSCertificate(context.Context, *v1.GenerateExternalClientMTLSCertificateRequest) (*v1.GenerateExternalClientMTLSCertificateResponse, error)
 	UpdateExternalClientMTLSCertificate(context.Context, *v1.UpdateExternalClientMTLSCertificateRequest) (*v1.UpdateExternalClientMTLSCertificateResponse, error)
 	SearchExternalClientMTLSCertificate(context.Context, *v1.SearchExternalClientMTLSCertificateRequest) (*v1.SearchExternalClientMTLSCertificateResponse, error)
+	GenerateQuickstartPackageZip(context.Context, *v1.GenerateQuickstartPackageZipRequest) (*v1.GenerateQuickstartPackageZipResponse, error)
 	SearchDataExtractionStatistics(context.Context, *v1.SearchDataExtractionRequest) (*v1.SearchDataExtractionResponse, error)
 	GetDataExtractionStatistics(context.Context, *v1.GetDataExtractionRequest) (*v1.GetDataExtractionResponse, error)
 	// tests the external call to verify proper configuration and connectivity
@@ -310,6 +322,9 @@ func (UnimplementedServiceProviderAdministrationServiceServer) UpdateExternalCli
 }
 func (UnimplementedServiceProviderAdministrationServiceServer) SearchExternalClientMTLSCertificate(context.Context, *v1.SearchExternalClientMTLSCertificateRequest) (*v1.SearchExternalClientMTLSCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchExternalClientMTLSCertificate not implemented")
+}
+func (UnimplementedServiceProviderAdministrationServiceServer) GenerateQuickstartPackageZip(context.Context, *v1.GenerateQuickstartPackageZipRequest) (*v1.GenerateQuickstartPackageZipResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateQuickstartPackageZip not implemented")
 }
 func (UnimplementedServiceProviderAdministrationServiceServer) SearchDataExtractionStatistics(context.Context, *v1.SearchDataExtractionRequest) (*v1.SearchDataExtractionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchDataExtractionStatistics not implemented")
@@ -571,6 +586,24 @@ func _ServiceProviderAdministrationService_SearchExternalClientMTLSCertificate_H
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceProviderAdministrationService_GenerateQuickstartPackageZip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.GenerateQuickstartPackageZipRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderAdministrationServiceServer).GenerateQuickstartPackageZip(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderAdministrationService_GenerateQuickstartPackageZip_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderAdministrationServiceServer).GenerateQuickstartPackageZip(ctx, req.(*v1.GenerateQuickstartPackageZipRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ServiceProviderAdministrationService_SearchDataExtractionStatistics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(v1.SearchDataExtractionRequest)
 	if err := dec(in); err != nil {
@@ -701,6 +734,10 @@ var ServiceProviderAdministrationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchExternalClientMTLSCertificate",
 			Handler:    _ServiceProviderAdministrationService_SearchExternalClientMTLSCertificate_Handler,
+		},
+		{
+			MethodName: "GenerateQuickstartPackageZip",
+			Handler:    _ServiceProviderAdministrationService_GenerateQuickstartPackageZip_Handler,
 		},
 		{
 			MethodName: "SearchDataExtractionStatistics",

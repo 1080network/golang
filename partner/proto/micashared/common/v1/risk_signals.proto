@@ -16,75 +16,75 @@ option java_package = "io.micashared.common.v1";
 option objc_class_prefix = "MICA";
 
 enum OperatingSystem {
-    OPERATING_SYSTEM_UNSPECIFIED = 0;
-    OPERATING_SYSTEM_OTHER = 1;
-    OPERATING_SYSTEM_ANDROID = 2;
-    OPERATING_SYSTEM_IOS = 3;
-    OPERATING_SYSTEM_WINDOWS = 4;
-    OPERATING_SYSTEM_LINUX = 5;
-    OPERATING_SYSTEM_MACOS = 6;
-    OPERATING_SYSTEM_CHROMEOS = 7;
+  OPERATING_SYSTEM_UNSPECIFIED = 0;
+  OPERATING_SYSTEM_OTHER = 1;
+  OPERATING_SYSTEM_ANDROID = 2;
+  OPERATING_SYSTEM_IOS = 3;
+  OPERATING_SYSTEM_WINDOWS = 4;
+  OPERATING_SYSTEM_LINUX = 5;
+  OPERATING_SYSTEM_MACOS = 6;
+  OPERATING_SYSTEM_CHROMEOS = 7;
 }
 
 enum DeviceType {
-    DEVICE_TYPE_UNSPECIFIED = 0;
-    DEVICE_TYPE_OTHER = 1;
-    DEVICE_TYPE_TABLET = 2;
-    DEVICE_TYPE_TERMINAL = 3;
-    DEVICE_TYPE_SMARTPHONE = 4;
-    DEVICE_TYPE_COMPUTER = 5;
-    DEVICE_TYPE_WEARABLE = 6;
-    DEVICE_TYPE_BROWSER = 7;
+  DEVICE_TYPE_UNSPECIFIED = 0;
+  DEVICE_TYPE_OTHER = 1;
+  DEVICE_TYPE_TABLET = 2;
+  DEVICE_TYPE_TERMINAL = 3;
+  DEVICE_TYPE_SMARTPHONE = 4;
+  DEVICE_TYPE_COMPUTER = 5;
+  DEVICE_TYPE_WEARABLE = 6;
+  DEVICE_TYPE_BROWSER = 7;
 }
 
 enum AuthenticationType {
-    AUTHENTICATION_TYPE_UNSPECIFIED = 0;
-    AUTHENTICATION_TYPE_OTHER = 1;
-    AUTHENTICATION_TYPE_NONE = 2;
-    AUTHENTICATION_TYPE_PIN = 3;
-    AUTHENTICATION_TYPE_CREDENTIAL = 4;
-    AUTHENTICATION_TYPE_BIOMETRIC_WEAK = 5;
-    AUTHENTICATION_TYPE_BIOMETRIC_STRONG = 6;
-    AUTHENTICATION_TYPE_CERTIFICATE = 7;
-    AUTHENTICATION_TYPE_MFA_WEAK = 8;
-    AUTHENTICATION_TYPE_MFA_STRONG = 9;
+  AUTHENTICATION_TYPE_UNSPECIFIED = 0;
+  AUTHENTICATION_TYPE_OTHER = 1;
+  AUTHENTICATION_TYPE_NONE = 2;
+  AUTHENTICATION_TYPE_PIN = 3;
+  AUTHENTICATION_TYPE_CREDENTIAL = 4;
+  AUTHENTICATION_TYPE_BIOMETRIC_WEAK = 5;
+  AUTHENTICATION_TYPE_BIOMETRIC_STRONG = 6;
+  AUTHENTICATION_TYPE_CERTIFICATE = 7;
+  AUTHENTICATION_TYPE_MFA_WEAK = 8;
+  AUTHENTICATION_TYPE_MFA_STRONG = 9;
 }
 
 enum UserType {
-    USER_TYPE_UNSPECIFIED = 0;
-    USER_TYPE_OTHER = 1;
-    USER_TYPE_PERSON = 2;
-    USER_TYPE_SERVICE_ACCOUNT = 3;
+  USER_TYPE_UNSPECIFIED = 0;
+  USER_TYPE_OTHER = 1;
+  USER_TYPE_PERSON = 2;
+  USER_TYPE_SERVICE_ACCOUNT = 3;
 }
 
 message DeviceIdentifier {
-    DeviceType device_type = 1;
-    //The device_os identifies the operating system of the device where the transaction originates
-    OperatingSystem device_os = 2;
-    //The device_name identifes either a model or the name of the transaction originating devide, for example PAX A920Pro terminal, etc
-    string device_name = 3;
-    //The device_idenfifier represents a unique identifier for the device, this can be terminal id or the serial number or any other available identifier, etc
-    string device_identifier = 4;
-    //The device_user_agent identifies the user agent used to make a request from a device to the backend, this could be a browser user agent or the client used to submit the request etc
-    string device_user_agent = 5;
-    //The ip_address represents the ip address of the remote device sending the transaction
-    string ip_address = 6;
+  DeviceType device_type = 1;
+  //The device_os identifies the operating system of the device where the transaction originates
+  OperatingSystem device_os = 2;
+  //The device_name identifes either a model or the name of the transaction originating devide, for example PAX A920Pro terminal, etc
+  string device_name = 3;
+  //The device_idenfifier represents a unique identifier for the device, this can be terminal id or the serial number or any other available identifier, etc
+  string device_identifier = 4;
+  //The device_user_agent identifies the user agent used to make a request from a device to the backend, this could be a browser user agent or the client used to submit the request etc
+  string device_user_agent = 5;
+  //The ip_address represents the ip address of the remote device sending the transaction
+  string ip_address = 6;
 }
 
 message DeviceUser {
-    UserType user_type = 1;
-    //The user_identifier consistently identifies a user. This can be a clerk id, etc. Avoid usernames or any operable credential
-    string user_identifier = 2;
-    //The user_authentication captures how the user was authenticated into the device, all factors can be represented
-    repeated AuthenticationType user_authentication = 3;
+  UserType user_type = 1;
+  //The user_identifier consistently identifies a user. This can be a clerk id, etc. Avoid usernames or any operable credential
+  string user_identifier = 2;
+  //The user_authentication captures how the user was authenticated into the device, all factors can be represented
+  repeated AuthenticationType user_authentication = 3;
 }
 
 //Origin is a tuple of a actor/user on a device in the path of the transaction
 message Origin {
-    DeviceIdentifier device_data = 1;
-    DeviceUser  user_data = 2;
+  DeviceIdentifier device_data = 1;
+  DeviceUser user_data = 2;
 }
 
 message RiskSignal {
-    repeated Origin origins = 1;
+  repeated Origin origins = 1;
 }
