@@ -19,6 +19,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	accountv1 "github.com/1080network/golang/partner/proto/mica/partner/accountv1"
 	instrumentv1 "github.com/1080network/golang/partner/proto/mica/partner/instrumentv1"
 	organizationv1 "github.com/1080network/golang/partner/proto/mica/partner/organizationv1"
 	partnerv1 "github.com/1080network/golang/partner/proto/mica/partner/partnerv1"
@@ -35,33 +36,35 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	PartnerToMicaService_GetPartner_FullMethodName             = "/mica.partner.service.v1.PartnerToMicaService/GetPartner"
-	PartnerToMicaService_CreateOrganization_FullMethodName     = "/mica.partner.service.v1.PartnerToMicaService/CreateOrganization"
-	PartnerToMicaService_GetOrganization_FullMethodName        = "/mica.partner.service.v1.PartnerToMicaService/GetOrganization"
-	PartnerToMicaService_UpdateOrganization_FullMethodName     = "/mica.partner.service.v1.PartnerToMicaService/UpdateOrganization"
-	PartnerToMicaService_ActivateOrganization_FullMethodName   = "/mica.partner.service.v1.PartnerToMicaService/ActivateOrganization"
-	PartnerToMicaService_DeactivateOrganization_FullMethodName = "/mica.partner.service.v1.PartnerToMicaService/DeactivateOrganization"
-	PartnerToMicaService_SearchOrganization_FullMethodName     = "/mica.partner.service.v1.PartnerToMicaService/SearchOrganization"
-	PartnerToMicaService_CreateStore_FullMethodName            = "/mica.partner.service.v1.PartnerToMicaService/CreateStore"
-	PartnerToMicaService_GetStore_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/GetStore"
-	PartnerToMicaService_UpdateStore_FullMethodName            = "/mica.partner.service.v1.PartnerToMicaService/UpdateStore"
-	PartnerToMicaService_RemoveStore_FullMethodName            = "/mica.partner.service.v1.PartnerToMicaService/RemoveStore"
-	PartnerToMicaService_SearchStore_FullMethodName            = "/mica.partner.service.v1.PartnerToMicaService/SearchStore"
-	PartnerToMicaService_SearchServiceProvider_FullMethodName  = "/mica.partner.service.v1.PartnerToMicaService/SearchServiceProvider"
-	PartnerToMicaService_RemoveUUEK_FullMethodName             = "/mica.partner.service.v1.PartnerToMicaService/RemoveUUEK"
-	PartnerToMicaService_ExchangeUUEK_FullMethodName           = "/mica.partner.service.v1.PartnerToMicaService/ExchangeUUEK"
-	PartnerToMicaService_SearchUUEK_FullMethodName             = "/mica.partner.service.v1.PartnerToMicaService/SearchUUEK"
-	PartnerToMicaService_ObtainValue_FullMethodName            = "/mica.partner.service.v1.PartnerToMicaService/ObtainValue"
-	PartnerToMicaService_ReverseObtainValue_FullMethodName     = "/mica.partner.service.v1.PartnerToMicaService/ReverseObtainValue"
-	PartnerToMicaService_ReturnValue_FullMethodName            = "/mica.partner.service.v1.PartnerToMicaService/ReturnValue"
-	PartnerToMicaService_ReverseReturnValue_FullMethodName     = "/mica.partner.service.v1.PartnerToMicaService/ReverseReturnValue"
-	PartnerToMicaService_GetValue_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/GetValue"
-	PartnerToMicaService_HoldValue_FullMethodName              = "/mica.partner.service.v1.PartnerToMicaService/HoldValue"
-	PartnerToMicaService_ReleaseHoldValue_FullMethodName       = "/mica.partner.service.v1.PartnerToMicaService/ReleaseHoldValue"
-	PartnerToMicaService_ObtainHoldValue_FullMethodName        = "/mica.partner.service.v1.PartnerToMicaService/ObtainHoldValue"
-	PartnerToMicaService_Ping_FullMethodName                   = "/mica.partner.service.v1.PartnerToMicaService/Ping"
-	PartnerToMicaService_InitializeWidget_FullMethodName       = "/mica.partner.service.v1.PartnerToMicaService/InitializeWidget"
-	PartnerToMicaService_ExchangeSessionKey_FullMethodName     = "/mica.partner.service.v1.PartnerToMicaService/ExchangeSessionKey"
+	PartnerToMicaService_GetPartner_FullMethodName                       = "/mica.partner.service.v1.PartnerToMicaService/GetPartner"
+	PartnerToMicaService_SearchABAAccount_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/SearchABAAccount"
+	PartnerToMicaService_CreateOrganization_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/CreateOrganization"
+	PartnerToMicaService_GetOrganization_FullMethodName                  = "/mica.partner.service.v1.PartnerToMicaService/GetOrganization"
+	PartnerToMicaService_UpdateOrganization_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/UpdateOrganization"
+	PartnerToMicaService_UpdateOrganizationSettlementData_FullMethodName = "/mica.partner.service.v1.PartnerToMicaService/UpdateOrganizationSettlementData"
+	PartnerToMicaService_ActivateOrganization_FullMethodName             = "/mica.partner.service.v1.PartnerToMicaService/ActivateOrganization"
+	PartnerToMicaService_DeactivateOrganization_FullMethodName           = "/mica.partner.service.v1.PartnerToMicaService/DeactivateOrganization"
+	PartnerToMicaService_SearchOrganization_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/SearchOrganization"
+	PartnerToMicaService_CreateStore_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/CreateStore"
+	PartnerToMicaService_GetStore_FullMethodName                         = "/mica.partner.service.v1.PartnerToMicaService/GetStore"
+	PartnerToMicaService_UpdateStore_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/UpdateStore"
+	PartnerToMicaService_RemoveStore_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/RemoveStore"
+	PartnerToMicaService_SearchStore_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/SearchStore"
+	PartnerToMicaService_SearchServiceProvider_FullMethodName            = "/mica.partner.service.v1.PartnerToMicaService/SearchServiceProvider"
+	PartnerToMicaService_RemoveUUEK_FullMethodName                       = "/mica.partner.service.v1.PartnerToMicaService/RemoveUUEK"
+	PartnerToMicaService_ExchangeUUEK_FullMethodName                     = "/mica.partner.service.v1.PartnerToMicaService/ExchangeUUEK"
+	PartnerToMicaService_SearchUUEK_FullMethodName                       = "/mica.partner.service.v1.PartnerToMicaService/SearchUUEK"
+	PartnerToMicaService_ObtainValue_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/ObtainValue"
+	PartnerToMicaService_ReverseObtainValue_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/ReverseObtainValue"
+	PartnerToMicaService_ReturnValue_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/ReturnValue"
+	PartnerToMicaService_ReverseReturnValue_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/ReverseReturnValue"
+	PartnerToMicaService_GetValue_FullMethodName                         = "/mica.partner.service.v1.PartnerToMicaService/GetValue"
+	PartnerToMicaService_HoldValue_FullMethodName                        = "/mica.partner.service.v1.PartnerToMicaService/HoldValue"
+	PartnerToMicaService_ReleaseHoldValue_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/ReleaseHoldValue"
+	PartnerToMicaService_ObtainHoldValue_FullMethodName                  = "/mica.partner.service.v1.PartnerToMicaService/ObtainHoldValue"
+	PartnerToMicaService_Ping_FullMethodName                             = "/mica.partner.service.v1.PartnerToMicaService/Ping"
+	PartnerToMicaService_InitializeWidget_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/InitializeWidget"
+	PartnerToMicaService_ExchangeSessionKey_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/ExchangeSessionKey"
 )
 
 // PartnerToMicaServiceClient is the client API for PartnerToMicaService service.
@@ -70,12 +73,15 @@ const (
 type PartnerToMicaServiceClient interface {
 	// Retrieves the details of the Partner at mica.
 	GetPartner(ctx context.Context, in *partnerv1.GetPartnerRequest, opts ...grpc.CallOption) (*partnerv1.GetPartnerResponse, error)
+	SearchABAAccount(ctx context.Context, in *accountv1.SearchABAAccountRequest, opts ...grpc.CallOption) (*accountv1.SearchABAAccountResponse, error)
 	// A method to create an organization.
 	CreateOrganization(ctx context.Context, in *organizationv1.CreateOrganizationRequest, opts ...grpc.CallOption) (*organizationv1.CreateOrganizationResponse, error)
 	// Retrieve an organization based on it's key or ref.
 	GetOrganization(ctx context.Context, in *organizationv1.GetOrganizationRequest, opts ...grpc.CallOption) (*organizationv1.GetOrganizationResponse, error)
 	// Update a given organization.
 	UpdateOrganization(ctx context.Context, in *organizationv1.UpdateOrganizationRequest, opts ...grpc.CallOption) (*organizationv1.UpdateOrganizationResponse, error)
+	// Update an organization financial data
+	UpdateOrganizationSettlementData(ctx context.Context, in *organizationv1.UpdateOrganizationSettlementDataRequest, opts ...grpc.CallOption) (*organizationv1.UpdateOrganizationSettlementDataResponse, error)
 	// Activate an organization that is currently inactive assuming the preconditions are met.
 	ActivateOrganization(ctx context.Context, in *organizationv1.ActivateOrganizationRequest, opts ...grpc.CallOption) (*organizationv1.ActivateOrganizationResponse, error)
 	// Deactivate an organization that is currently active.
@@ -139,6 +145,15 @@ func (c *partnerToMicaServiceClient) GetPartner(ctx context.Context, in *partner
 	return out, nil
 }
 
+func (c *partnerToMicaServiceClient) SearchABAAccount(ctx context.Context, in *accountv1.SearchABAAccountRequest, opts ...grpc.CallOption) (*accountv1.SearchABAAccountResponse, error) {
+	out := new(accountv1.SearchABAAccountResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_SearchABAAccount_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *partnerToMicaServiceClient) CreateOrganization(ctx context.Context, in *organizationv1.CreateOrganizationRequest, opts ...grpc.CallOption) (*organizationv1.CreateOrganizationResponse, error) {
 	out := new(organizationv1.CreateOrganizationResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_CreateOrganization_FullMethodName, in, out, opts...)
@@ -160,6 +175,15 @@ func (c *partnerToMicaServiceClient) GetOrganization(ctx context.Context, in *or
 func (c *partnerToMicaServiceClient) UpdateOrganization(ctx context.Context, in *organizationv1.UpdateOrganizationRequest, opts ...grpc.CallOption) (*organizationv1.UpdateOrganizationResponse, error) {
 	out := new(organizationv1.UpdateOrganizationResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_UpdateOrganization_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) UpdateOrganizationSettlementData(ctx context.Context, in *organizationv1.UpdateOrganizationSettlementDataRequest, opts ...grpc.CallOption) (*organizationv1.UpdateOrganizationSettlementDataResponse, error) {
+	out := new(organizationv1.UpdateOrganizationSettlementDataResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_UpdateOrganizationSettlementData_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -379,12 +403,15 @@ func (c *partnerToMicaServiceClient) ExchangeSessionKey(ctx context.Context, in 
 type PartnerToMicaServiceServer interface {
 	// Retrieves the details of the Partner at mica.
 	GetPartner(context.Context, *partnerv1.GetPartnerRequest) (*partnerv1.GetPartnerResponse, error)
+	SearchABAAccount(context.Context, *accountv1.SearchABAAccountRequest) (*accountv1.SearchABAAccountResponse, error)
 	// A method to create an organization.
 	CreateOrganization(context.Context, *organizationv1.CreateOrganizationRequest) (*organizationv1.CreateOrganizationResponse, error)
 	// Retrieve an organization based on it's key or ref.
 	GetOrganization(context.Context, *organizationv1.GetOrganizationRequest) (*organizationv1.GetOrganizationResponse, error)
 	// Update a given organization.
 	UpdateOrganization(context.Context, *organizationv1.UpdateOrganizationRequest) (*organizationv1.UpdateOrganizationResponse, error)
+	// Update an organization financial data
+	UpdateOrganizationSettlementData(context.Context, *organizationv1.UpdateOrganizationSettlementDataRequest) (*organizationv1.UpdateOrganizationSettlementDataResponse, error)
 	// Activate an organization that is currently inactive assuming the preconditions are met.
 	ActivateOrganization(context.Context, *organizationv1.ActivateOrganizationRequest) (*organizationv1.ActivateOrganizationResponse, error)
 	// Deactivate an organization that is currently active.
@@ -439,6 +466,9 @@ type UnimplementedPartnerToMicaServiceServer struct {
 func (UnimplementedPartnerToMicaServiceServer) GetPartner(context.Context, *partnerv1.GetPartnerRequest) (*partnerv1.GetPartnerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPartner not implemented")
 }
+func (UnimplementedPartnerToMicaServiceServer) SearchABAAccount(context.Context, *accountv1.SearchABAAccountRequest) (*accountv1.SearchABAAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchABAAccount not implemented")
+}
 func (UnimplementedPartnerToMicaServiceServer) CreateOrganization(context.Context, *organizationv1.CreateOrganizationRequest) (*organizationv1.CreateOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrganization not implemented")
 }
@@ -447,6 +477,9 @@ func (UnimplementedPartnerToMicaServiceServer) GetOrganization(context.Context, 
 }
 func (UnimplementedPartnerToMicaServiceServer) UpdateOrganization(context.Context, *organizationv1.UpdateOrganizationRequest) (*organizationv1.UpdateOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrganization not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) UpdateOrganizationSettlementData(context.Context, *organizationv1.UpdateOrganizationSettlementDataRequest) (*organizationv1.UpdateOrganizationSettlementDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrganizationSettlementData not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) ActivateOrganization(context.Context, *organizationv1.ActivateOrganizationRequest) (*organizationv1.ActivateOrganizationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ActivateOrganization not implemented")
@@ -548,6 +581,24 @@ func _PartnerToMicaService_GetPartner_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PartnerToMicaService_SearchABAAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(accountv1.SearchABAAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).SearchABAAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_SearchABAAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).SearchABAAccount(ctx, req.(*accountv1.SearchABAAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PartnerToMicaService_CreateOrganization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(organizationv1.CreateOrganizationRequest)
 	if err := dec(in); err != nil {
@@ -598,6 +649,24 @@ func _PartnerToMicaService_UpdateOrganization_Handler(srv interface{}, ctx conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartnerToMicaServiceServer).UpdateOrganization(ctx, req.(*organizationv1.UpdateOrganizationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_UpdateOrganizationSettlementData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(organizationv1.UpdateOrganizationSettlementDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).UpdateOrganizationSettlementData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_UpdateOrganizationSettlementData_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).UpdateOrganizationSettlementData(ctx, req.(*organizationv1.UpdateOrganizationSettlementDataRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1028,6 +1097,10 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PartnerToMicaService_GetPartner_Handler,
 		},
 		{
+			MethodName: "SearchABAAccount",
+			Handler:    _PartnerToMicaService_SearchABAAccount_Handler,
+		},
+		{
 			MethodName: "CreateOrganization",
 			Handler:    _PartnerToMicaService_CreateOrganization_Handler,
 		},
@@ -1038,6 +1111,10 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateOrganization",
 			Handler:    _PartnerToMicaService_UpdateOrganization_Handler,
+		},
+		{
+			MethodName: "UpdateOrganizationSettlementData",
+			Handler:    _PartnerToMicaService_UpdateOrganizationSettlementData_Handler,
 		},
 		{
 			MethodName: "ActivateOrganization",

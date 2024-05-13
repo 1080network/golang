@@ -1,0 +1,39 @@
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.partner.account.v1;
+
+import "micashared/common/v1/bank_account_detail.proto";
+import "micashared/common/v1/error.proto";
+
+option go_package = "mica/partner/accountv1";
+option java_outer_classname = "AccountProto";
+option java_package = "io.mica.partner.account.v1";
+option objc_class_prefix = "MICA";
+
+// request to search ABA accounts available in the partner instance
+message SearchABAAccountRequest {
+  // if set the search will filter by bank name
+  string bank_name = 1;
+}
+
+message SearchABAAccountResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  repeated micashared.common.v1.ABAAccountEntry aba_accounts = 3;
+}

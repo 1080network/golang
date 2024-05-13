@@ -108,10 +108,10 @@ type LineItem struct {
 	UnitAmount    string      `protobuf:"bytes,7,opt,name=unit_amount,json=unitAmount,proto3" json:"unit_amount,omitempty"`
 	UnitTaxAmount string      `protobuf:"bytes,8,opt,name=unit_tax_amount,json=unitTaxAmount,proto3" json:"unit_tax_amount,omitempty"`
 	// The total amount for this line item excluding tax.
-	// Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+	// Amount expressed as: ([0-9]*[.])?[0-9]+
 	LineAmount string `protobuf:"bytes,9,opt,name=line_amount,json=lineAmount,proto3" json:"line_amount,omitempty"`
 	// The amount of tax for this line item.
-	// Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+	// Amount expressed as: ([0-9]*[.])?[0-9]+
 	LineTaxAmount string `protobuf:"bytes,10,opt,name=line_tax_amount,json=lineTaxAmount,proto3" json:"line_tax_amount,omitempty"`
 }
 
@@ -280,10 +280,10 @@ type Adjustment struct {
 	UnitAmount    string      `protobuf:"bytes,7,opt,name=unit_amount,json=unitAmount,proto3" json:"unit_amount,omitempty"`
 	UnitTaxAmount string      `protobuf:"bytes,8,opt,name=unit_tax_amount,json=unitTaxAmount,proto3" json:"unit_tax_amount,omitempty"`
 	// The total amount for this line item excluding tax.
-	// Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+	// Amount expressed as: ([0-9]*[.])?[0-9]+
 	LineAmount string `protobuf:"bytes,9,opt,name=line_amount,json=lineAmount,proto3" json:"line_amount,omitempty"`
 	// The amount of tax for this line item.
-	// Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+	// Amount expressed as: ([0-9]*[.])?[0-9]+
 	LineTaxAmount string `protobuf:"bytes,10,opt,name=line_tax_amount,json=lineTaxAmount,proto3" json:"line_tax_amount,omitempty"`
 }
 

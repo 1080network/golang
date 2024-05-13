@@ -10,6 +10,7 @@ syntax = "proto3";
 
 package mica.partner.service.v1;
 
+import "mica/partner/account/v1/account.proto";
 import "mica/partner/instrument/v1/instrument.proto";
 import "mica/partner/organization/v1/organization.proto";
 import "mica/partner/partner/v1/partner.proto";
@@ -30,6 +31,8 @@ service PartnerToMicaService {
 
   // Retrieves the details of the Partner at mica.
   rpc GetPartner(partner.v1.GetPartnerRequest) returns (partner.v1.GetPartnerResponse) {}
+
+  rpc SearchABAAccount(mica.partner.account.v1.SearchABAAccountRequest) returns (mica.partner.account.v1.SearchABAAccountResponse) {}
   //</editor-fold>
 
   //<editor-fold desc="Organization Operations">
@@ -42,6 +45,9 @@ service PartnerToMicaService {
 
   // Update a given organization.
   rpc UpdateOrganization(organization.v1.UpdateOrganizationRequest) returns (organization.v1.UpdateOrganizationResponse) {}
+
+  // Update an organization financial data
+  rpc UpdateOrganizationSettlementData(organization.v1.UpdateOrganizationSettlementDataRequest) returns (organization.v1.UpdateOrganizationSettlementDataResponse) {}
 
   // Activate an organization that is currently inactive assuming the preconditions are met.
   rpc ActivateOrganization(organization.v1.ActivateOrganizationRequest) returns (organization.v1.ActivateOrganizationResponse) {}

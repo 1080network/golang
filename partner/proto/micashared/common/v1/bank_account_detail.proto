@@ -49,3 +49,13 @@ message BankAccountDetailSearch {
   // The account reference for this account
   string account_ref = 3;
 }
+
+message ABAAccountEntry {
+  string key = 1;
+
+  int64 version = 2;
+
+  bool enabled = 3;
+
+  ABAAccountNumber account_detail = 4;
+}

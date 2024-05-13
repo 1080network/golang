@@ -92,20 +92,20 @@ message Value {
   string clerk_identifier = 17;
 
   // Total amount for this transaction.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string total_amount = 18;
 
   // Total discount amount for this transaction.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string discount_amount = 21;
 
   // Total discount amount for this transaction.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string ineligible_amount = 22;
 
   // The amount requested from the Service Provider for this transaction. Note that this calculated as:
   //    requested_amount = total_amount - discount_amount - ineligible_amount
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string requested_amount = 19;
 
   string order_number = 20;
@@ -174,20 +174,20 @@ message ValueRequest {
   string clerk_identifier = 13;
 
   // Total amount for this transaction.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string total_amount = 14;
 
   // Total discount amount for this transaction.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string discount_amount = 17;
 
   // Total discount amount for this transaction.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string ineligible_amount = 18;
 
   // The amount requested from the Service Provider for this transaction. Note that this calculated as:
   //    requested_amount = total_amount - discount_amount - ineligible_amount
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string requested_amount = 15;
 
   string order_number = 16;
@@ -254,7 +254,7 @@ message ObtainValueResponse {
 
   string transaction_ref = 3 [(validate.rules).string.max_len = 100];
 
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string approved_amount = 4;
 }
 
@@ -273,11 +273,19 @@ message ReverseValueResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     // An approval for the full amount
-    STATUS_FULL_APPROVAL = 1;
+    STATUS_SUCCESS = 3;
     // An error occurred when processing the request
     STATUS_ERROR = 2;
-    // Instrument/account not found
+    // An approval was given for a partial amount
     STATUS_NOT_FOUND = 4;
+    // The user needs to call the Service Provider to resolve an issue
+    STATUS_USER_CALL_SERVICE_PROVIDER = 14;
+    // The original transaction falls outside the allowable time window for reversal
+    STATUS_CUTOFF_EXCEEDED = 15;
+    // The original transaction has already been reversed
+    STATUS_ALREADY_REVERSED = 16;
+    // The original transaction is not one that can be reversed
+    STATUS_INVALID_TRANSACTION_TYPE = 17;
     // User instrument is closed
     STATUS_INSTRUMENT_CLOSED = 5;
     // Request triggered a transactional risk or fraud check resulting in a decline
@@ -354,7 +362,7 @@ message ReturnValueResponse {
 
   string transaction_ref = 3 [(validate.rules).string.max_len = 100];
 
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string approved_amount = 4;
 }
 
@@ -400,14 +408,8 @@ message HoldValueResponse {
     STATUS_INVALID_UUEK = 12;
     // A valid PIN is required for this transaction
     STATUS_PIN_REQUIRED = 13;
-    // returned when processing an EBT transaction but no line items have been given
-    STATUS_MISSING_LINE_ITEMS = 14;
-    // when partial approval is requested but not supported
-    STATUS_PARTIAL_APPROVAL_INVALID = 15;
     // Request resulted in one or more limits being exceeded at the Service Provider
     STATUS_LIMIT_EXCEEDED = 19;
-    // This request has already been processed and this is a duplicate request
-    STATUS_DUPLICATE = 20;
   }
   Status status = 1;
 
@@ -415,7 +417,7 @@ message HoldValueResponse {
 
   string transaction_ref = 3 [(validate.rules).string.max_len = 100];
 
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string approved_amount = 4;
 }
 
@@ -460,8 +462,6 @@ message ObtainHoldValueRequest {
   // Service Provider's hold transaction record primary key.
   string transaction_ref = 2 [(validate.rules).string.max_len = 100];
 
-  micashared.common.enums.approvaltype.v1.ApprovalType approval_type = 3;
-
   ValueRequest value = 4;
 
   //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
@@ -475,14 +475,8 @@ message ObtainHoldValueResponse {
     STATUS_FULL_APPROVAL = 1;
     // An error occurred when processing the request
     STATUS_ERROR = 2;
-    // An approval was given for a partial amount
-    STATUS_PARTIAL_APPROVAL = 3;
-    // User instrument doesn't have sufficient value to cover the transaction
-    STATUS_INSUFFICIENT_VALUE = 4;
     // Instrument/account not found
     STATUS_NOT_FOUND = 6;
-    // User instrument is closed
-    STATUS_INSTRUMENT_CLOSED = 7;
     // Request triggered a transactional risk or fraud check resulting in a decline
     STATUS_TRANSACTION_RISK_FRAUD = 8;
     // Request triggered a bad actor risk or fraud check resulting in a decline
@@ -491,18 +485,10 @@ message ObtainHoldValueResponse {
     STATUS_USER_RISK_FRAUD = 17;
     // Request triggered a instrument-based risk or fraud check resulting in a decline
     STATUS_INSTRUMENT_RISK_FRAUD = 18;
-    // The user needs to call the Service Provider to resolve an issue
-    STATUS_USER_CALL_SERVICE_PROVIDER = 9;
     // The operation isn't supported by the Service Provider
     STATUS_UNSUPPORTED = 10;
     // The Service Provider is temporarily unavailable
     STATUS_SERVICE_PROVIDER_UNAVAILABLE = 11;
-    // The UUEK sent is invalid or not found
-    STATUS_INVALID_UUEK = 12;
-    // A valid PIN is required for this transaction
-    STATUS_PIN_REQUIRED = 13;
-    // Request resulted in one or more limits being exceeded at the Service Provider
-    STATUS_LIMIT_EXCEEDED = 19;
   }
   Status status = 1;
 
@@ -510,7 +496,7 @@ message ObtainHoldValueResponse {
 
   string transaction_ref = 3 [(validate.rules).string.max_len = 100];
 
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string approved_amount = 4;
 }
 
@@ -544,7 +530,7 @@ message ReceiveValueRequest {
   micashared.common.enums.currency.v1.Currency currency = 3;
 
   // the amount that's being received
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string amount = 4;
 
   serviceprovider.value.v1.From from = 5;
@@ -592,21 +578,30 @@ enum AdviceReason {
   ADVICE_REASON_SERVICE_PROVIDER_UNAVAILABLE = 6;
 }
 
+message ValueAdvice {
+  // the processing priority for this advice, the lower the number the higher the priority
+  // the network will guaranteed this delivered in ascending order (higher priority first)
+  int32 advice_priority = 1;
+
+  AdviceReason advice_reason = 2;
+
+  micashared.common.enums.approvaltype.v1.ApprovalType approval_type = 3;
+
+  ValueRequest value = 4;
+}
+
 // For any Obtain or Return Value call that does not need to make an external (to the network) call and which the
 // external entity may want to know about. These are typically network declines.
 message ValueAdviceRequest {
-  AdviceReason advice_reason = 1;
-
-  micashared.common.enums.approvaltype.v1.ApprovalType approval_type = 2;
-
-  ValueRequest value = 3;
+  repeated ValueAdvice value_advices = 1;
 }
 
+// Response to acknowledge the advices
 message ValueAdviceResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     // Request was successfully processed
-    STATUS_SUCCESS = 1;
+    STATUS_ACKNOWLEDGE = 1;
     // An error occurred when processing the request
     STATUS_ERROR = 2;
   }
@@ -672,7 +667,7 @@ message SendValueRequest {
 
   micashared.common.enums.currency.v1.Currency currency = 4;
 
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string amount = 5;
 
   //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin

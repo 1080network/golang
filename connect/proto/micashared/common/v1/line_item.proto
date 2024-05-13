@@ -39,11 +39,11 @@ message LineItem {
   string unit_tax_amount = 8;
 
   // The total amount for this line item excluding tax.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string line_amount = 9;
 
   // The amount of tax for this line item.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string line_tax_amount = 10;
 }
 
@@ -87,11 +87,11 @@ message Adjustment {
   string unit_tax_amount = 8;
 
   // The total amount for this line item excluding tax.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string line_amount = 9;
 
   // The amount of tax for this line item.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string line_tax_amount = 10;
 }
 

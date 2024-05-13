@@ -92,13 +92,13 @@ message Value {
   // Total amount for this transaction.
   //
   // When Items are present then: `total_amount` = sum(`items.amount + items.tax_amount`)
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string total_amount = 14;
 
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string requested_amount = 15;
 
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string approved_amount = 16;
 
   string order_number = 17;
@@ -124,7 +124,10 @@ message ValueRequest {
   }];
 
   // A unique identifier at the Partner for this transaction.
-  string transaction_ref = 2 [(validate.rules).string.max_len = 100];
+  string transaction_ref = 2 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100
+  }];
 
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
   micashared.common.enums.currency.v1.Currency currency = 4;
@@ -162,11 +165,15 @@ message ValueRequest {
   // Total amount for this transaction.
   //
   // When Items are present then: `total_amount` = sum(`items.amount + items.tax_amount`) + surcharge_amount
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
-  string total_amount = 9;
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
+  string total_amount = 9 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 50,
+    pattern: "^([0-9]*[.])?[0-9]+$"
+  }];
 
   // The additional cost for this transaction. This would hold the ATM fee or the tip at a restaurant.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string surcharge_amount = 19;
 
   string order_number = 10;
@@ -230,10 +237,10 @@ message ObtainValueResponse {
     STATUS_PARTIAL_APPROVAL_INVALID = 15;
     // Request resulted in one or more limits being exceeded at the Service Provider
     STATUS_LIMIT_EXCEEDED = 19;
-    // This request has already been processed and this is a duplicate request
-    STATUS_DUPLICATE = 20;
     // The referenced Organization of this request isn't fully configured to process transactions
     STATUS_ORGANIZATION_NOT_CONFIGURED = 21;
+    // The total amount of the line items does not match the total amount of the transaction
+    STATUS_LINE_ITEM_TOTAL_MISMATCH = 22;
   }
   Status status = 1;
 
@@ -248,7 +255,7 @@ message ObtainValueResponse {
   // Correlation ID of the request assigned by Mica.
   string cid = 4;
 
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string approved_amount = 5;
 
   // summary of discounts that were applied
@@ -312,6 +319,8 @@ message ReturnValueResponse {
     STATUS_LIMIT_EXCEEDED = 19;
     // The referenced Organization of this request isn't fully configured to process transactions
     STATUS_ORGANIZATION_NOT_CONFIGURED = 20;
+    // The total amount of the line items does not match the total amount of the transaction
+    STATUS_LINE_ITEM_TOTAL_MISMATCH = 21;
   }
   Status status = 1;
 
@@ -326,7 +335,7 @@ message ReturnValueResponse {
   // Correlation ID of the request assigned by Mica.
   string cid = 4;
 
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string approved_amount = 5;
 
   // This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
@@ -394,16 +403,34 @@ message ReverseObtainValueResponse {
     STATUS_SUCCESS = 1;
     // An error occurred when processing the request
     STATUS_ERROR = 2;
-    // An approval was given for a partial amount
+    // The original transaction is not found
     STATUS_NOT_FOUND = 3;
     // The user needs to call the Service Provider to resolve an issue
     STATUS_USER_CALL_SERVICE_PROVIDER = 4;
+    // The original transaction falls outside the allowable time window for reversal
+    STATUS_CUTOFF_EXCEEDED = 10;
+    // The original transaction has already been reversed
+    STATUS_ALREADY_REVERSED = 11;
+    // The original transaction is not one that can be reversed
+    STATUS_INVALID_TRANSACTION_TYPE = 12;
+    // User instrument is closed
+    STATUS_INSTRUMENT_CLOSED = 13;
+    // Request triggered a transactional risk or fraud check resulting in a decline
+    STATUS_TRANSACTION_RISK_FRAUD = 14;
+    // Request triggered a bad actor risk or fraud check resulting in a decline
+    STATUS_BAD_ACTOR_RISK_FRAUD = 15;
+    // Request triggered a user-based risk or fraud check resulting in a decline
+    STATUS_USER_RISK_FRAUD = 16;
+    // Request triggered a instrument-based risk or fraud check resulting in a decline
+    STATUS_INSTRUMENT_RISK_FRAUD = 17;
     // The operation isn't supported by the Service Provider
     STATUS_UNSUPPORTED = 5;
-    // The Fi is unavailable at this time
+    // The Service Provider is temporarily unavailable
     STATUS_SERVICE_PROVIDER_UNAVAILABLE = 6;
-    // The UUEK sent is invalid or not found
-    STATUS_INVALID_UUEK = 7;
+    // The source network group is incompatible with the destination network group
+    STATUS_INCOMPATIBLE_NETWORK_GROUP = 8;
+    // Request resulted in one or more limits being exceeded at the Service Provider
+    STATUS_LIMIT_EXCEEDED = 9;
   }
   Status status = 1;
 
@@ -424,20 +451,38 @@ message ReverseObtainValueResponse {
 message ReverseReturnValueResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
-    // An approval for the full amount
+    // Reversal approved and successful
     STATUS_SUCCESS = 1;
     // An error occurred when processing the request
     STATUS_ERROR = 2;
-    // Transaction ID, instrument, SP, or other component not found
+    // The original transaction is not found
     STATUS_NOT_FOUND = 3;
     // The user needs to call the Service Provider to resolve an issue
     STATUS_USER_CALL_SERVICE_PROVIDER = 4;
+    // The original transaction falls outside the allowable time window for reversal
+    STATUS_CUTOFF_EXCEEDED = 9;
+    // The original transaction has already been reversed
+    STATUS_ALREADY_REVERSED = 10;
+    // The original transaction is not one that can be reversed
+    STATUS_INVALID_TRANSACTION_TYPE = 11;
+    // User instrument is closed
+    STATUS_INSTRUMENT_CLOSED = 12;
+    // Request triggered a transactional risk or fraud check resulting in a decline
+    STATUS_TRANSACTION_RISK_FRAUD = 13;
+    // Request triggered a bad actor risk or fraud check resulting in a decline
+    STATUS_BAD_ACTOR_RISK_FRAUD = 14;
+    // Request triggered a user-based risk or fraud check resulting in a decline
+    STATUS_USER_RISK_FRAUD = 15;
+    // Request triggered a instrument-based risk or fraud check resulting in a decline
+    STATUS_INSTRUMENT_RISK_FRAUD = 16;
     // The operation isn't supported by the Service Provider
     STATUS_UNSUPPORTED = 5;
-    // The Fi is unavailable at this time
+    // The Service Provider is temporarily unavailable
     STATUS_SERVICE_PROVIDER_UNAVAILABLE = 6;
-    // The UUEK sent is invalid or not found
-    STATUS_INVALID_UUEK = 7;
+    // The source network group is incompatible with the destination network group
+    STATUS_INCOMPATIBLE_NETWORK_GROUP = 8;
+    // Request resulted in one or more limits being exceeded at the Service Provider
+    STATUS_LIMIT_EXCEEDED = 17;
   }
   Status status = 1;
 
@@ -469,11 +514,15 @@ message HoldValueRequest {
   LocationDetails location_details = 5 [(validate.rules).message = {required: true}];
 
   // Total amount for this transaction.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
-  string total_amount = 6;
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
+  string total_amount = 6 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 50,
+    pattern: "^([0-9]*[.])?[0-9]+$"
+  }];
 
   // The additional cost for this transaction. This would hold the ATM fee or the tip at a restaurant.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string surcharge_amount = 7;
 
   //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
@@ -513,12 +562,8 @@ message HoldValueResponse {
     STATUS_PIN_REQUIRED = 13;
     // returned when processing an EBT transaction but no line items have been given
     STATUS_MISSING_LINE_ITEMS = 14;
-    // when partial approval is requested but not supported
-    STATUS_PARTIAL_APPROVAL_INVALID = 15;
     // Request resulted in one or more limits being exceeded at the Service Provider
     STATUS_LIMIT_EXCEEDED = 19;
-    // This request has already been processed and this is a duplicate request
-    STATUS_DUPLICATE = 20;
     // A request for a hold on an instrument that can't support holds
     STATUS_INSTRUMENT_TYPE_NOT_SUPPORTED = 21;
     // The referenced Organization of this request isn't fully configured to process transactions
@@ -537,7 +582,7 @@ message HoldValueResponse {
   // Correlation ID of the request assigned by Mica.
   string cid = 4;
 
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string approved_amount = 5;
 
   // This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
@@ -613,13 +658,13 @@ message LocationDetails {
 message ObtainHoldValueRequest {
   // If a previous hold has been placed on the instrument, the hold transaction key or ref must be provided
   oneof transaction_identifier {
+    option (validate.required) = true;
+
     string hold_transaction_key = 1;
 
     // the Partner's reference for the hold transaction
     string hold_transaction_ref = 2 [(validate.rules).string.max_len = 100];
   }
-
-  micashared.common.enums.approvaltype.v1.ApprovalType approval_type = 3;
 
   // A unique identifier at the Partner for this transaction.
   string transaction_ref = 4 [(validate.rules).string.max_len = 100];
@@ -635,11 +680,15 @@ message ObtainHoldValueRequest {
   // Total amount for this transaction.
   //
   // When Items are present then: `total_amount` = sum(`items.amount + items.tax_amount`) + surcharge_amount
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
-  string total_amount = 8;
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
+  string total_amount = 8 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 50,
+    pattern: "^([0-9]*[.])?[0-9]+$"
+  }];
 
   // The additional cost for this transaction. This would hold the ATM fee or the tip at a restaurant.
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string surcharge_amount = 9;
 
   string order_number = 10;
@@ -662,14 +711,8 @@ message ObtainHoldValueResponse {
     STATUS_FULL_APPROVAL = 1;
     // An error occurred when processing the request
     STATUS_ERROR = 2;
-    // An approval was given for a partial amount
-    STATUS_PARTIAL_APPROVAL = 3;
-    // User instrument doesn't have sufficient value to cover the transaction
-    STATUS_INSUFFICIENT_VALUE = 4;
     // Instrument/account not found
     STATUS_NOT_FOUND = 6;
-    // User instrument is closed
-    STATUS_INSTRUMENT_CLOSED = 7;
     // Request triggered a transactional risk or fraud check resulting in a decline
     STATUS_TRANSACTION_RISK_FRAUD = 8;
     // Request triggered a bad actor risk or fraud check resulting in a decline
@@ -678,28 +721,18 @@ message ObtainHoldValueResponse {
     STATUS_USER_RISK_FRAUD = 17;
     // Request triggered a instrument-based risk or fraud check resulting in a decline
     STATUS_INSTRUMENT_RISK_FRAUD = 18;
-    // The user needs to call the Service Provider to resolve an issue
-    STATUS_USER_CALL_SERVICE_PROVIDER = 9;
     // The operation isn't supported by the Service Provider
     STATUS_UNSUPPORTED = 10;
     // The Fi is unavailable at this time
     STATUS_SERVICE_PROVIDER_UNAVAILABLE = 11;
-    // The UUEK sent is invalid or not found
-    STATUS_INVALID_UUEK = 12;
-    // A valid PIN is required for this transaction
-    STATUS_PIN_REQUIRED = 13;
-    // when partial approval is requested but not supported
-    STATUS_PARTIAL_APPROVAL_INVALID = 15;
-    // Request resulted in one or more limits being exceeded at the Service Provider
-    STATUS_LIMIT_EXCEEDED = 19;
-    // This request has already been processed and this is a duplicate request
-    STATUS_DUPLICATE = 20;
     // The hold was already expired or released or not found (as it's already been released or expired and purged)
     STATUS_INVALID_HOLD = 21;
     // A request for a hold on an instrument that can't support holds
     STATUS_INSTRUMENT_TYPE_NOT_SUPPORTED = 22;
     // The referenced Organization of this request isn't fully configured to process transactions
     STATUS_ORGANIZATION_NOT_CONFIGURED = 23;
+    // The total amount of the line items does not match the total amount of the transaction
+    STATUS_LINE_ITEM_TOTAL_MISMATCH = 24;
   }
   Status status = 1;
 
@@ -714,7 +747,7 @@ message ObtainHoldValueResponse {
   // Correlation ID of the request assigned by Mica.
   string cid = 4;
 
-  // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
   string approved_amount = 5;
 
   // summary of discounts that were applied

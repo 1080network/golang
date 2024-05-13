@@ -27,4 +27,3 @@ message TransactionIdentifier {
   // between you and the network (assuming you store this timestamp).
   google.protobuf.Timestamp global_transaction_time = 2;
 }
-

@@ -134,6 +134,35 @@ message UpdateOrganizationResponse {
   int64 version = 3;
 }
 
+message UpdateOrganizationSettlementDataRequest {
+  oneof organization_identifier {
+    string organization_key = 1 [(validate.rules).string = {max_len: 50}];
+
+    // The primary key for this organization at the Partner.
+    string organization_ref = 2 [(validate.rules).string.max_len = 100];
+  }
+
+  int64 version = 3;
+
+  string revenue_account_key = 4 [(validate.rules).string = {max_len: 50}];
+
+  string operating_account_key = 5 [(validate.rules).string = {max_len: 50}];
+}
+
+message UpdateOrganizationSettlementDataResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  int64 version = 3;
+}
+
 message ActivateOrganizationRequest {
   oneof organization_identifier {
     option (validate.required) = true;

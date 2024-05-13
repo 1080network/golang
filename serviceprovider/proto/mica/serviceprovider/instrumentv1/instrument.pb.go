@@ -431,7 +431,7 @@ type Transaction struct {
 	unknownFields protoimpl.UnknownFields
 
 	Created *timestamppb.Timestamp `protobuf:"bytes,1,opt,name=created,proto3" json:"created,omitempty"`
-	// Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
+	// Amount expressed as: ([0-9]*[.])?[0-9]+
 	Amount           string `protobuf:"bytes,2,opt,name=amount,proto3" json:"amount,omitempty"`
 	OrganizationName string `protobuf:"bytes,3,opt,name=organization_name,json=organizationName,proto3" json:"organization_name,omitempty"`
 }
