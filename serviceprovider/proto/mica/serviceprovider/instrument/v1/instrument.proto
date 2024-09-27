@@ -13,6 +13,7 @@ package mica.serviceprovider.instrument.v1;
 import "google/protobuf/timestamp.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/instrumenttype/v1/instrument_type.proto";
+import "micashared/common/v1/instrument.proto";
 import "micashared/common/v1/error.proto";
 import "validate/validate.proto";
 
@@ -218,4 +219,48 @@ message RetrieveTransactionResponse {
 
   // List of instruments that matched the search criteria.
   repeated Transaction transactions = 3;
+}
+
+message ProvisionInstrumentLinkingCodeRequest {
+  oneof user_identifier {
+    option (validate.required) = true;
+
+    //this is the id in the service provider for the user that is requesting an enrollment
+    string service_provider_user_ref = 1 [(validate.rules).string.max_len = 100];
+    string service_provider_user_key = 2 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+  }
+
+  oneof instrument_identifier {
+    option (validate.required) = true;
+
+    //this is the id in the service provider for the instrument (account, etc) that will be used to transact.
+    string service_provider_instrument_ref = 3 [(validate.rules).string.max_len = 100];
+    string service_provider_instrument_key = 4 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+  }
+
+  // if there is any information to exchange at linking time this is when it gets passed to the network which will forward
+  // to the merchant/acquiring side when the linking has been created
+  micashared.common.v1.InstrumentLinkClaims claims = 5;
+}
+
+message ProvisionInstrumentLinkingCodeResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_INSTRUMENT_NOT_FOUND = 3;
+    STATUS_USER_NOT_FOUND = 4;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  //this is the code that the service provider can display or send to the user to enter on any prompt asking for it
+  string linking_code = 3;
 }

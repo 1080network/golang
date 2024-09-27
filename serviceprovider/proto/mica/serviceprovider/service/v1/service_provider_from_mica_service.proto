@@ -57,6 +57,9 @@ service ServiceProviderFromMicaService {
   // Hold a value for a given instrument to be used at a later time
   rpc HoldValue(value.v1.HoldValueRequest) returns (value.v1.HoldValueResponse) {}
 
+  // Release a previously placed hold
+  rpc AmendHoldValue(value.v1.AmendHoldValueRequest) returns (value.v1.AmendHoldValueResponse) {}
+
   // Release a value that was previously held
   rpc ReleaseHoldValue(value.v1.ReleaseHoldValueRequest) returns (value.v1.ReleaseHoldValueResponse) {}
 

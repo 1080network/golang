@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package micashared.common.v1;
+
+import "micashared/common/v1/user.proto";
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "Instrument";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+message Instrument {
+    string name = 1;
+}
+
+// A message that allows to exchange information between the different sides of the network
+// when linking an instrument. This message is made up of a couple of generic 
+// claims/assertions and also structured data
+message InstrumentLinkClaims {
+    map<string, string> assertions = 1;
+
+    micashared.common.v1.UserDemographic user_demographic = 2;
+
+    Instrument instrument = 3;
+}

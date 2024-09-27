@@ -89,6 +89,10 @@ service ServiceProviderToMicaService {
   rpc SearchServiceProviderUUEK(uuek.v1.SearchServiceProviderUUEKRequest) returns (uuek.v1.SearchServiceProviderUUEKResponse) {}
   //</editor-fold>
 
+  // <editor-fold desc="Account linking operations">
+  rpc ProvisionInstrumentLinkingCode(instrument.v1.ProvisionInstrumentLinkingCodeRequest) returns (instrument.v1.ProvisionInstrumentLinkingCodeResponse) {}
+  //</editor-fold>
+
   //<editor-fold desc="Person to Person Operations">
 
   rpc SendValue(value.v1.SendValueRequest) returns (value.v1.SendValueResponse) {}

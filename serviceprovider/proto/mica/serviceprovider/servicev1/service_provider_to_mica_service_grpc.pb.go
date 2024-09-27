@@ -35,24 +35,25 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ServiceProviderToMicaService_GetServiceProvider_FullMethodName           = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetServiceProvider"
-	ServiceProviderToMicaService_RegisterUser_FullMethodName                 = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RegisterUser"
-	ServiceProviderToMicaService_GetUser_FullMethodName                      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetUser"
-	ServiceProviderToMicaService_UpdateUser_FullMethodName                   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/UpdateUser"
-	ServiceProviderToMicaService_RemoveUser_FullMethodName                   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveUser"
-	ServiceProviderToMicaService_SearchUser_FullMethodName                   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchUser"
-	ServiceProviderToMicaService_RegisterInstrument_FullMethodName           = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RegisterInstrument"
-	ServiceProviderToMicaService_GetInstrument_FullMethodName                = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetInstrument"
-	ServiceProviderToMicaService_RemoveInstrument_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveInstrument"
-	ServiceProviderToMicaService_SearchInstrument_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchInstrument"
-	ServiceProviderToMicaService_ProvisionServiceProviderUUEK_FullMethodName = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/ProvisionServiceProviderUUEK"
-	ServiceProviderToMicaService_RemoveServiceProviderUUEK_FullMethodName    = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveServiceProviderUUEK"
-	ServiceProviderToMicaService_SearchServiceProviderUUEK_FullMethodName    = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchServiceProviderUUEK"
-	ServiceProviderToMicaService_SendValue_FullMethodName                    = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SendValue"
-	ServiceProviderToMicaService_GetValue_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetValue"
-	ServiceProviderToMicaService_SearchUserDiscount_FullMethodName           = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchUserDiscount"
-	ServiceProviderToMicaService_GetReceipt_FullMethodName                   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetReceipt"
-	ServiceProviderToMicaService_Ping_FullMethodName                         = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/Ping"
+	ServiceProviderToMicaService_GetServiceProvider_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetServiceProvider"
+	ServiceProviderToMicaService_RegisterUser_FullMethodName                   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RegisterUser"
+	ServiceProviderToMicaService_GetUser_FullMethodName                        = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetUser"
+	ServiceProviderToMicaService_UpdateUser_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/UpdateUser"
+	ServiceProviderToMicaService_RemoveUser_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveUser"
+	ServiceProviderToMicaService_SearchUser_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchUser"
+	ServiceProviderToMicaService_RegisterInstrument_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RegisterInstrument"
+	ServiceProviderToMicaService_GetInstrument_FullMethodName                  = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetInstrument"
+	ServiceProviderToMicaService_RemoveInstrument_FullMethodName               = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveInstrument"
+	ServiceProviderToMicaService_SearchInstrument_FullMethodName               = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchInstrument"
+	ServiceProviderToMicaService_ProvisionServiceProviderUUEK_FullMethodName   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/ProvisionServiceProviderUUEK"
+	ServiceProviderToMicaService_RemoveServiceProviderUUEK_FullMethodName      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveServiceProviderUUEK"
+	ServiceProviderToMicaService_SearchServiceProviderUUEK_FullMethodName      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchServiceProviderUUEK"
+	ServiceProviderToMicaService_ProvisionInstrumentLinkingCode_FullMethodName = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/ProvisionInstrumentLinkingCode"
+	ServiceProviderToMicaService_SendValue_FullMethodName                      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SendValue"
+	ServiceProviderToMicaService_GetValue_FullMethodName                       = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetValue"
+	ServiceProviderToMicaService_SearchUserDiscount_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchUserDiscount"
+	ServiceProviderToMicaService_GetReceipt_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetReceipt"
+	ServiceProviderToMicaService_Ping_FullMethodName                           = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/Ping"
 )
 
 // ServiceProviderToMicaServiceClient is the client API for ServiceProviderToMicaService service.
@@ -85,6 +86,8 @@ type ServiceProviderToMicaServiceClient interface {
 	RemoveServiceProviderUUEK(ctx context.Context, in *uuekv1.RemoveServiceProviderUUEKRequest, opts ...grpc.CallOption) (*uuekv1.RemoveServiceProviderUUEKResponse, error)
 	// Searches for UUEKs by criteria.
 	SearchServiceProviderUUEK(ctx context.Context, in *uuekv1.SearchServiceProviderUUEKRequest, opts ...grpc.CallOption) (*uuekv1.SearchServiceProviderUUEKResponse, error)
+	// <editor-fold desc="Account linking operations">
+	ProvisionInstrumentLinkingCode(ctx context.Context, in *instrumentv1.ProvisionInstrumentLinkingCodeRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionInstrumentLinkingCodeResponse, error)
 	SendValue(ctx context.Context, in *valuev1.SendValueRequest, opts ...grpc.CallOption) (*valuev1.SendValueResponse, error)
 	GetValue(ctx context.Context, in *valuev1.GetValueRequest, opts ...grpc.CallOption) (*valuev1.GetValueResponse, error)
 	SearchUserDiscount(ctx context.Context, in *discountv1.SearchUserDiscountRequest, opts ...grpc.CallOption) (*discountv1.SearchUserDiscountResponse, error)
@@ -219,6 +222,15 @@ func (c *serviceProviderToMicaServiceClient) SearchServiceProviderUUEK(ctx conte
 	return out, nil
 }
 
+func (c *serviceProviderToMicaServiceClient) ProvisionInstrumentLinkingCode(ctx context.Context, in *instrumentv1.ProvisionInstrumentLinkingCodeRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionInstrumentLinkingCodeResponse, error) {
+	out := new(instrumentv1.ProvisionInstrumentLinkingCodeResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_ProvisionInstrumentLinkingCode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *serviceProviderToMicaServiceClient) SendValue(ctx context.Context, in *valuev1.SendValueRequest, opts ...grpc.CallOption) (*valuev1.SendValueResponse, error) {
 	out := new(valuev1.SendValueResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_SendValue_FullMethodName, in, out, opts...)
@@ -294,6 +306,8 @@ type ServiceProviderToMicaServiceServer interface {
 	RemoveServiceProviderUUEK(context.Context, *uuekv1.RemoveServiceProviderUUEKRequest) (*uuekv1.RemoveServiceProviderUUEKResponse, error)
 	// Searches for UUEKs by criteria.
 	SearchServiceProviderUUEK(context.Context, *uuekv1.SearchServiceProviderUUEKRequest) (*uuekv1.SearchServiceProviderUUEKResponse, error)
+	// <editor-fold desc="Account linking operations">
+	ProvisionInstrumentLinkingCode(context.Context, *instrumentv1.ProvisionInstrumentLinkingCodeRequest) (*instrumentv1.ProvisionInstrumentLinkingCodeResponse, error)
 	SendValue(context.Context, *valuev1.SendValueRequest) (*valuev1.SendValueResponse, error)
 	GetValue(context.Context, *valuev1.GetValueRequest) (*valuev1.GetValueResponse, error)
 	SearchUserDiscount(context.Context, *discountv1.SearchUserDiscountRequest) (*discountv1.SearchUserDiscountResponse, error)
@@ -346,6 +360,9 @@ func (UnimplementedServiceProviderToMicaServiceServer) RemoveServiceProviderUUEK
 }
 func (UnimplementedServiceProviderToMicaServiceServer) SearchServiceProviderUUEK(context.Context, *uuekv1.SearchServiceProviderUUEKRequest) (*uuekv1.SearchServiceProviderUUEKResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchServiceProviderUUEK not implemented")
+}
+func (UnimplementedServiceProviderToMicaServiceServer) ProvisionInstrumentLinkingCode(context.Context, *instrumentv1.ProvisionInstrumentLinkingCodeRequest) (*instrumentv1.ProvisionInstrumentLinkingCodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProvisionInstrumentLinkingCode not implemented")
 }
 func (UnimplementedServiceProviderToMicaServiceServer) SendValue(context.Context, *valuev1.SendValueRequest) (*valuev1.SendValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SendValue not implemented")
@@ -610,6 +627,24 @@ func _ServiceProviderToMicaService_SearchServiceProviderUUEK_Handler(srv interfa
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceProviderToMicaService_ProvisionInstrumentLinkingCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.ProvisionInstrumentLinkingCodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderToMicaServiceServer).ProvisionInstrumentLinkingCode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderToMicaService_ProvisionInstrumentLinkingCode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderToMicaServiceServer).ProvisionInstrumentLinkingCode(ctx, req.(*instrumentv1.ProvisionInstrumentLinkingCodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ServiceProviderToMicaService_SendValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(valuev1.SendValueRequest)
 	if err := dec(in); err != nil {
@@ -758,6 +793,10 @@ var ServiceProviderToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchServiceProviderUUEK",
 			Handler:    _ServiceProviderToMicaService_SearchServiceProviderUUEK_Handler,
+		},
+		{
+			MethodName: "ProvisionInstrumentLinkingCode",
+			Handler:    _ServiceProviderToMicaService_ProvisionInstrumentLinkingCode_Handler,
 		},
 		{
 			MethodName: "SendValue",

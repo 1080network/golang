@@ -60,11 +60,14 @@ const (
 	PartnerToMicaService_ReverseReturnValue_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/ReverseReturnValue"
 	PartnerToMicaService_GetValue_FullMethodName                         = "/mica.partner.service.v1.PartnerToMicaService/GetValue"
 	PartnerToMicaService_HoldValue_FullMethodName                        = "/mica.partner.service.v1.PartnerToMicaService/HoldValue"
+	PartnerToMicaService_AmendHoldValue_FullMethodName                   = "/mica.partner.service.v1.PartnerToMicaService/AmendHoldValue"
 	PartnerToMicaService_ReleaseHoldValue_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/ReleaseHoldValue"
 	PartnerToMicaService_ObtainHoldValue_FullMethodName                  = "/mica.partner.service.v1.PartnerToMicaService/ObtainHoldValue"
-	PartnerToMicaService_Ping_FullMethodName                             = "/mica.partner.service.v1.PartnerToMicaService/Ping"
+	PartnerToMicaService_LinkInstrumentWithCode_FullMethodName           = "/mica.partner.service.v1.PartnerToMicaService/LinkInstrumentWithCode"
+	PartnerToMicaService_ProvisionUUEKWithLinkSessionKey_FullMethodName  = "/mica.partner.service.v1.PartnerToMicaService/ProvisionUUEKWithLinkSessionKey"
 	PartnerToMicaService_InitializeWidget_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/InitializeWidget"
 	PartnerToMicaService_ExchangeSessionKey_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/ExchangeSessionKey"
+	PartnerToMicaService_Ping_FullMethodName                             = "/mica.partner.service.v1.PartnerToMicaService/Ping"
 )
 
 // PartnerToMicaServiceClient is the client API for PartnerToMicaService service.
@@ -118,14 +121,20 @@ type PartnerToMicaServiceClient interface {
 	GetValue(ctx context.Context, in *valuev1.GetValueRequest, opts ...grpc.CallOption) (*valuev1.GetValueResponse, error)
 	// A method to hold some value to be obtained at a later date via ObtainHoldValue
 	HoldValue(ctx context.Context, in *valuev1.HoldValueRequest, opts ...grpc.CallOption) (*valuev1.HoldValueResponse, error)
+	// A method to amend the value of a prior hold to be obtained at a later date via ObtainHoldValue
+	AmendHoldValue(ctx context.Context, in *valuev1.AmendHoldValueRequest, opts ...grpc.CallOption) (*valuev1.AmendHoldValueResponse, error)
 	// A method to release previously held value
 	ReleaseHoldValue(ctx context.Context, in *valuev1.ReleaseHoldValueRequest, opts ...grpc.CallOption) (*valuev1.ReleaseHoldValueResponse, error)
 	// A method to obtain value that was previously held
 	ObtainHoldValue(ctx context.Context, in *valuev1.ObtainHoldValueRequest, opts ...grpc.CallOption) (*valuev1.ObtainHoldValueResponse, error)
-	// A method to ping the server to ensure it's up and running and that the connection is good.
-	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
+	// <editor-fold desc="account linking operations">
+	LinkInstrumentWithCode(ctx context.Context, in *instrumentv1.LinkInstrumentWithCodeRequest, opts ...grpc.CallOption) (*instrumentv1.LinkInstrumentWithCodeResponse, error)
+	ProvisionUUEKWithLinkSessionKey(ctx context.Context, in *instrumentv1.ProvisionUUEKWithLinkSessionKeyRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionUUEKWithLinkSessionKeyResponse, error)
+	// <editor-fold desc="Widget Operations">
 	InitializeWidget(ctx context.Context, in *instrumentv1.InitializeWidgetRequest, opts ...grpc.CallOption) (*instrumentv1.InitializeWidgetResponse, error)
 	ExchangeSessionKey(ctx context.Context, in *instrumentv1.ExchangeSessionKeyRequest, opts ...grpc.CallOption) (*instrumentv1.ExchangeSessionKeyResponse, error)
+	// A method to ping the server to ensure it's up and running and that the connection is good.
+	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
 }
 
 type partnerToMicaServiceClient struct {
@@ -352,6 +361,15 @@ func (c *partnerToMicaServiceClient) HoldValue(ctx context.Context, in *valuev1.
 	return out, nil
 }
 
+func (c *partnerToMicaServiceClient) AmendHoldValue(ctx context.Context, in *valuev1.AmendHoldValueRequest, opts ...grpc.CallOption) (*valuev1.AmendHoldValueResponse, error) {
+	out := new(valuev1.AmendHoldValueResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_AmendHoldValue_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *partnerToMicaServiceClient) ReleaseHoldValue(ctx context.Context, in *valuev1.ReleaseHoldValueRequest, opts ...grpc.CallOption) (*valuev1.ReleaseHoldValueResponse, error) {
 	out := new(valuev1.ReleaseHoldValueResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_ReleaseHoldValue_FullMethodName, in, out, opts...)
@@ -370,9 +388,18 @@ func (c *partnerToMicaServiceClient) ObtainHoldValue(ctx context.Context, in *va
 	return out, nil
 }
 
-func (c *partnerToMicaServiceClient) Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
-	out := new(pingv1.PingResponse)
-	err := c.cc.Invoke(ctx, PartnerToMicaService_Ping_FullMethodName, in, out, opts...)
+func (c *partnerToMicaServiceClient) LinkInstrumentWithCode(ctx context.Context, in *instrumentv1.LinkInstrumentWithCodeRequest, opts ...grpc.CallOption) (*instrumentv1.LinkInstrumentWithCodeResponse, error) {
+	out := new(instrumentv1.LinkInstrumentWithCodeResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_LinkInstrumentWithCode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) ProvisionUUEKWithLinkSessionKey(ctx context.Context, in *instrumentv1.ProvisionUUEKWithLinkSessionKeyRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionUUEKWithLinkSessionKeyResponse, error) {
+	out := new(instrumentv1.ProvisionUUEKWithLinkSessionKeyResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_ProvisionUUEKWithLinkSessionKey_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -391,6 +418,15 @@ func (c *partnerToMicaServiceClient) InitializeWidget(ctx context.Context, in *i
 func (c *partnerToMicaServiceClient) ExchangeSessionKey(ctx context.Context, in *instrumentv1.ExchangeSessionKeyRequest, opts ...grpc.CallOption) (*instrumentv1.ExchangeSessionKeyResponse, error) {
 	out := new(instrumentv1.ExchangeSessionKeyResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_ExchangeSessionKey_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
+	out := new(pingv1.PingResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_Ping_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -448,14 +484,20 @@ type PartnerToMicaServiceServer interface {
 	GetValue(context.Context, *valuev1.GetValueRequest) (*valuev1.GetValueResponse, error)
 	// A method to hold some value to be obtained at a later date via ObtainHoldValue
 	HoldValue(context.Context, *valuev1.HoldValueRequest) (*valuev1.HoldValueResponse, error)
+	// A method to amend the value of a prior hold to be obtained at a later date via ObtainHoldValue
+	AmendHoldValue(context.Context, *valuev1.AmendHoldValueRequest) (*valuev1.AmendHoldValueResponse, error)
 	// A method to release previously held value
 	ReleaseHoldValue(context.Context, *valuev1.ReleaseHoldValueRequest) (*valuev1.ReleaseHoldValueResponse, error)
 	// A method to obtain value that was previously held
 	ObtainHoldValue(context.Context, *valuev1.ObtainHoldValueRequest) (*valuev1.ObtainHoldValueResponse, error)
-	// A method to ping the server to ensure it's up and running and that the connection is good.
-	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
+	// <editor-fold desc="account linking operations">
+	LinkInstrumentWithCode(context.Context, *instrumentv1.LinkInstrumentWithCodeRequest) (*instrumentv1.LinkInstrumentWithCodeResponse, error)
+	ProvisionUUEKWithLinkSessionKey(context.Context, *instrumentv1.ProvisionUUEKWithLinkSessionKeyRequest) (*instrumentv1.ProvisionUUEKWithLinkSessionKeyResponse, error)
+	// <editor-fold desc="Widget Operations">
 	InitializeWidget(context.Context, *instrumentv1.InitializeWidgetRequest) (*instrumentv1.InitializeWidgetResponse, error)
 	ExchangeSessionKey(context.Context, *instrumentv1.ExchangeSessionKeyRequest) (*instrumentv1.ExchangeSessionKeyResponse, error)
+	// A method to ping the server to ensure it's up and running and that the connection is good.
+	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
 	mustEmbedUnimplementedPartnerToMicaServiceServer()
 }
 
@@ -535,20 +577,29 @@ func (UnimplementedPartnerToMicaServiceServer) GetValue(context.Context, *valuev
 func (UnimplementedPartnerToMicaServiceServer) HoldValue(context.Context, *valuev1.HoldValueRequest) (*valuev1.HoldValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HoldValue not implemented")
 }
+func (UnimplementedPartnerToMicaServiceServer) AmendHoldValue(context.Context, *valuev1.AmendHoldValueRequest) (*valuev1.AmendHoldValueResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AmendHoldValue not implemented")
+}
 func (UnimplementedPartnerToMicaServiceServer) ReleaseHoldValue(context.Context, *valuev1.ReleaseHoldValueRequest) (*valuev1.ReleaseHoldValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReleaseHoldValue not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) ObtainHoldValue(context.Context, *valuev1.ObtainHoldValueRequest) (*valuev1.ObtainHoldValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ObtainHoldValue not implemented")
 }
-func (UnimplementedPartnerToMicaServiceServer) Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
+func (UnimplementedPartnerToMicaServiceServer) LinkInstrumentWithCode(context.Context, *instrumentv1.LinkInstrumentWithCodeRequest) (*instrumentv1.LinkInstrumentWithCodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LinkInstrumentWithCode not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) ProvisionUUEKWithLinkSessionKey(context.Context, *instrumentv1.ProvisionUUEKWithLinkSessionKeyRequest) (*instrumentv1.ProvisionUUEKWithLinkSessionKeyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProvisionUUEKWithLinkSessionKey not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) InitializeWidget(context.Context, *instrumentv1.InitializeWidgetRequest) (*instrumentv1.InitializeWidgetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InitializeWidget not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) ExchangeSessionKey(context.Context, *instrumentv1.ExchangeSessionKeyRequest) (*instrumentv1.ExchangeSessionKeyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ExchangeSessionKey not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) mustEmbedUnimplementedPartnerToMicaServiceServer() {}
 
@@ -995,6 +1046,24 @@ func _PartnerToMicaService_HoldValue_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PartnerToMicaService_AmendHoldValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(valuev1.AmendHoldValueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).AmendHoldValue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_AmendHoldValue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).AmendHoldValue(ctx, req.(*valuev1.AmendHoldValueRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PartnerToMicaService_ReleaseHoldValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(valuev1.ReleaseHoldValueRequest)
 	if err := dec(in); err != nil {
@@ -1031,20 +1100,38 @@ func _PartnerToMicaService_ObtainHoldValue_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PartnerToMicaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(pingv1.PingRequest)
+func _PartnerToMicaService_LinkInstrumentWithCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.LinkInstrumentWithCodeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).Ping(ctx, in)
+		return srv.(PartnerToMicaServiceServer).LinkInstrumentWithCode(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: PartnerToMicaService_Ping_FullMethodName,
+		FullMethod: PartnerToMicaService_LinkInstrumentWithCode_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).Ping(ctx, req.(*pingv1.PingRequest))
+		return srv.(PartnerToMicaServiceServer).LinkInstrumentWithCode(ctx, req.(*instrumentv1.LinkInstrumentWithCodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_ProvisionUUEKWithLinkSessionKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.ProvisionUUEKWithLinkSessionKeyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).ProvisionUUEKWithLinkSessionKey(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_ProvisionUUEKWithLinkSessionKey_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).ProvisionUUEKWithLinkSessionKey(ctx, req.(*instrumentv1.ProvisionUUEKWithLinkSessionKeyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1081,6 +1168,24 @@ func _PartnerToMicaService_ExchangeSessionKey_Handler(srv interface{}, ctx conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartnerToMicaServiceServer).ExchangeSessionKey(ctx, req.(*instrumentv1.ExchangeSessionKeyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(pingv1.PingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).Ping(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_Ping_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).Ping(ctx, req.(*pingv1.PingRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1189,6 +1294,10 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PartnerToMicaService_HoldValue_Handler,
 		},
 		{
+			MethodName: "AmendHoldValue",
+			Handler:    _PartnerToMicaService_AmendHoldValue_Handler,
+		},
+		{
 			MethodName: "ReleaseHoldValue",
 			Handler:    _PartnerToMicaService_ReleaseHoldValue_Handler,
 		},
@@ -1197,8 +1306,12 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PartnerToMicaService_ObtainHoldValue_Handler,
 		},
 		{
-			MethodName: "Ping",
-			Handler:    _PartnerToMicaService_Ping_Handler,
+			MethodName: "LinkInstrumentWithCode",
+			Handler:    _PartnerToMicaService_LinkInstrumentWithCode_Handler,
+		},
+		{
+			MethodName: "ProvisionUUEKWithLinkSessionKey",
+			Handler:    _PartnerToMicaService_ProvisionUUEKWithLinkSessionKey_Handler,
 		},
 		{
 			MethodName: "InitializeWidget",
@@ -1207,6 +1320,10 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ExchangeSessionKey",
 			Handler:    _PartnerToMicaService_ExchangeSessionKey_Handler,
+		},
+		{
+			MethodName: "Ping",
+			Handler:    _PartnerToMicaService_Ping_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -105,10 +105,7 @@ message DiscoverUserResponse {
 }
 
 message GetServiceProviderUUEKRequest {
-  string uuek = 4 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+  string uuek = 4;
 }
 
 message GetServiceProviderUUEKResponse {
@@ -263,10 +260,7 @@ message User {
   // Last 4 digits of this instrument.
   string nickname = 6;
 
-  string uuek = 7 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+  string uuek = 7;
 }
 
 message ProvisionEnrollmentValidationCodeRequest {

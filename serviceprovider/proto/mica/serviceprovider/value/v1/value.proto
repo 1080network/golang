@@ -185,6 +185,10 @@ message ValueRequest {
   // Amount expressed as: ([0-9]*[.])?[0-9]+
   string ineligible_amount = 18;
 
+  // Surcharge amount is fees or tips, this is for informational purposes and is already computed in the total_amount
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
+  string surcharge_amount = 21;
+
   // The amount requested from the Service Provider for this transaction. Note that this calculated as:
   //    requested_amount = total_amount - discount_amount - ineligible_amount
   // Amount expressed as: ([0-9]*[.])?[0-9]+
@@ -206,7 +210,7 @@ message ObtainValueRequest {
 
   ValueRequest value = 2;
 
-  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  // use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 3;
 }
 
@@ -263,7 +267,7 @@ message ReverseValueRequest {
 
   string transaction_ref = 2 [(validate.rules).string.max_len = 100];
 
-  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  // use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 3;
 
   micashared.common.v1.TransactionIdentifier transaction_identifier = 4;
@@ -319,7 +323,7 @@ message ReturnValueRequest {
   // Service Provider can then use this field to match up Returns with the original Obtain.
   string initial_partner_transaction_ref = 2 [(validate.rules).string.max_len = 100];
 
-  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  // use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 3;
 }
 
@@ -371,7 +375,7 @@ message HoldValueRequest {
 
   ValueRequest value = 2;
 
-  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  // use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 3;
 }
 
@@ -384,8 +388,6 @@ message HoldValueResponse {
     STATUS_ERROR = 2;
     // User instrument doesn't have sufficient value to cover the transaction
     STATUS_INSUFFICIENT_VALUE = 4;
-    // When all products are either ineligible or age restricted
-    STATUS_INELIGIBLE_PRODUCTS = 5;
     // Instrument/account not found
     STATUS_NOT_FOUND = 6;
     // User instrument is closed
@@ -421,7 +423,72 @@ message HoldValueResponse {
   string approved_amount = 4;
 }
 
+message AmendHoldValueRequest {
+  // Mica's amend hold transaction record primary key.
+  string transaction_key = 1;
+
+  // the Partner's reference for the amend hold transaction
+  string transaction_ref = 2 [(validate.rules).string.max_len = 100];
+
+  // Mica's hold transaction record primary key.
+  string hold_transaction_key = 3;
+
+  // the Service Provider's reference for the hold transaction
+  string hold_transaction_ref = 4 [(validate.rules).string.max_len = 100];
+
+  // the new expiration timestamp for the amended hold
+  google.protobuf.Timestamp expiration = 5 [(validate.rules).timestamp.required = true];
+
+  // Total amount for this transaction.
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
+  string total_amount = 6;
+
+  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 7;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 8;
+}
+
+message AmendHoldValueResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    // An approval for the full amount
+    STATUS_FULL_APPROVAL = 1;
+    // An error occurred when processing the request
+    STATUS_ERROR = 2;
+    // User instrument doesn't have sufficient value to cover the transaction
+    STATUS_INSUFFICIENT_VALUE = 3;
+    // Instrument/account not found
+    STATUS_NOT_FOUND = 4;
+    // User instrument is closed
+    STATUS_INSTRUMENT_CLOSED = 5;
+    // Request triggered a transactional risk or fraud check resulting in a decline
+    STATUS_TRANSACTION_RISK_FRAUD = 6;
+    // Request triggered a bad actor risk or fraud check resulting in a decline
+    STATUS_BAD_ACTOR_RISK_FRAUD = 7;
+    // Request triggered a user-based risk or fraud check resulting in a decline
+    STATUS_USER_RISK_FRAUD = 8;
+    // Request triggered a instrument-based risk or fraud check resulting in a decline
+    STATUS_INSTRUMENT_RISK_FRAUD = 9;
+    // The user needs to call the Service Provider to resolve an issue
+    STATUS_USER_CALL_SERVICE_PROVIDER = 10;
+    // The operation isn't supported by the Service Provider
+    STATUS_UNSUPPORTED = 11;
+    // The Fi is unavailable at this time
+    STATUS_SERVICE_PROVIDER_UNAVAILABLE = 12;
+    // Request resulted in one or more limits being exceeded at the Service Provider
+    STATUS_LIMIT_EXCEEDED = 14;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  // Primary key of created transaction assigned by Mica.
+  string transaction_ref = 3 [(validate.rules).string.max_len = 100];
+}
+
 message ReleaseHoldValueRequest {
+  // Mica's hold transaction record primary key
   string transaction_key = 1;
 
   // the Partner's reference for the hold transaction
@@ -429,7 +496,7 @@ message ReleaseHoldValueRequest {
 
   google.protobuf.Timestamp release_timestamp = 3 [(validate.rules).timestamp.required = true];
 
-  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  // use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 4;
 
   micashared.common.v1.TransactionIdentifier transaction_identifier = 5;
@@ -464,7 +531,7 @@ message ObtainHoldValueRequest {
 
   ValueRequest value = 4;
 
-  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  // use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 5;
 }
 
@@ -535,7 +602,7 @@ message ReceiveValueRequest {
 
   serviceprovider.value.v1.From from = 5;
 
-  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  // use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 6;
 
   micashared.common.v1.TransactionIdentifier transaction_identifier = 7;
@@ -573,9 +640,14 @@ enum AdviceReason {
   // While processing a Value request, all of the products were ineligible (i.e., the requested amount was zero).
   ADVICE_REASON_INELIGIBLE_PRODUCTS = 5;
 
-  // While processing a Value request, the Service Provider was unavailable. This could be due to a network issue or
-  // timeout and would need to be resolved by the Issuer in the event that the Issuer did process the original request.
+  // While processing a Value request, the Service Provider was unavailable. The single request timeout case is
+  // covered by TIMEOUT below. This case is meant to happen when the service repeatedly fails to respond and is
+  // marked down or the SP client circuit breaker is open (not currently implemented).
   ADVICE_REASON_SERVICE_PROVIDER_UNAVAILABLE = 6;
+
+  // While processing a Value request, Mica timed out because Service Provider did not respond in time. We send this
+  // notification to the SP so the Issuer can reverse the transaction if in fact it was completed.
+  ADVICE_REASON_SERVICE_PROVIDER_TIMEOUT = 7;
 }
 
 message ValueAdvice {
@@ -660,17 +732,14 @@ message SendValueRequest {
   }
 
   // @gotags: mask:"security"
-  string to_uuek = 3 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+  string to_uuek = 3;
 
   micashared.common.enums.currency.v1.Currency currency = 4;
 
   // Amount expressed as: ([0-9]*[.])?[0-9]+
   string amount = 5;
 
-  //use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  // use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 10;
 }
 

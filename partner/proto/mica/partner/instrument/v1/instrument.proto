@@ -11,6 +11,7 @@ syntax = "proto3";
 package mica.partner.instrument.v1;
 
 import "micashared/common/v1/error.proto";
+import "micashared/common/v1/instrument.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/partner/instrumentv1";
@@ -52,4 +53,70 @@ message ExchangeSessionKeyResponse {
     min_len: 30,
     max_len: 50
   }];
+}
+
+message ProvisionUUEKWithLinkSessionKeyRequest {
+  // Use the session key to provision a UUEK
+  string link_session_key = 1 [(validate.rules).string = {
+    min_len: 27,
+    max_len: 50
+  }];
+}
+
+message ProvisionUUEKWithLinkSessionKeyResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  // The UUEK that can be used to run a transaction
+  string partner_uuek = 3;
+}
+
+message LinkInstrumentWithCodeRequest{
+  // String code supplied by the end user
+  string linking_code = 1;
+
+  // If set to true a uuek will be minted and no link session will be created
+  bool is_one_time_use = 2;
+
+  // If a multi use session is requested (i.e. is_one_time_use is false), setting this flag to true will return both a
+  // link session and a uuek
+  bool create_uuek = 3;
+
+  // On behalf of which organization this link will be created.
+  oneof organization_identifier {
+    string organization_key = 4 [(validate.rules).string = {max_len: 50}];
+
+    // The primary key for this organization at the Partner.
+    string organization_ref = 5 [(validate.rules).string = {max_len: 100}];
+  }  
+}
+
+message LinkInstrumentWithCodeResponse{
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  // If the requested link is one time use there will be no link session key
+  bool is_one_time_use = 3;
+
+  // If it is not a one time use the session key is the token to request other uueks in the future
+  string link_session_key = 4;
+
+  // If a uuek was requested or if one time use was requested a uuek is minted
+  string uuek = 5;
+
+  // Any claims that are associated with the link as provided by the Service Provider
+  micashared.common.v1.InstrumentLinkClaims claims = 6;
 }

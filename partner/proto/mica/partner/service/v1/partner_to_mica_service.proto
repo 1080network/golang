@@ -115,6 +115,9 @@ service PartnerToMicaService {
   // A method to hold some value to be obtained at a later date via ObtainHoldValue
   rpc HoldValue(value.v1.HoldValueRequest) returns (value.v1.HoldValueResponse) {}
 
+  // A method to amend the value of a prior hold to be obtained at a later date via ObtainHoldValue
+  rpc AmendHoldValue(value.v1.AmendHoldValueRequest) returns (value.v1.AmendHoldValueResponse) {}
+
   // A method to release previously held value
   rpc ReleaseHoldValue(value.v1.ReleaseHoldValueRequest) returns (value.v1.ReleaseHoldValueResponse) {}
 
@@ -122,16 +125,19 @@ service PartnerToMicaService {
   rpc ObtainHoldValue(value.v1.ObtainHoldValueRequest) returns (value.v1.ObtainHoldValueResponse) {}
   //</editor-fold>
 
-  //<editor-fold desc="Admin Operations">
+  //<editor-fold desc="account linking operations">
+  rpc LinkInstrumentWithCode(instrument.v1.LinkInstrumentWithCodeRequest) returns (instrument.v1.LinkInstrumentWithCodeResponse) {}
 
-  // A method to ping the server to ensure it's up and running and that the connection is good.
-  rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+  rpc ProvisionUUEKWithLinkSessionKey(instrument.v1.ProvisionUUEKWithLinkSessionKeyRequest) returns (instrument.v1.ProvisionUUEKWithLinkSessionKeyResponse){}
   //</editor-fold>
 
   //<editor-fold desc="Widget Operations">
-
   rpc InitializeWidget(widget.v1.InitializeWidgetRequest) returns (widget.v1.InitializeWidgetResponse) {}
 
   rpc ExchangeSessionKey(instrument.v1.ExchangeSessionKeyRequest) returns (instrument.v1.ExchangeSessionKeyResponse) {}
   //</editor-fold>
+
+
+  // A method to ping the server to ensure it's up and running and that the connection is good.
+  rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
 }

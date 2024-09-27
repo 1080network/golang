@@ -38,6 +38,7 @@ const (
 	ServiceProviderFromMicaService_ReturnValue_FullMethodName          = "/mica.serviceprovider.service.v1.ServiceProviderFromMicaService/ReturnValue"
 	ServiceProviderFromMicaService_ReverseReturnValue_FullMethodName   = "/mica.serviceprovider.service.v1.ServiceProviderFromMicaService/ReverseReturnValue"
 	ServiceProviderFromMicaService_HoldValue_FullMethodName            = "/mica.serviceprovider.service.v1.ServiceProviderFromMicaService/HoldValue"
+	ServiceProviderFromMicaService_AmendHoldValue_FullMethodName       = "/mica.serviceprovider.service.v1.ServiceProviderFromMicaService/AmendHoldValue"
 	ServiceProviderFromMicaService_ReleaseHoldValue_FullMethodName     = "/mica.serviceprovider.service.v1.ServiceProviderFromMicaService/ReleaseHoldValue"
 	ServiceProviderFromMicaService_ObtainHoldValue_FullMethodName      = "/mica.serviceprovider.service.v1.ServiceProviderFromMicaService/ObtainHoldValue"
 	ServiceProviderFromMicaService_ReceiveValue_FullMethodName         = "/mica.serviceprovider.service.v1.ServiceProviderFromMicaService/ReceiveValue"
@@ -67,6 +68,8 @@ type ServiceProviderFromMicaServiceClient interface {
 	ReverseReturnValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseValueResponse, error)
 	// Hold a value for a given instrument to be used at a later time
 	HoldValue(ctx context.Context, in *valuev1.HoldValueRequest, opts ...grpc.CallOption) (*valuev1.HoldValueResponse, error)
+	// Release a previously placed hold
+	AmendHoldValue(ctx context.Context, in *valuev1.AmendHoldValueRequest, opts ...grpc.CallOption) (*valuev1.AmendHoldValueResponse, error)
 	// Release a value that was previously held
 	ReleaseHoldValue(ctx context.Context, in *valuev1.ReleaseHoldValueRequest, opts ...grpc.CallOption) (*valuev1.ReleaseHoldValueResponse, error)
 	// Obtain a value that was previously held
@@ -148,6 +151,15 @@ func (c *serviceProviderFromMicaServiceClient) HoldValue(ctx context.Context, in
 	return out, nil
 }
 
+func (c *serviceProviderFromMicaServiceClient) AmendHoldValue(ctx context.Context, in *valuev1.AmendHoldValueRequest, opts ...grpc.CallOption) (*valuev1.AmendHoldValueResponse, error) {
+	out := new(valuev1.AmendHoldValueResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderFromMicaService_AmendHoldValue_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *serviceProviderFromMicaServiceClient) ReleaseHoldValue(ctx context.Context, in *valuev1.ReleaseHoldValueRequest, opts ...grpc.CallOption) (*valuev1.ReleaseHoldValueResponse, error) {
 	out := new(valuev1.ReleaseHoldValueResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderFromMicaService_ReleaseHoldValue_FullMethodName, in, out, opts...)
@@ -215,6 +227,8 @@ type ServiceProviderFromMicaServiceServer interface {
 	ReverseReturnValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseValueResponse, error)
 	// Hold a value for a given instrument to be used at a later time
 	HoldValue(context.Context, *valuev1.HoldValueRequest) (*valuev1.HoldValueResponse, error)
+	// Release a previously placed hold
+	AmendHoldValue(context.Context, *valuev1.AmendHoldValueRequest) (*valuev1.AmendHoldValueResponse, error)
 	// Release a value that was previously held
 	ReleaseHoldValue(context.Context, *valuev1.ReleaseHoldValueRequest) (*valuev1.ReleaseHoldValueResponse, error)
 	// Obtain a value that was previously held
@@ -250,6 +264,9 @@ func (UnimplementedServiceProviderFromMicaServiceServer) ReverseReturnValue(cont
 }
 func (UnimplementedServiceProviderFromMicaServiceServer) HoldValue(context.Context, *valuev1.HoldValueRequest) (*valuev1.HoldValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method HoldValue not implemented")
+}
+func (UnimplementedServiceProviderFromMicaServiceServer) AmendHoldValue(context.Context, *valuev1.AmendHoldValueRequest) (*valuev1.AmendHoldValueResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AmendHoldValue not implemented")
 }
 func (UnimplementedServiceProviderFromMicaServiceServer) ReleaseHoldValue(context.Context, *valuev1.ReleaseHoldValueRequest) (*valuev1.ReleaseHoldValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReleaseHoldValue not implemented")
@@ -406,6 +423,24 @@ func _ServiceProviderFromMicaService_HoldValue_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceProviderFromMicaService_AmendHoldValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(valuev1.AmendHoldValueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderFromMicaServiceServer).AmendHoldValue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderFromMicaService_AmendHoldValue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderFromMicaServiceServer).AmendHoldValue(ctx, req.(*valuev1.AmendHoldValueRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ServiceProviderFromMicaService_ReleaseHoldValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(valuev1.ReleaseHoldValueRequest)
 	if err := dec(in); err != nil {
@@ -530,6 +565,10 @@ var ServiceProviderFromMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "HoldValue",
 			Handler:    _ServiceProviderFromMicaService_HoldValue_Handler,
+		},
+		{
+			MethodName: "AmendHoldValue",
+			Handler:    _ServiceProviderFromMicaService_AmendHoldValue_Handler,
 		},
 		{
 			MethodName: "ReleaseHoldValue",
