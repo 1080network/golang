@@ -17,7 +17,7 @@ To build this code you need to install the pre-requisites listed [here](https://
 Once you have the pre-requisites just run the following command:
 
 ```shell
-make all
+VERSION=vX.X.X make all
 ```
 
 ### Code examples
