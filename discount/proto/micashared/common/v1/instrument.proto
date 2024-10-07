@@ -5,7 +5,7 @@ package micashared.common.v1;
 import "micashared/common/v1/user.proto";
 
 option go_package = "micashared/common/v1;commonv1";
-option java_outer_classname = "Instrument";
+option java_outer_classname = "InstrumentProto";
 option java_package = "io.micashared.common.v1";
 option objc_class_prefix = "MICA";
 

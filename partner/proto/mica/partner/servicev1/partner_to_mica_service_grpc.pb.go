@@ -37,6 +37,8 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	PartnerToMicaService_GetPartner_FullMethodName                       = "/mica.partner.service.v1.PartnerToMicaService/GetPartner"
+	PartnerToMicaService_CreateABAAccount_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/CreateABAAccount"
+	PartnerToMicaService_GetABAAccount_FullMethodName                    = "/mica.partner.service.v1.PartnerToMicaService/GetABAAccount"
 	PartnerToMicaService_SearchABAAccount_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/SearchABAAccount"
 	PartnerToMicaService_CreateOrganization_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/CreateOrganization"
 	PartnerToMicaService_GetOrganization_FullMethodName                  = "/mica.partner.service.v1.PartnerToMicaService/GetOrganization"
@@ -76,6 +78,8 @@ const (
 type PartnerToMicaServiceClient interface {
 	// Retrieves the details of the Partner at mica.
 	GetPartner(ctx context.Context, in *partnerv1.GetPartnerRequest, opts ...grpc.CallOption) (*partnerv1.GetPartnerResponse, error)
+	CreateABAAccount(ctx context.Context, in *accountv1.CreateABAAccountRequest, opts ...grpc.CallOption) (*accountv1.CreateABAAccountResponse, error)
+	GetABAAccount(ctx context.Context, in *accountv1.GetABAAccountRequest, opts ...grpc.CallOption) (*accountv1.GetABAAccountResponse, error)
 	SearchABAAccount(ctx context.Context, in *accountv1.SearchABAAccountRequest, opts ...grpc.CallOption) (*accountv1.SearchABAAccountResponse, error)
 	// A method to create an organization.
 	CreateOrganization(ctx context.Context, in *organizationv1.CreateOrganizationRequest, opts ...grpc.CallOption) (*organizationv1.CreateOrganizationResponse, error)
@@ -148,6 +152,24 @@ func NewPartnerToMicaServiceClient(cc grpc.ClientConnInterface) PartnerToMicaSer
 func (c *partnerToMicaServiceClient) GetPartner(ctx context.Context, in *partnerv1.GetPartnerRequest, opts ...grpc.CallOption) (*partnerv1.GetPartnerResponse, error) {
 	out := new(partnerv1.GetPartnerResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_GetPartner_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) CreateABAAccount(ctx context.Context, in *accountv1.CreateABAAccountRequest, opts ...grpc.CallOption) (*accountv1.CreateABAAccountResponse, error) {
+	out := new(accountv1.CreateABAAccountResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_CreateABAAccount_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) GetABAAccount(ctx context.Context, in *accountv1.GetABAAccountRequest, opts ...grpc.CallOption) (*accountv1.GetABAAccountResponse, error) {
+	out := new(accountv1.GetABAAccountResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_GetABAAccount_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -439,6 +461,8 @@ func (c *partnerToMicaServiceClient) Ping(ctx context.Context, in *pingv1.PingRe
 type PartnerToMicaServiceServer interface {
 	// Retrieves the details of the Partner at mica.
 	GetPartner(context.Context, *partnerv1.GetPartnerRequest) (*partnerv1.GetPartnerResponse, error)
+	CreateABAAccount(context.Context, *accountv1.CreateABAAccountRequest) (*accountv1.CreateABAAccountResponse, error)
+	GetABAAccount(context.Context, *accountv1.GetABAAccountRequest) (*accountv1.GetABAAccountResponse, error)
 	SearchABAAccount(context.Context, *accountv1.SearchABAAccountRequest) (*accountv1.SearchABAAccountResponse, error)
 	// A method to create an organization.
 	CreateOrganization(context.Context, *organizationv1.CreateOrganizationRequest) (*organizationv1.CreateOrganizationResponse, error)
@@ -507,6 +531,12 @@ type UnimplementedPartnerToMicaServiceServer struct {
 
 func (UnimplementedPartnerToMicaServiceServer) GetPartner(context.Context, *partnerv1.GetPartnerRequest) (*partnerv1.GetPartnerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPartner not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) CreateABAAccount(context.Context, *accountv1.CreateABAAccountRequest) (*accountv1.CreateABAAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateABAAccount not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) GetABAAccount(context.Context, *accountv1.GetABAAccountRequest) (*accountv1.GetABAAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetABAAccount not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) SearchABAAccount(context.Context, *accountv1.SearchABAAccountRequest) (*accountv1.SearchABAAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchABAAccount not implemented")
@@ -628,6 +658,42 @@ func _PartnerToMicaService_GetPartner_Handler(srv interface{}, ctx context.Conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartnerToMicaServiceServer).GetPartner(ctx, req.(*partnerv1.GetPartnerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_CreateABAAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(accountv1.CreateABAAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).CreateABAAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_CreateABAAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).CreateABAAccount(ctx, req.(*accountv1.CreateABAAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_GetABAAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(accountv1.GetABAAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).GetABAAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_GetABAAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).GetABAAccount(ctx, req.(*accountv1.GetABAAccountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1200,6 +1266,14 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPartner",
 			Handler:    _PartnerToMicaService_GetPartner_Handler,
+		},
+		{
+			MethodName: "CreateABAAccount",
+			Handler:    _PartnerToMicaService_CreateABAAccount_Handler,
+		},
+		{
+			MethodName: "GetABAAccount",
+			Handler:    _PartnerToMicaService_GetABAAccount_Handler,
 		},
 		{
 			MethodName: "SearchABAAccount",

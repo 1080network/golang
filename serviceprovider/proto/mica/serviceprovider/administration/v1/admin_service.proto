@@ -18,7 +18,7 @@ import "micashared/common/v1/mtls_certificate.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/serviceprovider/administrationv1";
-option java_outer_classname = "AdministrationService";
+option java_outer_classname = "AdministrationServiceProto";
 option java_package = "io.mica.serviceprovider.administration.v1";
 option objc_class_prefix = "MICA";
 

@@ -32,6 +32,10 @@ service PartnerToMicaService {
   // Retrieves the details of the Partner at mica.
   rpc GetPartner(partner.v1.GetPartnerRequest) returns (partner.v1.GetPartnerResponse) {}
 
+  rpc CreateABAAccount(mica.partner.account.v1.CreateABAAccountRequest) returns (mica.partner.account.v1.CreateABAAccountResponse) {}
+
+  rpc GetABAAccount(mica.partner.account.v1.GetABAAccountRequest) returns (mica.partner.account.v1.GetABAAccountResponse) {}
+  
   rpc SearchABAAccount(mica.partner.account.v1.SearchABAAccountRequest) returns (mica.partner.account.v1.SearchABAAccountResponse) {}
   //</editor-fold>
 

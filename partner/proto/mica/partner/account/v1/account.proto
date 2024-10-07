@@ -37,3 +37,40 @@ message SearchABAAccountResponse {
 
   repeated micashared.common.v1.ABAAccountEntry aba_accounts = 3;
 }
+
+
+message CreateABAAccountRequest {
+  micashared.common.v1.ABAAccountNumber account = 1;
+}
+
+message CreateABAAccountResponse{
+  enum Status{
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_DUPLICATE_ACCOUNT = 2;
+    STATUS_ROUTING_NUMBER_NOT_ALLOWED = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  string account_key = 3;
+}
+
+
+message GetABAAccountRequest {
+  string account_key = 1;
+}
+
+message GetABAAccountResponse{
+  enum Status{
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  micashared.common.v1.ABAAccountNumber account = 3;
+}

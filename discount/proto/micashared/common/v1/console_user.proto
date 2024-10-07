@@ -14,7 +14,7 @@ import "google/protobuf/timestamp.proto";
 import "micashared/common/v1/error.proto";
 
 option go_package = "micashared/common/v1;commonv1";
-option java_outer_classname = "ConsoleUser";
+option java_outer_classname = "ConsoleUserProto";
 option java_package = "io.micashared.common.v1";
 option objc_class_prefix = "MICA";
 

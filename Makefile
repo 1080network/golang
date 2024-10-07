@@ -1,19 +1,13 @@
+ifndef VERSION
+VERSION=main
+endif
+
 .PHONY: all
-all: clean prepare shared connect discount partner serviceprovider
+all: clean prepare shared discount partner serviceprovider
 
 .PHONY: shared
 shared:
 	cd shared && go mod tidy && go test
-
-.PHONY: connect
-connect: vendor
-	rm -rf connect/proto/*
-	cp -r proto/micashared connect/proto
-	mkdir -p connect/proto/mica
-	cp -r proto/mica/connect connect/proto/mica/.
-	./generateGo.sh connect
-	cd connect && go mod tidy
-
 
 .PHONY: discount
 discount: vendor
@@ -51,7 +45,10 @@ generate:
 	go generate proto.go
 
 prepare: generate vendor
-	cd proto && git pull
+
+.PHONY: protoupdate
+protoupdate: 
+	cd proto && git fetch --tags && git checkout $(VERSION)
 
 clean: 
 	rm -rf vendor

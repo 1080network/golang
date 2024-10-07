@@ -11,7 +11,7 @@ syntax = "proto3";
 package micashared.common.enums.discounttype.v1;
 
 option go_package = "micashared/common/enums/discounttypev1";
-option java_outer_classname = "DiscountTypeEnum";
+option java_outer_classname = "DiscountTypeEnumProto";
 option java_package = "io.micashared.common.enums.v1";
 option objc_class_prefix = "MICA";
 

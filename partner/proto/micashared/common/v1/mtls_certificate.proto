@@ -15,7 +15,7 @@ import "micashared/common/v1/error.proto";
 import "validate/validate.proto";
 
 option go_package = "micashared/common/v1;commonv1";
-option java_outer_classname = "MTLSCertificates";
+option java_outer_classname = "MTLSCertificatesProto";
 option java_package = "io.micashared.common.v1";
 option objc_class_prefix = "MICA";
 
