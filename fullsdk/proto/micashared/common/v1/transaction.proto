@@ -1,0 +1,29 @@
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "TransactionProto";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+message TransactionIdentifier {
+  // Global transaction ID passed that reflects the ID of this transaction across the entire path through the network.
+  // This can be used report issues and debug transactions
+  string global_transaction_id = 1;
+
+  // Global timestamp passed that reflects the time when the request arrived at the network and is the same for all
+  // services that are involved with processing a transaction. This field can be used when trying to reconcile data
+  // between you and the network (assuming you store this timestamp).
+  google.protobuf.Timestamp global_transaction_time = 2;
+}

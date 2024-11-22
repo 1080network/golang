@@ -1,0 +1,75 @@
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.v1;
+
+import "google/protobuf/timestamp.proto";
+import "micashared/common/enums/barcodelocation/v1/barcode_location.proto";
+import "micashared/common/enums/barcodetype/v1/barcode_type.proto";
+import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
+import "micashared/common/enums/organizationstatus/v1/organization_status.proto";
+import "micashared/common/v1/address.proto";
+import "micashared/common/v1/bank_account_detail.proto";
+import "validate/validate.proto";
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "OrganizationProto";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+message Organization {
+  // The primary key of the organization in Mica.
+  string organization_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  int64 version = 2;
+
+  // Date that the organization was created at Mica.
+  google.protobuf.Timestamp created = 3;
+
+  // Date that the organization was last updated at Mica.
+  google.protobuf.Timestamp updated = 4;
+
+  // The partner who owns this organization.
+  string partner_key = 5 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  string organization_ref = 8 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100
+  }];
+
+  // The name of this organization.
+  string name = 7;
+
+  micashared.common.enums.organizationstatus.v1.OrganizationStatus status = 10;
+
+  // The list of categories of this organization (used by Service Provider's to as part of their processing rules).
+  repeated micashared.common.enums.organizationcategory.v1.OrganizationCategory categories = 6;
+
+  // The street address of the organization.
+  micashared.common.v1.Address address = 9;
+
+  micashared.common.v1.BankAccountDetail operating_account = 15;
+
+  micashared.common.v1.BankAccountDetail revenue_account = 16;
+
+  micashared.common.enums.barcodetype.v1.BarcodeType barcode_type = 17 [(validate.rules).enum = {
+    not_in: [0]
+  }];
+
+  micashared.common.enums.barcodelocation.v1.BarcodeLocation barcode_location = 18 [(validate.rules).enum = {
+    not_in: [0]
+  }];
+}

@@ -1,0 +1,180 @@
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.ebt.listitem.v1;
+
+import "google/protobuf/timestamp.proto";
+import "micashared/common/v1/error.proto";
+import "validate/validate.proto";
+
+option go_package = "mica/ebt/listitemv1";
+option java_outer_classname = "ListItemProto";
+option java_package = "io.mica.ebt.listitem.v1";
+option objc_class_prefix = "MICA";
+
+enum ListItemStatus {
+  LIST_ITEM_STATUS_UNSPECIFIED = 0;
+  LIST_ITEM_STATUS_ELIGIBLE = 1;
+  LIST_ITEM_STATUS_INELIGIBLE = 2;
+  LIST_ITEM_STATUS_AGE_RESTRICTED = 3;
+  LIST_ITEM_STATUS_NOT_ASSESSED = 4;
+}
+
+message ListItem {
+  string list_item_key = 1 [(validate.rules).string = {
+    min_len: 27,
+    max_len: 50
+  }];
+
+  int64 version = 2 [(validate.rules).int64.gte = 0];
+
+  google.protobuf.Timestamp created = 3;
+
+  google.protobuf.Timestamp updated = 4;
+
+  string ebt_program_key = 5 [(validate.rules).string = {
+    min_len: 27,
+    max_len: 50
+  }];
+
+  string product_code = 6;
+
+  string description = 7;
+
+  ListItemStatus status = 8;
+}
+
+message CreateListItemRequest {
+  string ebt_program_key = 1 [(validate.rules).string = {
+    min_len: 27,
+    max_len: 50
+  }];
+
+  string product_code = 2;
+
+  string description = 3;
+
+  ListItemStatus status = 4;
+}
+
+message CreateListItemResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_DUPLICATE = 3;
+    STATUS_FORBIDDEN_DATA_ACCESS = 4;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  string list_item_key = 3 [(validate.rules).string = {
+    min_len: 27,
+    max_len: 50
+  }];
+
+  int64 version = 4;
+}
+
+message GetListItemRequest {
+  string list_item_key = 1 [(validate.rules).string = {
+    min_len: 27,
+    max_len: 50
+  }];
+}
+
+message GetListItemResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+    STATUS_FORBIDDEN_DATA_ACCESS = 4;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  ListItem list_item = 3;
+}
+
+message RemoveListItemRequest {
+  string list_item_key = 1 [(validate.rules).string = {
+    min_len: 27,
+    max_len: 50
+  }];
+}
+
+message RemoveListItemResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+    STATUS_FORBIDDEN_DATA_ACCESS = 4;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+}
+
+message UpdateListItemRequest {
+  string list_item_key = 1 [(validate.rules).string = {
+    min_len: 27,
+    max_len: 50
+  }];
+
+  int64 version = 2;
+
+  string description = 3;
+
+  ListItemStatus status = 4;
+}
+
+message UpdateListItemResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+    STATUS_FORBIDDEN_DATA_ACCESS = 4;
+    STATUS_VERSION_MISMATCH = 5;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  int64 version = 3;
+}
+
+message SearchListItemRequest {
+  string ebt_program_key = 1 [(validate.rules).string = {max_len: 50}];
+
+  string product_code = 2;
+
+  string description = 3;
+
+  ListItemStatus status = 4;
+}
+
+message SearchListItemResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_FORBIDDEN_DATA_ACCESS = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  repeated ListItem list_items = 3;
+}

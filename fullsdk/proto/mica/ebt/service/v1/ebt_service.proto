@@ -1,0 +1,79 @@
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.ebt.service.v1;
+
+import "mica/ebt/listitem/v1/list_item.proto";
+import "mica/ebt/program/v1/program.proto";
+import "micashared/common/ping/v1/ping.proto";
+
+option go_package = "mica/ebt/servicev1";
+option java_outer_classname = "EbtServiceProto";
+option java_package = "io.mica.ebt.service.v1";
+option objc_class_prefix = "MICA";
+
+// The operations defined for this service are used internally by mica to set up EBT programs and
+// also to filter Value Items during transaction processing. The operations to maintain EBT list
+// items are done through the regular EBT service (may need to reconsider this position later).</p>
+// <p>This service can be used by EBT program managers to create service accounts for their
+// administrators and systems, retrieve and update EBT program details and manage list items. The
+// EBT Program and it's service account must be created completed by mica. A Program is for a given
+// type (i.e. SNAP, TANF, WIC) and region (i.e. a US state) and has a set of rules associated with
+// it.</p>
+// <p>The program manager will be given access to the service account from which they can then
+// update the programs rules and start maintain the product lists for the program. Each list item
+// is associated with a program and has a product code (required), an optional description and a
+// status indicating how the item should be processed. The status can be one of:</p>
+// <ul><li>ELIGIBLE</li><li>INELIGIBLE</li><li>AGE_RESTRICTED</li></ul>
+// <p>When processing an EBT UUEK, mica will send the list of basket items to the EBT
+// service in order to confirm that all the items in the basket are eligible. Any that aren't will
+// be marked as such and the total requested amount from the Partner will be reduced. If the
+// approval type is FULL then mica will decline the value obtain request. If PARTIAL, mica will
+// pass the request on to the Service Provider.</p>
+// <p>Regardless of the rules defined for the Program, mica will record the items that wheren't on
+// any list for the program. This will enable the EBT program manager to update the lists based on
+// the recorded exceptions. mica will track the number of times a given product was seen.</p>
+// <p>The program manager may specify whether they want to accept only items that are ELIGIBLE,
+// reject only those that are AGE_RESTRICTED/INELIGIBLE or accept/reject those that aren't either
+// of those.</p>
+service EBTService {
+  //<editor-fold desc="EBT Program Management">
+
+  // Retrieve an EBT Program based on it's key.
+  rpc GetEBTProgram(program.v1.GetEBTProgramRequest) returns (program.v1.GetEBTProgramResponse) {}
+
+  // Update an EBT program's rules.
+  rpc UpdateEBTProgram(program.v1.UpdateEBTProgramRequest) returns (program.v1.UpdateEBTProgramResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="List Management Operations">
+
+  // Create a list item (either eligible, ineligible or age restricted) for a given program and product code.
+  rpc CreateListItem(listitem.v1.CreateListItemRequest) returns (listitem.v1.CreateListItemResponse) {}
+
+  // Retrieve a list item based on it's key.
+  rpc GetListItem(listitem.v1.GetListItemRequest) returns (listitem.v1.GetListItemResponse) {}
+
+  // Remove a list item that is not longer needed based on it's key.
+  rpc RemoveListItem(listitem.v1.RemoveListItemRequest) returns (listitem.v1.RemoveListItemResponse) {}
+
+  // Update a list items description or status.
+  rpc UpdateListItem(listitem.v1.UpdateListItemRequest) returns (listitem.v1.UpdateListItemResponse) {}
+
+  // Like GetListItem, can be used to retrieve List Items based on the criteria in the request.
+  rpc SearchListItem(listitem.v1.SearchListItemRequest) returns (listitem.v1.SearchListItemResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Admin Operations">
+
+  // An operation to ping the server to ensure it's up and running and that the connection is good.
+  rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+  //</editor-fold>
+}

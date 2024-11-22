@@ -1,0 +1,26 @@
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.v1;
+
+import "validate/validate.proto";
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "DiscountProto";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+message DiscountSummary {
+  // the total amount that was discounted
+  string discount_amount = 1;
+
+  // number of discounts applied 0 or more
+  int32 discounts_applied = 2 [(validate.rules).int32.gte = 0];
+}
