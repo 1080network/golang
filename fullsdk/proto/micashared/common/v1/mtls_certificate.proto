@@ -24,7 +24,7 @@ message MTLSCertificateSignatureRequest {
   string base64_pem_csr = 1 [(validate.rules).string.min_len = 1];
 }
 
-message MTLSCertificate {
+message ToMicaCertificate {
   //Serial number of the generated certificate
   string serial_number = 1 [(validate.rules).string.min_len = 1];
 
@@ -35,29 +35,11 @@ message MTLSCertificate {
   //whether this certificate can be used or has been disallowed for access regardless of expiration
   bool enabled = 4;
 
-  //The pem encoded certificate generated
-  string pem_certificate = 5;
+  //Base64 standard encoded PEM string
+  string base64_certificate_pem = 12;
 
   //Base64 standard encoded PEM string
-  string base64_pem_certificate = 12;
-
-  //The pem encoded issuing CA
-  string pem_issuing_ca = 6;
-
-  //Base64 standard encoded PEM string
-  string base64_pem_issuing_ca = 13;
-
-  //The pem encoded certificate chain
-  repeated string pem_ca_chain = 7;
-
-  //Base64 standard encoded PEM string
-  repeated string base64_pem_ca_chain = 14;
-
-  //Aggregate all in one pem bundle
-  string pem_bundle = 8;
-
-  //Base64 standard encoded PEM string
-  string base64_pem_bundle = 15;
+  string base64_rootca_pem = 13;
 
   //The roles the certificate has
   repeated string roles = 9;
@@ -69,7 +51,7 @@ message MTLSCertificate {
   google.protobuf.Timestamp last_used = 11;
 }
 
-message GenerateMTLSCertificateRequest {
+message GenerateToMicaCertificateRequest {
   MTLSCertificateSignatureRequest csr = 1 [(validate.rules).message.required = true];
   //TODO we should probably enum this with the few roles that are allowed for mTLS?
   repeated string roles = 3 [(validate.rules).repeated.min_items = 1];
@@ -77,7 +59,7 @@ message GenerateMTLSCertificateRequest {
   string display_name = 5;
 }
 
-message GenerateMTLSCertificateResponse {
+message GenerateToMicaCertificateResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -87,15 +69,14 @@ message GenerateMTLSCertificateResponse {
 
   micashared.common.v1.Error error = 2;
 
-  MTLSCertificate certificate = 3;
+  ToMicaCertificate certificate = 3;
 }
 
-message UpdateMTLSCertificateRequest {
+message EnableToMicaCertificateRequest {
   string serial_number = 1 [(validate.rules).string.min_len = 1];
-  bool enabled = 2;
 }
 
-message UpdateMTLSCertificateResponse {
+message EnableToMicaCertificateResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -107,11 +88,27 @@ message UpdateMTLSCertificateResponse {
   string serial_number = 3;
 }
 
-message GetMTLSCertificateRequest {
+message DisableToMicaCertificateRequest {
   string serial_number = 1 [(validate.rules).string.min_len = 1];
 }
 
-message GetMTLSCertificateResponse {
+message DisableToMicaCertificateResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+  string serial_number = 3;
+}
+
+message GetToMicaCertificateRequest {
+  string serial_number = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetToMicaCertificateResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -122,14 +119,14 @@ message GetMTLSCertificateResponse {
 
   micashared.common.v1.Error error = 2;
 
-  MTLSCertificate certificate = 3;
+  ToMicaCertificate certificate = 3;
 }
 
-message SearchMTLSCertificateRequest {
+message SearchToMicaCertificateRequest {
   // Nothing for now; we will add criteria as we add console use-cases.
 }
 
-message SearchMTLSCertificateResponse {
+message SearchToMicaCertificateResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -138,35 +135,36 @@ message SearchMTLSCertificateResponse {
   Status status = 1;
 
   micashared.common.v1.Error error = 2;
-  repeated MTLSCertificate certificates = 3;
+  repeated ToMicaCertificate certificates = 3;
 }
 
-// Client mTLS certificate operations.
+// From Mica Client mTLS certificate operations.
 
-message ClientMTLSCertificate {
-  string certificate_ref_key = 1 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }]; // Used for lookups NOT the actual private key.
+message FromMicaClientCertificate {
+  string certificate_id = 1; // Used for lookups NOT the actual private key.
+
   string display_name = 2;
-  string crt_pem = 3;
-  //Base64 standard encoded PEM string
-  string base64_crt_pem = 7;
-  string csr_pem = 4;
-  //Base64 standard encoded PEM string
+
+  //Base64 standard encoded cert PEM string
+  string base64_certificate_pem = 7;
+
+  //Base64 standard encoded CSR PEM string
   string base64_csr_pem = 8;
-  string rootca_bundle_pem = 5;
+
   //Base64 standard encoded PEM string
-  string base64_rootca_bundle_pem = 9;
+  string base64_rootca_pem = 9;
+
   bool enabled = 6;
+
+  bool use_host_trusted_certs = 10;
 }
 
 // We generate the db entry and return the csr to the user so they can sign it.
-message GenerateExternalClientMTLSCertificateRequest {
+message GenerateFromMicaClientCertificateRequest {
   string display_name = 1;
 }
 
-message GenerateExternalClientMTLSCertificateResponse {
+message GenerateFromMicaClientCertificateResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -175,24 +173,21 @@ message GenerateExternalClientMTLSCertificateResponse {
   Status status = 1;
 
   micashared.common.v1.Error error = 2;
-  // This will be returned with certificate_ref_key, display_name, csr_pem, and enabled.
-  ClientMTLSCertificate certificate_to_sign = 3;
+
+  FromMicaClientCertificate certificate_to_sign = 3;
 }
 
-message UpdateExternalClientMTLSCertificateRequest {
-  string certificate_ref_key = 1 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
+message UpdateFromMicaClientCertificateRequest {
+  string certificate_id = 1;
   string display_name = 2;
   //Base64 standard encoded PEM string
   string base64_signed_cert_pem_from_csr = 3;
   //Base64 standard encoded PEM string
-  string base64_rootca_bundle_pem = 4;
-  bool enabled = 5;
+  string base64_rootca_pem = 4;
+
 }
 
-message UpdateExternalClientMTLSCertificateResponse {
+message UpdateFromMicaClientCertificateResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -201,12 +196,14 @@ message UpdateExternalClientMTLSCertificateResponse {
   Status status = 1;
 
   micashared.common.v1.Error error = 2;
-  ClientMTLSCertificate certificate = 3;
+  FromMicaClientCertificate certificate = 3;
 }
 
-message SearchExternalClientMTLSCertificateRequest {}
+message EnableFromMicaClientCertificateRequest {
+  string certificate_id = 1 ;
+}
 
-message SearchExternalClientMTLSCertificateResponse {
+message EnableFromMicaClientCertificateResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -215,12 +212,13 @@ message SearchExternalClientMTLSCertificateResponse {
   Status status = 1;
 
   micashared.common.v1.Error error = 2;
-  repeated ClientMTLSCertificate certificates = 3;
+  FromMicaClientCertificate certificate = 3;
 }
 
-message GenerateQuickstartPackageZipRequest {}
 
-message GenerateQuickstartPackageZipResponse {
+message SearchFromMicaClientCertificateRequest {}
+
+message SearchFromMicaClientCertificateResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -229,6 +227,5 @@ message GenerateQuickstartPackageZipResponse {
   Status status = 1;
 
   micashared.common.v1.Error error = 2;
-
-  bytes quickstart_package_zip = 3;
+  repeated FromMicaClientCertificate certificates = 3;
 }

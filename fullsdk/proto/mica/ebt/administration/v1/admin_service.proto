@@ -18,16 +18,16 @@ option java_package = "io.mica.ebt.administration.v1";
 option objc_class_prefix = "MICA";
 
 service EBTAdministrationService {
-  rpc GenerateMTLSCertificate(micashared.common.v1.GenerateMTLSCertificateRequest) returns (micashared.common.v1.GenerateMTLSCertificateResponse) {}
-
+  //  Generate a new mTLS certificate. SignToMicaClientCSR GenerateToMicaCertificate
+  rpc GenerateToMicaCertificate(micashared.common.v1.GenerateToMicaCertificateRequest) returns (micashared.common.v1.GenerateToMicaCertificateResponse) {}
   // Update the certificate with a given serial number, only supports enable/disable for now
-  rpc UpdateMTLSCertificate(micashared.common.v1.UpdateMTLSCertificateRequest) returns (micashared.common.v1.UpdateMTLSCertificateResponse) {}
-
+  rpc EnableToMicaCertificate(micashared.common.v1.EnableToMicaCertificateRequest) returns (micashared.common.v1.EnableToMicaCertificateResponse) {}
+  // do we need a separate Disable call?
+  rpc DisableToMicaCertificate(micashared.common.v1.DisableToMicaCertificateRequest) returns (micashared.common.v1.DisableToMicaCertificateResponse) {}
   //Search for certificates and return the ones that match the criteria provided
-  rpc SearchMTLSCertificate(micashared.common.v1.SearchMTLSCertificateRequest) returns (micashared.common.v1.SearchMTLSCertificateResponse) {}
-
-  rpc GetMTLSCertificate(micashared.common.v1.GetMTLSCertificateRequest) returns (micashared.common.v1.GetMTLSCertificateResponse) {}
-
+  rpc SearchToMicaCertificate(micashared.common.v1.SearchToMicaCertificateRequest) returns (micashared.common.v1.SearchToMicaCertificateResponse) {}
+  // return a single certificate
+  rpc GetToMicaCertificate(micashared.common.v1.GetToMicaCertificateRequest) returns (micashared.common.v1.GetToMicaCertificateResponse) {}
   // This operation is not needed at present since EBT makes no outbound calls to EBT program managers
   // rpc PingExternal(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
 }

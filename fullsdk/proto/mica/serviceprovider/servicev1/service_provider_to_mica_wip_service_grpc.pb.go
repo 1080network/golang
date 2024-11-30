@@ -27,14 +27,15 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ServiceProviderToMicaWIPService_SetVisibilityStatus_FullMethodName               = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/SetVisibilityStatus"
-	ServiceProviderToMicaWIPService_DiscoverUser_FullMethodName                      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/DiscoverUser"
-	ServiceProviderToMicaWIPService_GetServiceProviderUUEK_FullMethodName            = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/GetServiceProviderUUEK"
-	ServiceProviderToMicaWIPService_SetPIN_FullMethodName                            = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/SetPIN"
-	ServiceProviderToMicaWIPService_ValidatePIN_FullMethodName                       = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/ValidatePIN"
-	ServiceProviderToMicaWIPService_ResetPIN_FullMethodName                          = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/ResetPIN"
-	ServiceProviderToMicaWIPService_RemovePIN_FullMethodName                         = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/RemovePIN"
-	ServiceProviderToMicaWIPService_ProvisionEnrollmentValidationCode_FullMethodName = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/ProvisionEnrollmentValidationCode"
+	ServiceProviderToMicaWIPService_SetVisibilityStatus_FullMethodName            = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/SetVisibilityStatus"
+	ServiceProviderToMicaWIPService_DiscoverUser_FullMethodName                   = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/DiscoverUser"
+	ServiceProviderToMicaWIPService_GetServiceProviderUUEK_FullMethodName         = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/GetServiceProviderUUEK"
+	ServiceProviderToMicaWIPService_SetPIN_FullMethodName                         = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/SetPIN"
+	ServiceProviderToMicaWIPService_ValidatePIN_FullMethodName                    = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/ValidatePIN"
+	ServiceProviderToMicaWIPService_ResetPIN_FullMethodName                       = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/ResetPIN"
+	ServiceProviderToMicaWIPService_RemovePIN_FullMethodName                      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/RemovePIN"
+	ServiceProviderToMicaWIPService_GetLinkedAccountBalance_FullMethodName        = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/GetLinkedAccountBalance"
+	ServiceProviderToMicaWIPService_UpdateAccountEnableForPurchase_FullMethodName = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/UpdateAccountEnableForPurchase"
 )
 
 // ServiceProviderToMicaWIPServiceClient is the client API for ServiceProviderToMicaWIPService service.
@@ -48,8 +49,8 @@ type ServiceProviderToMicaWIPServiceClient interface {
 	ValidatePIN(ctx context.Context, in *ValidatePINRequest, opts ...grpc.CallOption) (*ValidatePINResponse, error)
 	ResetPIN(ctx context.Context, in *ResetPINRequest, opts ...grpc.CallOption) (*ResetPINResponse, error)
 	RemovePIN(ctx context.Context, in *RemovePINRequest, opts ...grpc.CallOption) (*RemovePINResponse, error)
-	// <editor-fold desc="Service Provider initiated enrollment authentication">
-	ProvisionEnrollmentValidationCode(ctx context.Context, in *ProvisionEnrollmentValidationCodeRequest, opts ...grpc.CallOption) (*ProvisionEnrollmentValidationCodeResponse, error)
+	GetLinkedAccountBalance(ctx context.Context, in *GetLinkedAccountBalanceRequest, opts ...grpc.CallOption) (*GetLinkedAccountBalanceResponse, error)
+	UpdateAccountEnableForPurchase(ctx context.Context, in *UpdateAccountEnableForPurchaseRequest, opts ...grpc.CallOption) (*UpdateAccountEnableForPurchaseResponse, error)
 }
 
 type serviceProviderToMicaWIPServiceClient struct {
@@ -123,9 +124,18 @@ func (c *serviceProviderToMicaWIPServiceClient) RemovePIN(ctx context.Context, i
 	return out, nil
 }
 
-func (c *serviceProviderToMicaWIPServiceClient) ProvisionEnrollmentValidationCode(ctx context.Context, in *ProvisionEnrollmentValidationCodeRequest, opts ...grpc.CallOption) (*ProvisionEnrollmentValidationCodeResponse, error) {
-	out := new(ProvisionEnrollmentValidationCodeResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderToMicaWIPService_ProvisionEnrollmentValidationCode_FullMethodName, in, out, opts...)
+func (c *serviceProviderToMicaWIPServiceClient) GetLinkedAccountBalance(ctx context.Context, in *GetLinkedAccountBalanceRequest, opts ...grpc.CallOption) (*GetLinkedAccountBalanceResponse, error) {
+	out := new(GetLinkedAccountBalanceResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderToMicaWIPService_GetLinkedAccountBalance_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceProviderToMicaWIPServiceClient) UpdateAccountEnableForPurchase(ctx context.Context, in *UpdateAccountEnableForPurchaseRequest, opts ...grpc.CallOption) (*UpdateAccountEnableForPurchaseResponse, error) {
+	out := new(UpdateAccountEnableForPurchaseResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderToMicaWIPService_UpdateAccountEnableForPurchase_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -143,8 +153,8 @@ type ServiceProviderToMicaWIPServiceServer interface {
 	ValidatePIN(context.Context, *ValidatePINRequest) (*ValidatePINResponse, error)
 	ResetPIN(context.Context, *ResetPINRequest) (*ResetPINResponse, error)
 	RemovePIN(context.Context, *RemovePINRequest) (*RemovePINResponse, error)
-	// <editor-fold desc="Service Provider initiated enrollment authentication">
-	ProvisionEnrollmentValidationCode(context.Context, *ProvisionEnrollmentValidationCodeRequest) (*ProvisionEnrollmentValidationCodeResponse, error)
+	GetLinkedAccountBalance(context.Context, *GetLinkedAccountBalanceRequest) (*GetLinkedAccountBalanceResponse, error)
+	UpdateAccountEnableForPurchase(context.Context, *UpdateAccountEnableForPurchaseRequest) (*UpdateAccountEnableForPurchaseResponse, error)
 	mustEmbedUnimplementedServiceProviderToMicaWIPServiceServer()
 }
 
@@ -173,8 +183,11 @@ func (UnimplementedServiceProviderToMicaWIPServiceServer) ResetPIN(context.Conte
 func (UnimplementedServiceProviderToMicaWIPServiceServer) RemovePIN(context.Context, *RemovePINRequest) (*RemovePINResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemovePIN not implemented")
 }
-func (UnimplementedServiceProviderToMicaWIPServiceServer) ProvisionEnrollmentValidationCode(context.Context, *ProvisionEnrollmentValidationCodeRequest) (*ProvisionEnrollmentValidationCodeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ProvisionEnrollmentValidationCode not implemented")
+func (UnimplementedServiceProviderToMicaWIPServiceServer) GetLinkedAccountBalance(context.Context, *GetLinkedAccountBalanceRequest) (*GetLinkedAccountBalanceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLinkedAccountBalance not implemented")
+}
+func (UnimplementedServiceProviderToMicaWIPServiceServer) UpdateAccountEnableForPurchase(context.Context, *UpdateAccountEnableForPurchaseRequest) (*UpdateAccountEnableForPurchaseResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAccountEnableForPurchase not implemented")
 }
 func (UnimplementedServiceProviderToMicaWIPServiceServer) mustEmbedUnimplementedServiceProviderToMicaWIPServiceServer() {
 }
@@ -316,20 +329,38 @@ func _ServiceProviderToMicaWIPService_RemovePIN_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceProviderToMicaWIPService_ProvisionEnrollmentValidationCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ProvisionEnrollmentValidationCodeRequest)
+func _ServiceProviderToMicaWIPService_GetLinkedAccountBalance_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetLinkedAccountBalanceRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ServiceProviderToMicaWIPServiceServer).ProvisionEnrollmentValidationCode(ctx, in)
+		return srv.(ServiceProviderToMicaWIPServiceServer).GetLinkedAccountBalance(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: ServiceProviderToMicaWIPService_ProvisionEnrollmentValidationCode_FullMethodName,
+		FullMethod: ServiceProviderToMicaWIPService_GetLinkedAccountBalance_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderToMicaWIPServiceServer).ProvisionEnrollmentValidationCode(ctx, req.(*ProvisionEnrollmentValidationCodeRequest))
+		return srv.(ServiceProviderToMicaWIPServiceServer).GetLinkedAccountBalance(ctx, req.(*GetLinkedAccountBalanceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceProviderToMicaWIPService_UpdateAccountEnableForPurchase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAccountEnableForPurchaseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderToMicaWIPServiceServer).UpdateAccountEnableForPurchase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderToMicaWIPService_UpdateAccountEnableForPurchase_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderToMicaWIPServiceServer).UpdateAccountEnableForPurchase(ctx, req.(*UpdateAccountEnableForPurchaseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -370,8 +401,12 @@ var ServiceProviderToMicaWIPService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ServiceProviderToMicaWIPService_RemovePIN_Handler,
 		},
 		{
-			MethodName: "ProvisionEnrollmentValidationCode",
-			Handler:    _ServiceProviderToMicaWIPService_ProvisionEnrollmentValidationCode_Handler,
+			MethodName: "GetLinkedAccountBalance",
+			Handler:    _ServiceProviderToMicaWIPService_GetLinkedAccountBalance_Handler,
+		},
+		{
+			MethodName: "UpdateAccountEnableForPurchase",
+			Handler:    _ServiceProviderToMicaWIPService_UpdateAccountEnableForPurchase_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

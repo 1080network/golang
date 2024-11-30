@@ -2,15 +2,23 @@ syntax = "proto3";
 
 package micashared.common.v1;
 
+import "google/protobuf/timestamp.proto";
 import "micashared/common/v1/user.proto";
+import "micashared/common/enums/currency/v1/currency.proto";
+import "micashared/common/enums/instrumenttype/v1/instrument_type.proto";
+import "micashared/common/enums/recurringpaymenttype/v1/recurringpaymenttype.proto";
+import "micashared/common/enums/recurringpaymentfrequency/v1/recurringpaymentfrequency.proto";
+
 
 option go_package = "micashared/common/v1;commonv1";
 option java_outer_classname = "InstrumentProto";
 option java_package = "io.micashared.common.v1";
 option objc_class_prefix = "MICA";
 
-message Instrument {
+message LinkedInstrumentData {
     string name = 1;
+    micashared.common.enums.instrumenttype.v1.InstrumentType type = 2;
+    string icon_url = 3;
 }
 
 // A message that allows to exchange information between the different sides of the network
@@ -20,6 +28,37 @@ message InstrumentLinkClaims {
     map<string, string> assertions = 1;
 
     micashared.common.v1.UserDemographic user_demographic = 2;
+}
 
-    Instrument instrument = 3;
+message RecurringPayment {
+
+    string recurring_payment_key = 1;
+
+    micashared.common.enums.currency.v1.Currency currency = 3;
+
+    string amount = 4;
+
+    micashared.common.enums.recurringpaymentfrequency.v1.RecurringPaymentFrequency frequency = 5;
+
+    micashared.common.enums.recurringpaymenttype.v1.RecurringPaymentType recurring_payment_type = 6;
+
+    google.protobuf.Timestamp created = 7;
+
+    int64 total_number_payments = 8;
+
+    google.protobuf.Timestamp last_payment = 9;
+
+    string last_payment_amount = 10;
+
+    int64 number_payments_made = 11;
+
+    RecurringPaymentStatus status = 12;
+
+}
+
+enum RecurringPaymentStatus {
+    RECURRING_PAYMENT_STATUS_UNSPECIFIED = 0;
+    RECURRING_PAYMENT_STATUS_ACTIVE = 1;
+    RECURRING_PAYMENT_STATUS_INACTIVE = 2;
+    RECURRING_PAYMENT_STATUS_CANCELED = 3;
 }

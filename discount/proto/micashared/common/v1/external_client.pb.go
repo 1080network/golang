@@ -79,150 +79,150 @@ func (ClientAuthenticationType) EnumDescriptor() ([]byte, []int) {
 	return file_micashared_common_v1_external_client_proto_rawDescGZIP(), []int{0}
 }
 
-type GetExternalClientSettingsResponse_Status int32
+type GetFromMicaClientSettingsResponse_Status int32
 
 const (
-	GetExternalClientSettingsResponse_STATUS_UNSPECIFIED GetExternalClientSettingsResponse_Status = 0
-	GetExternalClientSettingsResponse_STATUS_SUCCESS     GetExternalClientSettingsResponse_Status = 1
-	GetExternalClientSettingsResponse_STATUS_ERROR       GetExternalClientSettingsResponse_Status = 2
+	GetFromMicaClientSettingsResponse_STATUS_UNSPECIFIED GetFromMicaClientSettingsResponse_Status = 0
+	GetFromMicaClientSettingsResponse_STATUS_SUCCESS     GetFromMicaClientSettingsResponse_Status = 1
+	GetFromMicaClientSettingsResponse_STATUS_ERROR       GetFromMicaClientSettingsResponse_Status = 2
 )
 
-// Enum value maps for GetExternalClientSettingsResponse_Status.
+// Enum value maps for GetFromMicaClientSettingsResponse_Status.
 var (
-	GetExternalClientSettingsResponse_Status_name = map[int32]string{
+	GetFromMicaClientSettingsResponse_Status_name = map[int32]string{
 		0: "STATUS_UNSPECIFIED",
 		1: "STATUS_SUCCESS",
 		2: "STATUS_ERROR",
 	}
-	GetExternalClientSettingsResponse_Status_value = map[string]int32{
+	GetFromMicaClientSettingsResponse_Status_value = map[string]int32{
 		"STATUS_UNSPECIFIED": 0,
 		"STATUS_SUCCESS":     1,
 		"STATUS_ERROR":       2,
 	}
 )
 
-func (x GetExternalClientSettingsResponse_Status) Enum() *GetExternalClientSettingsResponse_Status {
-	p := new(GetExternalClientSettingsResponse_Status)
+func (x GetFromMicaClientSettingsResponse_Status) Enum() *GetFromMicaClientSettingsResponse_Status {
+	p := new(GetFromMicaClientSettingsResponse_Status)
 	*p = x
 	return p
 }
 
-func (x GetExternalClientSettingsResponse_Status) String() string {
+func (x GetFromMicaClientSettingsResponse_Status) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (GetExternalClientSettingsResponse_Status) Descriptor() protoreflect.EnumDescriptor {
+func (GetFromMicaClientSettingsResponse_Status) Descriptor() protoreflect.EnumDescriptor {
 	return file_micashared_common_v1_external_client_proto_enumTypes[1].Descriptor()
 }
 
-func (GetExternalClientSettingsResponse_Status) Type() protoreflect.EnumType {
+func (GetFromMicaClientSettingsResponse_Status) Type() protoreflect.EnumType {
 	return &file_micashared_common_v1_external_client_proto_enumTypes[1]
 }
 
-func (x GetExternalClientSettingsResponse_Status) Number() protoreflect.EnumNumber {
+func (x GetFromMicaClientSettingsResponse_Status) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use GetExternalClientSettingsResponse_Status.Descriptor instead.
-func (GetExternalClientSettingsResponse_Status) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use GetFromMicaClientSettingsResponse_Status.Descriptor instead.
+func (GetFromMicaClientSettingsResponse_Status) EnumDescriptor() ([]byte, []int) {
 	return file_micashared_common_v1_external_client_proto_rawDescGZIP(), []int{3, 0}
 }
 
-type UpdateExternalClientCallBackAddressResponse_Status int32
+type UpdateFromMicaClientCallBackAddressResponse_Status int32
 
 const (
-	UpdateExternalClientCallBackAddressResponse_STATUS_UNSPECIFIED UpdateExternalClientCallBackAddressResponse_Status = 0
-	UpdateExternalClientCallBackAddressResponse_STATUS_SUCCESS     UpdateExternalClientCallBackAddressResponse_Status = 1
-	UpdateExternalClientCallBackAddressResponse_STATUS_ERROR       UpdateExternalClientCallBackAddressResponse_Status = 2
+	UpdateFromMicaClientCallBackAddressResponse_STATUS_UNSPECIFIED UpdateFromMicaClientCallBackAddressResponse_Status = 0
+	UpdateFromMicaClientCallBackAddressResponse_STATUS_SUCCESS     UpdateFromMicaClientCallBackAddressResponse_Status = 1
+	UpdateFromMicaClientCallBackAddressResponse_STATUS_ERROR       UpdateFromMicaClientCallBackAddressResponse_Status = 2
 )
 
-// Enum value maps for UpdateExternalClientCallBackAddressResponse_Status.
+// Enum value maps for UpdateFromMicaClientCallBackAddressResponse_Status.
 var (
-	UpdateExternalClientCallBackAddressResponse_Status_name = map[int32]string{
+	UpdateFromMicaClientCallBackAddressResponse_Status_name = map[int32]string{
 		0: "STATUS_UNSPECIFIED",
 		1: "STATUS_SUCCESS",
 		2: "STATUS_ERROR",
 	}
-	UpdateExternalClientCallBackAddressResponse_Status_value = map[string]int32{
+	UpdateFromMicaClientCallBackAddressResponse_Status_value = map[string]int32{
 		"STATUS_UNSPECIFIED": 0,
 		"STATUS_SUCCESS":     1,
 		"STATUS_ERROR":       2,
 	}
 )
 
-func (x UpdateExternalClientCallBackAddressResponse_Status) Enum() *UpdateExternalClientCallBackAddressResponse_Status {
-	p := new(UpdateExternalClientCallBackAddressResponse_Status)
+func (x UpdateFromMicaClientCallBackAddressResponse_Status) Enum() *UpdateFromMicaClientCallBackAddressResponse_Status {
+	p := new(UpdateFromMicaClientCallBackAddressResponse_Status)
 	*p = x
 	return p
 }
 
-func (x UpdateExternalClientCallBackAddressResponse_Status) String() string {
+func (x UpdateFromMicaClientCallBackAddressResponse_Status) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (UpdateExternalClientCallBackAddressResponse_Status) Descriptor() protoreflect.EnumDescriptor {
+func (UpdateFromMicaClientCallBackAddressResponse_Status) Descriptor() protoreflect.EnumDescriptor {
 	return file_micashared_common_v1_external_client_proto_enumTypes[2].Descriptor()
 }
 
-func (UpdateExternalClientCallBackAddressResponse_Status) Type() protoreflect.EnumType {
+func (UpdateFromMicaClientCallBackAddressResponse_Status) Type() protoreflect.EnumType {
 	return &file_micashared_common_v1_external_client_proto_enumTypes[2]
 }
 
-func (x UpdateExternalClientCallBackAddressResponse_Status) Number() protoreflect.EnumNumber {
+func (x UpdateFromMicaClientCallBackAddressResponse_Status) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use UpdateExternalClientCallBackAddressResponse_Status.Descriptor instead.
-func (UpdateExternalClientCallBackAddressResponse_Status) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use UpdateFromMicaClientCallBackAddressResponse_Status.Descriptor instead.
+func (UpdateFromMicaClientCallBackAddressResponse_Status) EnumDescriptor() ([]byte, []int) {
 	return file_micashared_common_v1_external_client_proto_rawDescGZIP(), []int{5, 0}
 }
 
-type UpdateExternalClientAuthenticationTypeResponse_Status int32
+type UpdateFromMicaClientAuthenticationTypeResponse_Status int32
 
 const (
-	UpdateExternalClientAuthenticationTypeResponse_STATUS_UNSPECIFIED UpdateExternalClientAuthenticationTypeResponse_Status = 0
-	UpdateExternalClientAuthenticationTypeResponse_STATUS_SUCCESS     UpdateExternalClientAuthenticationTypeResponse_Status = 1
-	UpdateExternalClientAuthenticationTypeResponse_STATUS_ERROR       UpdateExternalClientAuthenticationTypeResponse_Status = 2
+	UpdateFromMicaClientAuthenticationTypeResponse_STATUS_UNSPECIFIED UpdateFromMicaClientAuthenticationTypeResponse_Status = 0
+	UpdateFromMicaClientAuthenticationTypeResponse_STATUS_SUCCESS     UpdateFromMicaClientAuthenticationTypeResponse_Status = 1
+	UpdateFromMicaClientAuthenticationTypeResponse_STATUS_ERROR       UpdateFromMicaClientAuthenticationTypeResponse_Status = 2
 )
 
-// Enum value maps for UpdateExternalClientAuthenticationTypeResponse_Status.
+// Enum value maps for UpdateFromMicaClientAuthenticationTypeResponse_Status.
 var (
-	UpdateExternalClientAuthenticationTypeResponse_Status_name = map[int32]string{
+	UpdateFromMicaClientAuthenticationTypeResponse_Status_name = map[int32]string{
 		0: "STATUS_UNSPECIFIED",
 		1: "STATUS_SUCCESS",
 		2: "STATUS_ERROR",
 	}
-	UpdateExternalClientAuthenticationTypeResponse_Status_value = map[string]int32{
+	UpdateFromMicaClientAuthenticationTypeResponse_Status_value = map[string]int32{
 		"STATUS_UNSPECIFIED": 0,
 		"STATUS_SUCCESS":     1,
 		"STATUS_ERROR":       2,
 	}
 )
 
-func (x UpdateExternalClientAuthenticationTypeResponse_Status) Enum() *UpdateExternalClientAuthenticationTypeResponse_Status {
-	p := new(UpdateExternalClientAuthenticationTypeResponse_Status)
+func (x UpdateFromMicaClientAuthenticationTypeResponse_Status) Enum() *UpdateFromMicaClientAuthenticationTypeResponse_Status {
+	p := new(UpdateFromMicaClientAuthenticationTypeResponse_Status)
 	*p = x
 	return p
 }
 
-func (x UpdateExternalClientAuthenticationTypeResponse_Status) String() string {
+func (x UpdateFromMicaClientAuthenticationTypeResponse_Status) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (UpdateExternalClientAuthenticationTypeResponse_Status) Descriptor() protoreflect.EnumDescriptor {
+func (UpdateFromMicaClientAuthenticationTypeResponse_Status) Descriptor() protoreflect.EnumDescriptor {
 	return file_micashared_common_v1_external_client_proto_enumTypes[3].Descriptor()
 }
 
-func (UpdateExternalClientAuthenticationTypeResponse_Status) Type() protoreflect.EnumType {
+func (UpdateFromMicaClientAuthenticationTypeResponse_Status) Type() protoreflect.EnumType {
 	return &file_micashared_common_v1_external_client_proto_enumTypes[3]
 }
 
-func (x UpdateExternalClientAuthenticationTypeResponse_Status) Number() protoreflect.EnumNumber {
+func (x UpdateFromMicaClientAuthenticationTypeResponse_Status) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use UpdateExternalClientAuthenticationTypeResponse_Status.Descriptor instead.
-func (UpdateExternalClientAuthenticationTypeResponse_Status) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use UpdateFromMicaClientAuthenticationTypeResponse_Status.Descriptor instead.
+func (UpdateFromMicaClientAuthenticationTypeResponse_Status) EnumDescriptor() ([]byte, []int) {
 	return file_micashared_common_v1_external_client_proto_rawDescGZIP(), []int{7, 0}
 }
 
@@ -360,14 +360,14 @@ func (x *ClientAuthenticationSettings) GetCurrentAuthenticationType() ClientAuth
 	return ClientAuthenticationType_CLIENT_AUTHENTICATION_TYPE_UNSPECIFIED
 }
 
-type GetExternalClientSettingsRequest struct {
+type GetFromMicaClientSettingsRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *GetExternalClientSettingsRequest) Reset() {
-	*x = GetExternalClientSettingsRequest{}
+func (x *GetFromMicaClientSettingsRequest) Reset() {
+	*x = GetFromMicaClientSettingsRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_micashared_common_v1_external_client_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -375,13 +375,13 @@ func (x *GetExternalClientSettingsRequest) Reset() {
 	}
 }
 
-func (x *GetExternalClientSettingsRequest) String() string {
+func (x *GetFromMicaClientSettingsRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetExternalClientSettingsRequest) ProtoMessage() {}
+func (*GetFromMicaClientSettingsRequest) ProtoMessage() {}
 
-func (x *GetExternalClientSettingsRequest) ProtoReflect() protoreflect.Message {
+func (x *GetFromMicaClientSettingsRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_micashared_common_v1_external_client_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -393,23 +393,23 @@ func (x *GetExternalClientSettingsRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetExternalClientSettingsRequest.ProtoReflect.Descriptor instead.
-func (*GetExternalClientSettingsRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetFromMicaClientSettingsRequest.ProtoReflect.Descriptor instead.
+func (*GetFromMicaClientSettingsRequest) Descriptor() ([]byte, []int) {
 	return file_micashared_common_v1_external_client_proto_rawDescGZIP(), []int{2}
 }
 
-type GetExternalClientSettingsResponse struct {
+type GetFromMicaClientSettingsResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Status   GetExternalClientSettingsResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=micashared.common.v1.GetExternalClientSettingsResponse_Status" json:"status,omitempty"`
+	Status   GetFromMicaClientSettingsResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=micashared.common.v1.GetFromMicaClientSettingsResponse_Status" json:"status,omitempty"`
 	Error    *Error                                   `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
 	Settings *ExternalClientSettings                  `protobuf:"bytes,3,opt,name=settings,proto3" json:"settings,omitempty"`
 }
 
-func (x *GetExternalClientSettingsResponse) Reset() {
-	*x = GetExternalClientSettingsResponse{}
+func (x *GetFromMicaClientSettingsResponse) Reset() {
+	*x = GetFromMicaClientSettingsResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_micashared_common_v1_external_client_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -417,13 +417,13 @@ func (x *GetExternalClientSettingsResponse) Reset() {
 	}
 }
 
-func (x *GetExternalClientSettingsResponse) String() string {
+func (x *GetFromMicaClientSettingsResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetExternalClientSettingsResponse) ProtoMessage() {}
+func (*GetFromMicaClientSettingsResponse) ProtoMessage() {}
 
-func (x *GetExternalClientSettingsResponse) ProtoReflect() protoreflect.Message {
+func (x *GetFromMicaClientSettingsResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_micashared_common_v1_external_client_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -435,33 +435,33 @@ func (x *GetExternalClientSettingsResponse) ProtoReflect() protoreflect.Message 
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetExternalClientSettingsResponse.ProtoReflect.Descriptor instead.
-func (*GetExternalClientSettingsResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetFromMicaClientSettingsResponse.ProtoReflect.Descriptor instead.
+func (*GetFromMicaClientSettingsResponse) Descriptor() ([]byte, []int) {
 	return file_micashared_common_v1_external_client_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *GetExternalClientSettingsResponse) GetStatus() GetExternalClientSettingsResponse_Status {
+func (x *GetFromMicaClientSettingsResponse) GetStatus() GetFromMicaClientSettingsResponse_Status {
 	if x != nil {
 		return x.Status
 	}
-	return GetExternalClientSettingsResponse_STATUS_UNSPECIFIED
+	return GetFromMicaClientSettingsResponse_STATUS_UNSPECIFIED
 }
 
-func (x *GetExternalClientSettingsResponse) GetError() *Error {
+func (x *GetFromMicaClientSettingsResponse) GetError() *Error {
 	if x != nil {
 		return x.Error
 	}
 	return nil
 }
 
-func (x *GetExternalClientSettingsResponse) GetSettings() *ExternalClientSettings {
+func (x *GetFromMicaClientSettingsResponse) GetSettings() *ExternalClientSettings {
 	if x != nil {
 		return x.Settings
 	}
 	return nil
 }
 
-type UpdateExternalClientCallBackAddressRequest struct {
+type UpdateFromMicaClientCallBackAddressRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -472,8 +472,8 @@ type UpdateExternalClientCallBackAddressRequest struct {
 	CallbackAddress string `protobuf:"bytes,2,opt,name=callback_address,json=callbackAddress,proto3" json:"callback_address,omitempty"`
 }
 
-func (x *UpdateExternalClientCallBackAddressRequest) Reset() {
-	*x = UpdateExternalClientCallBackAddressRequest{}
+func (x *UpdateFromMicaClientCallBackAddressRequest) Reset() {
+	*x = UpdateFromMicaClientCallBackAddressRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_micashared_common_v1_external_client_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -481,13 +481,13 @@ func (x *UpdateExternalClientCallBackAddressRequest) Reset() {
 	}
 }
 
-func (x *UpdateExternalClientCallBackAddressRequest) String() string {
+func (x *UpdateFromMicaClientCallBackAddressRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdateExternalClientCallBackAddressRequest) ProtoMessage() {}
+func (*UpdateFromMicaClientCallBackAddressRequest) ProtoMessage() {}
 
-func (x *UpdateExternalClientCallBackAddressRequest) ProtoReflect() protoreflect.Message {
+func (x *UpdateFromMicaClientCallBackAddressRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_micashared_common_v1_external_client_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -499,37 +499,37 @@ func (x *UpdateExternalClientCallBackAddressRequest) ProtoReflect() protoreflect
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdateExternalClientCallBackAddressRequest.ProtoReflect.Descriptor instead.
-func (*UpdateExternalClientCallBackAddressRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use UpdateFromMicaClientCallBackAddressRequest.ProtoReflect.Descriptor instead.
+func (*UpdateFromMicaClientCallBackAddressRequest) Descriptor() ([]byte, []int) {
 	return file_micashared_common_v1_external_client_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *UpdateExternalClientCallBackAddressRequest) GetVersion() int64 {
+func (x *UpdateFromMicaClientCallBackAddressRequest) GetVersion() int64 {
 	if x != nil {
 		return x.Version
 	}
 	return 0
 }
 
-func (x *UpdateExternalClientCallBackAddressRequest) GetCallbackAddress() string {
+func (x *UpdateFromMicaClientCallBackAddressRequest) GetCallbackAddress() string {
 	if x != nil {
 		return x.CallbackAddress
 	}
 	return ""
 }
 
-type UpdateExternalClientCallBackAddressResponse struct {
+type UpdateFromMicaClientCallBackAddressResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Status  UpdateExternalClientCallBackAddressResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=micashared.common.v1.UpdateExternalClientCallBackAddressResponse_Status" json:"status,omitempty"`
+	Status  UpdateFromMicaClientCallBackAddressResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=micashared.common.v1.UpdateFromMicaClientCallBackAddressResponse_Status" json:"status,omitempty"`
 	Error   *Error                                             `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
 	Version int64                                              `protobuf:"varint,3,opt,name=version,proto3" json:"version,omitempty"`
 }
 
-func (x *UpdateExternalClientCallBackAddressResponse) Reset() {
-	*x = UpdateExternalClientCallBackAddressResponse{}
+func (x *UpdateFromMicaClientCallBackAddressResponse) Reset() {
+	*x = UpdateFromMicaClientCallBackAddressResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_micashared_common_v1_external_client_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -537,13 +537,13 @@ func (x *UpdateExternalClientCallBackAddressResponse) Reset() {
 	}
 }
 
-func (x *UpdateExternalClientCallBackAddressResponse) String() string {
+func (x *UpdateFromMicaClientCallBackAddressResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdateExternalClientCallBackAddressResponse) ProtoMessage() {}
+func (*UpdateFromMicaClientCallBackAddressResponse) ProtoMessage() {}
 
-func (x *UpdateExternalClientCallBackAddressResponse) ProtoReflect() protoreflect.Message {
+func (x *UpdateFromMicaClientCallBackAddressResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_micashared_common_v1_external_client_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -555,33 +555,33 @@ func (x *UpdateExternalClientCallBackAddressResponse) ProtoReflect() protoreflec
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdateExternalClientCallBackAddressResponse.ProtoReflect.Descriptor instead.
-func (*UpdateExternalClientCallBackAddressResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use UpdateFromMicaClientCallBackAddressResponse.ProtoReflect.Descriptor instead.
+func (*UpdateFromMicaClientCallBackAddressResponse) Descriptor() ([]byte, []int) {
 	return file_micashared_common_v1_external_client_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *UpdateExternalClientCallBackAddressResponse) GetStatus() UpdateExternalClientCallBackAddressResponse_Status {
+func (x *UpdateFromMicaClientCallBackAddressResponse) GetStatus() UpdateFromMicaClientCallBackAddressResponse_Status {
 	if x != nil {
 		return x.Status
 	}
-	return UpdateExternalClientCallBackAddressResponse_STATUS_UNSPECIFIED
+	return UpdateFromMicaClientCallBackAddressResponse_STATUS_UNSPECIFIED
 }
 
-func (x *UpdateExternalClientCallBackAddressResponse) GetError() *Error {
+func (x *UpdateFromMicaClientCallBackAddressResponse) GetError() *Error {
 	if x != nil {
 		return x.Error
 	}
 	return nil
 }
 
-func (x *UpdateExternalClientCallBackAddressResponse) GetVersion() int64 {
+func (x *UpdateFromMicaClientCallBackAddressResponse) GetVersion() int64 {
 	if x != nil {
 		return x.Version
 	}
 	return 0
 }
 
-type UpdateExternalClientAuthenticationTypeRequest struct {
+type UpdateFromMicaClientAuthenticationTypeRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -590,8 +590,8 @@ type UpdateExternalClientAuthenticationTypeRequest struct {
 	AuthenticationType ClientAuthenticationType `protobuf:"varint,3,opt,name=authentication_type,json=authenticationType,proto3,enum=micashared.common.v1.ClientAuthenticationType" json:"authentication_type,omitempty"`
 }
 
-func (x *UpdateExternalClientAuthenticationTypeRequest) Reset() {
-	*x = UpdateExternalClientAuthenticationTypeRequest{}
+func (x *UpdateFromMicaClientAuthenticationTypeRequest) Reset() {
+	*x = UpdateFromMicaClientAuthenticationTypeRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_micashared_common_v1_external_client_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -599,13 +599,13 @@ func (x *UpdateExternalClientAuthenticationTypeRequest) Reset() {
 	}
 }
 
-func (x *UpdateExternalClientAuthenticationTypeRequest) String() string {
+func (x *UpdateFromMicaClientAuthenticationTypeRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdateExternalClientAuthenticationTypeRequest) ProtoMessage() {}
+func (*UpdateFromMicaClientAuthenticationTypeRequest) ProtoMessage() {}
 
-func (x *UpdateExternalClientAuthenticationTypeRequest) ProtoReflect() protoreflect.Message {
+func (x *UpdateFromMicaClientAuthenticationTypeRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_micashared_common_v1_external_client_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -617,37 +617,37 @@ func (x *UpdateExternalClientAuthenticationTypeRequest) ProtoReflect() protorefl
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdateExternalClientAuthenticationTypeRequest.ProtoReflect.Descriptor instead.
-func (*UpdateExternalClientAuthenticationTypeRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use UpdateFromMicaClientAuthenticationTypeRequest.ProtoReflect.Descriptor instead.
+func (*UpdateFromMicaClientAuthenticationTypeRequest) Descriptor() ([]byte, []int) {
 	return file_micashared_common_v1_external_client_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *UpdateExternalClientAuthenticationTypeRequest) GetVersion() int64 {
+func (x *UpdateFromMicaClientAuthenticationTypeRequest) GetVersion() int64 {
 	if x != nil {
 		return x.Version
 	}
 	return 0
 }
 
-func (x *UpdateExternalClientAuthenticationTypeRequest) GetAuthenticationType() ClientAuthenticationType {
+func (x *UpdateFromMicaClientAuthenticationTypeRequest) GetAuthenticationType() ClientAuthenticationType {
 	if x != nil {
 		return x.AuthenticationType
 	}
 	return ClientAuthenticationType_CLIENT_AUTHENTICATION_TYPE_UNSPECIFIED
 }
 
-type UpdateExternalClientAuthenticationTypeResponse struct {
+type UpdateFromMicaClientAuthenticationTypeResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Status  UpdateExternalClientAuthenticationTypeResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=micashared.common.v1.UpdateExternalClientAuthenticationTypeResponse_Status" json:"status,omitempty"`
+	Status  UpdateFromMicaClientAuthenticationTypeResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=micashared.common.v1.UpdateFromMicaClientAuthenticationTypeResponse_Status" json:"status,omitempty"`
 	Error   *Error                                                `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
 	Version int64                                                 `protobuf:"varint,3,opt,name=version,proto3" json:"version,omitempty"`
 }
 
-func (x *UpdateExternalClientAuthenticationTypeResponse) Reset() {
-	*x = UpdateExternalClientAuthenticationTypeResponse{}
+func (x *UpdateFromMicaClientAuthenticationTypeResponse) Reset() {
+	*x = UpdateFromMicaClientAuthenticationTypeResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_micashared_common_v1_external_client_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -655,13 +655,13 @@ func (x *UpdateExternalClientAuthenticationTypeResponse) Reset() {
 	}
 }
 
-func (x *UpdateExternalClientAuthenticationTypeResponse) String() string {
+func (x *UpdateFromMicaClientAuthenticationTypeResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*UpdateExternalClientAuthenticationTypeResponse) ProtoMessage() {}
+func (*UpdateFromMicaClientAuthenticationTypeResponse) ProtoMessage() {}
 
-func (x *UpdateExternalClientAuthenticationTypeResponse) ProtoReflect() protoreflect.Message {
+func (x *UpdateFromMicaClientAuthenticationTypeResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_micashared_common_v1_external_client_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -673,26 +673,26 @@ func (x *UpdateExternalClientAuthenticationTypeResponse) ProtoReflect() protoref
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use UpdateExternalClientAuthenticationTypeResponse.ProtoReflect.Descriptor instead.
-func (*UpdateExternalClientAuthenticationTypeResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use UpdateFromMicaClientAuthenticationTypeResponse.ProtoReflect.Descriptor instead.
+func (*UpdateFromMicaClientAuthenticationTypeResponse) Descriptor() ([]byte, []int) {
 	return file_micashared_common_v1_external_client_proto_rawDescGZIP(), []int{7}
 }
 
-func (x *UpdateExternalClientAuthenticationTypeResponse) GetStatus() UpdateExternalClientAuthenticationTypeResponse_Status {
+func (x *UpdateFromMicaClientAuthenticationTypeResponse) GetStatus() UpdateFromMicaClientAuthenticationTypeResponse_Status {
 	if x != nil {
 		return x.Status
 	}
-	return UpdateExternalClientAuthenticationTypeResponse_STATUS_UNSPECIFIED
+	return UpdateFromMicaClientAuthenticationTypeResponse_STATUS_UNSPECIFIED
 }
 
-func (x *UpdateExternalClientAuthenticationTypeResponse) GetError() *Error {
+func (x *UpdateFromMicaClientAuthenticationTypeResponse) GetError() *Error {
 	if x != nil {
 		return x.Error
 	}
 	return nil
 }
 
-func (x *UpdateExternalClientAuthenticationTypeResponse) GetVersion() int64 {
+func (x *UpdateFromMicaClientAuthenticationTypeResponse) GetVersion() int64 {
 	if x != nil {
 		return x.Version
 	}
@@ -751,14 +751,14 @@ var file_micashared_common_v1_external_client_proto_rawDesc = []byte{
 	0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65,
 	0x52, 0x19, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x74, 0x41, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74,
 	0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x22, 0x22, 0x0a, 0x20, 0x47,
-	0x65, 0x74, 0x45, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74,
+	0x65, 0x74, 0x46, 0x72, 0x6f, 0x6d, 0x4d, 0x69, 0x63, 0x61, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74,
 	0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22,
-	0xc0, 0x02, 0x0a, 0x21, 0x47, 0x65, 0x74, 0x45, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x43,
+	0xc0, 0x02, 0x0a, 0x21, 0x47, 0x65, 0x74, 0x46, 0x72, 0x6f, 0x6d, 0x4d, 0x69, 0x63, 0x61, 0x43,
 	0x6c, 0x69, 0x65, 0x6e, 0x74, 0x53, 0x65, 0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x52, 0x65, 0x73,
 	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x56, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x3e, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72,
 	0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x47, 0x65, 0x74,
-	0x45, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x53, 0x65,
+	0x46, 0x72, 0x6f, 0x6d, 0x4d, 0x69, 0x63, 0x61, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x53, 0x65,
 	0x74, 0x74, 0x69, 0x6e, 0x67, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x53,
 	0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x31, 0x0a,
 	0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x6d,
@@ -773,8 +773,8 @@ var file_micashared_common_v1_external_client_proto_rawDesc = []byte{
 	0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e,
 	0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x53, 0x55, 0x43, 0x43, 0x45, 0x53, 0x53, 0x10, 0x01,
 	0x12, 0x10, 0x0a, 0x0c, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52,
-	0x10, 0x02, 0x22, 0x92, 0x01, 0x0a, 0x2a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x45, 0x78, 0x74,
-	0x65, 0x72, 0x6e, 0x61, 0x6c, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x43, 0x61, 0x6c, 0x6c, 0x42,
+	0x10, 0x02, 0x22, 0x92, 0x01, 0x0a, 0x2a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x72, 0x6f,
+	0x6d, 0x4d, 0x69, 0x63, 0x61, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x43, 0x61, 0x6c, 0x6c, 0x42,
 	0x61, 0x63, 0x6b, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
 	0x74, 0x12, 0x21, 0x0a, 0x07, 0x76, 0x65, 0x72, 0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x03, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x22, 0x02, 0x28, 0x00, 0x52, 0x07, 0x76, 0x65, 0x72,
@@ -783,12 +783,12 @@ var file_micashared_common_v1_external_client_proto_rawDesc = []byte{
 	0xfa, 0x42, 0x13, 0x72, 0x11, 0x32, 0x0f, 0x5e, 0x5b, 0x5e, 0x2f, 0x5d, 0x2b, 0x3a, 0x5c, 0x64,
 	0x7b, 0x33, 0x2c, 0x36, 0x7d, 0x24, 0x52, 0x0f, 0x63, 0x61, 0x6c, 0x6c, 0x62, 0x61, 0x63, 0x6b,
 	0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x22, 0xad, 0x02, 0x0a, 0x2b, 0x55, 0x70, 0x64, 0x61,
-	0x74, 0x65, 0x45, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74,
+	0x74, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x4d, 0x69, 0x63, 0x61, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74,
 	0x43, 0x61, 0x6c, 0x6c, 0x42, 0x61, 0x63, 0x6b, 0x41, 0x64, 0x64, 0x72, 0x65, 0x73, 0x73, 0x52,
 	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x60, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75,
 	0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x48, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68,
 	0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x55,
-	0x70, 0x64, 0x61, 0x74, 0x65, 0x45, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x43, 0x6c, 0x69,
+	0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x4d, 0x69, 0x63, 0x61, 0x43, 0x6c, 0x69,
 	0x65, 0x6e, 0x74, 0x43, 0x61, 0x6c, 0x6c, 0x42, 0x61, 0x63, 0x6b, 0x41, 0x64, 0x64, 0x72, 0x65,
 	0x73, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x75,
 	0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x31, 0x0a, 0x05, 0x65, 0x72, 0x72,
@@ -802,7 +802,7 @@ var file_micashared_common_v1_external_client_proto_rawDesc = []byte{
 	0x00, 0x12, 0x12, 0x0a, 0x0e, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x53, 0x55, 0x43, 0x43,
 	0x45, 0x53, 0x53, 0x10, 0x01, 0x12, 0x10, 0x0a, 0x0c, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f,
 	0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x22, 0xbd, 0x01, 0x0a, 0x2d, 0x55, 0x70, 0x64, 0x61,
-	0x74, 0x65, 0x45, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74,
+	0x74, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x4d, 0x69, 0x63, 0x61, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74,
 	0x41, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79,
 	0x70, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x21, 0x0a, 0x07, 0x76, 0x65, 0x72,
 	0x73, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x22,
@@ -814,12 +814,12 @@ var file_micashared_common_v1_external_client_proto_rawDesc = []byte{
 	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x42, 0x08, 0xfa, 0x42, 0x05, 0x82, 0x01,
 	0x02, 0x20, 0x00, 0x52, 0x12, 0x61, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61, 0x74,
 	0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x22, 0xb3, 0x02, 0x0a, 0x2e, 0x55, 0x70, 0x64, 0x61,
-	0x74, 0x65, 0x45, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74,
+	0x74, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x4d, 0x69, 0x63, 0x61, 0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74,
 	0x41, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79,
 	0x70, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x63, 0x0a, 0x06, 0x73, 0x74,
 	0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x4b, 0x2e, 0x6d, 0x69, 0x63,
 	0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76,
-	0x31, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x45, 0x78, 0x74, 0x65, 0x72, 0x6e, 0x61, 0x6c,
+	0x31, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x46, 0x72, 0x6f, 0x6d, 0x4d, 0x69, 0x63, 0x61,
 	0x43, 0x6c, 0x69, 0x65, 0x6e, 0x74, 0x41, 0x75, 0x74, 0x68, 0x65, 0x6e, 0x74, 0x69, 0x63, 0x61,
 	0x74, 0x69, 0x6f, 0x6e, 0x54, 0x79, 0x70, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
 	0x2e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12,
@@ -868,17 +868,17 @@ var file_micashared_common_v1_external_client_proto_enumTypes = make([]protoimpl
 var file_micashared_common_v1_external_client_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
 var file_micashared_common_v1_external_client_proto_goTypes = []interface{}{
 	(ClientAuthenticationType)(0),                              // 0: micashared.common.v1.ClientAuthenticationType
-	(GetExternalClientSettingsResponse_Status)(0),              // 1: micashared.common.v1.GetExternalClientSettingsResponse.Status
-	(UpdateExternalClientCallBackAddressResponse_Status)(0),    // 2: micashared.common.v1.UpdateExternalClientCallBackAddressResponse.Status
-	(UpdateExternalClientAuthenticationTypeResponse_Status)(0), // 3: micashared.common.v1.UpdateExternalClientAuthenticationTypeResponse.Status
+	(GetFromMicaClientSettingsResponse_Status)(0),              // 1: micashared.common.v1.GetFromMicaClientSettingsResponse.Status
+	(UpdateFromMicaClientCallBackAddressResponse_Status)(0),    // 2: micashared.common.v1.UpdateFromMicaClientCallBackAddressResponse.Status
+	(UpdateFromMicaClientAuthenticationTypeResponse_Status)(0), // 3: micashared.common.v1.UpdateFromMicaClientAuthenticationTypeResponse.Status
 	(*ExternalClientSettings)(nil),                             // 4: micashared.common.v1.ExternalClientSettings
 	(*ClientAuthenticationSettings)(nil),                       // 5: micashared.common.v1.ClientAuthenticationSettings
-	(*GetExternalClientSettingsRequest)(nil),                   // 6: micashared.common.v1.GetExternalClientSettingsRequest
-	(*GetExternalClientSettingsResponse)(nil),                  // 7: micashared.common.v1.GetExternalClientSettingsResponse
-	(*UpdateExternalClientCallBackAddressRequest)(nil),         // 8: micashared.common.v1.UpdateExternalClientCallBackAddressRequest
-	(*UpdateExternalClientCallBackAddressResponse)(nil),        // 9: micashared.common.v1.UpdateExternalClientCallBackAddressResponse
-	(*UpdateExternalClientAuthenticationTypeRequest)(nil),      // 10: micashared.common.v1.UpdateExternalClientAuthenticationTypeRequest
-	(*UpdateExternalClientAuthenticationTypeResponse)(nil),     // 11: micashared.common.v1.UpdateExternalClientAuthenticationTypeResponse
+	(*GetFromMicaClientSettingsRequest)(nil),                   // 6: micashared.common.v1.GetFromMicaClientSettingsRequest
+	(*GetFromMicaClientSettingsResponse)(nil),                  // 7: micashared.common.v1.GetFromMicaClientSettingsResponse
+	(*UpdateFromMicaClientCallBackAddressRequest)(nil),         // 8: micashared.common.v1.UpdateFromMicaClientCallBackAddressRequest
+	(*UpdateFromMicaClientCallBackAddressResponse)(nil),        // 9: micashared.common.v1.UpdateFromMicaClientCallBackAddressResponse
+	(*UpdateFromMicaClientAuthenticationTypeRequest)(nil),      // 10: micashared.common.v1.UpdateFromMicaClientAuthenticationTypeRequest
+	(*UpdateFromMicaClientAuthenticationTypeResponse)(nil),     // 11: micashared.common.v1.UpdateFromMicaClientAuthenticationTypeResponse
 	(*timestamppb.Timestamp)(nil),                              // 12: google.protobuf.Timestamp
 	(*Error)(nil),                                              // 13: micashared.common.v1.Error
 }
@@ -888,14 +888,14 @@ var file_micashared_common_v1_external_client_proto_depIdxs = []int32{
 	5,  // 2: micashared.common.v1.ExternalClientSettings.client_authentication_settings:type_name -> micashared.common.v1.ClientAuthenticationSettings
 	0,  // 3: micashared.common.v1.ClientAuthenticationSettings.suported_client_authentication_types:type_name -> micashared.common.v1.ClientAuthenticationType
 	0,  // 4: micashared.common.v1.ClientAuthenticationSettings.current_authentication_type:type_name -> micashared.common.v1.ClientAuthenticationType
-	1,  // 5: micashared.common.v1.GetExternalClientSettingsResponse.status:type_name -> micashared.common.v1.GetExternalClientSettingsResponse.Status
-	13, // 6: micashared.common.v1.GetExternalClientSettingsResponse.error:type_name -> micashared.common.v1.Error
-	4,  // 7: micashared.common.v1.GetExternalClientSettingsResponse.settings:type_name -> micashared.common.v1.ExternalClientSettings
-	2,  // 8: micashared.common.v1.UpdateExternalClientCallBackAddressResponse.status:type_name -> micashared.common.v1.UpdateExternalClientCallBackAddressResponse.Status
-	13, // 9: micashared.common.v1.UpdateExternalClientCallBackAddressResponse.error:type_name -> micashared.common.v1.Error
-	0,  // 10: micashared.common.v1.UpdateExternalClientAuthenticationTypeRequest.authentication_type:type_name -> micashared.common.v1.ClientAuthenticationType
-	3,  // 11: micashared.common.v1.UpdateExternalClientAuthenticationTypeResponse.status:type_name -> micashared.common.v1.UpdateExternalClientAuthenticationTypeResponse.Status
-	13, // 12: micashared.common.v1.UpdateExternalClientAuthenticationTypeResponse.error:type_name -> micashared.common.v1.Error
+	1,  // 5: micashared.common.v1.GetFromMicaClientSettingsResponse.status:type_name -> micashared.common.v1.GetFromMicaClientSettingsResponse.Status
+	13, // 6: micashared.common.v1.GetFromMicaClientSettingsResponse.error:type_name -> micashared.common.v1.Error
+	4,  // 7: micashared.common.v1.GetFromMicaClientSettingsResponse.settings:type_name -> micashared.common.v1.ExternalClientSettings
+	2,  // 8: micashared.common.v1.UpdateFromMicaClientCallBackAddressResponse.status:type_name -> micashared.common.v1.UpdateFromMicaClientCallBackAddressResponse.Status
+	13, // 9: micashared.common.v1.UpdateFromMicaClientCallBackAddressResponse.error:type_name -> micashared.common.v1.Error
+	0,  // 10: micashared.common.v1.UpdateFromMicaClientAuthenticationTypeRequest.authentication_type:type_name -> micashared.common.v1.ClientAuthenticationType
+	3,  // 11: micashared.common.v1.UpdateFromMicaClientAuthenticationTypeResponse.status:type_name -> micashared.common.v1.UpdateFromMicaClientAuthenticationTypeResponse.Status
+	13, // 12: micashared.common.v1.UpdateFromMicaClientAuthenticationTypeResponse.error:type_name -> micashared.common.v1.Error
 	13, // [13:13] is the sub-list for method output_type
 	13, // [13:13] is the sub-list for method input_type
 	13, // [13:13] is the sub-list for extension type_name
@@ -935,7 +935,7 @@ func file_micashared_common_v1_external_client_proto_init() {
 			}
 		}
 		file_micashared_common_v1_external_client_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetExternalClientSettingsRequest); i {
+			switch v := v.(*GetFromMicaClientSettingsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -947,7 +947,7 @@ func file_micashared_common_v1_external_client_proto_init() {
 			}
 		}
 		file_micashared_common_v1_external_client_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetExternalClientSettingsResponse); i {
+			switch v := v.(*GetFromMicaClientSettingsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -959,7 +959,7 @@ func file_micashared_common_v1_external_client_proto_init() {
 			}
 		}
 		file_micashared_common_v1_external_client_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateExternalClientCallBackAddressRequest); i {
+			switch v := v.(*UpdateFromMicaClientCallBackAddressRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -971,7 +971,7 @@ func file_micashared_common_v1_external_client_proto_init() {
 			}
 		}
 		file_micashared_common_v1_external_client_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateExternalClientCallBackAddressResponse); i {
+			switch v := v.(*UpdateFromMicaClientCallBackAddressResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -983,7 +983,7 @@ func file_micashared_common_v1_external_client_proto_init() {
 			}
 		}
 		file_micashared_common_v1_external_client_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateExternalClientAuthenticationTypeRequest); i {
+			switch v := v.(*UpdateFromMicaClientAuthenticationTypeRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -995,7 +995,7 @@ func file_micashared_common_v1_external_client_proto_init() {
 			}
 		}
 		file_micashared_common_v1_external_client_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*UpdateExternalClientAuthenticationTypeResponse); i {
+			switch v := v.(*UpdateFromMicaClientAuthenticationTypeResponse); i {
 			case 0:
 				return &v.state
 			case 1:

@@ -47,6 +47,8 @@ message CreateOrganizationRequest {
   micashared.common.enums.barcodelocation.v1.BarcodeLocation barcode_location = 8 [(validate.rules).enum = {
     not_in: [0]
   }];
+
+  string icon_image_url = 9 [(validate.rules).string={ignore_empty: true, max_len: 500, uri:true}];
 }
 
 message CreateOrganizationResponse {

@@ -45,9 +45,9 @@ message ClientAuthenticationSettings {
   ClientAuthenticationType current_authentication_type = 2;
 }
 
-message GetExternalClientSettingsRequest {}
+message GetFromMicaClientSettingsRequest {}
 
-message GetExternalClientSettingsResponse {
+message GetFromMicaClientSettingsResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -60,14 +60,14 @@ message GetExternalClientSettingsResponse {
   ExternalClientSettings settings = 3;
 }
 
-message UpdateExternalClientCallBackAddressRequest {
+message UpdateFromMicaClientCallBackAddressRequest {
   int64 version = 1 [(validate.rules).int64.gte = 0];
   // the callback address must folow a <hostname>:<port> pattern for example
   // mycallbackservicie.somecompany.io:443
   string callback_address = 2 [(validate.rules).string.pattern = "^[^/]+:\\d{3,6}$"];
 }
 
-message UpdateExternalClientCallBackAddressResponse {
+message UpdateFromMicaClientCallBackAddressResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -80,14 +80,14 @@ message UpdateExternalClientCallBackAddressResponse {
   int64 version = 3 [(validate.rules).int64.gte = 0];
 }
 
-message UpdateExternalClientAuthenticationTypeRequest {
+message UpdateFromMicaClientAuthenticationTypeRequest {
   int64 version = 1 [(validate.rules).int64.gte = 0];
   ClientAuthenticationType authentication_type = 3 [(validate.rules).enum = {
     not_in: [0]
   }];
 }
 
-message UpdateExternalClientAuthenticationTypeResponse {
+message UpdateFromMicaClientAuthenticationTypeResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;

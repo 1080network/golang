@@ -1,0 +1,28 @@
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.enums.recurringpaymentfrequency.v1;
+
+option go_package = "micashared/common/enums/recurringpaymentfrequencyv1";
+option java_outer_classname = "RecurringPaymentFrequencyProto";
+option java_package = "io.micashared.common.enums.v1";
+option objc_class_prefix = "MICA";
+
+
+enum RecurringPaymentFrequency {
+  RECURRING_PAYMENT_FREQUENCY_UNSPECIFIED = 0;
+  RECURRING_PAYMENT_FREQUENCY_DAILY = 1;
+  RECURRING_PAYMENT_FREQUENCY_WEEKLY = 2;
+  RECURRING_PAYMENT_FREQUENCY_BIWEEKLY = 3;
+  RECURRING_PAYMENT_FREQUENCY_MONTHLY = 4;
+  RECURRING_PAYMENT_FREQUENCY_QUARTERLY = 5;
+  RECURRING_PAYMENT_FREQUENCY_BIANNUALLY = 6;
+  RECURRING_PAYMENT_FREQUENCY_YEARLY = 7;
+}
