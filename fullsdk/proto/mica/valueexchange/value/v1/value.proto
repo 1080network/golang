@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+package mica.valueexchange.value.v1;
+
+import "google/protobuf/timestamp.proto";
+import "validate/validate.proto";
+
+import "micashared/common/v1/error.proto";
+
+option go_package = "mica/valueexchange/valuev1";
+option java_outer_classname = "ValueProto";
+option java_package = "io.mica.valueexchange.value.v1";
+option objc_class_prefix = "MICA";
+
+// this is just scaffolding that can be removed to start thinking about value bound to rules not just 
+// a bal
+message ValueEntry {
+    string value_entry_key = 1;
+    
+    // string value_user_key = 2; 
+    
+    // string value_user_ref = 3;
+    
+    string value_account_ref = 4;
+    
+    string value_account_key = 5;
+    
+    int64 version = 6;
+
+    google.protobuf.Timestamp created = 7;
+
+    google.protobuf.Timestamp updated = 8;
+
+    RedemptionInformation redemption_information = 9;
+
+    string redeemable_amount =  20;
+    string redeemable_amount_currency = 21;
+}
+
+message RedemptionInformation {
+    // human readable description when the value is redeemed to help humans understad for example point redemption for promotion x
+    string headline = 1;
+    // human readable explanation that can be displayed in a receipt or other system
+    string summary = 2;
+
+    // url address to the image to be displayed when visualizing value, etc. 
+    string thumbnail_url = 19;
+}
+
+message GetValueEntriesRequest {
+    oneof acount_identifier {
+        // The key representing this user in Mica.
+        string account_key = 1;
+        string account_ref = 2 [(validate.rules).string = {max_len: 100}];
+    }
+}
+
+message GetValueEntriesResponse {
+    enum Status {
+        STATUS_UNSPECIFIED = 0;
+        STATUS_SUCCESS = 1;
+        STATUS_NOT_FOUND = 2;
+        STATUS_ERROR = 3;
+    }
+    Status status = 1;
+    micashared.common.v1.Error error = 2;
+
+    repeated ValueEntry value_entries = 3;
+}
+
+message CreateValueEntryRequest {
+    oneof acount_identifier {
+        // The key representing this user in Mica.
+        string account_key = 1;
+        string account_ref = 2;
+    }
+    RedemptionInformation redemption_information = 9;
+
+    string redeemable_amount =  20;
+    string redeemable_amount_currency = 21;
+    string backing_amount = 22;
+    string backing_amount_type = 23;
+}
+
+message CreateValueEntryResponse {
+    enum Status {
+        STATUS_UNSPECIFIED = 0;
+        STATUS_SUCCESS = 1;
+        STATUS_NOT_FOUND = 2;
+        STATUS_DUPLICATE = 3;
+        STATUS_ERROR = 4;
+    }
+    Status status = 1;
+    micashared.common.v1.Error error = 2;
+
+    ValueEntry value_entry = 3;
+}
+
+message UpdateValueEntryRequest {
+    string value_entry_key = 1;
+    
+    int64 version = 6;
+
+    RedemptionInformation redemption_information = 9;
+
+    string redeemable_amount =  20;
+    string redeemable_amount_currency = 21;
+    string backing_amount = 22;
+    string backing_amount_type = 23;
+}
+
+message UpdateValueEntryResponse{
+    enum Status {
+        STATUS_UNSPECIFIED = 0;
+        STATUS_SUCCESS = 1;
+        STATUS_NOT_FOUND = 2;
+        STATUS_ERROR = 3;
+    }
+    Status status = 1;
+    micashared.common.v1.Error error = 2;
+
+    ValueEntry value_entry = 3;
+}

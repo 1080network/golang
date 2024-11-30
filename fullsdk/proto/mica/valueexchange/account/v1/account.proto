@@ -1,0 +1,47 @@
+// Copyright (c) 2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.valueexchange.account.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "mica/valueexchange/accountv1";
+option java_outer_classname = "AccountProto";
+option java_package = "io.mica.valueexchange.account.v1";
+option objc_class_prefix = "MICA";
+
+message Account {
+    // The key representing this user in Mica.
+    string account_key = 1;
+
+    // Primary key on the external system.
+    string account_ref = 2;
+
+    // version of the user record, used for optimistic locking
+    int64 version = 3;
+
+    // Date that the Store was created at Mica.
+    google.protobuf.Timestamp created = 4;
+
+    // Date that the Store was last updated at Mica.
+    google.protobuf.Timestamp updated = 5;
+
+    // URN that represents the FIAT urn:value:fiat:usd
+    string currency = 10;
+
+    // the amount of money available in whatever currency for purchases
+    string available_balance= 11;
+
+    // The unit of the value_provider_balance. Provided for reference only.
+    string value_provider_balance_unit = 6;
+
+    // the amount of value, in arbitrary units, held for this account by the provider. provided for reference only
+    string value_provider_balance = 12;
+}
