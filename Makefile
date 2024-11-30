@@ -37,6 +37,15 @@ serviceprovider: vendor
 	./generateGo.sh serviceprovider
 	cd serviceprovider && go mod tidy
 
+.PHONY: fullsdk
+fullsdk: vendor
+	rm -rf fullsdk/proto/*
+	cp -r proto/micashared fullsdk/proto
+	cp -r proto/mica fullsdk/proto
+	rm -rf fullsdk/proto/mica/connect
+	./generateGo.sh fullsdk
+	cd fullsdk && go mod tidy
+
 vendor:
 	go mod vendor
 

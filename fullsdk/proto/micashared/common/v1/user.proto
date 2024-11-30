@@ -1,0 +1,55 @@
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package micashared.common.v1;
+
+import "google/protobuf/timestamp.proto";
+import "micashared/common/enums/ageband/v1/age_band.proto";
+import "micashared/common/v1/address.proto";
+import "validate/validate.proto";
+
+option go_package = "micashared/common/v1;commonv1";
+option java_outer_classname = "UserProto";
+option java_package = "io.micashared.common.v1";
+option objc_class_prefix = "MICA";
+
+message UserDemographic {
+  // The first name of the user.
+  string first_name = 1; // @gotags: mask:"pii"
+
+  // The last name of the user.
+  string last_name = 2; // @gotags: mask:"pii"
+
+  // The email of the user.
+  string email = 3; // @gotags: mask:"pii"
+
+  // The street address of the user.
+  micashared.common.v1.Address address = 4;
+
+  // The age band of the user.
+  micashared.common.enums.ageband.v1.AgeBand age_band = 7;
+
+  // E.164 format.
+  string phone = 6 [(validate.rules).string.pattern = "^$|^\\+[1-9]\\d{10,14}$"]; // @gotags: mask:"pii"
+}
+
+message User {
+  // version of the user record, used for optimistic locking.
+  int64 version = 1;
+
+  // Date that the Store was created at Mica.
+  google.protobuf.Timestamp created = 2;
+
+  // Date that the Store was last updated at Mica.
+  google.protobuf.Timestamp updated = 3;
+
+  // Details of the user.
+  UserDemographic user_demographic = 4;
+}

@@ -1,0 +1,147 @@
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.partner.service.v1;
+
+import "mica/partner/account/v1/account.proto";
+import "mica/partner/instrument/v1/instrument.proto";
+import "mica/partner/organization/v1/organization.proto";
+import "mica/partner/partner/v1/partner.proto";
+import "mica/partner/serviceprovider/v1/service_provider.proto";
+import "mica/partner/store/v1/store.proto";
+import "mica/partner/uuek/v1/uuek.proto";
+import "mica/partner/value/v1/value.proto";
+import "mica/partner/widget/v1/widget.proto";
+import "micashared/common/ping/v1/ping.proto";
+
+option go_package = "mica/partner/servicev1";
+option java_outer_classname = "PartnerToMicaServiceProto";
+option java_package = "io.mica.partner.service.v1";
+option objc_class_prefix = "MICA";
+
+service PartnerToMicaService {
+  //<editor-fold desc="Partner Operations">
+
+  // Retrieves the details of the Partner at mica.
+  rpc GetPartner(partner.v1.GetPartnerRequest) returns (partner.v1.GetPartnerResponse) {}
+
+  rpc CreateABAAccount(mica.partner.account.v1.CreateABAAccountRequest) returns (mica.partner.account.v1.CreateABAAccountResponse) {}
+
+  rpc GetABAAccount(mica.partner.account.v1.GetABAAccountRequest) returns (mica.partner.account.v1.GetABAAccountResponse) {}
+  
+  rpc SearchABAAccount(mica.partner.account.v1.SearchABAAccountRequest) returns (mica.partner.account.v1.SearchABAAccountResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Organization Operations">
+
+  // A method to create an organization.
+  rpc CreateOrganization(organization.v1.CreateOrganizationRequest) returns (organization.v1.CreateOrganizationResponse) {}
+
+  // Retrieve an organization based on it's key or ref.
+  rpc GetOrganization(organization.v1.GetOrganizationRequest) returns (organization.v1.GetOrganizationResponse) {}
+
+  // Update a given organization.
+  rpc UpdateOrganization(organization.v1.UpdateOrganizationRequest) returns (organization.v1.UpdateOrganizationResponse) {}
+
+  // Update an organization financial data
+  rpc UpdateOrganizationSettlementData(organization.v1.UpdateOrganizationSettlementDataRequest) returns (organization.v1.UpdateOrganizationSettlementDataResponse) {}
+
+  // Activate an organization that is currently inactive assuming the preconditions are met.
+  rpc ActivateOrganization(organization.v1.ActivateOrganizationRequest) returns (organization.v1.ActivateOrganizationResponse) {}
+
+  // Deactivate an organization that is currently active.
+  rpc DeactivateOrganization(organization.v1.DeactivateOrganizationRequest) returns (organization.v1.DeactivateOrganizationResponse) {}
+
+  // Like GetOrganization, can be used to retrieve Organizations based on the criteria in the request.
+  rpc SearchOrganization(organization.v1.SearchOrganizationRequest) returns (organization.v1.SearchOrganizationResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Store Operations">
+
+  // Create a store that sits under an Organization.
+  rpc CreateStore(store.v1.CreateStoreRequest) returns (store.v1.CreateStoreResponse) {}
+
+  // Retrieve a store based on it's key.
+  rpc GetStore(store.v1.GetStoreRequest) returns (store.v1.GetStoreResponse) {}
+
+  // Update the store number and address of a Store.
+  rpc UpdateStore(store.v1.UpdateStoreRequest) returns (store.v1.UpdateStoreResponse) {}
+
+  // Remove an existing Store.
+  rpc RemoveStore(store.v1.RemoveStoreRequest) returns (store.v1.RemoveStoreResponse) {}
+
+  // Like GetStore, can be used to retrieve Stores based on the criteria in the request.
+  rpc SearchStore(store.v1.SearchStoreRequest) returns (store.v1.SearchStoreResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Service Provider Operations">
+
+  // Used to retrieve SPs based on the criteria in the request.
+  rpc SearchServiceProvider(serviceprovider.v1.SearchServiceProviderRequest) returns (serviceprovider.v1.SearchServiceProviderResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="UUEK Operations">
+
+  // When a user no longer wishes to use their UUEKs this method can remove them from mica.
+  rpc RemoveUUEK(uuek.v1.RemoveUUEKRequest) returns (uuek.v1.RemoveUUEKResponse) {}
+
+  // A Partner can proactively replace a UUEK with a new one for future use.
+  rpc ExchangeUUEK(uuek.v1.ExchangeUUEKRequest) returns (uuek.v1.ExchangeUUEKResponse) {}
+
+  // Search for UUEKs that the Partner has created.
+  rpc SearchUUEK(uuek.v1.SearchUUEKRequest) returns (uuek.v1.SearchUUEKResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="Value Operations">
+
+  // A method to obtain value from a user in order to pay for goods or services rendered to the user.
+  rpc ObtainValue(value.v1.ObtainValueRequest) returns (value.v1.ObtainValueResponse) {}
+
+  // A method to reverse obtain value, including transaction fees and discounts for a given transaction
+  rpc ReverseObtainValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseObtainValueResponse) {}
+
+  // A method to return value to a user in order to refund them for goods or services.
+  rpc ReturnValue(value.v1.ReturnValueRequest) returns (value.v1.ReturnValueResponse) {}
+
+  // A method to reverse return value for a given transaction
+  rpc ReverseReturnValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseReturnValueResponse) {}
+
+  // A method to retrieve a value transaction
+  rpc GetValue(value.v1.GetValueRequest) returns (value.v1.GetValueResponse) {}
+
+  // A method to hold some value to be obtained at a later date via ObtainHoldValue
+  rpc HoldValue(value.v1.HoldValueRequest) returns (value.v1.HoldValueResponse) {}
+
+  // A method to amend the value of a prior hold to be obtained at a later date via ObtainHoldValue
+  rpc AmendHoldValue(value.v1.AmendHoldValueRequest) returns (value.v1.AmendHoldValueResponse) {}
+
+  // A method to release previously held value
+  rpc ReleaseHoldValue(value.v1.ReleaseHoldValueRequest) returns (value.v1.ReleaseHoldValueResponse) {}
+
+  // A method to obtain value that was previously held
+  rpc ObtainHoldValue(value.v1.ObtainHoldValueRequest) returns (value.v1.ObtainHoldValueResponse) {}
+  //</editor-fold>
+
+  //<editor-fold desc="account linking operations">
+  rpc LinkInstrumentWithCode(instrument.v1.LinkInstrumentWithCodeRequest) returns (instrument.v1.LinkInstrumentWithCodeResponse) {}
+
+  rpc ProvisionUUEKWithLinkSessionKey(instrument.v1.ProvisionUUEKWithLinkSessionKeyRequest) returns (instrument.v1.ProvisionUUEKWithLinkSessionKeyResponse){}
+  //</editor-fold>
+
+  //<editor-fold desc="Widget Operations">
+  rpc InitializeWidget(widget.v1.InitializeWidgetRequest) returns (widget.v1.InitializeWidgetResponse) {}
+
+  rpc ExchangeSessionKey(instrument.v1.ExchangeSessionKeyRequest) returns (instrument.v1.ExchangeSessionKeyResponse) {}
+  //</editor-fold>
+
+
+  // A method to ping the server to ensure it's up and running and that the connection is good.
+  rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+}
