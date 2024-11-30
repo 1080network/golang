@@ -247,6 +247,8 @@ message ProvisionInstrumentLinkingCodeRequest {
   // if there is any information to exchange at linking time this is when it gets passed to the network which will forward
   // to the merchant/acquiring side when the linking has been created
   micashared.common.v1.InstrumentLinkClaims claims = 5;
+  
+  LinkUsageProfile usage_profile = 6;
 }
 
 message ProvisionInstrumentLinkingCodeResponse {
@@ -263,4 +265,226 @@ message ProvisionInstrumentLinkingCodeResponse {
 
   //this is the code that the service provider can display or send to the user to enter on any prompt asking for it
   string linking_code = 3;
+}
+
+message CompleteLinkingWithCodeRequest{
+  // String code supplied by the end user
+  string linking_code = 1;
+  oneof to_user{
+    //this is the id in the service provider for the user that is requesting an enrollment
+    string user_ref = 2 [(validate.rules).string.max_len = 100];
+    string user_key = 3 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+  }
+
+  oneof to_instrument{
+    //this is the id in the service provider for the user that is requesting an enrollment
+    string instrument_ref = 4 [(validate.rules).string.max_len = 100];
+    string instrument_key = 5 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+  }
+}
+
+message CompleteLinkingWithCodeResponse{
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    //the link source is in a different network and therefore not compatible
+    STATUS_INVALID_NETWORK = 2;
+    //the source account or instrument for this link is not supported
+    STATUS_UNSUPPORTED_LINK_SOURCE = 3;
+    //the specified user does not exist
+    STATUS_USER_NOT_FOUND = 4;
+    // the specified instrument does not exist
+    STATUS_INSTRUMENT_NOT_FOUND = 5;
+    //the provided code is incorrect
+    STATUS_INVALID_CODE = 6;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  InstrumentLink instrument_link = 3;
+    
+  // Any claims that are associated with the link as provided by the Service Provider
+  micashared.common.v1.InstrumentLinkClaims claims = 4;
+}
+
+message GetInstrumentLinkRequest{
+  string link_key = 1;
+}
+
+message GetInstrumentLinkResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_LINK_NOT_FOUND =2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  InstrumentLink instrument_link = 3; 
+}
+
+// This message allows to search links by user, by instrument, setting both operates as a "AND" operator
+message SearchInstrumentLinksRequest {
+  oneof by_user{
+    //this is the id in the service provider for the user that is requesting an enrollment
+    string user_ref = 1 [(validate.rules).string.max_len = 100];
+    string user_key = 2 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+  }
+
+  oneof by_instrument{
+    //this is the id in the service provider for the user that is requesting an enrollment
+    string instrument_ref = 3 [(validate.rules).string.max_len = 100];
+    string instrument_key = 4 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+  }
+}
+
+message SearchInstrumentLinksResponse{
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND =2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  repeated InstrumentLink instrument_links = 3;
+}
+
+message RemoveInstrumentLinkRequest{
+  string link_key = 1; 
+}
+
+message RemoveInstrumentLinkResponse{
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND =2;
+    STATUS_LINK_IN_USE = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+}
+
+
+message LinkUsageProfile {
+  bool for_one_time_use = 1;
+  //todo maybe have something that pre-defines the link type? for example
+  // another account I own, an account owned by someone else? 
+}
+
+
+message InstrumentLink {
+  // The primary key that represents this link at Mica.
+  string link_key = 1;
+
+  // version of the link record, used for optimistic locking.
+  int64 version = 2;
+
+  // Date that the Store was created at Mica.
+  google.protobuf.Timestamp created = 3;
+
+  // Date that the Store was last updated at Mica.
+  google.protobuf.Timestamp updated = 4;
+
+  string service_provider_user_key = 5;
+  
+  string service_provider_user_ref = 6;
+
+  string service_provider_instrument_ref = 7;
+
+  string service_provider_instrument_key = 8;
+
+  string organization_name = 9;
+
+  string organization_icon_url = 10;
+
+  micashared.common.v1.LinkedInstrumentData linked_instrument_data = 11;
+}
+
+message GetRecurringPaymentRequest {
+
+  string recurring_payment_key = 1[(validate.rules).string = {min_len: 30,max_len: 50}];
+
+}
+
+message GetRecurringPaymentResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND =2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  micashared.common.v1.RecurringPayment recurring_payment = 3;
+
+}
+
+message CancelRecurringPaymentRequest {
+
+  string recurring_payment_key = 1[(validate.rules).string = {min_len: 30,max_len: 50}];
+
+}
+
+message CancelRecurringPaymentResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND =2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+}
+
+message SearchRecurringPaymentsRequest {
+  oneof by_user{
+    //this is the id in the service provider for the user that is requesting an enrollment
+    string user_ref = 1 [(validate.rules).string.max_len = 100];
+    string user_key = 2 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+  }
+
+  oneof by_instrument{
+    //this is the id in the service provider for the user that is requesting an enrollment
+    string instrument_ref = 3 [(validate.rules).string.max_len = 100];
+    string instrument_key = 4 [(validate.rules).string = {
+      min_len: 30,
+      max_len: 50
+    }];
+  }
+}
+
+message SearchRecurringPaymentsResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND =2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  repeated micashared.common.v1.RecurringPayment recurring_payments = 3;
+
 }

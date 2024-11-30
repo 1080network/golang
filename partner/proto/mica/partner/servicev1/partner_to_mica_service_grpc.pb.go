@@ -25,7 +25,6 @@ import (
 	partnerv1 "github.com/1080network/golang/partner/proto/mica/partner/partnerv1"
 	serviceproviderv1 "github.com/1080network/golang/partner/proto/mica/partner/serviceproviderv1"
 	storev1 "github.com/1080network/golang/partner/proto/mica/partner/storev1"
-	uuekv1 "github.com/1080network/golang/partner/proto/mica/partner/uuekv1"
 	valuev1 "github.com/1080network/golang/partner/proto/mica/partner/valuev1"
 	pingv1 "github.com/1080network/golang/partner/proto/micashared/common/pingv1"
 )
@@ -53,9 +52,6 @@ const (
 	PartnerToMicaService_RemoveStore_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/RemoveStore"
 	PartnerToMicaService_SearchStore_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/SearchStore"
 	PartnerToMicaService_SearchServiceProvider_FullMethodName            = "/mica.partner.service.v1.PartnerToMicaService/SearchServiceProvider"
-	PartnerToMicaService_RemoveUUEK_FullMethodName                       = "/mica.partner.service.v1.PartnerToMicaService/RemoveUUEK"
-	PartnerToMicaService_ExchangeUUEK_FullMethodName                     = "/mica.partner.service.v1.PartnerToMicaService/ExchangeUUEK"
-	PartnerToMicaService_SearchUUEK_FullMethodName                       = "/mica.partner.service.v1.PartnerToMicaService/SearchUUEK"
 	PartnerToMicaService_ObtainValue_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/ObtainValue"
 	PartnerToMicaService_ReverseObtainValue_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/ReverseObtainValue"
 	PartnerToMicaService_ReturnValue_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/ReturnValue"
@@ -65,10 +61,19 @@ const (
 	PartnerToMicaService_AmendHoldValue_FullMethodName                   = "/mica.partner.service.v1.PartnerToMicaService/AmendHoldValue"
 	PartnerToMicaService_ReleaseHoldValue_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/ReleaseHoldValue"
 	PartnerToMicaService_ObtainHoldValue_FullMethodName                  = "/mica.partner.service.v1.PartnerToMicaService/ObtainHoldValue"
-	PartnerToMicaService_LinkInstrumentWithCode_FullMethodName           = "/mica.partner.service.v1.PartnerToMicaService/LinkInstrumentWithCode"
-	PartnerToMicaService_ProvisionUUEKWithLinkSessionKey_FullMethodName  = "/mica.partner.service.v1.PartnerToMicaService/ProvisionUUEKWithLinkSessionKey"
+	PartnerToMicaService_CompleteLinkingWithCode_FullMethodName          = "/mica.partner.service.v1.PartnerToMicaService/CompleteLinkingWithCode"
+	PartnerToMicaService_GetLink_FullMethodName                          = "/mica.partner.service.v1.PartnerToMicaService/GetLink"
+	PartnerToMicaService_ProvisionUUEKFromLink_FullMethodName            = "/mica.partner.service.v1.PartnerToMicaService/ProvisionUUEKFromLink"
 	PartnerToMicaService_InitializeWidget_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/InitializeWidget"
 	PartnerToMicaService_ExchangeSessionKey_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/ExchangeSessionKey"
+	PartnerToMicaService_CreateRecurringPayment_FullMethodName           = "/mica.partner.service.v1.PartnerToMicaService/CreateRecurringPayment"
+	PartnerToMicaService_ActivateRecurringPayment_FullMethodName         = "/mica.partner.service.v1.PartnerToMicaService/ActivateRecurringPayment"
+	PartnerToMicaService_CancelRecurringPayment_FullMethodName           = "/mica.partner.service.v1.PartnerToMicaService/CancelRecurringPayment"
+	PartnerToMicaService_GetRecurringPayment_FullMethodName              = "/mica.partner.service.v1.PartnerToMicaService/GetRecurringPayment"
+	PartnerToMicaService_SearchRecurringPayment_FullMethodName           = "/mica.partner.service.v1.PartnerToMicaService/SearchRecurringPayment"
+	PartnerToMicaService_ProvisionRecurringPaymentUUEK_FullMethodName    = "/mica.partner.service.v1.PartnerToMicaService/ProvisionRecurringPaymentUUEK"
+	PartnerToMicaService_RecurringPaymentObtainValue_FullMethodName      = "/mica.partner.service.v1.PartnerToMicaService/RecurringPaymentObtainValue"
+	PartnerToMicaService_RecurringPaymentReturnValue_FullMethodName      = "/mica.partner.service.v1.PartnerToMicaService/RecurringPaymentReturnValue"
 	PartnerToMicaService_Ping_FullMethodName                             = "/mica.partner.service.v1.PartnerToMicaService/Ping"
 )
 
@@ -107,12 +112,6 @@ type PartnerToMicaServiceClient interface {
 	SearchStore(ctx context.Context, in *storev1.SearchStoreRequest, opts ...grpc.CallOption) (*storev1.SearchStoreResponse, error)
 	// Used to retrieve SPs based on the criteria in the request.
 	SearchServiceProvider(ctx context.Context, in *serviceproviderv1.SearchServiceProviderRequest, opts ...grpc.CallOption) (*serviceproviderv1.SearchServiceProviderResponse, error)
-	// When a user no longer wishes to use their UUEKs this method can remove them from mica.
-	RemoveUUEK(ctx context.Context, in *uuekv1.RemoveUUEKRequest, opts ...grpc.CallOption) (*uuekv1.RemoveUUEKResponse, error)
-	// A Partner can proactively replace a UUEK with a new one for future use.
-	ExchangeUUEK(ctx context.Context, in *uuekv1.ExchangeUUEKRequest, opts ...grpc.CallOption) (*uuekv1.ExchangeUUEKResponse, error)
-	// Search for UUEKs that the Partner has created.
-	SearchUUEK(ctx context.Context, in *uuekv1.SearchUUEKRequest, opts ...grpc.CallOption) (*uuekv1.SearchUUEKResponse, error)
 	// A method to obtain value from a user in order to pay for goods or services rendered to the user.
 	ObtainValue(ctx context.Context, in *valuev1.ObtainValueRequest, opts ...grpc.CallOption) (*valuev1.ObtainValueResponse, error)
 	// A method to reverse obtain value, including transaction fees and discounts for a given transaction
@@ -132,11 +131,25 @@ type PartnerToMicaServiceClient interface {
 	// A method to obtain value that was previously held
 	ObtainHoldValue(ctx context.Context, in *valuev1.ObtainHoldValueRequest, opts ...grpc.CallOption) (*valuev1.ObtainHoldValueResponse, error)
 	// <editor-fold desc="account linking operations">
-	LinkInstrumentWithCode(ctx context.Context, in *instrumentv1.LinkInstrumentWithCodeRequest, opts ...grpc.CallOption) (*instrumentv1.LinkInstrumentWithCodeResponse, error)
-	ProvisionUUEKWithLinkSessionKey(ctx context.Context, in *instrumentv1.ProvisionUUEKWithLinkSessionKeyRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionUUEKWithLinkSessionKeyResponse, error)
+	CompleteLinkingWithCode(ctx context.Context, in *instrumentv1.CompleteLinkingWithCodeRequest, opts ...grpc.CallOption) (*instrumentv1.CompleteLinkingWithCodeResponse, error)
+	GetLink(ctx context.Context, in *instrumentv1.GetLinkRequest, opts ...grpc.CallOption) (*instrumentv1.GetLinkResponse, error)
+	ProvisionUUEKFromLink(ctx context.Context, in *instrumentv1.ProvisionUUEKFromLinkRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionUUEKFromLinkResponse, error)
 	// <editor-fold desc="Widget Operations">
 	InitializeWidget(ctx context.Context, in *instrumentv1.InitializeWidgetRequest, opts ...grpc.CallOption) (*instrumentv1.InitializeWidgetResponse, error)
 	ExchangeSessionKey(ctx context.Context, in *instrumentv1.ExchangeSessionKeyRequest, opts ...grpc.CallOption) (*instrumentv1.ExchangeSessionKeyResponse, error)
+	// Create a recurring payment to be attached to a partner to service provider link
+	CreateRecurringPayment(ctx context.Context, in *instrumentv1.CreateRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.CreateRecurringPaymentResponse, error)
+	ActivateRecurringPayment(ctx context.Context, in *instrumentv1.ActivateRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.ActivateRecurringPaymentResponse, error)
+	// The merchant or the user using the merchants software may wish to cancel a recurring payment
+	CancelRecurringPayment(ctx context.Context, in *instrumentv1.CancelRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.CancelRecurringPaymentResponse, error)
+	// return a recurring payment using a unique identifier as a key
+	GetRecurringPayment(ctx context.Context, in *instrumentv1.GetRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.GetRecurringPaymentResponse, error)
+	SearchRecurringPayment(ctx context.Context, in *instrumentv1.SearchRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.SearchRecurringPaymentResponse, error)
+	// The user should call this method before calling ExecuteRecurringPaymentObtainValue below
+	ProvisionRecurringPaymentUUEK(ctx context.Context, in *instrumentv1.ProvisionRecurringPaymentUUEKRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionRecurringPaymentUUEKResponse, error)
+	// Note that an attempt to pass a UUEK not minted by the ProvisionRecurringPaymentUUEK method will result in a runtime error
+	RecurringPaymentObtainValue(ctx context.Context, in *instrumentv1.RecurringPaymentObtainValueRequest, opts ...grpc.CallOption) (*instrumentv1.RecurringPaymentObtainValueResponse, error)
+	RecurringPaymentReturnValue(ctx context.Context, in *instrumentv1.RecurringPaymentReturnValueRequest, opts ...grpc.CallOption) (*instrumentv1.RecurringPaymentReturnValueResponse, error)
 	// A method to ping the server to ensure it's up and running and that the connection is good.
 	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
 }
@@ -302,33 +315,6 @@ func (c *partnerToMicaServiceClient) SearchServiceProvider(ctx context.Context, 
 	return out, nil
 }
 
-func (c *partnerToMicaServiceClient) RemoveUUEK(ctx context.Context, in *uuekv1.RemoveUUEKRequest, opts ...grpc.CallOption) (*uuekv1.RemoveUUEKResponse, error) {
-	out := new(uuekv1.RemoveUUEKResponse)
-	err := c.cc.Invoke(ctx, PartnerToMicaService_RemoveUUEK_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *partnerToMicaServiceClient) ExchangeUUEK(ctx context.Context, in *uuekv1.ExchangeUUEKRequest, opts ...grpc.CallOption) (*uuekv1.ExchangeUUEKResponse, error) {
-	out := new(uuekv1.ExchangeUUEKResponse)
-	err := c.cc.Invoke(ctx, PartnerToMicaService_ExchangeUUEK_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *partnerToMicaServiceClient) SearchUUEK(ctx context.Context, in *uuekv1.SearchUUEKRequest, opts ...grpc.CallOption) (*uuekv1.SearchUUEKResponse, error) {
-	out := new(uuekv1.SearchUUEKResponse)
-	err := c.cc.Invoke(ctx, PartnerToMicaService_SearchUUEK_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *partnerToMicaServiceClient) ObtainValue(ctx context.Context, in *valuev1.ObtainValueRequest, opts ...grpc.CallOption) (*valuev1.ObtainValueResponse, error) {
 	out := new(valuev1.ObtainValueResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_ObtainValue_FullMethodName, in, out, opts...)
@@ -410,18 +396,27 @@ func (c *partnerToMicaServiceClient) ObtainHoldValue(ctx context.Context, in *va
 	return out, nil
 }
 
-func (c *partnerToMicaServiceClient) LinkInstrumentWithCode(ctx context.Context, in *instrumentv1.LinkInstrumentWithCodeRequest, opts ...grpc.CallOption) (*instrumentv1.LinkInstrumentWithCodeResponse, error) {
-	out := new(instrumentv1.LinkInstrumentWithCodeResponse)
-	err := c.cc.Invoke(ctx, PartnerToMicaService_LinkInstrumentWithCode_FullMethodName, in, out, opts...)
+func (c *partnerToMicaServiceClient) CompleteLinkingWithCode(ctx context.Context, in *instrumentv1.CompleteLinkingWithCodeRequest, opts ...grpc.CallOption) (*instrumentv1.CompleteLinkingWithCodeResponse, error) {
+	out := new(instrumentv1.CompleteLinkingWithCodeResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_CompleteLinkingWithCode_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *partnerToMicaServiceClient) ProvisionUUEKWithLinkSessionKey(ctx context.Context, in *instrumentv1.ProvisionUUEKWithLinkSessionKeyRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionUUEKWithLinkSessionKeyResponse, error) {
-	out := new(instrumentv1.ProvisionUUEKWithLinkSessionKeyResponse)
-	err := c.cc.Invoke(ctx, PartnerToMicaService_ProvisionUUEKWithLinkSessionKey_FullMethodName, in, out, opts...)
+func (c *partnerToMicaServiceClient) GetLink(ctx context.Context, in *instrumentv1.GetLinkRequest, opts ...grpc.CallOption) (*instrumentv1.GetLinkResponse, error) {
+	out := new(instrumentv1.GetLinkResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_GetLink_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) ProvisionUUEKFromLink(ctx context.Context, in *instrumentv1.ProvisionUUEKFromLinkRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionUUEKFromLinkResponse, error) {
+	out := new(instrumentv1.ProvisionUUEKFromLinkResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_ProvisionUUEKFromLink_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -440,6 +435,78 @@ func (c *partnerToMicaServiceClient) InitializeWidget(ctx context.Context, in *i
 func (c *partnerToMicaServiceClient) ExchangeSessionKey(ctx context.Context, in *instrumentv1.ExchangeSessionKeyRequest, opts ...grpc.CallOption) (*instrumentv1.ExchangeSessionKeyResponse, error) {
 	out := new(instrumentv1.ExchangeSessionKeyResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_ExchangeSessionKey_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) CreateRecurringPayment(ctx context.Context, in *instrumentv1.CreateRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.CreateRecurringPaymentResponse, error) {
+	out := new(instrumentv1.CreateRecurringPaymentResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_CreateRecurringPayment_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) ActivateRecurringPayment(ctx context.Context, in *instrumentv1.ActivateRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.ActivateRecurringPaymentResponse, error) {
+	out := new(instrumentv1.ActivateRecurringPaymentResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_ActivateRecurringPayment_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) CancelRecurringPayment(ctx context.Context, in *instrumentv1.CancelRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.CancelRecurringPaymentResponse, error) {
+	out := new(instrumentv1.CancelRecurringPaymentResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_CancelRecurringPayment_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) GetRecurringPayment(ctx context.Context, in *instrumentv1.GetRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.GetRecurringPaymentResponse, error) {
+	out := new(instrumentv1.GetRecurringPaymentResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_GetRecurringPayment_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) SearchRecurringPayment(ctx context.Context, in *instrumentv1.SearchRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.SearchRecurringPaymentResponse, error) {
+	out := new(instrumentv1.SearchRecurringPaymentResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_SearchRecurringPayment_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) ProvisionRecurringPaymentUUEK(ctx context.Context, in *instrumentv1.ProvisionRecurringPaymentUUEKRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionRecurringPaymentUUEKResponse, error) {
+	out := new(instrumentv1.ProvisionRecurringPaymentUUEKResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_ProvisionRecurringPaymentUUEK_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) RecurringPaymentObtainValue(ctx context.Context, in *instrumentv1.RecurringPaymentObtainValueRequest, opts ...grpc.CallOption) (*instrumentv1.RecurringPaymentObtainValueResponse, error) {
+	out := new(instrumentv1.RecurringPaymentObtainValueResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_RecurringPaymentObtainValue_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *partnerToMicaServiceClient) RecurringPaymentReturnValue(ctx context.Context, in *instrumentv1.RecurringPaymentReturnValueRequest, opts ...grpc.CallOption) (*instrumentv1.RecurringPaymentReturnValueResponse, error) {
+	out := new(instrumentv1.RecurringPaymentReturnValueResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_RecurringPaymentReturnValue_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -490,12 +557,6 @@ type PartnerToMicaServiceServer interface {
 	SearchStore(context.Context, *storev1.SearchStoreRequest) (*storev1.SearchStoreResponse, error)
 	// Used to retrieve SPs based on the criteria in the request.
 	SearchServiceProvider(context.Context, *serviceproviderv1.SearchServiceProviderRequest) (*serviceproviderv1.SearchServiceProviderResponse, error)
-	// When a user no longer wishes to use their UUEKs this method can remove them from mica.
-	RemoveUUEK(context.Context, *uuekv1.RemoveUUEKRequest) (*uuekv1.RemoveUUEKResponse, error)
-	// A Partner can proactively replace a UUEK with a new one for future use.
-	ExchangeUUEK(context.Context, *uuekv1.ExchangeUUEKRequest) (*uuekv1.ExchangeUUEKResponse, error)
-	// Search for UUEKs that the Partner has created.
-	SearchUUEK(context.Context, *uuekv1.SearchUUEKRequest) (*uuekv1.SearchUUEKResponse, error)
 	// A method to obtain value from a user in order to pay for goods or services rendered to the user.
 	ObtainValue(context.Context, *valuev1.ObtainValueRequest) (*valuev1.ObtainValueResponse, error)
 	// A method to reverse obtain value, including transaction fees and discounts for a given transaction
@@ -515,11 +576,25 @@ type PartnerToMicaServiceServer interface {
 	// A method to obtain value that was previously held
 	ObtainHoldValue(context.Context, *valuev1.ObtainHoldValueRequest) (*valuev1.ObtainHoldValueResponse, error)
 	// <editor-fold desc="account linking operations">
-	LinkInstrumentWithCode(context.Context, *instrumentv1.LinkInstrumentWithCodeRequest) (*instrumentv1.LinkInstrumentWithCodeResponse, error)
-	ProvisionUUEKWithLinkSessionKey(context.Context, *instrumentv1.ProvisionUUEKWithLinkSessionKeyRequest) (*instrumentv1.ProvisionUUEKWithLinkSessionKeyResponse, error)
+	CompleteLinkingWithCode(context.Context, *instrumentv1.CompleteLinkingWithCodeRequest) (*instrumentv1.CompleteLinkingWithCodeResponse, error)
+	GetLink(context.Context, *instrumentv1.GetLinkRequest) (*instrumentv1.GetLinkResponse, error)
+	ProvisionUUEKFromLink(context.Context, *instrumentv1.ProvisionUUEKFromLinkRequest) (*instrumentv1.ProvisionUUEKFromLinkResponse, error)
 	// <editor-fold desc="Widget Operations">
 	InitializeWidget(context.Context, *instrumentv1.InitializeWidgetRequest) (*instrumentv1.InitializeWidgetResponse, error)
 	ExchangeSessionKey(context.Context, *instrumentv1.ExchangeSessionKeyRequest) (*instrumentv1.ExchangeSessionKeyResponse, error)
+	// Create a recurring payment to be attached to a partner to service provider link
+	CreateRecurringPayment(context.Context, *instrumentv1.CreateRecurringPaymentRequest) (*instrumentv1.CreateRecurringPaymentResponse, error)
+	ActivateRecurringPayment(context.Context, *instrumentv1.ActivateRecurringPaymentRequest) (*instrumentv1.ActivateRecurringPaymentResponse, error)
+	// The merchant or the user using the merchants software may wish to cancel a recurring payment
+	CancelRecurringPayment(context.Context, *instrumentv1.CancelRecurringPaymentRequest) (*instrumentv1.CancelRecurringPaymentResponse, error)
+	// return a recurring payment using a unique identifier as a key
+	GetRecurringPayment(context.Context, *instrumentv1.GetRecurringPaymentRequest) (*instrumentv1.GetRecurringPaymentResponse, error)
+	SearchRecurringPayment(context.Context, *instrumentv1.SearchRecurringPaymentRequest) (*instrumentv1.SearchRecurringPaymentResponse, error)
+	// The user should call this method before calling ExecuteRecurringPaymentObtainValue below
+	ProvisionRecurringPaymentUUEK(context.Context, *instrumentv1.ProvisionRecurringPaymentUUEKRequest) (*instrumentv1.ProvisionRecurringPaymentUUEKResponse, error)
+	// Note that an attempt to pass a UUEK not minted by the ProvisionRecurringPaymentUUEK method will result in a runtime error
+	RecurringPaymentObtainValue(context.Context, *instrumentv1.RecurringPaymentObtainValueRequest) (*instrumentv1.RecurringPaymentObtainValueResponse, error)
+	RecurringPaymentReturnValue(context.Context, *instrumentv1.RecurringPaymentReturnValueRequest) (*instrumentv1.RecurringPaymentReturnValueResponse, error)
 	// A method to ping the server to ensure it's up and running and that the connection is good.
 	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
 	mustEmbedUnimplementedPartnerToMicaServiceServer()
@@ -580,15 +655,6 @@ func (UnimplementedPartnerToMicaServiceServer) SearchStore(context.Context, *sto
 func (UnimplementedPartnerToMicaServiceServer) SearchServiceProvider(context.Context, *serviceproviderv1.SearchServiceProviderRequest) (*serviceproviderv1.SearchServiceProviderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchServiceProvider not implemented")
 }
-func (UnimplementedPartnerToMicaServiceServer) RemoveUUEK(context.Context, *uuekv1.RemoveUUEKRequest) (*uuekv1.RemoveUUEKResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveUUEK not implemented")
-}
-func (UnimplementedPartnerToMicaServiceServer) ExchangeUUEK(context.Context, *uuekv1.ExchangeUUEKRequest) (*uuekv1.ExchangeUUEKResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ExchangeUUEK not implemented")
-}
-func (UnimplementedPartnerToMicaServiceServer) SearchUUEK(context.Context, *uuekv1.SearchUUEKRequest) (*uuekv1.SearchUUEKResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchUUEK not implemented")
-}
 func (UnimplementedPartnerToMicaServiceServer) ObtainValue(context.Context, *valuev1.ObtainValueRequest) (*valuev1.ObtainValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ObtainValue not implemented")
 }
@@ -616,17 +682,44 @@ func (UnimplementedPartnerToMicaServiceServer) ReleaseHoldValue(context.Context,
 func (UnimplementedPartnerToMicaServiceServer) ObtainHoldValue(context.Context, *valuev1.ObtainHoldValueRequest) (*valuev1.ObtainHoldValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ObtainHoldValue not implemented")
 }
-func (UnimplementedPartnerToMicaServiceServer) LinkInstrumentWithCode(context.Context, *instrumentv1.LinkInstrumentWithCodeRequest) (*instrumentv1.LinkInstrumentWithCodeResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method LinkInstrumentWithCode not implemented")
+func (UnimplementedPartnerToMicaServiceServer) CompleteLinkingWithCode(context.Context, *instrumentv1.CompleteLinkingWithCodeRequest) (*instrumentv1.CompleteLinkingWithCodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompleteLinkingWithCode not implemented")
 }
-func (UnimplementedPartnerToMicaServiceServer) ProvisionUUEKWithLinkSessionKey(context.Context, *instrumentv1.ProvisionUUEKWithLinkSessionKeyRequest) (*instrumentv1.ProvisionUUEKWithLinkSessionKeyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ProvisionUUEKWithLinkSessionKey not implemented")
+func (UnimplementedPartnerToMicaServiceServer) GetLink(context.Context, *instrumentv1.GetLinkRequest) (*instrumentv1.GetLinkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetLink not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) ProvisionUUEKFromLink(context.Context, *instrumentv1.ProvisionUUEKFromLinkRequest) (*instrumentv1.ProvisionUUEKFromLinkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProvisionUUEKFromLink not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) InitializeWidget(context.Context, *instrumentv1.InitializeWidgetRequest) (*instrumentv1.InitializeWidgetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InitializeWidget not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) ExchangeSessionKey(context.Context, *instrumentv1.ExchangeSessionKeyRequest) (*instrumentv1.ExchangeSessionKeyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ExchangeSessionKey not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) CreateRecurringPayment(context.Context, *instrumentv1.CreateRecurringPaymentRequest) (*instrumentv1.CreateRecurringPaymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateRecurringPayment not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) ActivateRecurringPayment(context.Context, *instrumentv1.ActivateRecurringPaymentRequest) (*instrumentv1.ActivateRecurringPaymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ActivateRecurringPayment not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) CancelRecurringPayment(context.Context, *instrumentv1.CancelRecurringPaymentRequest) (*instrumentv1.CancelRecurringPaymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CancelRecurringPayment not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) GetRecurringPayment(context.Context, *instrumentv1.GetRecurringPaymentRequest) (*instrumentv1.GetRecurringPaymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRecurringPayment not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) SearchRecurringPayment(context.Context, *instrumentv1.SearchRecurringPaymentRequest) (*instrumentv1.SearchRecurringPaymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchRecurringPayment not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) ProvisionRecurringPaymentUUEK(context.Context, *instrumentv1.ProvisionRecurringPaymentUUEKRequest) (*instrumentv1.ProvisionRecurringPaymentUUEKResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProvisionRecurringPaymentUUEK not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) RecurringPaymentObtainValue(context.Context, *instrumentv1.RecurringPaymentObtainValueRequest) (*instrumentv1.RecurringPaymentObtainValueResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RecurringPaymentObtainValue not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) RecurringPaymentReturnValue(context.Context, *instrumentv1.RecurringPaymentReturnValueRequest) (*instrumentv1.RecurringPaymentReturnValueResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RecurringPaymentReturnValue not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
@@ -950,60 +1043,6 @@ func _PartnerToMicaService_SearchServiceProvider_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PartnerToMicaService_RemoveUUEK_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(uuekv1.RemoveUUEKRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).RemoveUUEK(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PartnerToMicaService_RemoveUUEK_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).RemoveUUEK(ctx, req.(*uuekv1.RemoveUUEKRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PartnerToMicaService_ExchangeUUEK_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(uuekv1.ExchangeUUEKRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).ExchangeUUEK(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PartnerToMicaService_ExchangeUUEK_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).ExchangeUUEK(ctx, req.(*uuekv1.ExchangeUUEKRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PartnerToMicaService_SearchUUEK_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(uuekv1.SearchUUEKRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).SearchUUEK(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PartnerToMicaService_SearchUUEK_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).SearchUUEK(ctx, req.(*uuekv1.SearchUUEKRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _PartnerToMicaService_ObtainValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(valuev1.ObtainValueRequest)
 	if err := dec(in); err != nil {
@@ -1166,38 +1205,56 @@ func _PartnerToMicaService_ObtainHoldValue_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PartnerToMicaService_LinkInstrumentWithCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(instrumentv1.LinkInstrumentWithCodeRequest)
+func _PartnerToMicaService_CompleteLinkingWithCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.CompleteLinkingWithCodeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).LinkInstrumentWithCode(ctx, in)
+		return srv.(PartnerToMicaServiceServer).CompleteLinkingWithCode(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: PartnerToMicaService_LinkInstrumentWithCode_FullMethodName,
+		FullMethod: PartnerToMicaService_CompleteLinkingWithCode_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).LinkInstrumentWithCode(ctx, req.(*instrumentv1.LinkInstrumentWithCodeRequest))
+		return srv.(PartnerToMicaServiceServer).CompleteLinkingWithCode(ctx, req.(*instrumentv1.CompleteLinkingWithCodeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PartnerToMicaService_ProvisionUUEKWithLinkSessionKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(instrumentv1.ProvisionUUEKWithLinkSessionKeyRequest)
+func _PartnerToMicaService_GetLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.GetLinkRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).ProvisionUUEKWithLinkSessionKey(ctx, in)
+		return srv.(PartnerToMicaServiceServer).GetLink(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: PartnerToMicaService_ProvisionUUEKWithLinkSessionKey_FullMethodName,
+		FullMethod: PartnerToMicaService_GetLink_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).ProvisionUUEKWithLinkSessionKey(ctx, req.(*instrumentv1.ProvisionUUEKWithLinkSessionKeyRequest))
+		return srv.(PartnerToMicaServiceServer).GetLink(ctx, req.(*instrumentv1.GetLinkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_ProvisionUUEKFromLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.ProvisionUUEKFromLinkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).ProvisionUUEKFromLink(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_ProvisionUUEKFromLink_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).ProvisionUUEKFromLink(ctx, req.(*instrumentv1.ProvisionUUEKFromLinkRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1234,6 +1291,150 @@ func _PartnerToMicaService_ExchangeSessionKey_Handler(srv interface{}, ctx conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartnerToMicaServiceServer).ExchangeSessionKey(ctx, req.(*instrumentv1.ExchangeSessionKeyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_CreateRecurringPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.CreateRecurringPaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).CreateRecurringPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_CreateRecurringPayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).CreateRecurringPayment(ctx, req.(*instrumentv1.CreateRecurringPaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_ActivateRecurringPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.ActivateRecurringPaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).ActivateRecurringPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_ActivateRecurringPayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).ActivateRecurringPayment(ctx, req.(*instrumentv1.ActivateRecurringPaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_CancelRecurringPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.CancelRecurringPaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).CancelRecurringPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_CancelRecurringPayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).CancelRecurringPayment(ctx, req.(*instrumentv1.CancelRecurringPaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_GetRecurringPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.GetRecurringPaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).GetRecurringPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_GetRecurringPayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).GetRecurringPayment(ctx, req.(*instrumentv1.GetRecurringPaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_SearchRecurringPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.SearchRecurringPaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).SearchRecurringPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_SearchRecurringPayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).SearchRecurringPayment(ctx, req.(*instrumentv1.SearchRecurringPaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_ProvisionRecurringPaymentUUEK_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.ProvisionRecurringPaymentUUEKRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).ProvisionRecurringPaymentUUEK(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_ProvisionRecurringPaymentUUEK_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).ProvisionRecurringPaymentUUEK(ctx, req.(*instrumentv1.ProvisionRecurringPaymentUUEKRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_RecurringPaymentObtainValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.RecurringPaymentObtainValueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).RecurringPaymentObtainValue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_RecurringPaymentObtainValue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).RecurringPaymentObtainValue(ctx, req.(*instrumentv1.RecurringPaymentObtainValueRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PartnerToMicaService_RecurringPaymentReturnValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.RecurringPaymentReturnValueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).RecurringPaymentReturnValue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_RecurringPaymentReturnValue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).RecurringPaymentReturnValue(ctx, req.(*instrumentv1.RecurringPaymentReturnValueRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1332,18 +1533,6 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PartnerToMicaService_SearchServiceProvider_Handler,
 		},
 		{
-			MethodName: "RemoveUUEK",
-			Handler:    _PartnerToMicaService_RemoveUUEK_Handler,
-		},
-		{
-			MethodName: "ExchangeUUEK",
-			Handler:    _PartnerToMicaService_ExchangeUUEK_Handler,
-		},
-		{
-			MethodName: "SearchUUEK",
-			Handler:    _PartnerToMicaService_SearchUUEK_Handler,
-		},
-		{
 			MethodName: "ObtainValue",
 			Handler:    _PartnerToMicaService_ObtainValue_Handler,
 		},
@@ -1380,12 +1569,16 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PartnerToMicaService_ObtainHoldValue_Handler,
 		},
 		{
-			MethodName: "LinkInstrumentWithCode",
-			Handler:    _PartnerToMicaService_LinkInstrumentWithCode_Handler,
+			MethodName: "CompleteLinkingWithCode",
+			Handler:    _PartnerToMicaService_CompleteLinkingWithCode_Handler,
 		},
 		{
-			MethodName: "ProvisionUUEKWithLinkSessionKey",
-			Handler:    _PartnerToMicaService_ProvisionUUEKWithLinkSessionKey_Handler,
+			MethodName: "GetLink",
+			Handler:    _PartnerToMicaService_GetLink_Handler,
+		},
+		{
+			MethodName: "ProvisionUUEKFromLink",
+			Handler:    _PartnerToMicaService_ProvisionUUEKFromLink_Handler,
 		},
 		{
 			MethodName: "InitializeWidget",
@@ -1394,6 +1587,38 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ExchangeSessionKey",
 			Handler:    _PartnerToMicaService_ExchangeSessionKey_Handler,
+		},
+		{
+			MethodName: "CreateRecurringPayment",
+			Handler:    _PartnerToMicaService_CreateRecurringPayment_Handler,
+		},
+		{
+			MethodName: "ActivateRecurringPayment",
+			Handler:    _PartnerToMicaService_ActivateRecurringPayment_Handler,
+		},
+		{
+			MethodName: "CancelRecurringPayment",
+			Handler:    _PartnerToMicaService_CancelRecurringPayment_Handler,
+		},
+		{
+			MethodName: "GetRecurringPayment",
+			Handler:    _PartnerToMicaService_GetRecurringPayment_Handler,
+		},
+		{
+			MethodName: "SearchRecurringPayment",
+			Handler:    _PartnerToMicaService_SearchRecurringPayment_Handler,
+		},
+		{
+			MethodName: "ProvisionRecurringPaymentUUEK",
+			Handler:    _PartnerToMicaService_ProvisionRecurringPaymentUUEK_Handler,
+		},
+		{
+			MethodName: "RecurringPaymentObtainValue",
+			Handler:    _PartnerToMicaService_RecurringPaymentObtainValue_Handler,
+		},
+		{
+			MethodName: "RecurringPaymentReturnValue",
+			Handler:    _PartnerToMicaService_RecurringPaymentReturnValue_Handler,
 		},
 		{
 			MethodName: "Ping",

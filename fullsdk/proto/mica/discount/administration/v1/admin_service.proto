@@ -21,28 +21,28 @@ option java_package = "io.mica.discount.administration.v1";
 option objc_class_prefix = "MICA";
 
 service DiscountAdministrationService {
-  // Certificate authentication to call from a provider onto mica
-  rpc GenerateMTLSCertificate(micashared.common.v1.GenerateMTLSCertificateRequest) returns (micashared.common.v1.GenerateMTLSCertificateResponse) {}
-
+  //  Generate a new mTLS certificate. SignToMicaClientCSR GenerateToMicaCertificate
+  rpc GenerateToMicaCertificate(micashared.common.v1.GenerateToMicaCertificateRequest) returns (micashared.common.v1.GenerateToMicaCertificateResponse) {}
   // Update the certificate with a given serial number, only supports enable/disable for now
-  rpc UpdateMTLSCertificate(micashared.common.v1.UpdateMTLSCertificateRequest) returns (micashared.common.v1.UpdateMTLSCertificateResponse) {}
-
+  rpc EnableToMicaCertificate(micashared.common.v1.EnableToMicaCertificateRequest) returns (micashared.common.v1.EnableToMicaCertificateResponse) {}
+  // do we need a separate Disable call?
+  rpc DisableToMicaCertificate(micashared.common.v1.DisableToMicaCertificateRequest) returns (micashared.common.v1.DisableToMicaCertificateResponse) {}
   //Search for certificates and return the ones that match the criteria provided
-  rpc SearchMTLSCertificate(micashared.common.v1.SearchMTLSCertificateRequest) returns (micashared.common.v1.SearchMTLSCertificateResponse) {}
-
-  rpc GetMTLSCertificate(micashared.common.v1.GetMTLSCertificateRequest) returns (micashared.common.v1.GetMTLSCertificateResponse) {}
-
-  // External authentication mechanisms for Mica to call provider endpoints
-  rpc GetExternalClientSettings(micashared.common.v1.GetExternalClientSettingsRequest) returns (micashared.common.v1.GetExternalClientSettingsResponse) {}
-
-  rpc UpdateExternalClientCallbackAddress(micashared.common.v1.UpdateExternalClientCallBackAddressRequest) returns (micashared.common.v1.UpdateExternalClientCallBackAddressResponse) {}
-
+  rpc SearchToMicaCertificate(micashared.common.v1.SearchToMicaCertificateRequest) returns (micashared.common.v1.SearchToMicaCertificateResponse) {}
+  // return a single certificate
+  rpc GetToMicaCertificate(micashared.common.v1.GetToMicaCertificateRequest) returns (micashared.common.v1.GetToMicaCertificateResponse) {}
   // Client certificates are used when mica needs to call out to a customers environment.
-  rpc GenerateExternalClientMTLSCertificate(micashared.common.v1.GenerateExternalClientMTLSCertificateRequest) returns (micashared.common.v1.GenerateExternalClientMTLSCertificateResponse) {}
+  rpc GenerateFromMicaClientCertificate(micashared.common.v1.GenerateFromMicaClientCertificateRequest) returns (micashared.common.v1.GenerateFromMicaClientCertificateResponse) {}
+  // After signing the CSR the member will upload the signed cert
+  rpc UpdateFromMicaClientCertificate(micashared.common.v1.UpdateFromMicaClientCertificateRequest) returns (micashared.common.v1.UpdateFromMicaClientCertificateResponse) {}
+  // there can only be one enable cert for each endpoint
+  rpc EnableFromMicaClientCertificate(micashared.common.v1.EnableFromMicaClientCertificateRequest) returns (micashared.common.v1.EnableFromMicaClientCertificateResponse) {}
+  // return all from mica certs for now
+  rpc SearchFromMicaClientCertificate(micashared.common.v1.SearchFromMicaClientCertificateRequest) returns (micashared.common.v1.SearchFromMicaClientCertificateResponse) {}
+  // External authentication mechanisms for Mica to call provider endpoints
+  rpc GetFromMicaClientSettings(micashared.common.v1.GetFromMicaClientSettingsRequest) returns (micashared.common.v1.GetFromMicaClientSettingsResponse) {}
 
-  rpc UpdateExternalClientMTLSCertificate(micashared.common.v1.UpdateExternalClientMTLSCertificateRequest) returns (micashared.common.v1.UpdateExternalClientMTLSCertificateResponse) {}
-
-  rpc SearchExternalClientMTLSCertificate(micashared.common.v1.SearchExternalClientMTLSCertificateRequest) returns (micashared.common.v1.SearchExternalClientMTLSCertificateResponse) {}
+  rpc UpdateFromMicaClientCallbackAddress(micashared.common.v1.UpdateFromMicaClientCallBackAddressRequest) returns (micashared.common.v1.UpdateFromMicaClientCallBackAddressResponse) {}
 
   // creates the token configuration
   rpc CreateApiTokenConfiguration(micashared.common.v1.CreateApiTokenConfigurationRequest) returns (micashared.common.v1.CreateApiTokenConfigurationResponse) {}

@@ -90,7 +90,24 @@ service ServiceProviderToMicaService {
   //</editor-fold>
 
   // <editor-fold desc="Account linking operations">
+  // Initiates a linking proces by returning a code based on the account owned by this instance which will be linked to something else
   rpc ProvisionInstrumentLinkingCode(instrument.v1.ProvisionInstrumentLinkingCodeRequest) returns (instrument.v1.ProvisionInstrumentLinkingCodeResponse) {}
+
+  // If another instance of the network initiated a link then this allows the link to be completed
+  rpc CompleteLinkingWithCode(instrument.v1.CompleteLinkingWithCodeRequest) returns (instrument.v1.CompleteLinkingWithCodeResponse) {}
+
+  rpc GetInstrumentLink(instrument.v1.GetInstrumentLinkRequest) returns (instrument.v1.GetInstrumentLinkResponse) {}
+
+  rpc SearchInstrumentLinks(instrument.v1.SearchInstrumentLinksRequest) returns (instrument.v1.SearchInstrumentLinksResponse) {}
+
+  rpc RemoveInstrumentLink(instrument.v1.RemoveInstrumentLinkRequest)returns (instrument.v1.RemoveInstrumentLinkResponse) {}
+
+  rpc GetRecurringPayment(instrument.v1.GetRecurringPaymentRequest) returns (instrument.v1.GetRecurringPaymentResponse) {}
+
+  rpc CancelRecurringPayment(instrument.v1.CancelRecurringPaymentRequest) returns (instrument.v1.CancelRecurringPaymentResponse) {}
+
+  rpc SearchRecurringPayments(instrument.v1.SearchRecurringPaymentsRequest) returns (instrument.v1.SearchRecurringPaymentsResponse) {}
+
   //</editor-fold>
 
   //<editor-fold desc="Person to Person Operations">

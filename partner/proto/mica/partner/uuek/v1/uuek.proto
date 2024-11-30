@@ -10,7 +10,6 @@ syntax = "proto3";
 
 package mica.partner.uuek.v1;
 
-import "micashared/common/v1/error.proto";
 import "micashared/common/v1/uuek.proto";
 import "validate/validate.proto";
 
@@ -40,84 +39,4 @@ message UUEK {
   }];
 
   micashared.common.v1.CommonUUEK uuek = 2;
-}
-
-message RemoveUUEKRequest {
-  // The UUEK that the Partner can use to obtain or return value for this user.
-  string partner_uuek = 2 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-}
-
-message RemoveUUEKResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-    STATUS_NOT_FOUND = 3;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-}
-
-message ExchangeUUEKRequest {
-  // The UUEK that the Partner can use to obtain or return value for this user.
-  string partner_uuek = 1 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-
-  // flag to indicate what to do with the UUEK that's being replaced
-  bool remove_existing = 2;
-
-  // Primary key on the external system.
-  string partner_uuek_ref = 3 [(validate.rules).string = {
-    min_len: 1,
-    max_len: 100
-  }];
-}
-
-message ExchangeUUEKResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-    STATUS_NOT_FOUND = 3;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  // The UUEK that the Partner can use to obtain or return value for this user.
-  string partner_uuek = 3 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-}
-
-message SearchUUEKRequest {
-  // reference to the user at the Partner
-  string partner_user_ref = 3 [(validate.rules).string.max_len = 100];
-
-  // reference to the user's instrument at the Partner
-  string partner_instrument_ref = 1 [(validate.rules).string.max_len = 100];
-
-  // depending on how the Partner handles instruments and UUEKs, this will either be their reference to this
-  // UUEK or a random UUID value if they don't have this concept
-  string partner_uuek_ref = 4 [(validate.rules).string.max_len = 100];
-}
-
-message SearchUUEKResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  repeated UUEK uueks = 3;
 }

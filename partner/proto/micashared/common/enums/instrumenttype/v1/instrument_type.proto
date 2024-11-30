@@ -37,4 +37,8 @@ enum InstrumentType {
 
   // Program that helps to pay for nycloop
   INSTRUMENT_TYPE_NYCLOOP = 8;
+
+  INSTRUMENT_TYPE_POSITIVE_VALUE = 9;
+
+  INSTRUMENT_TYPE_ADJUDICATED = 10;
 }

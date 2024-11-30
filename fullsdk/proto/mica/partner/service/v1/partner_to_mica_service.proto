@@ -16,7 +16,6 @@ import "mica/partner/organization/v1/organization.proto";
 import "mica/partner/partner/v1/partner.proto";
 import "mica/partner/serviceprovider/v1/service_provider.proto";
 import "mica/partner/store/v1/store.proto";
-import "mica/partner/uuek/v1/uuek.proto";
 import "mica/partner/value/v1/value.proto";
 import "mica/partner/widget/v1/widget.proto";
 import "micashared/common/ping/v1/ping.proto";
@@ -87,18 +86,6 @@ service PartnerToMicaService {
   rpc SearchServiceProvider(serviceprovider.v1.SearchServiceProviderRequest) returns (serviceprovider.v1.SearchServiceProviderResponse) {}
   //</editor-fold>
 
-  //<editor-fold desc="UUEK Operations">
-
-  // When a user no longer wishes to use their UUEKs this method can remove them from mica.
-  rpc RemoveUUEK(uuek.v1.RemoveUUEKRequest) returns (uuek.v1.RemoveUUEKResponse) {}
-
-  // A Partner can proactively replace a UUEK with a new one for future use.
-  rpc ExchangeUUEK(uuek.v1.ExchangeUUEKRequest) returns (uuek.v1.ExchangeUUEKResponse) {}
-
-  // Search for UUEKs that the Partner has created.
-  rpc SearchUUEK(uuek.v1.SearchUUEKRequest) returns (uuek.v1.SearchUUEKResponse) {}
-  //</editor-fold>
-
   //<editor-fold desc="Value Operations">
 
   // A method to obtain value from a user in order to pay for goods or services rendered to the user.
@@ -130,9 +117,11 @@ service PartnerToMicaService {
   //</editor-fold>
 
   //<editor-fold desc="account linking operations">
-  rpc LinkInstrumentWithCode(instrument.v1.LinkInstrumentWithCodeRequest) returns (instrument.v1.LinkInstrumentWithCodeResponse) {}
+  rpc CompleteLinkingWithCode(instrument.v1.CompleteLinkingWithCodeRequest) returns (instrument.v1.CompleteLinkingWithCodeResponse) {}
 
-  rpc ProvisionUUEKWithLinkSessionKey(instrument.v1.ProvisionUUEKWithLinkSessionKeyRequest) returns (instrument.v1.ProvisionUUEKWithLinkSessionKeyResponse){}
+  rpc GetLink(instrument.v1.GetLinkRequest) returns (instrument.v1.GetLinkResponse) {}
+
+  rpc ProvisionUUEKFromLink(instrument.v1.ProvisionUUEKFromLinkRequest) returns (instrument.v1.ProvisionUUEKFromLinkResponse){}
   //</editor-fold>
 
   //<editor-fold desc="Widget Operations">
@@ -141,6 +130,26 @@ service PartnerToMicaService {
   rpc ExchangeSessionKey(instrument.v1.ExchangeSessionKeyRequest) returns (instrument.v1.ExchangeSessionKeyResponse) {}
   //</editor-fold>
 
+  // Create a recurring payment to be attached to a partner to service provider link
+  rpc CreateRecurringPayment(instrument.v1.CreateRecurringPaymentRequest) returns (instrument.v1.CreateRecurringPaymentResponse) {}
+
+  rpc ActivateRecurringPayment(instrument.v1.ActivateRecurringPaymentRequest) returns (instrument.v1.ActivateRecurringPaymentResponse) {}
+
+  // The merchant or the user using the merchants software may wish to cancel a recurring payment
+  rpc CancelRecurringPayment(instrument.v1.CancelRecurringPaymentRequest) returns (instrument.v1.CancelRecurringPaymentResponse) {}
+
+  // return a recurring payment using a unique identifier as a key
+  rpc GetRecurringPayment(instrument.v1.GetRecurringPaymentRequest) returns (instrument.v1.GetRecurringPaymentResponse) {}
+
+  rpc SearchRecurringPayment(instrument.v1.SearchRecurringPaymentRequest) returns (instrument.v1.SearchRecurringPaymentResponse) {}
+
+  //  The user should call this method before calling ExecuteRecurringPaymentObtainValue below
+  rpc ProvisionRecurringPaymentUUEK(instrument.v1.ProvisionRecurringPaymentUUEKRequest) returns (instrument.v1.ProvisionRecurringPaymentUUEKResponse) {}
+
+  // Note that an attempt to pass a UUEK not minted by the ProvisionRecurringPaymentUUEK method will result in a runtime error
+  rpc RecurringPaymentObtainValue(instrument.v1.RecurringPaymentObtainValueRequest) returns (instrument.v1.RecurringPaymentObtainValueResponse) {}
+
+  rpc RecurringPaymentReturnValue(instrument.v1.RecurringPaymentReturnValueRequest) returns (instrument.v1.RecurringPaymentReturnValueResponse) {}
 
   // A method to ping the server to ensure it's up and running and that the connection is good.
   rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}

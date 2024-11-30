@@ -3,7 +3,7 @@ VERSION=main
 endif
 
 .PHONY: all
-all: clean prepare shared discount partner serviceprovider
+all: clean prepare shared discount partner serviceprovider fullsdk
 
 .PHONY: shared
 shared:

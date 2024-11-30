@@ -46,9 +46,9 @@ service ServiceProviderToMicaWIPService {
   rpc RemovePIN(RemovePINRequest) returns (RemovePINResponse) {}
   //</editor-fold>
 
-  //<editor-fold desc="Service Provider initiated enrollment authentication">
-  rpc ProvisionEnrollmentValidationCode(ProvisionEnrollmentValidationCodeRequest) returns (ProvisionEnrollmentValidationCodeResponse) {}
-  //</editor-fold>
+  rpc GetLinkedAccountBalance(GetLinkedAccountBalanceRequest) returns (GetLinkedAccountBalanceResponse) {}
+
+  rpc UpdateAccountEnableForPurchase(UpdateAccountEnableForPurchaseRequest) returns (UpdateAccountEnableForPurchaseResponse) {}
 }
 
 enum VisibilityStatus {
@@ -263,39 +263,49 @@ message User {
   string uuek = 7;
 }
 
-message ProvisionEnrollmentValidationCodeRequest {
-  oneof user_identifier {
-    option (validate.required) = true;
-
-    //this is the id in the service provider for the user that is requesting an enrollment
-    string service_provider_user_ref = 1 [(validate.rules).string.max_len = 100];
-    string service_provider_user_key = 2;
-  }
-
-  oneof instrument_identifier {
-    option (validate.required) = true;
-
-    //this is the id in the service provider for the instrument (account, etc) that will be used to transact.
-    string service_provider_instrument_ref = 3 [(validate.rules).string.max_len = 100];
-    string service_provider_instrument_key = 4;
-  }
-
-  //if this is set the values will be shared with the other side that is performing the enrollment
-  micashared.common.v1.UserDemographic shared_user_information = 5;
+message GetLinkedAccountBalanceRequest {
+  string link_key = 1;
 }
 
-message ProvisionEnrollmentValidationCodeResponse {
+message GetLinkedAccountBalanceResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-    STATUS_INSTRUMENT_NOT_FOUND = 3;
-    STATUS_USER_NOT_FOUND = 4;
+    STATUS_NOT_FOUND = 2;
   }
   Status status = 1;
 
   micashared.common.v1.Error error = 2;
 
-  //this is the code that the service provider will present/send or do something with for the user
-  string validation_code = 3;
+  // URN that represents the FIAT urn:value:fiat:usd
+  string currency = 3;
+
+  // the amount of money available in a given currency for purchases
+  string available_balance = 4;
+
+  // The unit of the value_provider_balance. Provided for reference only.
+  string value_provider_balance_unit = 5;
+
+  // the amount of value, in given unit, held for this account by the provider. Provided for reference only.
+  string value_provider_balance = 6;
+
+  bool enable_for_purchase_flag = 7;
+}
+
+message UpdateAccountEnableForPurchaseRequest {
+  string link_key = 1;
+
+  bool enable_for_purchase_flag = 2;
+}
+
+message UpdateAccountEnableForPurchaseResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND = 2;
+    STATUS_ERROR = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
 }
