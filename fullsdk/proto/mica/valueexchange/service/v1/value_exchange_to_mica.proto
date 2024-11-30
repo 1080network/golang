@@ -1,0 +1,175 @@
+// Copyright (c) 2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.valueexchange.service.v1;
+
+import "validate/validate.proto";
+
+import "micashared/common/ping/v1/ping.proto";
+import "micashared/common/v1/error.proto";
+import "micashared/common/v1/instrument.proto";
+
+import "mica/valueexchange/provider/v1/exchangeprovider.proto";
+import "mica/valueexchange/account/v1/account.proto";
+
+option go_package = "mica/valueexchange/servicev1";
+option java_outer_classname = "ValueExchangeToMicaServiceProto";
+option java_package = "io.mica.valueexchange.service.v1";
+option objc_class_prefix = "MICA";
+
+service ValueProviderToMicaService {
+  // Value Exchange Provider management
+  rpc GetValueExchangeProvider(GetValueExchangeProviderRequest) returns (GetValueExchangeProviderResponse) {}
+
+  rpc RegisterAccount(RegisterAccountRequest) returns (RegisterAccountResponse) {}
+
+  rpc GetAccount(GetAccountRequest) returns (GetAccountResponse) {}
+
+  rpc UpdateBalance(UpdateBalanceRequest) returns (UpdateBalanceResponse) {}
+
+  rpc ProvisionAccountLinkingCode(ProvisionAccountLinkingCodeRequest) returns (ProvisionAccountLinkingCodeResponse) {}
+
+  // An operation to ping the server to ensure it's up and running and that the connection is good.
+  rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+
+  // An operation that triggers a ping to the Mica servervice and that in turn triggers a ping to the discount provider service.
+  // This is a useful call to ensure that the connectivity and security between the mica an external services is working.
+  rpc PingWithRoundTrip(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+}
+
+message GetValueExchangeProviderRequest {
+
+}
+
+message GetValueExchangeProviderResponse{
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND = 2;
+    STATUS_ERROR = 3;
+  }
+  Status status = 1;
+  micashared.common.v1.Error error = 2;
+
+  mica.valueexchange.provider.v1.ValueExchangeProvider provider = 3;
+}
+
+message RegisterAccountRequest{
+  string account_ref = 1 [(validate.rules).string.max_len = 100];
+
+  // a user friendly displayable name for the account, it can be the last X digits, etc
+  string display_name = 2 [(validate.rules).string.max_len = 50];
+
+  // URN that represents the FIAT urn:value:fiat:usd
+  string account_currency = 3;
+
+  // initial balance available for purchases
+  string initial_available_balance = 4;
+
+  string receipt_description = 5 [(validate.rules).string.max_len = 100];
+
+  string initial_value_provider_balance_unit = 7;
+
+  string initial_value_provider_balance = 6;
+}
+
+message RegisterAccountResponse{
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_DUPLICATE = 2;
+    STATUS_ERROR = 3;
+  }
+  Status status = 1;
+  micashared.common.v1.Error error = 2;
+
+  mica.valueexchange.account.v1.Account account = 3;
+}
+
+message GetAccountRequest{
+  oneof account_identifier {
+    // The key representing this user in Mica.
+    string account_key = 1;
+
+    string account_ref = 2 [(validate.rules).string = {max_len: 100}];
+  }
+}
+
+message GetAccountResponse{
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND = 2;
+    STATUS_ERROR = 3;
+  }
+  Status status = 1;
+  micashared.common.v1.Error error = 2;
+
+  mica.valueexchange.account.v1.Account account = 3;
+}
+
+message UpdateBalanceRequest {
+  oneof account_identifier {
+    // The key representing this user in Mica.
+    string account_key = 1;
+
+    string account_ref = 2 [(validate.rules).string = {max_len: 100}];
+  }
+  // the version of the account
+  int64 version = 3;
+
+  //the new balance available
+  string new_available_balance = 4;
+
+  // the new value provider balance in points, currency, bitcoin, whatever
+  string new_value_provider_balance = 5;
+}
+
+message UpdateBalanceResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND = 2;
+    STATUS_VERSION_MISMATCH = 3;
+    STATUS_ERROR = 4;
+  }
+  Status status = 1;
+  micashared.common.v1.Error error = 2;
+
+  mica.valueexchange.account.v1.Account account = 3;
+}
+
+
+message ProvisionAccountLinkingCodeRequest {
+  oneof account_identifier {
+    option (validate.required) = true;
+    //this is the id in the service provider for the instrument (account, etc) that will be used to transact.
+    string account_ref = 1 [(validate.rules).string.max_len = 100];
+    string account_key = 2;
+  }
+  // if there is any information to exchange at linking time this is when it gets passed to the network which will forward
+  // to the merchant/acquiring side when the linking has been created
+  micashared.common.v1.InstrumentLinkClaims claims = 3;
+}
+
+message ProvisionAccountLinkingCodeResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ACCOUNT_NOT_FOUND = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  //this is the code that the service provider can display or send to the user to enter on any prompt asking for it
+  string linking_code = 3;
+}
+

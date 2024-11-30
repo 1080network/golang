@@ -1,0 +1,45 @@
+// Copyright (c) 2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.valueexchange.provider.v1;
+
+import "micashared/common/v1/address.proto";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "mica/valueexchange/providerv1";
+option java_outer_classname = "ProviderProto";
+option java_package = "io.mica.valueexchange.provider.v1";
+option objc_class_prefix = "MICA";
+
+message ValueExchangeProvider {
+    string provider_key = 1;
+    
+    string provider_ref = 2;
+
+    int64 version = 3;
+
+    google.protobuf.Timestamp created = 4;
+
+    google.protobuf.Timestamp updated = 5;
+
+    string name = 6;
+
+    string hero_image_url = 7;
+
+    micashared.common.v1.Address address = 8;
+
+    ValueExchangeProviderCallbackConfig callback_config = 10;
+    //other config like for example bank accounts
+}
+
+message ValueExchangeProviderCallbackConfig {
+    string notification_address = 1; 
+}
