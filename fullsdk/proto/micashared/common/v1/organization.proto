@@ -65,6 +65,8 @@ message Organization {
 
   micashared.common.v1.BankAccountDetail revenue_account = 16;
 
+  micashared.common.v1.BankAccountDetail partner_fee_account = 19;
+
   micashared.common.enums.barcodetype.v1.BarcodeType barcode_type = 17 [(validate.rules).enum = {
     not_in: [0]
   }];
