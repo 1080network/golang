@@ -10,7 +10,6 @@ syntax = "proto3";
 
 package mica.serviceprovider.service.v1;
 
-import "mica/serviceprovider/instrument/v1/instrument.proto";
 import "mica/serviceprovider/user/v1/user.proto";
 import "mica/serviceprovider/value/v1/value.proto";
 import "micashared/common/ping/v1/ping.proto";
@@ -34,10 +33,6 @@ service ServiceProviderFromMicaService {
   // pass the SP the matching code. The SP will then send the matching code to their User through
   // whatever channel they already use to message their users.
   rpc EnrollUserInstrument(user.v1.EnrollUserInstrumentRequest) returns (user.v1.EnrollUserInstrumentResponse) {}
-
-  // Operation that can be used to retrieve a very simple transaction history for a given
-  // instrument and date range.
-  rpc RetrieveTransaction(instrument.v1.RetrieveTransactionRequest) returns (instrument.v1.RetrieveTransactionResponse) {}
 
   //<editor-fold desc="Value Operations">
 

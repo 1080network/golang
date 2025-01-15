@@ -169,6 +169,8 @@ message ValueRequest {
   // deprecated use surcharges instead
   string obsolete_surcharge_amount = 19;
 
+  PartnerFee partner_fee = 21;
+
   // Surcharges can hold zero or more items of fees like ATM fees or the tip at a restaurant.
   repeated micashared.common.v1.Surcharge surcharges = 20;
 
@@ -180,6 +182,11 @@ message ValueRequest {
   repeated micashared.common.v1.Adjustment adjustments = 12;
 
   micashared.common.v1.ReceiptTransactionData receipt_data = 14;
+}
+
+message PartnerFee {
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
+  string amount = 1;
 }
 
 // Type that represents the details of the value request (either to obtain or return).
@@ -321,6 +328,10 @@ message ReturnValueResponse {
     STATUS_LINE_ITEM_TOTAL_MISMATCH = 21;
     // The call to the Service Provider (a.k.a. the issuer) timed out
     STATUS_SERVICE_PROVIDER_TIMEOUT = 22;
+    // The provided instrument is not the same one used for the original obtain and is required
+    STATUS_INSTRUMENT_MISMATCH = 23;
+    // The source network group is incompatible with the destination network group
+    STATUS_INCOMPATIBLE_NETWORK_GROUP = 24;
   }
   Status status = 1;
 
@@ -516,6 +527,8 @@ message HoldValueRequest {
 
   LocationDetails location_details = 5 [(validate.rules).message = {required: true}];
 
+  PartnerFee partner_fee = 10;
+
   // Total amount for this transaction.
   // Amount expressed as: ([0-9]*[.])?[0-9]+
   string total_amount = 6 [(validate.rules).string = {
@@ -612,6 +625,8 @@ message AmendHoldValueRequest {
   // the new expiration time for the hold
   google.protobuf.Timestamp expiration = 3 [(validate.rules).timestamp = {required: true}];
 
+  PartnerFee partner_fee = 5;
+
   // Total amount for this transaction.
   // Amount expressed as: [+-]?([0-9]*[.])?[0-9]+
   string total_amount = 6;
@@ -698,6 +713,8 @@ message ReleaseHoldValueRequest {
 
   // use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
   micashared.common.v1.RiskSignal risk_signal = 4;
+
+  PartnerFee partner_fee = 5;
 }
 
 message ReleaseHoldValueResponse {
@@ -768,6 +785,8 @@ message ObtainHoldValueRequest {
 
   // The clerk that processed this operation.
   string clerk_identifier = 7;
+
+  PartnerFee partner_fee = 16;
 
   // Total amount for this transaction.
   //

@@ -46,15 +46,6 @@ message RegisterInstrumentRequest {
   string nickname = 5;
 }
 
-message Transaction {
-  google.protobuf.Timestamp created = 1;
-
-  // Amount expressed as: ([0-9]*[.])?[0-9]+
-  string amount = 2;
-
-  string organization_name = 3;
-}
-
 message RegisterInstrumentResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
@@ -76,6 +67,11 @@ message RegisterInstrumentResponse {
   int64 version = 4;
 }
 
+message InstrumentExternalReference {
+  string service_provider_user_ref = 1 [(validate.rules).string = {min_len: 1}];
+  string service_provider_instrument_ref = 2 [(validate.rules).string = {min_len: 1}];
+}
+
 message GetInstrumentRequest {
   oneof instrument_identifier {
     option (validate.required) = true;
@@ -87,7 +83,14 @@ message GetInstrumentRequest {
     }];
 
     // Primary key on the external system.
-    string service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100];
+    // DEPRECATED - Use external_reference instead
+    string obsolete_service_provider_instrument_ref = 2 [
+      (validate.rules).string.max_len = 100,
+      deprecated = true
+    ];
+
+    // Primary key on the external system.
+    InstrumentExternalReference external_reference = 3;
   }
 }
 
@@ -153,7 +156,11 @@ message RemoveInstrumentRequest {
     }];
 
     // Primary key on the external system.
-    string service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100];
+    // DEPRECATED - Use external_reference instead
+    string obsolete_service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100, deprecated = true];
+
+    // Primary key on the external system.
+    InstrumentExternalReference external_reference = 3;
   }
 }
 
@@ -191,34 +198,6 @@ message SearchInstrumentResponse {
 
   // List of instruments that matched the search criteria.
   repeated Instrument instruments = 3;
-}
-
-message RetrieveTransactionRequest {
-  string service_provider_instrument_key = 1;
-
-  // Primary key on the external system.
-  string service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100];
-
-  // Transactions that occurred after this date (inclusive).
-  google.protobuf.Timestamp date_from = 4;
-
-  // Transactions that occurred before this date (exclusive).
-  google.protobuf.Timestamp date_to = 5;
-}
-
-message RetrieveTransactionResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-    STATUS_INSTRUMENT_NOT_FOUND = 3;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  // List of instruments that matched the search criteria.
-  repeated Transaction transactions = 3;
 }
 
 message ProvisionInstrumentLinkingCodeRequest {
@@ -466,8 +445,9 @@ message SearchRecurringPaymentsRequest {
   }
 
   oneof by_instrument{
-    //this is the id in the service provider for the user that is requesting an enrollment
+    // this is the id in the service provider for the user that is requesting an enrollment
     string instrument_ref = 3 [(validate.rules).string.max_len = 100];
+
     string instrument_key = 4 [(validate.rules).string = {
       min_len: 30,
       max_len: 50

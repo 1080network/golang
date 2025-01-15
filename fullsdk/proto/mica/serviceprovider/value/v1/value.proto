@@ -11,6 +11,7 @@ syntax = "proto3";
 package mica.serviceprovider.value.v1;
 
 import "google/protobuf/timestamp.proto";
+import "mica/serviceprovider/instrument/v1/instrument.proto";
 import "micashared/common/enums/approvaltype/v1/approval_type.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
@@ -130,8 +131,11 @@ message ValueRequest {
   // The Mica generated key for this instrument.
   string service_provider_instrument_key = 2 [(validate.rules).string = {max_len: 50}];
 
+  // DEPRECATED - use instrument_external_reference instead
+  string service_provider_instrument_ref = 3 [(validate.rules).string.max_len = 100, deprecated = true];
+
   // Service Provider's primary key for their instrument.
-  string service_provider_instrument_ref = 3 [(validate.rules).string.max_len = 100];
+  mica.serviceprovider.instrument.v1.InstrumentExternalReference instrument_external_reference = 22 [(validate.rules).message.required = true];
 
   // If a Service Provider UUEK this value will be set so the service provider can do any management on their end
   string service_provider_uuek = 19;
@@ -593,6 +597,8 @@ message ReceiveValueRequest {
 
   // Service Provider's primary key for their instrument.
   string to_service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100];
+
+  mica.serviceprovider.instrument.v1.InstrumentExternalReference instrument_external_reference = 8 [(validate.rules).message.required = true];
 
   micashared.common.enums.currency.v1.Currency currency = 3;
 

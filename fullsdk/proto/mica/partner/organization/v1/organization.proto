@@ -153,6 +153,9 @@ message UpdateOrganizationSettlementDataRequest {
   // the key that identifies an account in the system via the CreateABAAccount method
   string operating_account_key = 5 [(validate.rules).string = {max_len: 50}];
 
+  // the key that identifies an account in the system via the CreateABAAccount method
+  string partner_fee_account_key = 7 [(validate.rules).string = {max_len: 50}];
+
   micashared.common.enums.custodialbank.v1.CustodialBank custodial_bank = 6;
 }
 

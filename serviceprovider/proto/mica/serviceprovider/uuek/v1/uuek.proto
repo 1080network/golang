@@ -11,6 +11,7 @@ syntax = "proto3";
 package mica.serviceprovider.uuek.v1;
 
 import "google/protobuf/timestamp.proto";
+import "mica/serviceprovider/instrument/v1/instrument.proto";
 import "micashared/common/v1/error.proto";
 import "micashared/common/v1/uuek.proto";
 import "validate/validate.proto";
@@ -54,7 +55,11 @@ message ProvisionServiceProviderUUEKRequest {
     }];
 
     // Primary key on the external system.
-    string service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100];
+    // DEPRECATED - use instrument_external_reference instead
+    string obsolete_service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100, deprecated = true];
+
+    // Primary key on the external system.
+    mica.serviceprovider.instrument.v1.InstrumentExternalReference instrument_external_reference = 8;
   }
 
   // if set the provisioned UUEK will not be valid until the specified time if not set the UUEK is valid immediately
@@ -108,7 +113,11 @@ message RemoveServiceProviderUUEKRequest {
     }];
 
     // Primary key on the external system.
-    string service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100];
+    // DEPRECATED - use instrument_external_reference instead. If you use this an ref is ambiguous call will fail
+    string obsolete_service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100, deprecated = true];
+
+    // Primary key on the external system.
+    mica.serviceprovider.instrument.v1.InstrumentExternalReference instrument_external_reference = 4;
 
     // A UUEK that can be used at all partners.
     string service_provider_uuek = 3; // @gotags: mask:"security"
