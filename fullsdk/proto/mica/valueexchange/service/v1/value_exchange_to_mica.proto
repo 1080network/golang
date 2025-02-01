@@ -45,7 +45,7 @@ service ValueProviderToMicaService {
 }
 
 message GetValueExchangeProviderRequest {
-
+  string tenant = 1;
 }
 
 message GetValueExchangeProviderResponse{
@@ -62,6 +62,8 @@ message GetValueExchangeProviderResponse{
 }
 
 message RegisterAccountRequest{
+  string tenant = 8;
+
   string account_ref = 1 [(validate.rules).string.max_len = 100];
 
   // a user friendly displayable name for the account, it can be the last X digits, etc
@@ -94,6 +96,8 @@ message RegisterAccountResponse{
 }
 
 message GetAccountRequest{
+  string tenant = 3;
+
   oneof account_identifier {
     // The key representing this user in Mica.
     string account_key = 1;
@@ -116,6 +120,8 @@ message GetAccountResponse{
 }
 
 message UpdateBalanceRequest {
+  string tenant = 6;
+
   oneof account_identifier {
     // The key representing this user in Mica.
     string account_key = 1;
@@ -148,6 +154,8 @@ message UpdateBalanceResponse {
 
 
 message ProvisionAccountLinkingCodeRequest {
+  string tenant = 4;
+
   oneof account_identifier {
     option (validate.required) = true;
     //this is the id in the service provider for the instrument (account, etc) that will be used to transact.
