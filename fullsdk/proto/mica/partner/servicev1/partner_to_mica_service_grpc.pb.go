@@ -63,6 +63,7 @@ const (
 	PartnerToMicaService_ObtainHoldValue_FullMethodName                  = "/mica.partner.service.v1.PartnerToMicaService/ObtainHoldValue"
 	PartnerToMicaService_CompleteLinkingWithCode_FullMethodName          = "/mica.partner.service.v1.PartnerToMicaService/CompleteLinkingWithCode"
 	PartnerToMicaService_GetLink_FullMethodName                          = "/mica.partner.service.v1.PartnerToMicaService/GetLink"
+	PartnerToMicaService_RemoveInstrumentLink_FullMethodName             = "/mica.partner.service.v1.PartnerToMicaService/RemoveInstrumentLink"
 	PartnerToMicaService_ProvisionUUEKFromLink_FullMethodName            = "/mica.partner.service.v1.PartnerToMicaService/ProvisionUUEKFromLink"
 	PartnerToMicaService_InitializeWidget_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/InitializeWidget"
 	PartnerToMicaService_ExchangeSessionKey_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/ExchangeSessionKey"
@@ -133,6 +134,7 @@ type PartnerToMicaServiceClient interface {
 	// <editor-fold desc="account linking operations">
 	CompleteLinkingWithCode(ctx context.Context, in *instrumentv1.CompleteLinkingWithCodeRequest, opts ...grpc.CallOption) (*instrumentv1.CompleteLinkingWithCodeResponse, error)
 	GetLink(ctx context.Context, in *instrumentv1.GetLinkRequest, opts ...grpc.CallOption) (*instrumentv1.GetLinkResponse, error)
+	RemoveInstrumentLink(ctx context.Context, in *instrumentv1.RemoveInstrumentLinkRequest, opts ...grpc.CallOption) (*instrumentv1.RemoveInstrumentLinkResponse, error)
 	ProvisionUUEKFromLink(ctx context.Context, in *instrumentv1.ProvisionUUEKFromLinkRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionUUEKFromLinkResponse, error)
 	// <editor-fold desc="Widget Operations">
 	InitializeWidget(ctx context.Context, in *instrumentv1.InitializeWidgetRequest, opts ...grpc.CallOption) (*instrumentv1.InitializeWidgetResponse, error)
@@ -414,6 +416,15 @@ func (c *partnerToMicaServiceClient) GetLink(ctx context.Context, in *instrument
 	return out, nil
 }
 
+func (c *partnerToMicaServiceClient) RemoveInstrumentLink(ctx context.Context, in *instrumentv1.RemoveInstrumentLinkRequest, opts ...grpc.CallOption) (*instrumentv1.RemoveInstrumentLinkResponse, error) {
+	out := new(instrumentv1.RemoveInstrumentLinkResponse)
+	err := c.cc.Invoke(ctx, PartnerToMicaService_RemoveInstrumentLink_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *partnerToMicaServiceClient) ProvisionUUEKFromLink(ctx context.Context, in *instrumentv1.ProvisionUUEKFromLinkRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionUUEKFromLinkResponse, error) {
 	out := new(instrumentv1.ProvisionUUEKFromLinkResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_ProvisionUUEKFromLink_FullMethodName, in, out, opts...)
@@ -578,6 +589,7 @@ type PartnerToMicaServiceServer interface {
 	// <editor-fold desc="account linking operations">
 	CompleteLinkingWithCode(context.Context, *instrumentv1.CompleteLinkingWithCodeRequest) (*instrumentv1.CompleteLinkingWithCodeResponse, error)
 	GetLink(context.Context, *instrumentv1.GetLinkRequest) (*instrumentv1.GetLinkResponse, error)
+	RemoveInstrumentLink(context.Context, *instrumentv1.RemoveInstrumentLinkRequest) (*instrumentv1.RemoveInstrumentLinkResponse, error)
 	ProvisionUUEKFromLink(context.Context, *instrumentv1.ProvisionUUEKFromLinkRequest) (*instrumentv1.ProvisionUUEKFromLinkResponse, error)
 	// <editor-fold desc="Widget Operations">
 	InitializeWidget(context.Context, *instrumentv1.InitializeWidgetRequest) (*instrumentv1.InitializeWidgetResponse, error)
@@ -687,6 +699,9 @@ func (UnimplementedPartnerToMicaServiceServer) CompleteLinkingWithCode(context.C
 }
 func (UnimplementedPartnerToMicaServiceServer) GetLink(context.Context, *instrumentv1.GetLinkRequest) (*instrumentv1.GetLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLink not implemented")
+}
+func (UnimplementedPartnerToMicaServiceServer) RemoveInstrumentLink(context.Context, *instrumentv1.RemoveInstrumentLinkRequest) (*instrumentv1.RemoveInstrumentLinkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveInstrumentLink not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) ProvisionUUEKFromLink(context.Context, *instrumentv1.ProvisionUUEKFromLinkRequest) (*instrumentv1.ProvisionUUEKFromLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ProvisionUUEKFromLink not implemented")
@@ -1241,6 +1256,24 @@ func _PartnerToMicaService_GetLink_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PartnerToMicaService_RemoveInstrumentLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(instrumentv1.RemoveInstrumentLinkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PartnerToMicaServiceServer).RemoveInstrumentLink(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PartnerToMicaService_RemoveInstrumentLink_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PartnerToMicaServiceServer).RemoveInstrumentLink(ctx, req.(*instrumentv1.RemoveInstrumentLinkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _PartnerToMicaService_ProvisionUUEKFromLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(instrumentv1.ProvisionUUEKFromLinkRequest)
 	if err := dec(in); err != nil {
@@ -1575,6 +1608,10 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetLink",
 			Handler:    _PartnerToMicaService_GetLink_Handler,
+		},
+		{
+			MethodName: "RemoveInstrumentLink",
+			Handler:    _PartnerToMicaService_RemoveInstrumentLink_Handler,
 		},
 		{
 			MethodName: "ProvisionUUEKFromLink",
