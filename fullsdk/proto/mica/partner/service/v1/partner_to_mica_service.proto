@@ -121,6 +121,8 @@ service PartnerToMicaService {
 
   rpc GetLink(instrument.v1.GetLinkRequest) returns (instrument.v1.GetLinkResponse) {}
 
+  rpc RemoveInstrumentLink(instrument.v1.RemoveInstrumentLinkRequest) returns (instrument.v1.RemoveInstrumentLinkResponse) {}
+
   rpc ProvisionUUEKFromLink(instrument.v1.ProvisionUUEKFromLinkRequest) returns (instrument.v1.ProvisionUUEKFromLinkResponse){}
   //</editor-fold>
 
