@@ -152,6 +152,36 @@ message GetLinkResponse {
   Link link = 3;
 }
 
+message RemoveInstrumentLinkRequest {
+  string link_key = 1;
+}
+
+message RemoveInstrumentLinkResponse {
+  // Unless an error is encountered, Mica will respond with one of these results.
+  oneof result {
+    Success success = 1;
+    Failure failure = 2;
+  }
+
+  message Success {}
+
+  message Failure {
+    // Structured failure code for cause of failure
+    FailureCode code = 1;
+    string message = 2;
+  }
+
+  enum FailureCode {
+    FAILURE_CODE_UNSPECIFIED = 0;
+
+    // The requested link was not found in the partner system
+    FAILURE_CODE_LINK_NOT_FOUND = 1;
+
+    // The requested link was used by 1 or more payments that blocked deletion
+    FAILURE_CODE_LINK_IN_USE = 2;
+  }
+}
+
 message Link {
   string key = 1;
   micashared.common.v1.LinkedInstrumentData instrument_data = 2;
