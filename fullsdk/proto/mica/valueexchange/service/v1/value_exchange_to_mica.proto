@@ -34,6 +34,8 @@ service ValueProviderToMicaService {
 
   rpc UpdateBalance(UpdateBalanceRequest) returns (UpdateBalanceResponse) {}
 
+  rpc RemoveAccount(RemoveAccountRequest) returns (RemoveAccountResponse) {}
+
   rpc ProvisionAccountLinkingCode(ProvisionAccountLinkingCodeRequest) returns (ProvisionAccountLinkingCodeResponse) {}
 
   // An operation to ping the server to ensure it's up and running and that the connection is good.
@@ -61,6 +63,17 @@ message GetValueExchangeProviderResponse{
   mica.valueexchange.provider.v1.ValueExchangeProvider provider = 3;
 }
 
+message SpendRule {
+  enum SpendRuleType {
+    SPEND_RULE_TYPE_UNSPECIFIED = 0;
+    SPEND_RULE_TYPE_INCLUDE = 1;
+    SPEND_RULE_TYPE_EXCLUDE = 2;
+  }
+  SpendRuleType spend_rule_type = 1;
+
+  repeated string product_codes = 2;
+}
+
 message RegisterAccountRequest{
   string tenant = 8;
 
@@ -80,6 +93,8 @@ message RegisterAccountRequest{
   string initial_value_provider_balance_unit = 7;
 
   string initial_value_provider_balance = 6;
+
+  repeated SpendRule spend_rules = 9;
 }
 
 message RegisterAccountResponse{
@@ -152,6 +167,28 @@ message UpdateBalanceResponse {
   mica.valueexchange.account.v1.Account account = 3;
 }
 
+message RemoveAccountRequest {
+  string tenant = 1;
+
+  oneof account_identifier {
+    // The key representing this user in Mica.
+    string account_key = 2;
+
+    string account_ref = 3 [(validate.rules).string = {max_len: 100}];
+  }
+}
+
+message RemoveAccountResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND = 2;
+    STATUS_ERROR = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+}
 
 message ProvisionAccountLinkingCodeRequest {
   string tenant = 4;

@@ -32,6 +32,7 @@ const (
 	ValueProviderToMicaService_RegisterAccount_FullMethodName             = "/mica.valueexchange.service.v1.ValueProviderToMicaService/RegisterAccount"
 	ValueProviderToMicaService_GetAccount_FullMethodName                  = "/mica.valueexchange.service.v1.ValueProviderToMicaService/GetAccount"
 	ValueProviderToMicaService_UpdateBalance_FullMethodName               = "/mica.valueexchange.service.v1.ValueProviderToMicaService/UpdateBalance"
+	ValueProviderToMicaService_RemoveAccount_FullMethodName               = "/mica.valueexchange.service.v1.ValueProviderToMicaService/RemoveAccount"
 	ValueProviderToMicaService_ProvisionAccountLinkingCode_FullMethodName = "/mica.valueexchange.service.v1.ValueProviderToMicaService/ProvisionAccountLinkingCode"
 	ValueProviderToMicaService_Ping_FullMethodName                        = "/mica.valueexchange.service.v1.ValueProviderToMicaService/Ping"
 	ValueProviderToMicaService_PingWithRoundTrip_FullMethodName           = "/mica.valueexchange.service.v1.ValueProviderToMicaService/PingWithRoundTrip"
@@ -46,6 +47,7 @@ type ValueProviderToMicaServiceClient interface {
 	RegisterAccount(ctx context.Context, in *RegisterAccountRequest, opts ...grpc.CallOption) (*RegisterAccountResponse, error)
 	GetAccount(ctx context.Context, in *GetAccountRequest, opts ...grpc.CallOption) (*GetAccountResponse, error)
 	UpdateBalance(ctx context.Context, in *UpdateBalanceRequest, opts ...grpc.CallOption) (*UpdateBalanceResponse, error)
+	RemoveAccount(ctx context.Context, in *RemoveAccountRequest, opts ...grpc.CallOption) (*RemoveAccountResponse, error)
 	ProvisionAccountLinkingCode(ctx context.Context, in *ProvisionAccountLinkingCodeRequest, opts ...grpc.CallOption) (*ProvisionAccountLinkingCodeResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
 	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
@@ -98,6 +100,15 @@ func (c *valueProviderToMicaServiceClient) UpdateBalance(ctx context.Context, in
 	return out, nil
 }
 
+func (c *valueProviderToMicaServiceClient) RemoveAccount(ctx context.Context, in *RemoveAccountRequest, opts ...grpc.CallOption) (*RemoveAccountResponse, error) {
+	out := new(RemoveAccountResponse)
+	err := c.cc.Invoke(ctx, ValueProviderToMicaService_RemoveAccount_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *valueProviderToMicaServiceClient) ProvisionAccountLinkingCode(ctx context.Context, in *ProvisionAccountLinkingCodeRequest, opts ...grpc.CallOption) (*ProvisionAccountLinkingCodeResponse, error) {
 	out := new(ProvisionAccountLinkingCodeResponse)
 	err := c.cc.Invoke(ctx, ValueProviderToMicaService_ProvisionAccountLinkingCode_FullMethodName, in, out, opts...)
@@ -134,6 +145,7 @@ type ValueProviderToMicaServiceServer interface {
 	RegisterAccount(context.Context, *RegisterAccountRequest) (*RegisterAccountResponse, error)
 	GetAccount(context.Context, *GetAccountRequest) (*GetAccountResponse, error)
 	UpdateBalance(context.Context, *UpdateBalanceRequest) (*UpdateBalanceResponse, error)
+	RemoveAccount(context.Context, *RemoveAccountRequest) (*RemoveAccountResponse, error)
 	ProvisionAccountLinkingCode(context.Context, *ProvisionAccountLinkingCodeRequest) (*ProvisionAccountLinkingCodeResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
 	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
@@ -158,6 +170,9 @@ func (UnimplementedValueProviderToMicaServiceServer) GetAccount(context.Context,
 }
 func (UnimplementedValueProviderToMicaServiceServer) UpdateBalance(context.Context, *UpdateBalanceRequest) (*UpdateBalanceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateBalance not implemented")
+}
+func (UnimplementedValueProviderToMicaServiceServer) RemoveAccount(context.Context, *RemoveAccountRequest) (*RemoveAccountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RemoveAccount not implemented")
 }
 func (UnimplementedValueProviderToMicaServiceServer) ProvisionAccountLinkingCode(context.Context, *ProvisionAccountLinkingCodeRequest) (*ProvisionAccountLinkingCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ProvisionAccountLinkingCode not implemented")
@@ -254,6 +269,24 @@ func _ValueProviderToMicaService_UpdateBalance_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ValueProviderToMicaService_RemoveAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RemoveAccountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ValueProviderToMicaServiceServer).RemoveAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ValueProviderToMicaService_RemoveAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ValueProviderToMicaServiceServer).RemoveAccount(ctx, req.(*RemoveAccountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ValueProviderToMicaService_ProvisionAccountLinkingCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ProvisionAccountLinkingCodeRequest)
 	if err := dec(in); err != nil {
@@ -330,6 +363,10 @@ var ValueProviderToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateBalance",
 			Handler:    _ValueProviderToMicaService_UpdateBalance_Handler,
+		},
+		{
+			MethodName: "RemoveAccount",
+			Handler:    _ValueProviderToMicaService_RemoveAccount_Handler,
 		},
 		{
 			MethodName: "ProvisionAccountLinkingCode",
