@@ -56,8 +56,18 @@ generate:
 prepare: generate vendor
 
 .PHONY: protoupdate
-protoupdate: 
+protoupdate:
 	cd proto && git fetch --tags && git checkout $(VERSION)
+
+.PHONY: publish
+publish:
+	@if [[ -z "${PUBLISH_VERSION}" ]]; then echo "Must set PUBLISH_VERSION=vX.X.X"; exit 1; fi
+	@git diff-index --quiet HEAD -- || (echo "Uncommitted changes found. Please stash or commit them before publishing" && exit 1)
+	git tag discount/$(PUBLISH_VERSION)
+	git tag partner/$(PUBLISH_VERSION)
+	git tag serviceprovider/$(PUBLISH_VERSION)
+	git tag fullsdk/$(PUBLISH_VERSION)
+	git push origin --tag
 
 clean: 
 	rm -rf vendor
