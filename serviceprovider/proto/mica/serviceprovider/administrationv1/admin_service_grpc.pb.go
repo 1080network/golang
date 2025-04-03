@@ -29,21 +29,12 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	ServiceProviderAdministrationService_GenerateToMicaCertificate_FullMethodName           = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/GenerateToMicaCertificate"
-	ServiceProviderAdministrationService_EnableToMicaCertificate_FullMethodName             = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/EnableToMicaCertificate"
-	ServiceProviderAdministrationService_DisableToMicaCertificate_FullMethodName            = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/DisableToMicaCertificate"
-	ServiceProviderAdministrationService_SearchToMicaCertificate_FullMethodName             = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/SearchToMicaCertificate"
-	ServiceProviderAdministrationService_GetToMicaCertificate_FullMethodName                = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/GetToMicaCertificate"
 	ServiceProviderAdministrationService_GenerateFromMicaClientCertificate_FullMethodName   = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/GenerateFromMicaClientCertificate"
 	ServiceProviderAdministrationService_UpdateFromMicaClientCertificate_FullMethodName     = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateFromMicaClientCertificate"
 	ServiceProviderAdministrationService_EnableFromMicaClientCertificate_FullMethodName     = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/EnableFromMicaClientCertificate"
 	ServiceProviderAdministrationService_SearchFromMicaClientCertificate_FullMethodName     = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/SearchFromMicaClientCertificate"
 	ServiceProviderAdministrationService_GetFromMicaClientSettings_FullMethodName           = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/GetFromMicaClientSettings"
 	ServiceProviderAdministrationService_UpdateFromMicaClientCallbackAddress_FullMethodName = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateFromMicaClientCallbackAddress"
-	ServiceProviderAdministrationService_CreateSingleSignOnConsoleUser_FullMethodName       = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/CreateSingleSignOnConsoleUser"
-	ServiceProviderAdministrationService_UpdateSingleSignOnConsoleUser_FullMethodName       = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/UpdateSingleSignOnConsoleUser"
-	ServiceProviderAdministrationService_SearchSingleSignOnUser_FullMethodName              = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/SearchSingleSignOnUser"
-	ServiceProviderAdministrationService_GetSingleSignOnConsoleUser_FullMethodName          = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/GetSingleSignOnConsoleUser"
 	ServiceProviderAdministrationService_SearchDataExtractionStatistics_FullMethodName      = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/SearchDataExtractionStatistics"
 	ServiceProviderAdministrationService_GetDataExtractionStatistics_FullMethodName         = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/GetDataExtractionStatistics"
 	ServiceProviderAdministrationService_PingExternal_FullMethodName                        = "/mica.serviceprovider.administration.v1.ServiceProviderAdministrationService/PingExternal"
@@ -54,16 +45,6 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceProviderAdministrationServiceClient interface {
-	// Generate a new mTLS certificate. SignToMicaClientCSR GenerateToMicaCertificate
-	GenerateToMicaCertificate(ctx context.Context, in *v1.GenerateToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateToMicaCertificateResponse, error)
-	// Update the certificate with a given serial number, only supports enable/disable for now
-	EnableToMicaCertificate(ctx context.Context, in *v1.EnableToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.EnableToMicaCertificateResponse, error)
-	// do we need a separate Disable call?
-	DisableToMicaCertificate(ctx context.Context, in *v1.DisableToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.DisableToMicaCertificateResponse, error)
-	// Search for certificates and return the ones that match the criteria provided
-	SearchToMicaCertificate(ctx context.Context, in *v1.SearchToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.SearchToMicaCertificateResponse, error)
-	// return a single certificate
-	GetToMicaCertificate(ctx context.Context, in *v1.GetToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.GetToMicaCertificateResponse, error)
 	// Client certificates are used when mica needs to call out to a customers environment.
 	GenerateFromMicaClientCertificate(ctx context.Context, in *v1.GenerateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateFromMicaClientCertificateResponse, error)
 	// After signing the CSR the member will upload the signed cert
@@ -75,10 +56,6 @@ type ServiceProviderAdministrationServiceClient interface {
 	// External authentication mechanisms for Mica to call provider endpoints
 	GetFromMicaClientSettings(ctx context.Context, in *v1.GetFromMicaClientSettingsRequest, opts ...grpc.CallOption) (*v1.GetFromMicaClientSettingsResponse, error)
 	UpdateFromMicaClientCallbackAddress(ctx context.Context, in *v1.UpdateFromMicaClientCallBackAddressRequest, opts ...grpc.CallOption) (*v1.UpdateFromMicaClientCallBackAddressResponse, error)
-	CreateSingleSignOnConsoleUser(ctx context.Context, in *v1.CreateSingleSignOnConsoleUserRequest, opts ...grpc.CallOption) (*v1.CreateSingleSignOnConsoleUserResponse, error)
-	UpdateSingleSignOnConsoleUser(ctx context.Context, in *v1.UpdateSingleSignOnConsoleUserRequest, opts ...grpc.CallOption) (*v1.UpdateSingleSignOnConsoleUserResponse, error)
-	SearchSingleSignOnUser(ctx context.Context, in *v1.SearchSingleSignOnConsoleUserRequest, opts ...grpc.CallOption) (*v1.SearchSingleSignOnConsoleUserResponse, error)
-	GetSingleSignOnConsoleUser(ctx context.Context, in *v1.GetSingleSignOnConsoleUserRequest, opts ...grpc.CallOption) (*v1.GetSingleSignOnConsoleUserResponse, error)
 	SearchDataExtractionStatistics(ctx context.Context, in *v1.SearchDataExtractionRequest, opts ...grpc.CallOption) (*v1.SearchDataExtractionResponse, error)
 	GetDataExtractionStatistics(ctx context.Context, in *v1.GetDataExtractionRequest, opts ...grpc.CallOption) (*v1.GetDataExtractionResponse, error)
 	// tests the external call to verify proper configuration and connectivity using the currently enabled certificate
@@ -93,51 +70,6 @@ type serviceProviderAdministrationServiceClient struct {
 
 func NewServiceProviderAdministrationServiceClient(cc grpc.ClientConnInterface) ServiceProviderAdministrationServiceClient {
 	return &serviceProviderAdministrationServiceClient{cc}
-}
-
-func (c *serviceProviderAdministrationServiceClient) GenerateToMicaCertificate(ctx context.Context, in *v1.GenerateToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateToMicaCertificateResponse, error) {
-	out := new(v1.GenerateToMicaCertificateResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_GenerateToMicaCertificate_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderAdministrationServiceClient) EnableToMicaCertificate(ctx context.Context, in *v1.EnableToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.EnableToMicaCertificateResponse, error) {
-	out := new(v1.EnableToMicaCertificateResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_EnableToMicaCertificate_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderAdministrationServiceClient) DisableToMicaCertificate(ctx context.Context, in *v1.DisableToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.DisableToMicaCertificateResponse, error) {
-	out := new(v1.DisableToMicaCertificateResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_DisableToMicaCertificate_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderAdministrationServiceClient) SearchToMicaCertificate(ctx context.Context, in *v1.SearchToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.SearchToMicaCertificateResponse, error) {
-	out := new(v1.SearchToMicaCertificateResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_SearchToMicaCertificate_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderAdministrationServiceClient) GetToMicaCertificate(ctx context.Context, in *v1.GetToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.GetToMicaCertificateResponse, error) {
-	out := new(v1.GetToMicaCertificateResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_GetToMicaCertificate_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *serviceProviderAdministrationServiceClient) GenerateFromMicaClientCertificate(ctx context.Context, in *v1.GenerateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateFromMicaClientCertificateResponse, error) {
@@ -194,42 +126,6 @@ func (c *serviceProviderAdministrationServiceClient) UpdateFromMicaClientCallbac
 	return out, nil
 }
 
-func (c *serviceProviderAdministrationServiceClient) CreateSingleSignOnConsoleUser(ctx context.Context, in *v1.CreateSingleSignOnConsoleUserRequest, opts ...grpc.CallOption) (*v1.CreateSingleSignOnConsoleUserResponse, error) {
-	out := new(v1.CreateSingleSignOnConsoleUserResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_CreateSingleSignOnConsoleUser_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderAdministrationServiceClient) UpdateSingleSignOnConsoleUser(ctx context.Context, in *v1.UpdateSingleSignOnConsoleUserRequest, opts ...grpc.CallOption) (*v1.UpdateSingleSignOnConsoleUserResponse, error) {
-	out := new(v1.UpdateSingleSignOnConsoleUserResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_UpdateSingleSignOnConsoleUser_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderAdministrationServiceClient) SearchSingleSignOnUser(ctx context.Context, in *v1.SearchSingleSignOnConsoleUserRequest, opts ...grpc.CallOption) (*v1.SearchSingleSignOnConsoleUserResponse, error) {
-	out := new(v1.SearchSingleSignOnConsoleUserResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_SearchSingleSignOnUser_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderAdministrationServiceClient) GetSingleSignOnConsoleUser(ctx context.Context, in *v1.GetSingleSignOnConsoleUserRequest, opts ...grpc.CallOption) (*v1.GetSingleSignOnConsoleUserResponse, error) {
-	out := new(v1.GetSingleSignOnConsoleUserResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_GetSingleSignOnConsoleUser_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *serviceProviderAdministrationServiceClient) SearchDataExtractionStatistics(ctx context.Context, in *v1.SearchDataExtractionRequest, opts ...grpc.CallOption) (*v1.SearchDataExtractionResponse, error) {
 	out := new(v1.SearchDataExtractionResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_SearchDataExtractionStatistics_FullMethodName, in, out, opts...)
@@ -270,16 +166,6 @@ func (c *serviceProviderAdministrationServiceClient) PingExternalWithCertificate
 // All implementations must embed UnimplementedServiceProviderAdministrationServiceServer
 // for forward compatibility
 type ServiceProviderAdministrationServiceServer interface {
-	// Generate a new mTLS certificate. SignToMicaClientCSR GenerateToMicaCertificate
-	GenerateToMicaCertificate(context.Context, *v1.GenerateToMicaCertificateRequest) (*v1.GenerateToMicaCertificateResponse, error)
-	// Update the certificate with a given serial number, only supports enable/disable for now
-	EnableToMicaCertificate(context.Context, *v1.EnableToMicaCertificateRequest) (*v1.EnableToMicaCertificateResponse, error)
-	// do we need a separate Disable call?
-	DisableToMicaCertificate(context.Context, *v1.DisableToMicaCertificateRequest) (*v1.DisableToMicaCertificateResponse, error)
-	// Search for certificates and return the ones that match the criteria provided
-	SearchToMicaCertificate(context.Context, *v1.SearchToMicaCertificateRequest) (*v1.SearchToMicaCertificateResponse, error)
-	// return a single certificate
-	GetToMicaCertificate(context.Context, *v1.GetToMicaCertificateRequest) (*v1.GetToMicaCertificateResponse, error)
 	// Client certificates are used when mica needs to call out to a customers environment.
 	GenerateFromMicaClientCertificate(context.Context, *v1.GenerateFromMicaClientCertificateRequest) (*v1.GenerateFromMicaClientCertificateResponse, error)
 	// After signing the CSR the member will upload the signed cert
@@ -291,10 +177,6 @@ type ServiceProviderAdministrationServiceServer interface {
 	// External authentication mechanisms for Mica to call provider endpoints
 	GetFromMicaClientSettings(context.Context, *v1.GetFromMicaClientSettingsRequest) (*v1.GetFromMicaClientSettingsResponse, error)
 	UpdateFromMicaClientCallbackAddress(context.Context, *v1.UpdateFromMicaClientCallBackAddressRequest) (*v1.UpdateFromMicaClientCallBackAddressResponse, error)
-	CreateSingleSignOnConsoleUser(context.Context, *v1.CreateSingleSignOnConsoleUserRequest) (*v1.CreateSingleSignOnConsoleUserResponse, error)
-	UpdateSingleSignOnConsoleUser(context.Context, *v1.UpdateSingleSignOnConsoleUserRequest) (*v1.UpdateSingleSignOnConsoleUserResponse, error)
-	SearchSingleSignOnUser(context.Context, *v1.SearchSingleSignOnConsoleUserRequest) (*v1.SearchSingleSignOnConsoleUserResponse, error)
-	GetSingleSignOnConsoleUser(context.Context, *v1.GetSingleSignOnConsoleUserRequest) (*v1.GetSingleSignOnConsoleUserResponse, error)
 	SearchDataExtractionStatistics(context.Context, *v1.SearchDataExtractionRequest) (*v1.SearchDataExtractionResponse, error)
 	GetDataExtractionStatistics(context.Context, *v1.GetDataExtractionRequest) (*v1.GetDataExtractionResponse, error)
 	// tests the external call to verify proper configuration and connectivity using the currently enabled certificate
@@ -308,21 +190,6 @@ type ServiceProviderAdministrationServiceServer interface {
 type UnimplementedServiceProviderAdministrationServiceServer struct {
 }
 
-func (UnimplementedServiceProviderAdministrationServiceServer) GenerateToMicaCertificate(context.Context, *v1.GenerateToMicaCertificateRequest) (*v1.GenerateToMicaCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GenerateToMicaCertificate not implemented")
-}
-func (UnimplementedServiceProviderAdministrationServiceServer) EnableToMicaCertificate(context.Context, *v1.EnableToMicaCertificateRequest) (*v1.EnableToMicaCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EnableToMicaCertificate not implemented")
-}
-func (UnimplementedServiceProviderAdministrationServiceServer) DisableToMicaCertificate(context.Context, *v1.DisableToMicaCertificateRequest) (*v1.DisableToMicaCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DisableToMicaCertificate not implemented")
-}
-func (UnimplementedServiceProviderAdministrationServiceServer) SearchToMicaCertificate(context.Context, *v1.SearchToMicaCertificateRequest) (*v1.SearchToMicaCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchToMicaCertificate not implemented")
-}
-func (UnimplementedServiceProviderAdministrationServiceServer) GetToMicaCertificate(context.Context, *v1.GetToMicaCertificateRequest) (*v1.GetToMicaCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetToMicaCertificate not implemented")
-}
 func (UnimplementedServiceProviderAdministrationServiceServer) GenerateFromMicaClientCertificate(context.Context, *v1.GenerateFromMicaClientCertificateRequest) (*v1.GenerateFromMicaClientCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateFromMicaClientCertificate not implemented")
 }
@@ -340,18 +207,6 @@ func (UnimplementedServiceProviderAdministrationServiceServer) GetFromMicaClient
 }
 func (UnimplementedServiceProviderAdministrationServiceServer) UpdateFromMicaClientCallbackAddress(context.Context, *v1.UpdateFromMicaClientCallBackAddressRequest) (*v1.UpdateFromMicaClientCallBackAddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateFromMicaClientCallbackAddress not implemented")
-}
-func (UnimplementedServiceProviderAdministrationServiceServer) CreateSingleSignOnConsoleUser(context.Context, *v1.CreateSingleSignOnConsoleUserRequest) (*v1.CreateSingleSignOnConsoleUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateSingleSignOnConsoleUser not implemented")
-}
-func (UnimplementedServiceProviderAdministrationServiceServer) UpdateSingleSignOnConsoleUser(context.Context, *v1.UpdateSingleSignOnConsoleUserRequest) (*v1.UpdateSingleSignOnConsoleUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateSingleSignOnConsoleUser not implemented")
-}
-func (UnimplementedServiceProviderAdministrationServiceServer) SearchSingleSignOnUser(context.Context, *v1.SearchSingleSignOnConsoleUserRequest) (*v1.SearchSingleSignOnConsoleUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchSingleSignOnUser not implemented")
-}
-func (UnimplementedServiceProviderAdministrationServiceServer) GetSingleSignOnConsoleUser(context.Context, *v1.GetSingleSignOnConsoleUserRequest) (*v1.GetSingleSignOnConsoleUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSingleSignOnConsoleUser not implemented")
 }
 func (UnimplementedServiceProviderAdministrationServiceServer) SearchDataExtractionStatistics(context.Context, *v1.SearchDataExtractionRequest) (*v1.SearchDataExtractionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchDataExtractionStatistics not implemented")
@@ -377,96 +232,6 @@ type UnsafeServiceProviderAdministrationServiceServer interface {
 
 func RegisterServiceProviderAdministrationServiceServer(s grpc.ServiceRegistrar, srv ServiceProviderAdministrationServiceServer) {
 	s.RegisterService(&ServiceProviderAdministrationService_ServiceDesc, srv)
-}
-
-func _ServiceProviderAdministrationService_GenerateToMicaCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GenerateToMicaCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).GenerateToMicaCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderAdministrationService_GenerateToMicaCertificate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).GenerateToMicaCertificate(ctx, req.(*v1.GenerateToMicaCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderAdministrationService_EnableToMicaCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.EnableToMicaCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).EnableToMicaCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderAdministrationService_EnableToMicaCertificate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).EnableToMicaCertificate(ctx, req.(*v1.EnableToMicaCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderAdministrationService_DisableToMicaCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.DisableToMicaCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).DisableToMicaCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderAdministrationService_DisableToMicaCertificate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).DisableToMicaCertificate(ctx, req.(*v1.DisableToMicaCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderAdministrationService_SearchToMicaCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.SearchToMicaCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).SearchToMicaCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderAdministrationService_SearchToMicaCertificate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).SearchToMicaCertificate(ctx, req.(*v1.SearchToMicaCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderAdministrationService_GetToMicaCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GetToMicaCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).GetToMicaCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderAdministrationService_GetToMicaCertificate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).GetToMicaCertificate(ctx, req.(*v1.GetToMicaCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _ServiceProviderAdministrationService_GenerateFromMicaClientCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -577,78 +342,6 @@ func _ServiceProviderAdministrationService_UpdateFromMicaClientCallbackAddress_H
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceProviderAdministrationService_CreateSingleSignOnConsoleUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.CreateSingleSignOnConsoleUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).CreateSingleSignOnConsoleUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderAdministrationService_CreateSingleSignOnConsoleUser_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).CreateSingleSignOnConsoleUser(ctx, req.(*v1.CreateSingleSignOnConsoleUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderAdministrationService_UpdateSingleSignOnConsoleUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.UpdateSingleSignOnConsoleUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).UpdateSingleSignOnConsoleUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderAdministrationService_UpdateSingleSignOnConsoleUser_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).UpdateSingleSignOnConsoleUser(ctx, req.(*v1.UpdateSingleSignOnConsoleUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderAdministrationService_SearchSingleSignOnUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.SearchSingleSignOnConsoleUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).SearchSingleSignOnUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderAdministrationService_SearchSingleSignOnUser_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).SearchSingleSignOnUser(ctx, req.(*v1.SearchSingleSignOnConsoleUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderAdministrationService_GetSingleSignOnConsoleUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GetSingleSignOnConsoleUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderAdministrationServiceServer).GetSingleSignOnConsoleUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderAdministrationService_GetSingleSignOnConsoleUser_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).GetSingleSignOnConsoleUser(ctx, req.(*v1.GetSingleSignOnConsoleUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _ServiceProviderAdministrationService_SearchDataExtractionStatistics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(v1.SearchDataExtractionRequest)
 	if err := dec(in); err != nil {
@@ -729,26 +422,6 @@ var ServiceProviderAdministrationService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ServiceProviderAdministrationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GenerateToMicaCertificate",
-			Handler:    _ServiceProviderAdministrationService_GenerateToMicaCertificate_Handler,
-		},
-		{
-			MethodName: "EnableToMicaCertificate",
-			Handler:    _ServiceProviderAdministrationService_EnableToMicaCertificate_Handler,
-		},
-		{
-			MethodName: "DisableToMicaCertificate",
-			Handler:    _ServiceProviderAdministrationService_DisableToMicaCertificate_Handler,
-		},
-		{
-			MethodName: "SearchToMicaCertificate",
-			Handler:    _ServiceProviderAdministrationService_SearchToMicaCertificate_Handler,
-		},
-		{
-			MethodName: "GetToMicaCertificate",
-			Handler:    _ServiceProviderAdministrationService_GetToMicaCertificate_Handler,
-		},
-		{
 			MethodName: "GenerateFromMicaClientCertificate",
 			Handler:    _ServiceProviderAdministrationService_GenerateFromMicaClientCertificate_Handler,
 		},
@@ -771,22 +444,6 @@ var ServiceProviderAdministrationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateFromMicaClientCallbackAddress",
 			Handler:    _ServiceProviderAdministrationService_UpdateFromMicaClientCallbackAddress_Handler,
-		},
-		{
-			MethodName: "CreateSingleSignOnConsoleUser",
-			Handler:    _ServiceProviderAdministrationService_CreateSingleSignOnConsoleUser_Handler,
-		},
-		{
-			MethodName: "UpdateSingleSignOnConsoleUser",
-			Handler:    _ServiceProviderAdministrationService_UpdateSingleSignOnConsoleUser_Handler,
-		},
-		{
-			MethodName: "SearchSingleSignOnUser",
-			Handler:    _ServiceProviderAdministrationService_SearchSingleSignOnUser_Handler,
-		},
-		{
-			MethodName: "GetSingleSignOnConsoleUser",
-			Handler:    _ServiceProviderAdministrationService_GetSingleSignOnConsoleUser_Handler,
 		},
 		{
 			MethodName: "SearchDataExtractionStatistics",

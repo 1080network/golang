@@ -360,13 +360,11 @@ message RemoveInstrumentLinkResponse{
   micashared.common.v1.Error error = 2;
 }
 
-
 message LinkUsageProfile {
   bool for_one_time_use = 1;
   //todo maybe have something that pre-defines the link type? for example
   // another account I own, an account owned by someone else? 
 }
-
 
 message InstrumentLink {
   // The primary key that represents this link at Mica.
@@ -389,82 +387,11 @@ message InstrumentLink {
 
   string service_provider_instrument_key = 8;
 
+  // The name of the organization that this instrument is linked to
   string organization_name = 9;
 
+  // The URL of the icon of the organization that this instrument is linked to
   string organization_icon_url = 10;
 
   micashared.common.v1.LinkedInstrumentData linked_instrument_data = 11;
-}
-
-message GetRecurringPaymentRequest {
-
-  string recurring_payment_key = 1[(validate.rules).string = {min_len: 30,max_len: 50}];
-
-}
-
-message GetRecurringPaymentResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_NOT_FOUND =2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  micashared.common.v1.RecurringPayment recurring_payment = 3;
-
-}
-
-message CancelRecurringPaymentRequest {
-
-  string recurring_payment_key = 1[(validate.rules).string = {min_len: 30,max_len: 50}];
-
-}
-
-message CancelRecurringPaymentResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_NOT_FOUND =2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-}
-
-message SearchRecurringPaymentsRequest {
-  oneof by_user{
-    //this is the id in the service provider for the user that is requesting an enrollment
-    string user_ref = 1 [(validate.rules).string.max_len = 100];
-    string user_key = 2 [(validate.rules).string = {
-      min_len: 30,
-      max_len: 50
-    }];
-  }
-
-  oneof by_instrument{
-    // this is the id in the service provider for the user that is requesting an enrollment
-    string instrument_ref = 3 [(validate.rules).string.max_len = 100];
-
-    string instrument_key = 4 [(validate.rules).string = {
-      min_len: 30,
-      max_len: 50
-    }];
-  }
-}
-
-message SearchRecurringPaymentsResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_NOT_FOUND =2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  repeated micashared.common.v1.RecurringPayment recurring_payments = 3;
-
 }

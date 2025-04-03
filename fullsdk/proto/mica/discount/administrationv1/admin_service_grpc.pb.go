@@ -19,8 +19,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	pingv1 "github.com/1080network/golang/fullsdk/proto/micashared/common/pingv1"
-	v1 "github.com/1080network/golang/fullsdk/proto/micashared/common/v1"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -29,11 +27,6 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	DiscountAdministrationService_GenerateToMicaCertificate_FullMethodName                 = "/mica.discount.administration.v1.DiscountAdministrationService/GenerateToMicaCertificate"
-	DiscountAdministrationService_EnableToMicaCertificate_FullMethodName                   = "/mica.discount.administration.v1.DiscountAdministrationService/EnableToMicaCertificate"
-	DiscountAdministrationService_DisableToMicaCertificate_FullMethodName                  = "/mica.discount.administration.v1.DiscountAdministrationService/DisableToMicaCertificate"
-	DiscountAdministrationService_SearchToMicaCertificate_FullMethodName                   = "/mica.discount.administration.v1.DiscountAdministrationService/SearchToMicaCertificate"
-	DiscountAdministrationService_GetToMicaCertificate_FullMethodName                      = "/mica.discount.administration.v1.DiscountAdministrationService/GetToMicaCertificate"
 	DiscountAdministrationService_GenerateFromMicaClientCertificate_FullMethodName         = "/mica.discount.administration.v1.DiscountAdministrationService/GenerateFromMicaClientCertificate"
 	DiscountAdministrationService_UpdateFromMicaClientCertificate_FullMethodName           = "/mica.discount.administration.v1.DiscountAdministrationService/UpdateFromMicaClientCertificate"
 	DiscountAdministrationService_EnableFromMicaClientCertificate_FullMethodName           = "/mica.discount.administration.v1.DiscountAdministrationService/EnableFromMicaClientCertificate"
@@ -50,36 +43,26 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DiscountAdministrationServiceClient interface {
-	// Generate a new mTLS certificate. SignToMicaClientCSR GenerateToMicaCertificate
-	GenerateToMicaCertificate(ctx context.Context, in *v1.GenerateToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateToMicaCertificateResponse, error)
-	// Update the certificate with a given serial number, only supports enable/disable for now
-	EnableToMicaCertificate(ctx context.Context, in *v1.EnableToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.EnableToMicaCertificateResponse, error)
-	// do we need a separate Disable call?
-	DisableToMicaCertificate(ctx context.Context, in *v1.DisableToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.DisableToMicaCertificateResponse, error)
-	// Search for certificates and return the ones that match the criteria provided
-	SearchToMicaCertificate(ctx context.Context, in *v1.SearchToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.SearchToMicaCertificateResponse, error)
-	// return a single certificate
-	GetToMicaCertificate(ctx context.Context, in *v1.GetToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.GetToMicaCertificateResponse, error)
 	// Client certificates are used when mica needs to call out to a customers environment.
-	GenerateFromMicaClientCertificate(ctx context.Context, in *v1.GenerateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateFromMicaClientCertificateResponse, error)
+	GenerateFromMicaClientCertificate(ctx context.Context, in *GenerateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*GenerateFromMicaClientCertificateResponse, error)
 	// After signing the CSR the member will upload the signed cert
-	UpdateFromMicaClientCertificate(ctx context.Context, in *v1.UpdateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateFromMicaClientCertificateResponse, error)
+	UpdateFromMicaClientCertificate(ctx context.Context, in *UpdateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*UpdateFromMicaClientCertificateResponse, error)
 	// there can only be one enable cert for each endpoint
-	EnableFromMicaClientCertificate(ctx context.Context, in *v1.EnableFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.EnableFromMicaClientCertificateResponse, error)
+	EnableFromMicaClientCertificate(ctx context.Context, in *EnableFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*EnableFromMicaClientCertificateResponse, error)
 	// return all from mica certs for now
-	SearchFromMicaClientCertificate(ctx context.Context, in *v1.SearchFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.SearchFromMicaClientCertificateResponse, error)
+	SearchFromMicaClientCertificate(ctx context.Context, in *SearchFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*SearchFromMicaClientCertificateResponse, error)
 	// External authentication mechanisms for Mica to call provider endpoints
-	GetFromMicaClientSettings(ctx context.Context, in *v1.GetFromMicaClientSettingsRequest, opts ...grpc.CallOption) (*v1.GetFromMicaClientSettingsResponse, error)
-	UpdateFromMicaClientCallbackAddress(ctx context.Context, in *v1.UpdateFromMicaClientCallBackAddressRequest, opts ...grpc.CallOption) (*v1.UpdateFromMicaClientCallBackAddressResponse, error)
+	GetFromMicaClientSettings(ctx context.Context, in *GetFromMicaClientSettingsRequest, opts ...grpc.CallOption) (*GetFromMicaClientSettingsResponse, error)
+	UpdateFromMicaClientCallbackAddress(ctx context.Context, in *UpdateFromMicaClientCallbackAddressRequest, opts ...grpc.CallOption) (*UpdateFromMicaClientCallbackAddressResponse, error)
 	// creates the token configuration
-	CreateApiTokenConfiguration(ctx context.Context, in *v1.CreateApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.CreateApiTokenConfigurationResponse, error)
+	CreateApiTokenConfiguration(ctx context.Context, in *CreateApiTokenConfigurationRequest, opts ...grpc.CallOption) (*CreateApiTokenConfigurationResponse, error)
 	// if the authentication type is api token use these methods to properly setup the api token
 	// retrieves the api token configuration including the token itself
-	GetApiTokenConfiguration(ctx context.Context, in *v1.GetApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.GetApiTokenConfigurationResponse, error)
+	GetApiTokenConfiguration(ctx context.Context, in *GetApiTokenConfigurationRequest, opts ...grpc.CallOption) (*GetApiTokenConfigurationResponse, error)
 	// Update the configuration of the token, the set fields will be modified
-	UpdateAPITokenAuthenticationConfiguration(ctx context.Context, in *v1.UpdateApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.UpdateApiTokenConfigurationResponse, error)
+	UpdateAPITokenAuthenticationConfiguration(ctx context.Context, in *UpdateAPITokenAuthenticationConfigurationRequest, opts ...grpc.CallOption) (*UpdateAPITokenAuthenticationConfigurationResponse, error)
 	// tests the external call to verify proper configuration and connectivity
-	PingExternal(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
+	PingExternal(ctx context.Context, in *PingExternalRequest, opts ...grpc.CallOption) (*PingExternalResponse, error)
 }
 
 type discountAdministrationServiceClient struct {
@@ -90,53 +73,8 @@ func NewDiscountAdministrationServiceClient(cc grpc.ClientConnInterface) Discoun
 	return &discountAdministrationServiceClient{cc}
 }
 
-func (c *discountAdministrationServiceClient) GenerateToMicaCertificate(ctx context.Context, in *v1.GenerateToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateToMicaCertificateResponse, error) {
-	out := new(v1.GenerateToMicaCertificateResponse)
-	err := c.cc.Invoke(ctx, DiscountAdministrationService_GenerateToMicaCertificate_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *discountAdministrationServiceClient) EnableToMicaCertificate(ctx context.Context, in *v1.EnableToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.EnableToMicaCertificateResponse, error) {
-	out := new(v1.EnableToMicaCertificateResponse)
-	err := c.cc.Invoke(ctx, DiscountAdministrationService_EnableToMicaCertificate_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *discountAdministrationServiceClient) DisableToMicaCertificate(ctx context.Context, in *v1.DisableToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.DisableToMicaCertificateResponse, error) {
-	out := new(v1.DisableToMicaCertificateResponse)
-	err := c.cc.Invoke(ctx, DiscountAdministrationService_DisableToMicaCertificate_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *discountAdministrationServiceClient) SearchToMicaCertificate(ctx context.Context, in *v1.SearchToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.SearchToMicaCertificateResponse, error) {
-	out := new(v1.SearchToMicaCertificateResponse)
-	err := c.cc.Invoke(ctx, DiscountAdministrationService_SearchToMicaCertificate_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *discountAdministrationServiceClient) GetToMicaCertificate(ctx context.Context, in *v1.GetToMicaCertificateRequest, opts ...grpc.CallOption) (*v1.GetToMicaCertificateResponse, error) {
-	out := new(v1.GetToMicaCertificateResponse)
-	err := c.cc.Invoke(ctx, DiscountAdministrationService_GetToMicaCertificate_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *discountAdministrationServiceClient) GenerateFromMicaClientCertificate(ctx context.Context, in *v1.GenerateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateFromMicaClientCertificateResponse, error) {
-	out := new(v1.GenerateFromMicaClientCertificateResponse)
+func (c *discountAdministrationServiceClient) GenerateFromMicaClientCertificate(ctx context.Context, in *GenerateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*GenerateFromMicaClientCertificateResponse, error) {
+	out := new(GenerateFromMicaClientCertificateResponse)
 	err := c.cc.Invoke(ctx, DiscountAdministrationService_GenerateFromMicaClientCertificate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -144,8 +82,8 @@ func (c *discountAdministrationServiceClient) GenerateFromMicaClientCertificate(
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) UpdateFromMicaClientCertificate(ctx context.Context, in *v1.UpdateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateFromMicaClientCertificateResponse, error) {
-	out := new(v1.UpdateFromMicaClientCertificateResponse)
+func (c *discountAdministrationServiceClient) UpdateFromMicaClientCertificate(ctx context.Context, in *UpdateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*UpdateFromMicaClientCertificateResponse, error) {
+	out := new(UpdateFromMicaClientCertificateResponse)
 	err := c.cc.Invoke(ctx, DiscountAdministrationService_UpdateFromMicaClientCertificate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -153,8 +91,8 @@ func (c *discountAdministrationServiceClient) UpdateFromMicaClientCertificate(ct
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) EnableFromMicaClientCertificate(ctx context.Context, in *v1.EnableFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.EnableFromMicaClientCertificateResponse, error) {
-	out := new(v1.EnableFromMicaClientCertificateResponse)
+func (c *discountAdministrationServiceClient) EnableFromMicaClientCertificate(ctx context.Context, in *EnableFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*EnableFromMicaClientCertificateResponse, error) {
+	out := new(EnableFromMicaClientCertificateResponse)
 	err := c.cc.Invoke(ctx, DiscountAdministrationService_EnableFromMicaClientCertificate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -162,8 +100,8 @@ func (c *discountAdministrationServiceClient) EnableFromMicaClientCertificate(ct
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) SearchFromMicaClientCertificate(ctx context.Context, in *v1.SearchFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.SearchFromMicaClientCertificateResponse, error) {
-	out := new(v1.SearchFromMicaClientCertificateResponse)
+func (c *discountAdministrationServiceClient) SearchFromMicaClientCertificate(ctx context.Context, in *SearchFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*SearchFromMicaClientCertificateResponse, error) {
+	out := new(SearchFromMicaClientCertificateResponse)
 	err := c.cc.Invoke(ctx, DiscountAdministrationService_SearchFromMicaClientCertificate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -171,8 +109,8 @@ func (c *discountAdministrationServiceClient) SearchFromMicaClientCertificate(ct
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) GetFromMicaClientSettings(ctx context.Context, in *v1.GetFromMicaClientSettingsRequest, opts ...grpc.CallOption) (*v1.GetFromMicaClientSettingsResponse, error) {
-	out := new(v1.GetFromMicaClientSettingsResponse)
+func (c *discountAdministrationServiceClient) GetFromMicaClientSettings(ctx context.Context, in *GetFromMicaClientSettingsRequest, opts ...grpc.CallOption) (*GetFromMicaClientSettingsResponse, error) {
+	out := new(GetFromMicaClientSettingsResponse)
 	err := c.cc.Invoke(ctx, DiscountAdministrationService_GetFromMicaClientSettings_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -180,8 +118,8 @@ func (c *discountAdministrationServiceClient) GetFromMicaClientSettings(ctx cont
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) UpdateFromMicaClientCallbackAddress(ctx context.Context, in *v1.UpdateFromMicaClientCallBackAddressRequest, opts ...grpc.CallOption) (*v1.UpdateFromMicaClientCallBackAddressResponse, error) {
-	out := new(v1.UpdateFromMicaClientCallBackAddressResponse)
+func (c *discountAdministrationServiceClient) UpdateFromMicaClientCallbackAddress(ctx context.Context, in *UpdateFromMicaClientCallbackAddressRequest, opts ...grpc.CallOption) (*UpdateFromMicaClientCallbackAddressResponse, error) {
+	out := new(UpdateFromMicaClientCallbackAddressResponse)
 	err := c.cc.Invoke(ctx, DiscountAdministrationService_UpdateFromMicaClientCallbackAddress_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -189,8 +127,8 @@ func (c *discountAdministrationServiceClient) UpdateFromMicaClientCallbackAddres
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) CreateApiTokenConfiguration(ctx context.Context, in *v1.CreateApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.CreateApiTokenConfigurationResponse, error) {
-	out := new(v1.CreateApiTokenConfigurationResponse)
+func (c *discountAdministrationServiceClient) CreateApiTokenConfiguration(ctx context.Context, in *CreateApiTokenConfigurationRequest, opts ...grpc.CallOption) (*CreateApiTokenConfigurationResponse, error) {
+	out := new(CreateApiTokenConfigurationResponse)
 	err := c.cc.Invoke(ctx, DiscountAdministrationService_CreateApiTokenConfiguration_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -198,8 +136,8 @@ func (c *discountAdministrationServiceClient) CreateApiTokenConfiguration(ctx co
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) GetApiTokenConfiguration(ctx context.Context, in *v1.GetApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.GetApiTokenConfigurationResponse, error) {
-	out := new(v1.GetApiTokenConfigurationResponse)
+func (c *discountAdministrationServiceClient) GetApiTokenConfiguration(ctx context.Context, in *GetApiTokenConfigurationRequest, opts ...grpc.CallOption) (*GetApiTokenConfigurationResponse, error) {
+	out := new(GetApiTokenConfigurationResponse)
 	err := c.cc.Invoke(ctx, DiscountAdministrationService_GetApiTokenConfiguration_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -207,8 +145,8 @@ func (c *discountAdministrationServiceClient) GetApiTokenConfiguration(ctx conte
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) UpdateAPITokenAuthenticationConfiguration(ctx context.Context, in *v1.UpdateApiTokenConfigurationRequest, opts ...grpc.CallOption) (*v1.UpdateApiTokenConfigurationResponse, error) {
-	out := new(v1.UpdateApiTokenConfigurationResponse)
+func (c *discountAdministrationServiceClient) UpdateAPITokenAuthenticationConfiguration(ctx context.Context, in *UpdateAPITokenAuthenticationConfigurationRequest, opts ...grpc.CallOption) (*UpdateAPITokenAuthenticationConfigurationResponse, error) {
+	out := new(UpdateAPITokenAuthenticationConfigurationResponse)
 	err := c.cc.Invoke(ctx, DiscountAdministrationService_UpdateAPITokenAuthenticationConfiguration_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -216,8 +154,8 @@ func (c *discountAdministrationServiceClient) UpdateAPITokenAuthenticationConfig
 	return out, nil
 }
 
-func (c *discountAdministrationServiceClient) PingExternal(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
-	out := new(pingv1.PingResponse)
+func (c *discountAdministrationServiceClient) PingExternal(ctx context.Context, in *PingExternalRequest, opts ...grpc.CallOption) (*PingExternalResponse, error) {
+	out := new(PingExternalResponse)
 	err := c.cc.Invoke(ctx, DiscountAdministrationService_PingExternal_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -229,36 +167,26 @@ func (c *discountAdministrationServiceClient) PingExternal(ctx context.Context, 
 // All implementations must embed UnimplementedDiscountAdministrationServiceServer
 // for forward compatibility
 type DiscountAdministrationServiceServer interface {
-	// Generate a new mTLS certificate. SignToMicaClientCSR GenerateToMicaCertificate
-	GenerateToMicaCertificate(context.Context, *v1.GenerateToMicaCertificateRequest) (*v1.GenerateToMicaCertificateResponse, error)
-	// Update the certificate with a given serial number, only supports enable/disable for now
-	EnableToMicaCertificate(context.Context, *v1.EnableToMicaCertificateRequest) (*v1.EnableToMicaCertificateResponse, error)
-	// do we need a separate Disable call?
-	DisableToMicaCertificate(context.Context, *v1.DisableToMicaCertificateRequest) (*v1.DisableToMicaCertificateResponse, error)
-	// Search for certificates and return the ones that match the criteria provided
-	SearchToMicaCertificate(context.Context, *v1.SearchToMicaCertificateRequest) (*v1.SearchToMicaCertificateResponse, error)
-	// return a single certificate
-	GetToMicaCertificate(context.Context, *v1.GetToMicaCertificateRequest) (*v1.GetToMicaCertificateResponse, error)
 	// Client certificates are used when mica needs to call out to a customers environment.
-	GenerateFromMicaClientCertificate(context.Context, *v1.GenerateFromMicaClientCertificateRequest) (*v1.GenerateFromMicaClientCertificateResponse, error)
+	GenerateFromMicaClientCertificate(context.Context, *GenerateFromMicaClientCertificateRequest) (*GenerateFromMicaClientCertificateResponse, error)
 	// After signing the CSR the member will upload the signed cert
-	UpdateFromMicaClientCertificate(context.Context, *v1.UpdateFromMicaClientCertificateRequest) (*v1.UpdateFromMicaClientCertificateResponse, error)
+	UpdateFromMicaClientCertificate(context.Context, *UpdateFromMicaClientCertificateRequest) (*UpdateFromMicaClientCertificateResponse, error)
 	// there can only be one enable cert for each endpoint
-	EnableFromMicaClientCertificate(context.Context, *v1.EnableFromMicaClientCertificateRequest) (*v1.EnableFromMicaClientCertificateResponse, error)
+	EnableFromMicaClientCertificate(context.Context, *EnableFromMicaClientCertificateRequest) (*EnableFromMicaClientCertificateResponse, error)
 	// return all from mica certs for now
-	SearchFromMicaClientCertificate(context.Context, *v1.SearchFromMicaClientCertificateRequest) (*v1.SearchFromMicaClientCertificateResponse, error)
+	SearchFromMicaClientCertificate(context.Context, *SearchFromMicaClientCertificateRequest) (*SearchFromMicaClientCertificateResponse, error)
 	// External authentication mechanisms for Mica to call provider endpoints
-	GetFromMicaClientSettings(context.Context, *v1.GetFromMicaClientSettingsRequest) (*v1.GetFromMicaClientSettingsResponse, error)
-	UpdateFromMicaClientCallbackAddress(context.Context, *v1.UpdateFromMicaClientCallBackAddressRequest) (*v1.UpdateFromMicaClientCallBackAddressResponse, error)
+	GetFromMicaClientSettings(context.Context, *GetFromMicaClientSettingsRequest) (*GetFromMicaClientSettingsResponse, error)
+	UpdateFromMicaClientCallbackAddress(context.Context, *UpdateFromMicaClientCallbackAddressRequest) (*UpdateFromMicaClientCallbackAddressResponse, error)
 	// creates the token configuration
-	CreateApiTokenConfiguration(context.Context, *v1.CreateApiTokenConfigurationRequest) (*v1.CreateApiTokenConfigurationResponse, error)
+	CreateApiTokenConfiguration(context.Context, *CreateApiTokenConfigurationRequest) (*CreateApiTokenConfigurationResponse, error)
 	// if the authentication type is api token use these methods to properly setup the api token
 	// retrieves the api token configuration including the token itself
-	GetApiTokenConfiguration(context.Context, *v1.GetApiTokenConfigurationRequest) (*v1.GetApiTokenConfigurationResponse, error)
+	GetApiTokenConfiguration(context.Context, *GetApiTokenConfigurationRequest) (*GetApiTokenConfigurationResponse, error)
 	// Update the configuration of the token, the set fields will be modified
-	UpdateAPITokenAuthenticationConfiguration(context.Context, *v1.UpdateApiTokenConfigurationRequest) (*v1.UpdateApiTokenConfigurationResponse, error)
+	UpdateAPITokenAuthenticationConfiguration(context.Context, *UpdateAPITokenAuthenticationConfigurationRequest) (*UpdateAPITokenAuthenticationConfigurationResponse, error)
 	// tests the external call to verify proper configuration and connectivity
-	PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
+	PingExternal(context.Context, *PingExternalRequest) (*PingExternalResponse, error)
 	mustEmbedUnimplementedDiscountAdministrationServiceServer()
 }
 
@@ -266,49 +194,34 @@ type DiscountAdministrationServiceServer interface {
 type UnimplementedDiscountAdministrationServiceServer struct {
 }
 
-func (UnimplementedDiscountAdministrationServiceServer) GenerateToMicaCertificate(context.Context, *v1.GenerateToMicaCertificateRequest) (*v1.GenerateToMicaCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GenerateToMicaCertificate not implemented")
-}
-func (UnimplementedDiscountAdministrationServiceServer) EnableToMicaCertificate(context.Context, *v1.EnableToMicaCertificateRequest) (*v1.EnableToMicaCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EnableToMicaCertificate not implemented")
-}
-func (UnimplementedDiscountAdministrationServiceServer) DisableToMicaCertificate(context.Context, *v1.DisableToMicaCertificateRequest) (*v1.DisableToMicaCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DisableToMicaCertificate not implemented")
-}
-func (UnimplementedDiscountAdministrationServiceServer) SearchToMicaCertificate(context.Context, *v1.SearchToMicaCertificateRequest) (*v1.SearchToMicaCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchToMicaCertificate not implemented")
-}
-func (UnimplementedDiscountAdministrationServiceServer) GetToMicaCertificate(context.Context, *v1.GetToMicaCertificateRequest) (*v1.GetToMicaCertificateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetToMicaCertificate not implemented")
-}
-func (UnimplementedDiscountAdministrationServiceServer) GenerateFromMicaClientCertificate(context.Context, *v1.GenerateFromMicaClientCertificateRequest) (*v1.GenerateFromMicaClientCertificateResponse, error) {
+func (UnimplementedDiscountAdministrationServiceServer) GenerateFromMicaClientCertificate(context.Context, *GenerateFromMicaClientCertificateRequest) (*GenerateFromMicaClientCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateFromMicaClientCertificate not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) UpdateFromMicaClientCertificate(context.Context, *v1.UpdateFromMicaClientCertificateRequest) (*v1.UpdateFromMicaClientCertificateResponse, error) {
+func (UnimplementedDiscountAdministrationServiceServer) UpdateFromMicaClientCertificate(context.Context, *UpdateFromMicaClientCertificateRequest) (*UpdateFromMicaClientCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateFromMicaClientCertificate not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) EnableFromMicaClientCertificate(context.Context, *v1.EnableFromMicaClientCertificateRequest) (*v1.EnableFromMicaClientCertificateResponse, error) {
+func (UnimplementedDiscountAdministrationServiceServer) EnableFromMicaClientCertificate(context.Context, *EnableFromMicaClientCertificateRequest) (*EnableFromMicaClientCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EnableFromMicaClientCertificate not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) SearchFromMicaClientCertificate(context.Context, *v1.SearchFromMicaClientCertificateRequest) (*v1.SearchFromMicaClientCertificateResponse, error) {
+func (UnimplementedDiscountAdministrationServiceServer) SearchFromMicaClientCertificate(context.Context, *SearchFromMicaClientCertificateRequest) (*SearchFromMicaClientCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchFromMicaClientCertificate not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) GetFromMicaClientSettings(context.Context, *v1.GetFromMicaClientSettingsRequest) (*v1.GetFromMicaClientSettingsResponse, error) {
+func (UnimplementedDiscountAdministrationServiceServer) GetFromMicaClientSettings(context.Context, *GetFromMicaClientSettingsRequest) (*GetFromMicaClientSettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFromMicaClientSettings not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) UpdateFromMicaClientCallbackAddress(context.Context, *v1.UpdateFromMicaClientCallBackAddressRequest) (*v1.UpdateFromMicaClientCallBackAddressResponse, error) {
+func (UnimplementedDiscountAdministrationServiceServer) UpdateFromMicaClientCallbackAddress(context.Context, *UpdateFromMicaClientCallbackAddressRequest) (*UpdateFromMicaClientCallbackAddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateFromMicaClientCallbackAddress not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) CreateApiTokenConfiguration(context.Context, *v1.CreateApiTokenConfigurationRequest) (*v1.CreateApiTokenConfigurationResponse, error) {
+func (UnimplementedDiscountAdministrationServiceServer) CreateApiTokenConfiguration(context.Context, *CreateApiTokenConfigurationRequest) (*CreateApiTokenConfigurationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateApiTokenConfiguration not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) GetApiTokenConfiguration(context.Context, *v1.GetApiTokenConfigurationRequest) (*v1.GetApiTokenConfigurationResponse, error) {
+func (UnimplementedDiscountAdministrationServiceServer) GetApiTokenConfiguration(context.Context, *GetApiTokenConfigurationRequest) (*GetApiTokenConfigurationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetApiTokenConfiguration not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) UpdateAPITokenAuthenticationConfiguration(context.Context, *v1.UpdateApiTokenConfigurationRequest) (*v1.UpdateApiTokenConfigurationResponse, error) {
+func (UnimplementedDiscountAdministrationServiceServer) UpdateAPITokenAuthenticationConfiguration(context.Context, *UpdateAPITokenAuthenticationConfigurationRequest) (*UpdateAPITokenAuthenticationConfigurationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAPITokenAuthenticationConfiguration not implemented")
 }
-func (UnimplementedDiscountAdministrationServiceServer) PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
+func (UnimplementedDiscountAdministrationServiceServer) PingExternal(context.Context, *PingExternalRequest) (*PingExternalResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PingExternal not implemented")
 }
 func (UnimplementedDiscountAdministrationServiceServer) mustEmbedUnimplementedDiscountAdministrationServiceServer() {
@@ -325,98 +238,8 @@ func RegisterDiscountAdministrationServiceServer(s grpc.ServiceRegistrar, srv Di
 	s.RegisterService(&DiscountAdministrationService_ServiceDesc, srv)
 }
 
-func _DiscountAdministrationService_GenerateToMicaCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GenerateToMicaCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DiscountAdministrationServiceServer).GenerateToMicaCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: DiscountAdministrationService_GenerateToMicaCertificate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).GenerateToMicaCertificate(ctx, req.(*v1.GenerateToMicaCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DiscountAdministrationService_EnableToMicaCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.EnableToMicaCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DiscountAdministrationServiceServer).EnableToMicaCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: DiscountAdministrationService_EnableToMicaCertificate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).EnableToMicaCertificate(ctx, req.(*v1.EnableToMicaCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DiscountAdministrationService_DisableToMicaCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.DisableToMicaCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DiscountAdministrationServiceServer).DisableToMicaCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: DiscountAdministrationService_DisableToMicaCertificate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).DisableToMicaCertificate(ctx, req.(*v1.DisableToMicaCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DiscountAdministrationService_SearchToMicaCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.SearchToMicaCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DiscountAdministrationServiceServer).SearchToMicaCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: DiscountAdministrationService_SearchToMicaCertificate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).SearchToMicaCertificate(ctx, req.(*v1.SearchToMicaCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _DiscountAdministrationService_GetToMicaCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GetToMicaCertificateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(DiscountAdministrationServiceServer).GetToMicaCertificate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: DiscountAdministrationService_GetToMicaCertificate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).GetToMicaCertificate(ctx, req.(*v1.GetToMicaCertificateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _DiscountAdministrationService_GenerateFromMicaClientCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GenerateFromMicaClientCertificateRequest)
+	in := new(GenerateFromMicaClientCertificateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -428,13 +251,13 @@ func _DiscountAdministrationService_GenerateFromMicaClientCertificate_Handler(sr
 		FullMethod: DiscountAdministrationService_GenerateFromMicaClientCertificate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).GenerateFromMicaClientCertificate(ctx, req.(*v1.GenerateFromMicaClientCertificateRequest))
+		return srv.(DiscountAdministrationServiceServer).GenerateFromMicaClientCertificate(ctx, req.(*GenerateFromMicaClientCertificateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountAdministrationService_UpdateFromMicaClientCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.UpdateFromMicaClientCertificateRequest)
+	in := new(UpdateFromMicaClientCertificateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -446,13 +269,13 @@ func _DiscountAdministrationService_UpdateFromMicaClientCertificate_Handler(srv 
 		FullMethod: DiscountAdministrationService_UpdateFromMicaClientCertificate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).UpdateFromMicaClientCertificate(ctx, req.(*v1.UpdateFromMicaClientCertificateRequest))
+		return srv.(DiscountAdministrationServiceServer).UpdateFromMicaClientCertificate(ctx, req.(*UpdateFromMicaClientCertificateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountAdministrationService_EnableFromMicaClientCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.EnableFromMicaClientCertificateRequest)
+	in := new(EnableFromMicaClientCertificateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -464,13 +287,13 @@ func _DiscountAdministrationService_EnableFromMicaClientCertificate_Handler(srv 
 		FullMethod: DiscountAdministrationService_EnableFromMicaClientCertificate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).EnableFromMicaClientCertificate(ctx, req.(*v1.EnableFromMicaClientCertificateRequest))
+		return srv.(DiscountAdministrationServiceServer).EnableFromMicaClientCertificate(ctx, req.(*EnableFromMicaClientCertificateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountAdministrationService_SearchFromMicaClientCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.SearchFromMicaClientCertificateRequest)
+	in := new(SearchFromMicaClientCertificateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -482,13 +305,13 @@ func _DiscountAdministrationService_SearchFromMicaClientCertificate_Handler(srv 
 		FullMethod: DiscountAdministrationService_SearchFromMicaClientCertificate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).SearchFromMicaClientCertificate(ctx, req.(*v1.SearchFromMicaClientCertificateRequest))
+		return srv.(DiscountAdministrationServiceServer).SearchFromMicaClientCertificate(ctx, req.(*SearchFromMicaClientCertificateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountAdministrationService_GetFromMicaClientSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GetFromMicaClientSettingsRequest)
+	in := new(GetFromMicaClientSettingsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -500,13 +323,13 @@ func _DiscountAdministrationService_GetFromMicaClientSettings_Handler(srv interf
 		FullMethod: DiscountAdministrationService_GetFromMicaClientSettings_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).GetFromMicaClientSettings(ctx, req.(*v1.GetFromMicaClientSettingsRequest))
+		return srv.(DiscountAdministrationServiceServer).GetFromMicaClientSettings(ctx, req.(*GetFromMicaClientSettingsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountAdministrationService_UpdateFromMicaClientCallbackAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.UpdateFromMicaClientCallBackAddressRequest)
+	in := new(UpdateFromMicaClientCallbackAddressRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -518,13 +341,13 @@ func _DiscountAdministrationService_UpdateFromMicaClientCallbackAddress_Handler(
 		FullMethod: DiscountAdministrationService_UpdateFromMicaClientCallbackAddress_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).UpdateFromMicaClientCallbackAddress(ctx, req.(*v1.UpdateFromMicaClientCallBackAddressRequest))
+		return srv.(DiscountAdministrationServiceServer).UpdateFromMicaClientCallbackAddress(ctx, req.(*UpdateFromMicaClientCallbackAddressRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountAdministrationService_CreateApiTokenConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.CreateApiTokenConfigurationRequest)
+	in := new(CreateApiTokenConfigurationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -536,13 +359,13 @@ func _DiscountAdministrationService_CreateApiTokenConfiguration_Handler(srv inte
 		FullMethod: DiscountAdministrationService_CreateApiTokenConfiguration_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).CreateApiTokenConfiguration(ctx, req.(*v1.CreateApiTokenConfigurationRequest))
+		return srv.(DiscountAdministrationServiceServer).CreateApiTokenConfiguration(ctx, req.(*CreateApiTokenConfigurationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountAdministrationService_GetApiTokenConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GetApiTokenConfigurationRequest)
+	in := new(GetApiTokenConfigurationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -554,13 +377,13 @@ func _DiscountAdministrationService_GetApiTokenConfiguration_Handler(srv interfa
 		FullMethod: DiscountAdministrationService_GetApiTokenConfiguration_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).GetApiTokenConfiguration(ctx, req.(*v1.GetApiTokenConfigurationRequest))
+		return srv.(DiscountAdministrationServiceServer).GetApiTokenConfiguration(ctx, req.(*GetApiTokenConfigurationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountAdministrationService_UpdateAPITokenAuthenticationConfiguration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.UpdateApiTokenConfigurationRequest)
+	in := new(UpdateAPITokenAuthenticationConfigurationRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -572,13 +395,13 @@ func _DiscountAdministrationService_UpdateAPITokenAuthenticationConfiguration_Ha
 		FullMethod: DiscountAdministrationService_UpdateAPITokenAuthenticationConfiguration_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).UpdateAPITokenAuthenticationConfiguration(ctx, req.(*v1.UpdateApiTokenConfigurationRequest))
+		return srv.(DiscountAdministrationServiceServer).UpdateAPITokenAuthenticationConfiguration(ctx, req.(*UpdateAPITokenAuthenticationConfigurationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountAdministrationService_PingExternal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(pingv1.PingRequest)
+	in := new(PingExternalRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -590,7 +413,7 @@ func _DiscountAdministrationService_PingExternal_Handler(srv interface{}, ctx co
 		FullMethod: DiscountAdministrationService_PingExternal_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountAdministrationServiceServer).PingExternal(ctx, req.(*pingv1.PingRequest))
+		return srv.(DiscountAdministrationServiceServer).PingExternal(ctx, req.(*PingExternalRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -602,26 +425,6 @@ var DiscountAdministrationService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "mica.discount.administration.v1.DiscountAdministrationService",
 	HandlerType: (*DiscountAdministrationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "GenerateToMicaCertificate",
-			Handler:    _DiscountAdministrationService_GenerateToMicaCertificate_Handler,
-		},
-		{
-			MethodName: "EnableToMicaCertificate",
-			Handler:    _DiscountAdministrationService_EnableToMicaCertificate_Handler,
-		},
-		{
-			MethodName: "DisableToMicaCertificate",
-			Handler:    _DiscountAdministrationService_DisableToMicaCertificate_Handler,
-		},
-		{
-			MethodName: "SearchToMicaCertificate",
-			Handler:    _DiscountAdministrationService_SearchToMicaCertificate_Handler,
-		},
-		{
-			MethodName: "GetToMicaCertificate",
-			Handler:    _DiscountAdministrationService_GetToMicaCertificate_Handler,
-		},
 		{
 			MethodName: "GenerateFromMicaClientCertificate",
 			Handler:    _DiscountAdministrationService_GenerateFromMicaClientCertificate_Handler,

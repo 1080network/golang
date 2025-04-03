@@ -19,17 +19,11 @@ option java_package = "io.mica.partner.service.v1";
 option objc_class_prefix = "MICA";
 
 service PartnerFromMicaService {
-  //<editor-fold desc="User Instrument Operations">
-
   // operation to support reverse onboarding. Instead of the Partner calling Mica, Mica will call the Partner with a
-  // new enrollment. For example, a User starting at the mica user website could sign up for Netflix assuming that
-  // Netflix supported mica and have implemented this API.
+  // new enrollment. For example, a User starting at the Mica user website could sign up for Netflix assuming that
+  // Netflix supported Mica and have implemented this API.
   rpc EnrollUserInstrument(user.v1.EnrollUserInstrumentRequest) returns (user.v1.EnrollUserInstrumentResponse) {}
-  //</editor-fold>
-
-  //<editor-fold desc="Admin Operations">
 
   // An operation to ping the server to ensure it's up and running and that the connection is good.
   rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
-  //</editor-fold>
 }

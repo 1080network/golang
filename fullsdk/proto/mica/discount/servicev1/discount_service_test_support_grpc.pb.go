@@ -37,10 +37,10 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DiscountTestSupportServiceClient interface {
 	// Determine which discount(s) can be applied to this transaction
-	TestDetermineDiscount(ctx context.Context, in *DetermineDiscountRequest, opts ...grpc.CallOption) (*DetermineDiscountResponse, error)
+	TestDetermineDiscount(ctx context.Context, in *TestDetermineDiscountRequest, opts ...grpc.CallOption) (*TestDetermineDiscountResponse, error)
 	// Apply or release a given discount
-	TestApplyDiscount(ctx context.Context, in *ApplyDiscountRequest, opts ...grpc.CallOption) (*ApplyDiscountResponse, error)
-	TestReleaseDiscount(ctx context.Context, in *ReleaseDiscountRequest, opts ...grpc.CallOption) (*ReleaseDiscountResponse, error)
+	TestApplyDiscount(ctx context.Context, in *TestApplyDiscountRequest, opts ...grpc.CallOption) (*TestApplyDiscountResponse, error)
+	TestReleaseDiscount(ctx context.Context, in *TestReleaseDiscountRequest, opts ...grpc.CallOption) (*TestReleaseDiscountResponse, error)
 }
 
 type discountTestSupportServiceClient struct {
@@ -51,8 +51,8 @@ func NewDiscountTestSupportServiceClient(cc grpc.ClientConnInterface) DiscountTe
 	return &discountTestSupportServiceClient{cc}
 }
 
-func (c *discountTestSupportServiceClient) TestDetermineDiscount(ctx context.Context, in *DetermineDiscountRequest, opts ...grpc.CallOption) (*DetermineDiscountResponse, error) {
-	out := new(DetermineDiscountResponse)
+func (c *discountTestSupportServiceClient) TestDetermineDiscount(ctx context.Context, in *TestDetermineDiscountRequest, opts ...grpc.CallOption) (*TestDetermineDiscountResponse, error) {
+	out := new(TestDetermineDiscountResponse)
 	err := c.cc.Invoke(ctx, DiscountTestSupportService_TestDetermineDiscount_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -60,8 +60,8 @@ func (c *discountTestSupportServiceClient) TestDetermineDiscount(ctx context.Con
 	return out, nil
 }
 
-func (c *discountTestSupportServiceClient) TestApplyDiscount(ctx context.Context, in *ApplyDiscountRequest, opts ...grpc.CallOption) (*ApplyDiscountResponse, error) {
-	out := new(ApplyDiscountResponse)
+func (c *discountTestSupportServiceClient) TestApplyDiscount(ctx context.Context, in *TestApplyDiscountRequest, opts ...grpc.CallOption) (*TestApplyDiscountResponse, error) {
+	out := new(TestApplyDiscountResponse)
 	err := c.cc.Invoke(ctx, DiscountTestSupportService_TestApplyDiscount_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -69,8 +69,8 @@ func (c *discountTestSupportServiceClient) TestApplyDiscount(ctx context.Context
 	return out, nil
 }
 
-func (c *discountTestSupportServiceClient) TestReleaseDiscount(ctx context.Context, in *ReleaseDiscountRequest, opts ...grpc.CallOption) (*ReleaseDiscountResponse, error) {
-	out := new(ReleaseDiscountResponse)
+func (c *discountTestSupportServiceClient) TestReleaseDiscount(ctx context.Context, in *TestReleaseDiscountRequest, opts ...grpc.CallOption) (*TestReleaseDiscountResponse, error) {
+	out := new(TestReleaseDiscountResponse)
 	err := c.cc.Invoke(ctx, DiscountTestSupportService_TestReleaseDiscount_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -83,10 +83,10 @@ func (c *discountTestSupportServiceClient) TestReleaseDiscount(ctx context.Conte
 // for forward compatibility
 type DiscountTestSupportServiceServer interface {
 	// Determine which discount(s) can be applied to this transaction
-	TestDetermineDiscount(context.Context, *DetermineDiscountRequest) (*DetermineDiscountResponse, error)
+	TestDetermineDiscount(context.Context, *TestDetermineDiscountRequest) (*TestDetermineDiscountResponse, error)
 	// Apply or release a given discount
-	TestApplyDiscount(context.Context, *ApplyDiscountRequest) (*ApplyDiscountResponse, error)
-	TestReleaseDiscount(context.Context, *ReleaseDiscountRequest) (*ReleaseDiscountResponse, error)
+	TestApplyDiscount(context.Context, *TestApplyDiscountRequest) (*TestApplyDiscountResponse, error)
+	TestReleaseDiscount(context.Context, *TestReleaseDiscountRequest) (*TestReleaseDiscountResponse, error)
 	mustEmbedUnimplementedDiscountTestSupportServiceServer()
 }
 
@@ -94,13 +94,13 @@ type DiscountTestSupportServiceServer interface {
 type UnimplementedDiscountTestSupportServiceServer struct {
 }
 
-func (UnimplementedDiscountTestSupportServiceServer) TestDetermineDiscount(context.Context, *DetermineDiscountRequest) (*DetermineDiscountResponse, error) {
+func (UnimplementedDiscountTestSupportServiceServer) TestDetermineDiscount(context.Context, *TestDetermineDiscountRequest) (*TestDetermineDiscountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TestDetermineDiscount not implemented")
 }
-func (UnimplementedDiscountTestSupportServiceServer) TestApplyDiscount(context.Context, *ApplyDiscountRequest) (*ApplyDiscountResponse, error) {
+func (UnimplementedDiscountTestSupportServiceServer) TestApplyDiscount(context.Context, *TestApplyDiscountRequest) (*TestApplyDiscountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TestApplyDiscount not implemented")
 }
-func (UnimplementedDiscountTestSupportServiceServer) TestReleaseDiscount(context.Context, *ReleaseDiscountRequest) (*ReleaseDiscountResponse, error) {
+func (UnimplementedDiscountTestSupportServiceServer) TestReleaseDiscount(context.Context, *TestReleaseDiscountRequest) (*TestReleaseDiscountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method TestReleaseDiscount not implemented")
 }
 func (UnimplementedDiscountTestSupportServiceServer) mustEmbedUnimplementedDiscountTestSupportServiceServer() {
@@ -118,7 +118,7 @@ func RegisterDiscountTestSupportServiceServer(s grpc.ServiceRegistrar, srv Disco
 }
 
 func _DiscountTestSupportService_TestDetermineDiscount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DetermineDiscountRequest)
+	in := new(TestDetermineDiscountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -130,13 +130,13 @@ func _DiscountTestSupportService_TestDetermineDiscount_Handler(srv interface{}, 
 		FullMethod: DiscountTestSupportService_TestDetermineDiscount_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountTestSupportServiceServer).TestDetermineDiscount(ctx, req.(*DetermineDiscountRequest))
+		return srv.(DiscountTestSupportServiceServer).TestDetermineDiscount(ctx, req.(*TestDetermineDiscountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountTestSupportService_TestApplyDiscount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ApplyDiscountRequest)
+	in := new(TestApplyDiscountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -148,13 +148,13 @@ func _DiscountTestSupportService_TestApplyDiscount_Handler(srv interface{}, ctx 
 		FullMethod: DiscountTestSupportService_TestApplyDiscount_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountTestSupportServiceServer).TestApplyDiscount(ctx, req.(*ApplyDiscountRequest))
+		return srv.(DiscountTestSupportServiceServer).TestApplyDiscount(ctx, req.(*TestApplyDiscountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountTestSupportService_TestReleaseDiscount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReleaseDiscountRequest)
+	in := new(TestReleaseDiscountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -166,7 +166,7 @@ func _DiscountTestSupportService_TestReleaseDiscount_Handler(srv interface{}, ct
 		FullMethod: DiscountTestSupportService_TestReleaseDiscount_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountTestSupportServiceServer).TestReleaseDiscount(ctx, req.(*ReleaseDiscountRequest))
+		return srv.(DiscountTestSupportServiceServer).TestReleaseDiscount(ctx, req.(*TestReleaseDiscountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

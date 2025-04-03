@@ -21,14 +21,14 @@ option objc_class_prefix = "MICA";
 
 service DiscountTestSupportService {
   // Determine which discount(s) can be applied to this transaction
-  rpc TestDetermineDiscount(DetermineDiscountRequest) returns (DetermineDiscountResponse) {}
+  rpc TestDetermineDiscount(TestDetermineDiscountRequest) returns (TestDetermineDiscountResponse) {}
 
   // Apply or release a given discount
-  rpc TestApplyDiscount(ApplyDiscountRequest) returns (ApplyDiscountResponse) {}
-  rpc TestReleaseDiscount(ReleaseDiscountRequest) returns (ReleaseDiscountResponse) {}
+  rpc TestApplyDiscount(TestApplyDiscountRequest) returns (TestApplyDiscountResponse) {}
+  rpc TestReleaseDiscount(TestReleaseDiscountRequest) returns (TestReleaseDiscountResponse) {}
 }
 
-message DetermineDiscountRequest {
+message TestDetermineDiscountRequest {
   string federated_user_key = 1 [(validate.rules).string = {
     min_len: 27,
     max_len: 50
@@ -37,7 +37,7 @@ message DetermineDiscountRequest {
   repeated micashared.common.v1.LineItem line_items = 2 [(validate.rules).repeated.min_items = 1];
 }
 
-message DetermineDiscountResponse {
+message TestDetermineDiscountResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -48,11 +48,11 @@ message DetermineDiscountResponse {
   micashared.common.v1.Error error = 2;
 }
 
-message ApplyDiscountRequest {
+message TestApplyDiscountRequest {
   string discount_ref = 1;
 }
 
-message ApplyDiscountResponse {
+message TestApplyDiscountResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -64,11 +64,11 @@ message ApplyDiscountResponse {
   micashared.common.v1.Error error = 2;
 }
 
-message ReleaseDiscountRequest {
+message TestReleaseDiscountRequest {
   string discount_ref = 1;
 }
 
-message ReleaseDiscountResponse {
+message TestReleaseDiscountResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;

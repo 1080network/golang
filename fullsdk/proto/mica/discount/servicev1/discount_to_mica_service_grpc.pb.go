@@ -25,7 +25,6 @@ import (
 	discountv1 "github.com/1080network/golang/fullsdk/proto/mica/discount/discountv1"
 	productgroupv1 "github.com/1080network/golang/fullsdk/proto/mica/discount/productgroupv1"
 	userv1 "github.com/1080network/golang/fullsdk/proto/mica/discount/userv1"
-	pingv1 "github.com/1080network/golang/fullsdk/proto/micashared/common/pingv1"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -95,10 +94,10 @@ type DiscountToMicaServiceClient interface {
 	SearchDiscount(ctx context.Context, in *discountv1.SearchDiscountRequest, opts ...grpc.CallOption) (*discountv1.SearchDiscountResponse, error)
 	GetUserKey(ctx context.Context, in *userv1.GetUserKeyRequest, opts ...grpc.CallOption) (*userv1.GetUserKeyResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
-	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
+	Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error)
 	// An operation that triggers a ping to the Mica servervice and that in turn triggers a ping to the discount provider service.
 	// This is a useful call to ensure that the connectivity and security between the mica an external services is working.
-	PingWithRoundTrip(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
+	PingWithRoundTrip(ctx context.Context, in *PingWithRoundTripRequest, opts ...grpc.CallOption) (*PingWithRoundTripResponse, error)
 }
 
 type discountToMicaServiceClient struct {
@@ -343,8 +342,8 @@ func (c *discountToMicaServiceClient) GetUserKey(ctx context.Context, in *userv1
 	return out, nil
 }
 
-func (c *discountToMicaServiceClient) Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
-	out := new(pingv1.PingResponse)
+func (c *discountToMicaServiceClient) Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error) {
+	out := new(PingResponse)
 	err := c.cc.Invoke(ctx, DiscountToMicaService_Ping_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -352,8 +351,8 @@ func (c *discountToMicaServiceClient) Ping(ctx context.Context, in *pingv1.PingR
 	return out, nil
 }
 
-func (c *discountToMicaServiceClient) PingWithRoundTrip(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
-	out := new(pingv1.PingResponse)
+func (c *discountToMicaServiceClient) PingWithRoundTrip(ctx context.Context, in *PingWithRoundTripRequest, opts ...grpc.CallOption) (*PingWithRoundTripResponse, error) {
+	out := new(PingWithRoundTripResponse)
 	err := c.cc.Invoke(ctx, DiscountToMicaService_PingWithRoundTrip_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -392,10 +391,10 @@ type DiscountToMicaServiceServer interface {
 	SearchDiscount(context.Context, *discountv1.SearchDiscountRequest) (*discountv1.SearchDiscountResponse, error)
 	GetUserKey(context.Context, *userv1.GetUserKeyRequest) (*userv1.GetUserKeyResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
-	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
+	Ping(context.Context, *PingRequest) (*PingResponse, error)
 	// An operation that triggers a ping to the Mica servervice and that in turn triggers a ping to the discount provider service.
 	// This is a useful call to ensure that the connectivity and security between the mica an external services is working.
-	PingWithRoundTrip(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
+	PingWithRoundTrip(context.Context, *PingWithRoundTripRequest) (*PingWithRoundTripResponse, error)
 	mustEmbedUnimplementedDiscountToMicaServiceServer()
 }
 
@@ -481,10 +480,10 @@ func (UnimplementedDiscountToMicaServiceServer) SearchDiscount(context.Context, 
 func (UnimplementedDiscountToMicaServiceServer) GetUserKey(context.Context, *userv1.GetUserKeyRequest) (*userv1.GetUserKeyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserKey not implemented")
 }
-func (UnimplementedDiscountToMicaServiceServer) Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
+func (UnimplementedDiscountToMicaServiceServer) Ping(context.Context, *PingRequest) (*PingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
 }
-func (UnimplementedDiscountToMicaServiceServer) PingWithRoundTrip(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
+func (UnimplementedDiscountToMicaServiceServer) PingWithRoundTrip(context.Context, *PingWithRoundTripRequest) (*PingWithRoundTripResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PingWithRoundTrip not implemented")
 }
 func (UnimplementedDiscountToMicaServiceServer) mustEmbedUnimplementedDiscountToMicaServiceServer() {}
@@ -969,7 +968,7 @@ func _DiscountToMicaService_GetUserKey_Handler(srv interface{}, ctx context.Cont
 }
 
 func _DiscountToMicaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(pingv1.PingRequest)
+	in := new(PingRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -981,13 +980,13 @@ func _DiscountToMicaService_Ping_Handler(srv interface{}, ctx context.Context, d
 		FullMethod: DiscountToMicaService_Ping_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountToMicaServiceServer).Ping(ctx, req.(*pingv1.PingRequest))
+		return srv.(DiscountToMicaServiceServer).Ping(ctx, req.(*PingRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountToMicaService_PingWithRoundTrip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(pingv1.PingRequest)
+	in := new(PingWithRoundTripRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -999,7 +998,7 @@ func _DiscountToMicaService_PingWithRoundTrip_Handler(srv interface{}, ctx conte
 		FullMethod: DiscountToMicaService_PingWithRoundTrip_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DiscountToMicaServiceServer).PingWithRoundTrip(ctx, req.(*pingv1.PingRequest))
+		return srv.(DiscountToMicaServiceServer).PingWithRoundTrip(ctx, req.(*PingWithRoundTripRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

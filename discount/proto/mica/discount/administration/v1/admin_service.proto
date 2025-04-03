@@ -10,10 +10,12 @@ syntax = "proto3";
 
 package mica.discount.administration.v1;
 
-import "micashared/common/ping/v1/ping.proto";
+import "google/protobuf/timestamp.proto";
 import "micashared/common/v1/authentication_token.proto";
+import "micashared/common/v1/error.proto";
 import "micashared/common/v1/external_client.proto";
 import "micashared/common/v1/mtls_certificate.proto";
+import "validate/validate.proto";
 
 option go_package = "mica/discount/administrationv1";
 option java_outer_classname = "AdministrationServiceProto";
@@ -21,39 +23,231 @@ option java_package = "io.mica.discount.administration.v1";
 option objc_class_prefix = "MICA";
 
 service DiscountAdministrationService {
-  //  Generate a new mTLS certificate. SignToMicaClientCSR GenerateToMicaCertificate
-  rpc GenerateToMicaCertificate(micashared.common.v1.GenerateToMicaCertificateRequest) returns (micashared.common.v1.GenerateToMicaCertificateResponse) {}
-  // Update the certificate with a given serial number, only supports enable/disable for now
-  rpc EnableToMicaCertificate(micashared.common.v1.EnableToMicaCertificateRequest) returns (micashared.common.v1.EnableToMicaCertificateResponse) {}
-  // do we need a separate Disable call?
-  rpc DisableToMicaCertificate(micashared.common.v1.DisableToMicaCertificateRequest) returns (micashared.common.v1.DisableToMicaCertificateResponse) {}
-  //Search for certificates and return the ones that match the criteria provided
-  rpc SearchToMicaCertificate(micashared.common.v1.SearchToMicaCertificateRequest) returns (micashared.common.v1.SearchToMicaCertificateResponse) {}
-  // return a single certificate
-  rpc GetToMicaCertificate(micashared.common.v1.GetToMicaCertificateRequest) returns (micashared.common.v1.GetToMicaCertificateResponse) {}
   // Client certificates are used when mica needs to call out to a customers environment.
-  rpc GenerateFromMicaClientCertificate(micashared.common.v1.GenerateFromMicaClientCertificateRequest) returns (micashared.common.v1.GenerateFromMicaClientCertificateResponse) {}
+  rpc GenerateFromMicaClientCertificate(GenerateFromMicaClientCertificateRequest) returns (GenerateFromMicaClientCertificateResponse) {}
   // After signing the CSR the member will upload the signed cert
-  rpc UpdateFromMicaClientCertificate(micashared.common.v1.UpdateFromMicaClientCertificateRequest) returns (micashared.common.v1.UpdateFromMicaClientCertificateResponse) {}
+  rpc UpdateFromMicaClientCertificate(UpdateFromMicaClientCertificateRequest) returns (UpdateFromMicaClientCertificateResponse) {}
   // there can only be one enable cert for each endpoint
-  rpc EnableFromMicaClientCertificate(micashared.common.v1.EnableFromMicaClientCertificateRequest) returns (micashared.common.v1.EnableFromMicaClientCertificateResponse) {}
+  rpc EnableFromMicaClientCertificate(EnableFromMicaClientCertificateRequest) returns (EnableFromMicaClientCertificateResponse) {}
   // return all from mica certs for now
-  rpc SearchFromMicaClientCertificate(micashared.common.v1.SearchFromMicaClientCertificateRequest) returns (micashared.common.v1.SearchFromMicaClientCertificateResponse) {}
+  rpc SearchFromMicaClientCertificate(SearchFromMicaClientCertificateRequest) returns (SearchFromMicaClientCertificateResponse) {}
   // External authentication mechanisms for Mica to call provider endpoints
-  rpc GetFromMicaClientSettings(micashared.common.v1.GetFromMicaClientSettingsRequest) returns (micashared.common.v1.GetFromMicaClientSettingsResponse) {}
+  rpc GetFromMicaClientSettings(GetFromMicaClientSettingsRequest) returns (GetFromMicaClientSettingsResponse) {}
 
-  rpc UpdateFromMicaClientCallbackAddress(micashared.common.v1.UpdateFromMicaClientCallBackAddressRequest) returns (micashared.common.v1.UpdateFromMicaClientCallBackAddressResponse) {}
+  rpc UpdateFromMicaClientCallbackAddress(UpdateFromMicaClientCallbackAddressRequest) returns (UpdateFromMicaClientCallbackAddressResponse) {}
 
   // creates the token configuration
-  rpc CreateApiTokenConfiguration(micashared.common.v1.CreateApiTokenConfigurationRequest) returns (micashared.common.v1.CreateApiTokenConfigurationResponse) {}
+  rpc CreateApiTokenConfiguration(CreateApiTokenConfigurationRequest) returns (CreateApiTokenConfigurationResponse) {}
 
   // if the authentication type is api token use these methods to properly setup the api token
   //retrieves the api token configuration including the token itself
-  rpc GetApiTokenConfiguration(micashared.common.v1.GetApiTokenConfigurationRequest) returns (micashared.common.v1.GetApiTokenConfigurationResponse) {}
+  rpc GetApiTokenConfiguration(GetApiTokenConfigurationRequest) returns (GetApiTokenConfigurationResponse) {}
 
   // Update the configuration of the token, the set fields will be modified
-  rpc UpdateAPITokenAuthenticationConfiguration(micashared.common.v1.UpdateApiTokenConfigurationRequest) returns (micashared.common.v1.UpdateApiTokenConfigurationResponse) {}
+  rpc UpdateAPITokenAuthenticationConfiguration(UpdateAPITokenAuthenticationConfigurationRequest) returns (UpdateAPITokenAuthenticationConfigurationResponse) {}
 
   // tests the external call to verify proper configuration and connectivity
-  rpc PingExternal(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+  rpc PingExternal(PingExternalRequest) returns (PingExternalResponse) {}
+}
+
+message PingExternalRequest {}
+
+message PingExternalResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+  }
+  Status status = 1;
+
+  google.protobuf.Timestamp server_time = 2;
+
+  google.protobuf.Timestamp server_start_time = 7;
+
+  string build_version = 3;
+
+  string build_sha = 4;
+
+  string build_time = 5;
+
+  string service_type = 6;
+}
+
+// We generate the db entry and return the csr to the user so they can sign it.
+message GenerateFromMicaClientCertificateRequest {
+  string display_name = 1;
+}
+
+message GenerateFromMicaClientCertificateResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  micashared.common.v1.FromMicaClientCertificate certificate_to_sign = 3;
+}
+
+message UpdateFromMicaClientCertificateRequest {
+  string certificate_id = 1;
+  string display_name = 2;
+  //Base64 standard encoded PEM string
+  string base64_signed_cert_pem_from_csr = 3;
+  //Base64 standard encoded PEM string
+  string base64_rootca_pem = 4;
+
+}
+
+message UpdateFromMicaClientCertificateResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+  micashared.common.v1.FromMicaClientCertificate certificate = 3;
+}
+
+message EnableFromMicaClientCertificateRequest {
+  string certificate_id = 1 ;
+}
+
+message EnableFromMicaClientCertificateResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+  micashared.common.v1.FromMicaClientCertificate certificate = 3;
+}
+
+
+message SearchFromMicaClientCertificateRequest {}
+
+message SearchFromMicaClientCertificateResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+  repeated micashared.common.v1.FromMicaClientCertificate certificates = 3;
+}
+
+message GetFromMicaClientSettingsRequest {}
+
+message GetFromMicaClientSettingsResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  micashared.common.v1.ExternalClientSettings settings = 3;
+}
+
+message UpdateFromMicaClientCallbackAddressRequest {
+  int64 version = 1 [(validate.rules).int64.gte = 0];
+  // the callback address must folow a <hostname>:<port> pattern for example
+  // mycallbackservicie.somecompany.io:443
+  string callback_address = 2 [(validate.rules).string.pattern = "^[^/]+:\\d{3,6}$"];
+}
+
+message UpdateFromMicaClientCallbackAddressResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  int64 version = 3 [(validate.rules).int64.gte = 0];
+}
+
+message UpdateFromMicaClientAuthenticationTypeRequest {
+  int64 version = 1 [(validate.rules).int64.gte = 0];
+  micashared.common.v1.ClientAuthenticationType authentication_type = 3 [(validate.rules).enum = {
+    not_in: [0]
+  }];
+}
+
+message UpdateFromMicaClientAuthenticationTypeResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  int64 version = 3 [(validate.rules).int64.gte = 0];
+}
+
+message CreateApiTokenConfigurationRequest {
+  micashared.common.v1.AuthenticationHeaderConfiguration header_configuration = 1 [(validate.rules).message.required = true];
+  string api_token_value = 2 [(validate.rules).string.min_len = 1];
+  //The pem encoded certificate chain
+  repeated string pem_ca_chain = 3 [(validate.rules).repeated.min_items = 1];
+}
+
+message CreateApiTokenConfigurationResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+  int64 version = 3 [(validate.rules).int64.gte = 0];
+}
+
+message GetApiTokenConfigurationRequest {}
+
+message GetApiTokenConfigurationResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  micashared.common.v1.ApiTokenConfiguration api_token_configuration = 3;
+}
+
+message UpdateAPITokenAuthenticationConfigurationRequest {
+  micashared.common.v1.AuthenticationHeaderConfiguration header_configuration = 2;
+  string api_token_value = 3;
+  //The pem encoded certificate chain
+  repeated string pem_ca_chain = 4;
+}
+
+message UpdateAPITokenAuthenticationConfigurationResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+    STATUS_NOT_FOUND = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
 }

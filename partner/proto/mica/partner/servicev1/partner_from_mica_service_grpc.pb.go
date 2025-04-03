@@ -38,8 +38,8 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PartnerFromMicaServiceClient interface {
 	// operation to support reverse onboarding. Instead of the Partner calling Mica, Mica will call the Partner with a
-	// new enrollment. For example, a User starting at the mica user website could sign up for Netflix assuming that
-	// Netflix supported mica and have implemented this API.
+	// new enrollment. For example, a User starting at the Mica user website could sign up for Netflix assuming that
+	// Netflix supported Mica and have implemented this API.
 	EnrollUserInstrument(ctx context.Context, in *userv1.EnrollUserInstrumentRequest, opts ...grpc.CallOption) (*userv1.EnrollUserInstrumentResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
 	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
@@ -76,8 +76,8 @@ func (c *partnerFromMicaServiceClient) Ping(ctx context.Context, in *pingv1.Ping
 // for forward compatibility
 type PartnerFromMicaServiceServer interface {
 	// operation to support reverse onboarding. Instead of the Partner calling Mica, Mica will call the Partner with a
-	// new enrollment. For example, a User starting at the mica user website could sign up for Netflix assuming that
-	// Netflix supported mica and have implemented this API.
+	// new enrollment. For example, a User starting at the Mica user website could sign up for Netflix assuming that
+	// Netflix supported Mica and have implemented this API.
 	EnrollUserInstrument(context.Context, *userv1.EnrollUserInstrumentRequest) (*userv1.EnrollUserInstrumentResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
 	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)

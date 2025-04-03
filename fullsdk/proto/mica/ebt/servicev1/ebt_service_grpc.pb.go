@@ -21,7 +21,6 @@ import (
 	status "google.golang.org/grpc/status"
 	listitemv1 "github.com/1080network/golang/fullsdk/proto/mica/ebt/listitemv1"
 	programv1 "github.com/1080network/golang/fullsdk/proto/mica/ebt/programv1"
-	pingv1 "github.com/1080network/golang/fullsdk/proto/micashared/common/pingv1"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -37,7 +36,6 @@ const (
 	EBTService_RemoveListItem_FullMethodName   = "/mica.ebt.service.v1.EBTService/RemoveListItem"
 	EBTService_UpdateListItem_FullMethodName   = "/mica.ebt.service.v1.EBTService/UpdateListItem"
 	EBTService_SearchListItem_FullMethodName   = "/mica.ebt.service.v1.EBTService/SearchListItem"
-	EBTService_Ping_FullMethodName             = "/mica.ebt.service.v1.EBTService/Ping"
 )
 
 // EBTServiceClient is the client API for EBTService service.
@@ -58,8 +56,6 @@ type EBTServiceClient interface {
 	UpdateListItem(ctx context.Context, in *listitemv1.UpdateListItemRequest, opts ...grpc.CallOption) (*listitemv1.UpdateListItemResponse, error)
 	// Like GetListItem, can be used to retrieve List Items based on the criteria in the request.
 	SearchListItem(ctx context.Context, in *listitemv1.SearchListItemRequest, opts ...grpc.CallOption) (*listitemv1.SearchListItemResponse, error)
-	// An operation to ping the server to ensure it's up and running and that the connection is good.
-	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
 }
 
 type eBTServiceClient struct {
@@ -133,15 +129,6 @@ func (c *eBTServiceClient) SearchListItem(ctx context.Context, in *listitemv1.Se
 	return out, nil
 }
 
-func (c *eBTServiceClient) Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
-	out := new(pingv1.PingResponse)
-	err := c.cc.Invoke(ctx, EBTService_Ping_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // EBTServiceServer is the server API for EBTService service.
 // All implementations must embed UnimplementedEBTServiceServer
 // for forward compatibility
@@ -160,8 +147,6 @@ type EBTServiceServer interface {
 	UpdateListItem(context.Context, *listitemv1.UpdateListItemRequest) (*listitemv1.UpdateListItemResponse, error)
 	// Like GetListItem, can be used to retrieve List Items based on the criteria in the request.
 	SearchListItem(context.Context, *listitemv1.SearchListItemRequest) (*listitemv1.SearchListItemResponse, error)
-	// An operation to ping the server to ensure it's up and running and that the connection is good.
-	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
 	mustEmbedUnimplementedEBTServiceServer()
 }
 
@@ -189,9 +174,6 @@ func (UnimplementedEBTServiceServer) UpdateListItem(context.Context, *listitemv1
 }
 func (UnimplementedEBTServiceServer) SearchListItem(context.Context, *listitemv1.SearchListItemRequest) (*listitemv1.SearchListItemResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchListItem not implemented")
-}
-func (UnimplementedEBTServiceServer) Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
 }
 func (UnimplementedEBTServiceServer) mustEmbedUnimplementedEBTServiceServer() {}
 
@@ -332,24 +314,6 @@ func _EBTService_SearchListItem_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
-func _EBTService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(pingv1.PingRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(EBTServiceServer).Ping(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: EBTService_Ping_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(EBTServiceServer).Ping(ctx, req.(*pingv1.PingRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // EBTService_ServiceDesc is the grpc.ServiceDesc for EBTService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -384,10 +348,6 @@ var EBTService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchListItem",
 			Handler:    _EBTService_SearchListItem_Handler,
-		},
-		{
-			MethodName: "Ping",
-			Handler:    _EBTService_Ping_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

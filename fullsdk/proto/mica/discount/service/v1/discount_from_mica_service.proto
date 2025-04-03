@@ -11,7 +11,6 @@ syntax = "proto3";
 package mica.discount.service.v1;
 
 import "mica/discount/discount/v1/discount.proto";
-import "micashared/common/ping/v1/ping.proto";
 
 option go_package = "mica/discount/servicev1";
 option java_outer_classname = "DiscountFromMicaServiceProto";
@@ -20,9 +19,11 @@ option objc_class_prefix = "MICA";
 
 service DiscountFromMicaService {
   rpc ApplyDiscountNotification(discount.v1.ApplyDiscountNotificationRequest) returns (discount.v1.ApplyDiscountNotificationResponse) {}
-  //<editor-fold desc="Admin Operations">
 
   // An operation to ping the server to ensure it's up and running and that the connection is good.
-  rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
-  //</editor-fold>
+  rpc Ping(DiscountFromMicaServicePingRequest) returns (DiscountFromMicaServicePingResponse) {}
 }
+
+message DiscountFromMicaServicePingRequest {}
+
+message DiscountFromMicaServicePingResponse {}
