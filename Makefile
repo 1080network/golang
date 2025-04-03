@@ -67,7 +67,10 @@ publish:
 	git tag partner/$(PUBLISH_VERSION)
 	git tag serviceprovider/$(PUBLISH_VERSION)
 	git tag fullsdk/$(PUBLISH_VERSION)
-	git push origin --tag
+	git push origin discount/$(PUBLISH_VERSION)
+	git push origin partner/$(PUBLISH_VERSION)
+	git push origin serviceprovider/$(PUBLISH_VERSION)
+	git push origin fullsdk/$(PUBLISH_VERSION)
 
 clean: 
 	rm -rf vendor

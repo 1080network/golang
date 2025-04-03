@@ -36,21 +36,46 @@ const (
 	ServiceProviderToMicaWIPService_RemovePIN_FullMethodName                      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/RemovePIN"
 	ServiceProviderToMicaWIPService_GetLinkedAccountBalance_FullMethodName        = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/GetLinkedAccountBalance"
 	ServiceProviderToMicaWIPService_UpdateAccountEnableForPurchase_FullMethodName = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/UpdateAccountEnableForPurchase"
+	ServiceProviderToMicaWIPService_GetRecurringPayment_FullMethodName            = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/GetRecurringPayment"
+	ServiceProviderToMicaWIPService_CancelRecurringPayment_FullMethodName         = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/CancelRecurringPayment"
+	ServiceProviderToMicaWIPService_SearchRecurringPayments_FullMethodName        = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/SearchRecurringPayments"
+	ServiceProviderToMicaWIPService_SendValue_FullMethodName                      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/SendValue"
+	ServiceProviderToMicaWIPService_SearchUserDiscount_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/SearchUserDiscount"
 )
 
 // ServiceProviderToMicaWIPServiceClient is the client API for ServiceProviderToMicaWIPService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceProviderToMicaWIPServiceClient interface {
+	// Set visibility status for P2P operations.
 	SetVisibilityStatus(ctx context.Context, in *SetVisibilityStatusRequest, opts ...grpc.CallOption) (*SetVisibilityStatusResponse, error)
+	// Used to find users that are discoverable (i.e. visible to other users) for P2P operations.
 	DiscoverUser(ctx context.Context, in *DiscoverUserRequest, opts ...grpc.CallOption) (*DiscoverUserResponse, error)
+	// Deprecated: Do not use.
 	GetServiceProviderUUEK(ctx context.Context, in *GetServiceProviderUUEKRequest, opts ...grpc.CallOption) (*GetServiceProviderUUEKResponse, error)
+	// Set the network PIN for a user.
 	SetPIN(ctx context.Context, in *SetPINRequest, opts ...grpc.CallOption) (*SetPINResponse, error)
+	// Validate the network PIN for a user.
 	ValidatePIN(ctx context.Context, in *ValidatePINRequest, opts ...grpc.CallOption) (*ValidatePINResponse, error)
+	// Reset the network PIN for a user.
 	ResetPIN(ctx context.Context, in *ResetPINRequest, opts ...grpc.CallOption) (*ResetPINResponse, error)
+	// Remove the network PIN for a user.
 	RemovePIN(ctx context.Context, in *RemovePINRequest, opts ...grpc.CallOption) (*RemovePINResponse, error)
+	// Retrieve the balance of a linked account (if available).
 	GetLinkedAccountBalance(ctx context.Context, in *GetLinkedAccountBalanceRequest, opts ...grpc.CallOption) (*GetLinkedAccountBalanceResponse, error)
+	// Update the enable for purchase flag for a linked account so that it will be used in a multi-tender transaction.
 	UpdateAccountEnableForPurchase(ctx context.Context, in *UpdateAccountEnableForPurchaseRequest, opts ...grpc.CallOption) (*UpdateAccountEnableForPurchaseResponse, error)
+	// Retrieve the details of a recurring payment.
+	GetRecurringPayment(ctx context.Context, in *GetRecurringPaymentRequest, opts ...grpc.CallOption) (*GetRecurringPaymentResponse, error)
+	// Cancel a recurring payment where allowed.
+	CancelRecurringPayment(ctx context.Context, in *CancelRecurringPaymentRequest, opts ...grpc.CallOption) (*CancelRecurringPaymentResponse, error)
+	// Search for recurring payments of a given user.
+	SearchRecurringPayments(ctx context.Context, in *SearchRecurringPaymentsRequest, opts ...grpc.CallOption) (*SearchRecurringPaymentsResponse, error)
+	// Deprecated: Do not use.
+	// Send value from one user to another (P2P).
+	SendValue(ctx context.Context, in *SendValueRequest, opts ...grpc.CallOption) (*SendValueResponse, error)
+	// Search for discounts available to a user.
+	SearchUserDiscount(ctx context.Context, in *SearchUserDiscountRequest, opts ...grpc.CallOption) (*SearchUserDiscountResponse, error)
 }
 
 type serviceProviderToMicaWIPServiceClient struct {
@@ -79,6 +104,7 @@ func (c *serviceProviderToMicaWIPServiceClient) DiscoverUser(ctx context.Context
 	return out, nil
 }
 
+// Deprecated: Do not use.
 func (c *serviceProviderToMicaWIPServiceClient) GetServiceProviderUUEK(ctx context.Context, in *GetServiceProviderUUEKRequest, opts ...grpc.CallOption) (*GetServiceProviderUUEKResponse, error) {
 	out := new(GetServiceProviderUUEKResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderToMicaWIPService_GetServiceProviderUUEK_FullMethodName, in, out, opts...)
@@ -142,19 +168,85 @@ func (c *serviceProviderToMicaWIPServiceClient) UpdateAccountEnableForPurchase(c
 	return out, nil
 }
 
+func (c *serviceProviderToMicaWIPServiceClient) GetRecurringPayment(ctx context.Context, in *GetRecurringPaymentRequest, opts ...grpc.CallOption) (*GetRecurringPaymentResponse, error) {
+	out := new(GetRecurringPaymentResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderToMicaWIPService_GetRecurringPayment_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceProviderToMicaWIPServiceClient) CancelRecurringPayment(ctx context.Context, in *CancelRecurringPaymentRequest, opts ...grpc.CallOption) (*CancelRecurringPaymentResponse, error) {
+	out := new(CancelRecurringPaymentResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderToMicaWIPService_CancelRecurringPayment_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceProviderToMicaWIPServiceClient) SearchRecurringPayments(ctx context.Context, in *SearchRecurringPaymentsRequest, opts ...grpc.CallOption) (*SearchRecurringPaymentsResponse, error) {
+	out := new(SearchRecurringPaymentsResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderToMicaWIPService_SearchRecurringPayments_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Deprecated: Do not use.
+func (c *serviceProviderToMicaWIPServiceClient) SendValue(ctx context.Context, in *SendValueRequest, opts ...grpc.CallOption) (*SendValueResponse, error) {
+	out := new(SendValueResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderToMicaWIPService_SendValue_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceProviderToMicaWIPServiceClient) SearchUserDiscount(ctx context.Context, in *SearchUserDiscountRequest, opts ...grpc.CallOption) (*SearchUserDiscountResponse, error) {
+	out := new(SearchUserDiscountResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderToMicaWIPService_SearchUserDiscount_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceProviderToMicaWIPServiceServer is the server API for ServiceProviderToMicaWIPService service.
 // All implementations must embed UnimplementedServiceProviderToMicaWIPServiceServer
 // for forward compatibility
 type ServiceProviderToMicaWIPServiceServer interface {
+	// Set visibility status for P2P operations.
 	SetVisibilityStatus(context.Context, *SetVisibilityStatusRequest) (*SetVisibilityStatusResponse, error)
+	// Used to find users that are discoverable (i.e. visible to other users) for P2P operations.
 	DiscoverUser(context.Context, *DiscoverUserRequest) (*DiscoverUserResponse, error)
+	// Deprecated: Do not use.
 	GetServiceProviderUUEK(context.Context, *GetServiceProviderUUEKRequest) (*GetServiceProviderUUEKResponse, error)
+	// Set the network PIN for a user.
 	SetPIN(context.Context, *SetPINRequest) (*SetPINResponse, error)
+	// Validate the network PIN for a user.
 	ValidatePIN(context.Context, *ValidatePINRequest) (*ValidatePINResponse, error)
+	// Reset the network PIN for a user.
 	ResetPIN(context.Context, *ResetPINRequest) (*ResetPINResponse, error)
+	// Remove the network PIN for a user.
 	RemovePIN(context.Context, *RemovePINRequest) (*RemovePINResponse, error)
+	// Retrieve the balance of a linked account (if available).
 	GetLinkedAccountBalance(context.Context, *GetLinkedAccountBalanceRequest) (*GetLinkedAccountBalanceResponse, error)
+	// Update the enable for purchase flag for a linked account so that it will be used in a multi-tender transaction.
 	UpdateAccountEnableForPurchase(context.Context, *UpdateAccountEnableForPurchaseRequest) (*UpdateAccountEnableForPurchaseResponse, error)
+	// Retrieve the details of a recurring payment.
+	GetRecurringPayment(context.Context, *GetRecurringPaymentRequest) (*GetRecurringPaymentResponse, error)
+	// Cancel a recurring payment where allowed.
+	CancelRecurringPayment(context.Context, *CancelRecurringPaymentRequest) (*CancelRecurringPaymentResponse, error)
+	// Search for recurring payments of a given user.
+	SearchRecurringPayments(context.Context, *SearchRecurringPaymentsRequest) (*SearchRecurringPaymentsResponse, error)
+	// Deprecated: Do not use.
+	// Send value from one user to another (P2P).
+	SendValue(context.Context, *SendValueRequest) (*SendValueResponse, error)
+	// Search for discounts available to a user.
+	SearchUserDiscount(context.Context, *SearchUserDiscountRequest) (*SearchUserDiscountResponse, error)
 	mustEmbedUnimplementedServiceProviderToMicaWIPServiceServer()
 }
 
@@ -188,6 +280,21 @@ func (UnimplementedServiceProviderToMicaWIPServiceServer) GetLinkedAccountBalanc
 }
 func (UnimplementedServiceProviderToMicaWIPServiceServer) UpdateAccountEnableForPurchase(context.Context, *UpdateAccountEnableForPurchaseRequest) (*UpdateAccountEnableForPurchaseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAccountEnableForPurchase not implemented")
+}
+func (UnimplementedServiceProviderToMicaWIPServiceServer) GetRecurringPayment(context.Context, *GetRecurringPaymentRequest) (*GetRecurringPaymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRecurringPayment not implemented")
+}
+func (UnimplementedServiceProviderToMicaWIPServiceServer) CancelRecurringPayment(context.Context, *CancelRecurringPaymentRequest) (*CancelRecurringPaymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CancelRecurringPayment not implemented")
+}
+func (UnimplementedServiceProviderToMicaWIPServiceServer) SearchRecurringPayments(context.Context, *SearchRecurringPaymentsRequest) (*SearchRecurringPaymentsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchRecurringPayments not implemented")
+}
+func (UnimplementedServiceProviderToMicaWIPServiceServer) SendValue(context.Context, *SendValueRequest) (*SendValueResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SendValue not implemented")
+}
+func (UnimplementedServiceProviderToMicaWIPServiceServer) SearchUserDiscount(context.Context, *SearchUserDiscountRequest) (*SearchUserDiscountResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SearchUserDiscount not implemented")
 }
 func (UnimplementedServiceProviderToMicaWIPServiceServer) mustEmbedUnimplementedServiceProviderToMicaWIPServiceServer() {
 }
@@ -365,6 +472,96 @@ func _ServiceProviderToMicaWIPService_UpdateAccountEnableForPurchase_Handler(srv
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceProviderToMicaWIPService_GetRecurringPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRecurringPaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderToMicaWIPServiceServer).GetRecurringPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderToMicaWIPService_GetRecurringPayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderToMicaWIPServiceServer).GetRecurringPayment(ctx, req.(*GetRecurringPaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceProviderToMicaWIPService_CancelRecurringPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CancelRecurringPaymentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderToMicaWIPServiceServer).CancelRecurringPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderToMicaWIPService_CancelRecurringPayment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderToMicaWIPServiceServer).CancelRecurringPayment(ctx, req.(*CancelRecurringPaymentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceProviderToMicaWIPService_SearchRecurringPayments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchRecurringPaymentsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderToMicaWIPServiceServer).SearchRecurringPayments(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderToMicaWIPService_SearchRecurringPayments_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderToMicaWIPServiceServer).SearchRecurringPayments(ctx, req.(*SearchRecurringPaymentsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceProviderToMicaWIPService_SendValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SendValueRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderToMicaWIPServiceServer).SendValue(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderToMicaWIPService_SendValue_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderToMicaWIPServiceServer).SendValue(ctx, req.(*SendValueRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceProviderToMicaWIPService_SearchUserDiscount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SearchUserDiscountRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderToMicaWIPServiceServer).SearchUserDiscount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderToMicaWIPService_SearchUserDiscount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderToMicaWIPServiceServer).SearchUserDiscount(ctx, req.(*SearchUserDiscountRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ServiceProviderToMicaWIPService_ServiceDesc is the grpc.ServiceDesc for ServiceProviderToMicaWIPService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -407,6 +604,26 @@ var ServiceProviderToMicaWIPService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateAccountEnableForPurchase",
 			Handler:    _ServiceProviderToMicaWIPService_UpdateAccountEnableForPurchase_Handler,
+		},
+		{
+			MethodName: "GetRecurringPayment",
+			Handler:    _ServiceProviderToMicaWIPService_GetRecurringPayment_Handler,
+		},
+		{
+			MethodName: "CancelRecurringPayment",
+			Handler:    _ServiceProviderToMicaWIPService_CancelRecurringPayment_Handler,
+		},
+		{
+			MethodName: "SearchRecurringPayments",
+			Handler:    _ServiceProviderToMicaWIPService_SearchRecurringPayments_Handler,
+		},
+		{
+			MethodName: "SendValue",
+			Handler:    _ServiceProviderToMicaWIPService_SendValue_Handler,
+		},
+		{
+			MethodName: "SearchUserDiscount",
+			Handler:    _ServiceProviderToMicaWIPService_SearchUserDiscount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

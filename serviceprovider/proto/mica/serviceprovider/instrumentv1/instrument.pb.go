@@ -515,153 +515,6 @@ func (RemoveInstrumentLinkResponse_Status) EnumDescriptor() ([]byte, []int) {
 	return file_mica_serviceprovider_instrument_v1_instrument_proto_rawDescGZIP(), []int{19, 0}
 }
 
-type GetRecurringPaymentResponse_Status int32
-
-const (
-	GetRecurringPaymentResponse_STATUS_UNSPECIFIED GetRecurringPaymentResponse_Status = 0
-	GetRecurringPaymentResponse_STATUS_SUCCESS     GetRecurringPaymentResponse_Status = 1
-	GetRecurringPaymentResponse_STATUS_NOT_FOUND   GetRecurringPaymentResponse_Status = 2
-)
-
-// Enum value maps for GetRecurringPaymentResponse_Status.
-var (
-	GetRecurringPaymentResponse_Status_name = map[int32]string{
-		0: "STATUS_UNSPECIFIED",
-		1: "STATUS_SUCCESS",
-		2: "STATUS_NOT_FOUND",
-	}
-	GetRecurringPaymentResponse_Status_value = map[string]int32{
-		"STATUS_UNSPECIFIED": 0,
-		"STATUS_SUCCESS":     1,
-		"STATUS_NOT_FOUND":   2,
-	}
-)
-
-func (x GetRecurringPaymentResponse_Status) Enum() *GetRecurringPaymentResponse_Status {
-	p := new(GetRecurringPaymentResponse_Status)
-	*p = x
-	return p
-}
-
-func (x GetRecurringPaymentResponse_Status) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (GetRecurringPaymentResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_serviceprovider_instrument_v1_instrument_proto_enumTypes[9].Descriptor()
-}
-
-func (GetRecurringPaymentResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_serviceprovider_instrument_v1_instrument_proto_enumTypes[9]
-}
-
-func (x GetRecurringPaymentResponse_Status) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use GetRecurringPaymentResponse_Status.Descriptor instead.
-func (GetRecurringPaymentResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_instrument_v1_instrument_proto_rawDescGZIP(), []int{23, 0}
-}
-
-type CancelRecurringPaymentResponse_Status int32
-
-const (
-	CancelRecurringPaymentResponse_STATUS_UNSPECIFIED CancelRecurringPaymentResponse_Status = 0
-	CancelRecurringPaymentResponse_STATUS_SUCCESS     CancelRecurringPaymentResponse_Status = 1
-	CancelRecurringPaymentResponse_STATUS_NOT_FOUND   CancelRecurringPaymentResponse_Status = 2
-)
-
-// Enum value maps for CancelRecurringPaymentResponse_Status.
-var (
-	CancelRecurringPaymentResponse_Status_name = map[int32]string{
-		0: "STATUS_UNSPECIFIED",
-		1: "STATUS_SUCCESS",
-		2: "STATUS_NOT_FOUND",
-	}
-	CancelRecurringPaymentResponse_Status_value = map[string]int32{
-		"STATUS_UNSPECIFIED": 0,
-		"STATUS_SUCCESS":     1,
-		"STATUS_NOT_FOUND":   2,
-	}
-)
-
-func (x CancelRecurringPaymentResponse_Status) Enum() *CancelRecurringPaymentResponse_Status {
-	p := new(CancelRecurringPaymentResponse_Status)
-	*p = x
-	return p
-}
-
-func (x CancelRecurringPaymentResponse_Status) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (CancelRecurringPaymentResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_serviceprovider_instrument_v1_instrument_proto_enumTypes[10].Descriptor()
-}
-
-func (CancelRecurringPaymentResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_serviceprovider_instrument_v1_instrument_proto_enumTypes[10]
-}
-
-func (x CancelRecurringPaymentResponse_Status) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use CancelRecurringPaymentResponse_Status.Descriptor instead.
-func (CancelRecurringPaymentResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_instrument_v1_instrument_proto_rawDescGZIP(), []int{25, 0}
-}
-
-type SearchRecurringPaymentsResponse_Status int32
-
-const (
-	SearchRecurringPaymentsResponse_STATUS_UNSPECIFIED SearchRecurringPaymentsResponse_Status = 0
-	SearchRecurringPaymentsResponse_STATUS_SUCCESS     SearchRecurringPaymentsResponse_Status = 1
-	SearchRecurringPaymentsResponse_STATUS_NOT_FOUND   SearchRecurringPaymentsResponse_Status = 2
-)
-
-// Enum value maps for SearchRecurringPaymentsResponse_Status.
-var (
-	SearchRecurringPaymentsResponse_Status_name = map[int32]string{
-		0: "STATUS_UNSPECIFIED",
-		1: "STATUS_SUCCESS",
-		2: "STATUS_NOT_FOUND",
-	}
-	SearchRecurringPaymentsResponse_Status_value = map[string]int32{
-		"STATUS_UNSPECIFIED": 0,
-		"STATUS_SUCCESS":     1,
-		"STATUS_NOT_FOUND":   2,
-	}
-)
-
-func (x SearchRecurringPaymentsResponse_Status) Enum() *SearchRecurringPaymentsResponse_Status {
-	p := new(SearchRecurringPaymentsResponse_Status)
-	*p = x
-	return p
-}
-
-func (x SearchRecurringPaymentsResponse_Status) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (SearchRecurringPaymentsResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_serviceprovider_instrument_v1_instrument_proto_enumTypes[11].Descriptor()
-}
-
-func (SearchRecurringPaymentsResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_serviceprovider_instrument_v1_instrument_proto_enumTypes[11]
-}
-
-func (x SearchRecurringPaymentsResponse_Status) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use SearchRecurringPaymentsResponse_Status.Descriptor instead.
-func (SearchRecurringPaymentsResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_instrument_v1_instrument_proto_rawDescGZIP(), []int{27, 0}
-}
-
 type RegisterInstrumentRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -2397,14 +2250,16 @@ type InstrumentLink struct {
 	// Date that the Store was created at Mica.
 	Created *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=created,proto3" json:"created,omitempty"`
 	// Date that the Store was last updated at Mica.
-	Updated                      *timestamppb.Timestamp   `protobuf:"bytes,4,opt,name=updated,proto3" json:"updated,omitempty"`
-	ServiceProviderUserKey       string                   `protobuf:"bytes,5,opt,name=service_provider_user_key,json=serviceProviderUserKey,proto3" json:"service_provider_user_key,omitempty"`
-	ServiceProviderUserRef       string                   `protobuf:"bytes,6,opt,name=service_provider_user_ref,json=serviceProviderUserRef,proto3" json:"service_provider_user_ref,omitempty"`
-	ServiceProviderInstrumentRef string                   `protobuf:"bytes,7,opt,name=service_provider_instrument_ref,json=serviceProviderInstrumentRef,proto3" json:"service_provider_instrument_ref,omitempty"`
-	ServiceProviderInstrumentKey string                   `protobuf:"bytes,8,opt,name=service_provider_instrument_key,json=serviceProviderInstrumentKey,proto3" json:"service_provider_instrument_key,omitempty"`
-	OrganizationName             string                   `protobuf:"bytes,9,opt,name=organization_name,json=organizationName,proto3" json:"organization_name,omitempty"`
-	OrganizationIconUrl          string                   `protobuf:"bytes,10,opt,name=organization_icon_url,json=organizationIconUrl,proto3" json:"organization_icon_url,omitempty"`
-	LinkedInstrumentData         *v1.LinkedInstrumentData `protobuf:"bytes,11,opt,name=linked_instrument_data,json=linkedInstrumentData,proto3" json:"linked_instrument_data,omitempty"`
+	Updated                      *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=updated,proto3" json:"updated,omitempty"`
+	ServiceProviderUserKey       string                 `protobuf:"bytes,5,opt,name=service_provider_user_key,json=serviceProviderUserKey,proto3" json:"service_provider_user_key,omitempty"`
+	ServiceProviderUserRef       string                 `protobuf:"bytes,6,opt,name=service_provider_user_ref,json=serviceProviderUserRef,proto3" json:"service_provider_user_ref,omitempty"`
+	ServiceProviderInstrumentRef string                 `protobuf:"bytes,7,opt,name=service_provider_instrument_ref,json=serviceProviderInstrumentRef,proto3" json:"service_provider_instrument_ref,omitempty"`
+	ServiceProviderInstrumentKey string                 `protobuf:"bytes,8,opt,name=service_provider_instrument_key,json=serviceProviderInstrumentKey,proto3" json:"service_provider_instrument_key,omitempty"`
+	// The name of the organization that this instrument is linked to
+	OrganizationName string `protobuf:"bytes,9,opt,name=organization_name,json=organizationName,proto3" json:"organization_name,omitempty"`
+	// The URL of the icon of the organization that this instrument is linked to
+	OrganizationIconUrl  string                   `protobuf:"bytes,10,opt,name=organization_icon_url,json=organizationIconUrl,proto3" json:"organization_icon_url,omitempty"`
+	LinkedInstrumentData *v1.LinkedInstrumentData `protobuf:"bytes,11,opt,name=linked_instrument_data,json=linkedInstrumentData,proto3" json:"linked_instrument_data,omitempty"`
 }
 
 func (x *InstrumentLink) Reset() {
@@ -2512,408 +2367,6 @@ func (x *InstrumentLink) GetOrganizationIconUrl() string {
 func (x *InstrumentLink) GetLinkedInstrumentData() *v1.LinkedInstrumentData {
 	if x != nil {
 		return x.LinkedInstrumentData
-	}
-	return nil
-}
-
-type GetRecurringPaymentRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	RecurringPaymentKey string `protobuf:"bytes,1,opt,name=recurring_payment_key,json=recurringPaymentKey,proto3" json:"recurring_payment_key,omitempty"`
-}
-
-func (x *GetRecurringPaymentRequest) Reset() {
-	*x = GetRecurringPaymentRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[22]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetRecurringPaymentRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetRecurringPaymentRequest) ProtoMessage() {}
-
-func (x *GetRecurringPaymentRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[22]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetRecurringPaymentRequest.ProtoReflect.Descriptor instead.
-func (*GetRecurringPaymentRequest) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_instrument_v1_instrument_proto_rawDescGZIP(), []int{22}
-}
-
-func (x *GetRecurringPaymentRequest) GetRecurringPaymentKey() string {
-	if x != nil {
-		return x.RecurringPaymentKey
-	}
-	return ""
-}
-
-type GetRecurringPaymentResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Status           GetRecurringPaymentResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=mica.serviceprovider.instrument.v1.GetRecurringPaymentResponse_Status" json:"status,omitempty"`
-	Error            *v1.Error                          `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
-	RecurringPayment *v1.RecurringPayment               `protobuf:"bytes,3,opt,name=recurring_payment,json=recurringPayment,proto3" json:"recurring_payment,omitempty"`
-}
-
-func (x *GetRecurringPaymentResponse) Reset() {
-	*x = GetRecurringPaymentResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[23]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *GetRecurringPaymentResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*GetRecurringPaymentResponse) ProtoMessage() {}
-
-func (x *GetRecurringPaymentResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[23]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use GetRecurringPaymentResponse.ProtoReflect.Descriptor instead.
-func (*GetRecurringPaymentResponse) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_instrument_v1_instrument_proto_rawDescGZIP(), []int{23}
-}
-
-func (x *GetRecurringPaymentResponse) GetStatus() GetRecurringPaymentResponse_Status {
-	if x != nil {
-		return x.Status
-	}
-	return GetRecurringPaymentResponse_STATUS_UNSPECIFIED
-}
-
-func (x *GetRecurringPaymentResponse) GetError() *v1.Error {
-	if x != nil {
-		return x.Error
-	}
-	return nil
-}
-
-func (x *GetRecurringPaymentResponse) GetRecurringPayment() *v1.RecurringPayment {
-	if x != nil {
-		return x.RecurringPayment
-	}
-	return nil
-}
-
-type CancelRecurringPaymentRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	RecurringPaymentKey string `protobuf:"bytes,1,opt,name=recurring_payment_key,json=recurringPaymentKey,proto3" json:"recurring_payment_key,omitempty"`
-}
-
-func (x *CancelRecurringPaymentRequest) Reset() {
-	*x = CancelRecurringPaymentRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[24]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *CancelRecurringPaymentRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CancelRecurringPaymentRequest) ProtoMessage() {}
-
-func (x *CancelRecurringPaymentRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[24]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CancelRecurringPaymentRequest.ProtoReflect.Descriptor instead.
-func (*CancelRecurringPaymentRequest) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_instrument_v1_instrument_proto_rawDescGZIP(), []int{24}
-}
-
-func (x *CancelRecurringPaymentRequest) GetRecurringPaymentKey() string {
-	if x != nil {
-		return x.RecurringPaymentKey
-	}
-	return ""
-}
-
-type CancelRecurringPaymentResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Status CancelRecurringPaymentResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=mica.serviceprovider.instrument.v1.CancelRecurringPaymentResponse_Status" json:"status,omitempty"`
-	Error  *v1.Error                             `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
-}
-
-func (x *CancelRecurringPaymentResponse) Reset() {
-	*x = CancelRecurringPaymentResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[25]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *CancelRecurringPaymentResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*CancelRecurringPaymentResponse) ProtoMessage() {}
-
-func (x *CancelRecurringPaymentResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[25]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use CancelRecurringPaymentResponse.ProtoReflect.Descriptor instead.
-func (*CancelRecurringPaymentResponse) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_instrument_v1_instrument_proto_rawDescGZIP(), []int{25}
-}
-
-func (x *CancelRecurringPaymentResponse) GetStatus() CancelRecurringPaymentResponse_Status {
-	if x != nil {
-		return x.Status
-	}
-	return CancelRecurringPaymentResponse_STATUS_UNSPECIFIED
-}
-
-func (x *CancelRecurringPaymentResponse) GetError() *v1.Error {
-	if x != nil {
-		return x.Error
-	}
-	return nil
-}
-
-type SearchRecurringPaymentsRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	// Types that are assignable to ByUser:
-	//
-	//	*SearchRecurringPaymentsRequest_UserRef
-	//	*SearchRecurringPaymentsRequest_UserKey
-	ByUser isSearchRecurringPaymentsRequest_ByUser `protobuf_oneof:"by_user"`
-	// Types that are assignable to ByInstrument:
-	//
-	//	*SearchRecurringPaymentsRequest_InstrumentRef
-	//	*SearchRecurringPaymentsRequest_InstrumentKey
-	ByInstrument isSearchRecurringPaymentsRequest_ByInstrument `protobuf_oneof:"by_instrument"`
-}
-
-func (x *SearchRecurringPaymentsRequest) Reset() {
-	*x = SearchRecurringPaymentsRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[26]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SearchRecurringPaymentsRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SearchRecurringPaymentsRequest) ProtoMessage() {}
-
-func (x *SearchRecurringPaymentsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[26]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SearchRecurringPaymentsRequest.ProtoReflect.Descriptor instead.
-func (*SearchRecurringPaymentsRequest) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_instrument_v1_instrument_proto_rawDescGZIP(), []int{26}
-}
-
-func (m *SearchRecurringPaymentsRequest) GetByUser() isSearchRecurringPaymentsRequest_ByUser {
-	if m != nil {
-		return m.ByUser
-	}
-	return nil
-}
-
-func (x *SearchRecurringPaymentsRequest) GetUserRef() string {
-	if x, ok := x.GetByUser().(*SearchRecurringPaymentsRequest_UserRef); ok {
-		return x.UserRef
-	}
-	return ""
-}
-
-func (x *SearchRecurringPaymentsRequest) GetUserKey() string {
-	if x, ok := x.GetByUser().(*SearchRecurringPaymentsRequest_UserKey); ok {
-		return x.UserKey
-	}
-	return ""
-}
-
-func (m *SearchRecurringPaymentsRequest) GetByInstrument() isSearchRecurringPaymentsRequest_ByInstrument {
-	if m != nil {
-		return m.ByInstrument
-	}
-	return nil
-}
-
-func (x *SearchRecurringPaymentsRequest) GetInstrumentRef() string {
-	if x, ok := x.GetByInstrument().(*SearchRecurringPaymentsRequest_InstrumentRef); ok {
-		return x.InstrumentRef
-	}
-	return ""
-}
-
-func (x *SearchRecurringPaymentsRequest) GetInstrumentKey() string {
-	if x, ok := x.GetByInstrument().(*SearchRecurringPaymentsRequest_InstrumentKey); ok {
-		return x.InstrumentKey
-	}
-	return ""
-}
-
-type isSearchRecurringPaymentsRequest_ByUser interface {
-	isSearchRecurringPaymentsRequest_ByUser()
-}
-
-type SearchRecurringPaymentsRequest_UserRef struct {
-	// this is the id in the service provider for the user that is requesting an enrollment
-	UserRef string `protobuf:"bytes,1,opt,name=user_ref,json=userRef,proto3,oneof"`
-}
-
-type SearchRecurringPaymentsRequest_UserKey struct {
-	UserKey string `protobuf:"bytes,2,opt,name=user_key,json=userKey,proto3,oneof"`
-}
-
-func (*SearchRecurringPaymentsRequest_UserRef) isSearchRecurringPaymentsRequest_ByUser() {}
-
-func (*SearchRecurringPaymentsRequest_UserKey) isSearchRecurringPaymentsRequest_ByUser() {}
-
-type isSearchRecurringPaymentsRequest_ByInstrument interface {
-	isSearchRecurringPaymentsRequest_ByInstrument()
-}
-
-type SearchRecurringPaymentsRequest_InstrumentRef struct {
-	// this is the id in the service provider for the user that is requesting an enrollment
-	InstrumentRef string `protobuf:"bytes,3,opt,name=instrument_ref,json=instrumentRef,proto3,oneof"`
-}
-
-type SearchRecurringPaymentsRequest_InstrumentKey struct {
-	InstrumentKey string `protobuf:"bytes,4,opt,name=instrument_key,json=instrumentKey,proto3,oneof"`
-}
-
-func (*SearchRecurringPaymentsRequest_InstrumentRef) isSearchRecurringPaymentsRequest_ByInstrument() {
-}
-
-func (*SearchRecurringPaymentsRequest_InstrumentKey) isSearchRecurringPaymentsRequest_ByInstrument() {
-}
-
-type SearchRecurringPaymentsResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Status            SearchRecurringPaymentsResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=mica.serviceprovider.instrument.v1.SearchRecurringPaymentsResponse_Status" json:"status,omitempty"`
-	Error             *v1.Error                              `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
-	RecurringPayments []*v1.RecurringPayment                 `protobuf:"bytes,3,rep,name=recurring_payments,json=recurringPayments,proto3" json:"recurring_payments,omitempty"`
-}
-
-func (x *SearchRecurringPaymentsResponse) Reset() {
-	*x = SearchRecurringPaymentsResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[27]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SearchRecurringPaymentsResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SearchRecurringPaymentsResponse) ProtoMessage() {}
-
-func (x *SearchRecurringPaymentsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[27]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SearchRecurringPaymentsResponse.ProtoReflect.Descriptor instead.
-func (*SearchRecurringPaymentsResponse) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_instrument_v1_instrument_proto_rawDescGZIP(), []int{27}
-}
-
-func (x *SearchRecurringPaymentsResponse) GetStatus() SearchRecurringPaymentsResponse_Status {
-	if x != nil {
-		return x.Status
-	}
-	return SearchRecurringPaymentsResponse_STATUS_UNSPECIFIED
-}
-
-func (x *SearchRecurringPaymentsResponse) GetError() *v1.Error {
-	if x != nil {
-		return x.Error
-	}
-	return nil
-}
-
-func (x *SearchRecurringPaymentsResponse) GetRecurringPayments() []*v1.RecurringPayment {
-	if x != nil {
-		return x.RecurringPayments
 	}
 	return nil
 }
@@ -3406,100 +2859,14 @@ var file_mica_serviceprovider_instrument_v1_instrument_proto_rawDesc = []byte{
 	0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e,
 	0x76, 0x31, 0x2e, 0x4c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x49, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d,
 	0x65, 0x6e, 0x74, 0x44, 0x61, 0x74, 0x61, 0x52, 0x14, 0x6c, 0x69, 0x6e, 0x6b, 0x65, 0x64, 0x49,
-	0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x44, 0x61, 0x74, 0x61, 0x22, 0x5b, 0x0a,
-	0x1a, 0x47, 0x65, 0x74, 0x52, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x50, 0x61, 0x79,
-	0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x3d, 0x0a, 0x15, 0x72,
-	0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x5f, 0x70, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74,
-	0x5f, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x09, 0xfa, 0x42, 0x06, 0x72,
-	0x04, 0x10, 0x1e, 0x18, 0x32, 0x52, 0x13, 0x72, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67,
-	0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x4b, 0x65, 0x79, 0x22, 0xd1, 0x02, 0x0a, 0x1b, 0x47,
-	0x65, 0x74, 0x52, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x50, 0x61, 0x79, 0x6d, 0x65,
-	0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5e, 0x0a, 0x06, 0x73, 0x74,
-	0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x46, 0x2e, 0x6d, 0x69, 0x63,
-	0x61, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65,
-	0x72, 0x2e, 0x69, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x2e, 0x76, 0x31, 0x2e,
-	0x47, 0x65, 0x74, 0x52, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x50, 0x61, 0x79, 0x6d,
-	0x65, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x53, 0x74, 0x61, 0x74,
-	0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x31, 0x0a, 0x05, 0x65, 0x72,
-	0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x6d, 0x69, 0x63, 0x61,
-	0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31,
-	0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x53, 0x0a,
-	0x11, 0x72, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x5f, 0x70, 0x61, 0x79, 0x6d, 0x65,
-	0x6e, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x26, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73,
-	0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e,
-	0x52, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74,
-	0x52, 0x10, 0x72, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x50, 0x61, 0x79, 0x6d, 0x65,
-	0x6e, 0x74, 0x22, 0x4a, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x16, 0x0a, 0x12,
-	0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49,
-	0x45, 0x44, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x53,
-	0x55, 0x43, 0x43, 0x45, 0x53, 0x53, 0x10, 0x01, 0x12, 0x14, 0x0a, 0x10, 0x53, 0x54, 0x41, 0x54,
-	0x55, 0x53, 0x5f, 0x4e, 0x4f, 0x54, 0x5f, 0x46, 0x4f, 0x55, 0x4e, 0x44, 0x10, 0x02, 0x22, 0x5e,
-	0x0a, 0x1d, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x52, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e,
-	0x67, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
-	0x3d, 0x0a, 0x15, 0x72, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x5f, 0x70, 0x61, 0x79,
-	0x6d, 0x65, 0x6e, 0x74, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x09,
-	0xfa, 0x42, 0x06, 0x72, 0x04, 0x10, 0x1e, 0x18, 0x32, 0x52, 0x13, 0x72, 0x65, 0x63, 0x75, 0x72,
-	0x72, 0x69, 0x6e, 0x67, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x4b, 0x65, 0x79, 0x22, 0x82,
-	0x02, 0x0a, 0x1e, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x52, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69,
-	0x6e, 0x67, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x61, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28,
-	0x0e, 0x32, 0x49, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x44, 0x61, 0x74, 0x61, 0x42, 0x62, 0x0a,
+	0x25, 0x69, 0x6f, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
 	0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x2e, 0x69, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d,
-	0x65, 0x6e, 0x74, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x52, 0x65, 0x63,
-	0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74,
-	0x61, 0x74, 0x75, 0x73, 0x12, 0x31, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20,
-	0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64,
-	0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72,
-	0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x22, 0x4a, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75,
-	0x73, 0x12, 0x16, 0x0a, 0x12, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x4e, 0x53, 0x50,
-	0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e, 0x53, 0x54, 0x41,
-	0x54, 0x55, 0x53, 0x5f, 0x53, 0x55, 0x43, 0x43, 0x45, 0x53, 0x53, 0x10, 0x01, 0x12, 0x14, 0x0a,
-	0x10, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x4e, 0x4f, 0x54, 0x5f, 0x46, 0x4f, 0x55, 0x4e,
-	0x44, 0x10, 0x02, 0x22, 0xf0, 0x01, 0x0a, 0x1e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x52, 0x65,
-	0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x24, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x72,
-	0x65, 0x66, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x18,
-	0x64, 0x48, 0x00, 0x52, 0x07, 0x75, 0x73, 0x65, 0x72, 0x52, 0x65, 0x66, 0x12, 0x26, 0x0a, 0x08,
-	0x75, 0x73, 0x65, 0x72, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x09,
-	0xfa, 0x42, 0x06, 0x72, 0x04, 0x10, 0x1e, 0x18, 0x32, 0x48, 0x00, 0x52, 0x07, 0x75, 0x73, 0x65,
-	0x72, 0x4b, 0x65, 0x79, 0x12, 0x30, 0x0a, 0x0e, 0x69, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65,
-	0x6e, 0x74, 0x5f, 0x72, 0x65, 0x66, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42,
-	0x04, 0x72, 0x02, 0x18, 0x64, 0x48, 0x01, 0x52, 0x0d, 0x69, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d,
-	0x65, 0x6e, 0x74, 0x52, 0x65, 0x66, 0x12, 0x32, 0x0a, 0x0e, 0x69, 0x6e, 0x73, 0x74, 0x72, 0x75,
-	0x6d, 0x65, 0x6e, 0x74, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x42, 0x09,
-	0xfa, 0x42, 0x06, 0x72, 0x04, 0x10, 0x1e, 0x18, 0x32, 0x48, 0x01, 0x52, 0x0d, 0x69, 0x6e, 0x73,
-	0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x4b, 0x65, 0x79, 0x42, 0x09, 0x0a, 0x07, 0x62, 0x79,
-	0x5f, 0x75, 0x73, 0x65, 0x72, 0x42, 0x0f, 0x0a, 0x0d, 0x62, 0x79, 0x5f, 0x69, 0x6e, 0x73, 0x74,
-	0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x22, 0xdb, 0x02, 0x0a, 0x1f, 0x53, 0x65, 0x61, 0x72, 0x63,
-	0x68, 0x52, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e,
-	0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x62, 0x0a, 0x06, 0x73, 0x74,
-	0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x4a, 0x2e, 0x6d, 0x69, 0x63,
-	0x61, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65,
-	0x72, 0x2e, 0x69, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x2e, 0x76, 0x31, 0x2e,
-	0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x52, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x50,
-	0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e,
-	0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x31,
-	0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e,
-	0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f,
-	0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f,
-	0x72, 0x12, 0x55, 0x0a, 0x12, 0x72, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x5f, 0x70,
-	0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x18, 0x03, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x26, 0x2e,
-	0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f,
-	0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67, 0x50, 0x61,
-	0x79, 0x6d, 0x65, 0x6e, 0x74, 0x52, 0x11, 0x72, 0x65, 0x63, 0x75, 0x72, 0x72, 0x69, 0x6e, 0x67,
-	0x50, 0x61, 0x79, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x22, 0x4a, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74,
-	0x75, 0x73, 0x12, 0x16, 0x0a, 0x12, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x4e, 0x53,
-	0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e, 0x53, 0x54,
-	0x41, 0x54, 0x55, 0x53, 0x5f, 0x53, 0x55, 0x43, 0x43, 0x45, 0x53, 0x53, 0x10, 0x01, 0x12, 0x14,
-	0x0a, 0x10, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x4e, 0x4f, 0x54, 0x5f, 0x46, 0x4f, 0x55,
-	0x4e, 0x44, 0x10, 0x02, 0x42, 0x62, 0x0a, 0x25, 0x69, 0x6f, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x2e,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x2e,
-	0x69, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x2e, 0x76, 0x31, 0x42, 0x0f, 0x49,
-	0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x5a, 0x21,
-	0x6d, 0x69, 0x63, 0x61, 0x2f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x70, 0x72, 0x6f, 0x76,
-	0x69, 0x64, 0x65, 0x72, 0x2f, 0x69, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x76,
-	0x31, 0xa2, 0x02, 0x04, 0x4d, 0x49, 0x43, 0x41, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x6e, 0x74, 0x2e, 0x76, 0x31, 0x42, 0x0f, 0x49, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65,
+	0x6e, 0x74, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x5a, 0x21, 0x6d, 0x69, 0x63, 0x61, 0x2f, 0x73, 0x65,
+	0x72, 0x76, 0x69, 0x63, 0x65, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x2f, 0x69, 0x6e,
+	0x73, 0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x76, 0x31, 0xa2, 0x02, 0x04, 0x4d, 0x49, 0x43,
+	0x41, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -3514,8 +2881,8 @@ func file_mica_serviceprovider_instrument_v1_instrument_proto_rawDescGZIP() []by
 	return file_mica_serviceprovider_instrument_v1_instrument_proto_rawDescData
 }
 
-var file_mica_serviceprovider_instrument_v1_instrument_proto_enumTypes = make([]protoimpl.EnumInfo, 12)
-var file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
+var file_mica_serviceprovider_instrument_v1_instrument_proto_enumTypes = make([]protoimpl.EnumInfo, 9)
+var file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
 var file_mica_serviceprovider_instrument_v1_instrument_proto_goTypes = []interface{}{
 	(RegisterInstrumentResponse_Status)(0),             // 0: mica.serviceprovider.instrument.v1.RegisterInstrumentResponse.Status
 	(GetInstrumentResponse_Status)(0),                  // 1: mica.serviceprovider.instrument.v1.GetInstrumentResponse.Status
@@ -3526,96 +2893,78 @@ var file_mica_serviceprovider_instrument_v1_instrument_proto_goTypes = []interfa
 	(GetInstrumentLinkResponse_Status)(0),              // 6: mica.serviceprovider.instrument.v1.GetInstrumentLinkResponse.Status
 	(SearchInstrumentLinksResponse_Status)(0),          // 7: mica.serviceprovider.instrument.v1.SearchInstrumentLinksResponse.Status
 	(RemoveInstrumentLinkResponse_Status)(0),           // 8: mica.serviceprovider.instrument.v1.RemoveInstrumentLinkResponse.Status
-	(GetRecurringPaymentResponse_Status)(0),            // 9: mica.serviceprovider.instrument.v1.GetRecurringPaymentResponse.Status
-	(CancelRecurringPaymentResponse_Status)(0),         // 10: mica.serviceprovider.instrument.v1.CancelRecurringPaymentResponse.Status
-	(SearchRecurringPaymentsResponse_Status)(0),        // 11: mica.serviceprovider.instrument.v1.SearchRecurringPaymentsResponse.Status
-	(*RegisterInstrumentRequest)(nil),                  // 12: mica.serviceprovider.instrument.v1.RegisterInstrumentRequest
-	(*RegisterInstrumentResponse)(nil),                 // 13: mica.serviceprovider.instrument.v1.RegisterInstrumentResponse
-	(*InstrumentExternalReference)(nil),                // 14: mica.serviceprovider.instrument.v1.InstrumentExternalReference
-	(*GetInstrumentRequest)(nil),                       // 15: mica.serviceprovider.instrument.v1.GetInstrumentRequest
-	(*Instrument)(nil),                                 // 16: mica.serviceprovider.instrument.v1.Instrument
-	(*GetInstrumentResponse)(nil),                      // 17: mica.serviceprovider.instrument.v1.GetInstrumentResponse
-	(*RemoveInstrumentRequest)(nil),                    // 18: mica.serviceprovider.instrument.v1.RemoveInstrumentRequest
-	(*RemoveInstrumentResponse)(nil),                   // 19: mica.serviceprovider.instrument.v1.RemoveInstrumentResponse
-	(*SearchInstrumentRequest)(nil),                    // 20: mica.serviceprovider.instrument.v1.SearchInstrumentRequest
-	(*SearchInstrumentResponse)(nil),                   // 21: mica.serviceprovider.instrument.v1.SearchInstrumentResponse
-	(*ProvisionInstrumentLinkingCodeRequest)(nil),      // 22: mica.serviceprovider.instrument.v1.ProvisionInstrumentLinkingCodeRequest
-	(*ProvisionInstrumentLinkingCodeResponse)(nil),     // 23: mica.serviceprovider.instrument.v1.ProvisionInstrumentLinkingCodeResponse
-	(*CompleteLinkingWithCodeRequest)(nil),             // 24: mica.serviceprovider.instrument.v1.CompleteLinkingWithCodeRequest
-	(*CompleteLinkingWithCodeResponse)(nil),            // 25: mica.serviceprovider.instrument.v1.CompleteLinkingWithCodeResponse
-	(*GetInstrumentLinkRequest)(nil),                   // 26: mica.serviceprovider.instrument.v1.GetInstrumentLinkRequest
-	(*GetInstrumentLinkResponse)(nil),                  // 27: mica.serviceprovider.instrument.v1.GetInstrumentLinkResponse
-	(*SearchInstrumentLinksRequest)(nil),               // 28: mica.serviceprovider.instrument.v1.SearchInstrumentLinksRequest
-	(*SearchInstrumentLinksResponse)(nil),              // 29: mica.serviceprovider.instrument.v1.SearchInstrumentLinksResponse
-	(*RemoveInstrumentLinkRequest)(nil),                // 30: mica.serviceprovider.instrument.v1.RemoveInstrumentLinkRequest
-	(*RemoveInstrumentLinkResponse)(nil),               // 31: mica.serviceprovider.instrument.v1.RemoveInstrumentLinkResponse
-	(*LinkUsageProfile)(nil),                           // 32: mica.serviceprovider.instrument.v1.LinkUsageProfile
-	(*InstrumentLink)(nil),                             // 33: mica.serviceprovider.instrument.v1.InstrumentLink
-	(*GetRecurringPaymentRequest)(nil),                 // 34: mica.serviceprovider.instrument.v1.GetRecurringPaymentRequest
-	(*GetRecurringPaymentResponse)(nil),                // 35: mica.serviceprovider.instrument.v1.GetRecurringPaymentResponse
-	(*CancelRecurringPaymentRequest)(nil),              // 36: mica.serviceprovider.instrument.v1.CancelRecurringPaymentRequest
-	(*CancelRecurringPaymentResponse)(nil),             // 37: mica.serviceprovider.instrument.v1.CancelRecurringPaymentResponse
-	(*SearchRecurringPaymentsRequest)(nil),             // 38: mica.serviceprovider.instrument.v1.SearchRecurringPaymentsRequest
-	(*SearchRecurringPaymentsResponse)(nil),            // 39: mica.serviceprovider.instrument.v1.SearchRecurringPaymentsResponse
-	(instrumenttypev1.InstrumentType)(0),               // 40: micashared.common.enums.instrumenttype.v1.InstrumentType
-	(currencyv1.Currency)(0),                           // 41: micashared.common.enums.currency.v1.Currency
-	(*v1.Error)(nil),                                   // 42: micashared.common.v1.Error
-	(*timestamppb.Timestamp)(nil),                      // 43: google.protobuf.Timestamp
-	(*v1.InstrumentLinkClaims)(nil),                    // 44: micashared.common.v1.InstrumentLinkClaims
-	(*v1.LinkedInstrumentData)(nil),                    // 45: micashared.common.v1.LinkedInstrumentData
-	(*v1.RecurringPayment)(nil),                        // 46: micashared.common.v1.RecurringPayment
+	(*RegisterInstrumentRequest)(nil),                  // 9: mica.serviceprovider.instrument.v1.RegisterInstrumentRequest
+	(*RegisterInstrumentResponse)(nil),                 // 10: mica.serviceprovider.instrument.v1.RegisterInstrumentResponse
+	(*InstrumentExternalReference)(nil),                // 11: mica.serviceprovider.instrument.v1.InstrumentExternalReference
+	(*GetInstrumentRequest)(nil),                       // 12: mica.serviceprovider.instrument.v1.GetInstrumentRequest
+	(*Instrument)(nil),                                 // 13: mica.serviceprovider.instrument.v1.Instrument
+	(*GetInstrumentResponse)(nil),                      // 14: mica.serviceprovider.instrument.v1.GetInstrumentResponse
+	(*RemoveInstrumentRequest)(nil),                    // 15: mica.serviceprovider.instrument.v1.RemoveInstrumentRequest
+	(*RemoveInstrumentResponse)(nil),                   // 16: mica.serviceprovider.instrument.v1.RemoveInstrumentResponse
+	(*SearchInstrumentRequest)(nil),                    // 17: mica.serviceprovider.instrument.v1.SearchInstrumentRequest
+	(*SearchInstrumentResponse)(nil),                   // 18: mica.serviceprovider.instrument.v1.SearchInstrumentResponse
+	(*ProvisionInstrumentLinkingCodeRequest)(nil),      // 19: mica.serviceprovider.instrument.v1.ProvisionInstrumentLinkingCodeRequest
+	(*ProvisionInstrumentLinkingCodeResponse)(nil),     // 20: mica.serviceprovider.instrument.v1.ProvisionInstrumentLinkingCodeResponse
+	(*CompleteLinkingWithCodeRequest)(nil),             // 21: mica.serviceprovider.instrument.v1.CompleteLinkingWithCodeRequest
+	(*CompleteLinkingWithCodeResponse)(nil),            // 22: mica.serviceprovider.instrument.v1.CompleteLinkingWithCodeResponse
+	(*GetInstrumentLinkRequest)(nil),                   // 23: mica.serviceprovider.instrument.v1.GetInstrumentLinkRequest
+	(*GetInstrumentLinkResponse)(nil),                  // 24: mica.serviceprovider.instrument.v1.GetInstrumentLinkResponse
+	(*SearchInstrumentLinksRequest)(nil),               // 25: mica.serviceprovider.instrument.v1.SearchInstrumentLinksRequest
+	(*SearchInstrumentLinksResponse)(nil),              // 26: mica.serviceprovider.instrument.v1.SearchInstrumentLinksResponse
+	(*RemoveInstrumentLinkRequest)(nil),                // 27: mica.serviceprovider.instrument.v1.RemoveInstrumentLinkRequest
+	(*RemoveInstrumentLinkResponse)(nil),               // 28: mica.serviceprovider.instrument.v1.RemoveInstrumentLinkResponse
+	(*LinkUsageProfile)(nil),                           // 29: mica.serviceprovider.instrument.v1.LinkUsageProfile
+	(*InstrumentLink)(nil),                             // 30: mica.serviceprovider.instrument.v1.InstrumentLink
+	(instrumenttypev1.InstrumentType)(0),               // 31: micashared.common.enums.instrumenttype.v1.InstrumentType
+	(currencyv1.Currency)(0),                           // 32: micashared.common.enums.currency.v1.Currency
+	(*v1.Error)(nil),                                   // 33: micashared.common.v1.Error
+	(*timestamppb.Timestamp)(nil),                      // 34: google.protobuf.Timestamp
+	(*v1.InstrumentLinkClaims)(nil),                    // 35: micashared.common.v1.InstrumentLinkClaims
+	(*v1.LinkedInstrumentData)(nil),                    // 36: micashared.common.v1.LinkedInstrumentData
 }
 var file_mica_serviceprovider_instrument_v1_instrument_proto_depIdxs = []int32{
-	40, // 0: mica.serviceprovider.instrument.v1.RegisterInstrumentRequest.instrument_type:type_name -> micashared.common.enums.instrumenttype.v1.InstrumentType
-	41, // 1: mica.serviceprovider.instrument.v1.RegisterInstrumentRequest.currency:type_name -> micashared.common.enums.currency.v1.Currency
+	31, // 0: mica.serviceprovider.instrument.v1.RegisterInstrumentRequest.instrument_type:type_name -> micashared.common.enums.instrumenttype.v1.InstrumentType
+	32, // 1: mica.serviceprovider.instrument.v1.RegisterInstrumentRequest.currency:type_name -> micashared.common.enums.currency.v1.Currency
 	0,  // 2: mica.serviceprovider.instrument.v1.RegisterInstrumentResponse.status:type_name -> mica.serviceprovider.instrument.v1.RegisterInstrumentResponse.Status
-	42, // 3: mica.serviceprovider.instrument.v1.RegisterInstrumentResponse.error:type_name -> micashared.common.v1.Error
-	14, // 4: mica.serviceprovider.instrument.v1.GetInstrumentRequest.external_reference:type_name -> mica.serviceprovider.instrument.v1.InstrumentExternalReference
-	43, // 5: mica.serviceprovider.instrument.v1.Instrument.created:type_name -> google.protobuf.Timestamp
-	43, // 6: mica.serviceprovider.instrument.v1.Instrument.updated:type_name -> google.protobuf.Timestamp
-	40, // 7: mica.serviceprovider.instrument.v1.Instrument.instrument_type:type_name -> micashared.common.enums.instrumenttype.v1.InstrumentType
-	41, // 8: mica.serviceprovider.instrument.v1.Instrument.currency:type_name -> micashared.common.enums.currency.v1.Currency
+	33, // 3: mica.serviceprovider.instrument.v1.RegisterInstrumentResponse.error:type_name -> micashared.common.v1.Error
+	11, // 4: mica.serviceprovider.instrument.v1.GetInstrumentRequest.external_reference:type_name -> mica.serviceprovider.instrument.v1.InstrumentExternalReference
+	34, // 5: mica.serviceprovider.instrument.v1.Instrument.created:type_name -> google.protobuf.Timestamp
+	34, // 6: mica.serviceprovider.instrument.v1.Instrument.updated:type_name -> google.protobuf.Timestamp
+	31, // 7: mica.serviceprovider.instrument.v1.Instrument.instrument_type:type_name -> micashared.common.enums.instrumenttype.v1.InstrumentType
+	32, // 8: mica.serviceprovider.instrument.v1.Instrument.currency:type_name -> micashared.common.enums.currency.v1.Currency
 	1,  // 9: mica.serviceprovider.instrument.v1.GetInstrumentResponse.status:type_name -> mica.serviceprovider.instrument.v1.GetInstrumentResponse.Status
-	42, // 10: mica.serviceprovider.instrument.v1.GetInstrumentResponse.error:type_name -> micashared.common.v1.Error
-	16, // 11: mica.serviceprovider.instrument.v1.GetInstrumentResponse.instrument:type_name -> mica.serviceprovider.instrument.v1.Instrument
-	14, // 12: mica.serviceprovider.instrument.v1.RemoveInstrumentRequest.external_reference:type_name -> mica.serviceprovider.instrument.v1.InstrumentExternalReference
+	33, // 10: mica.serviceprovider.instrument.v1.GetInstrumentResponse.error:type_name -> micashared.common.v1.Error
+	13, // 11: mica.serviceprovider.instrument.v1.GetInstrumentResponse.instrument:type_name -> mica.serviceprovider.instrument.v1.Instrument
+	11, // 12: mica.serviceprovider.instrument.v1.RemoveInstrumentRequest.external_reference:type_name -> mica.serviceprovider.instrument.v1.InstrumentExternalReference
 	2,  // 13: mica.serviceprovider.instrument.v1.RemoveInstrumentResponse.status:type_name -> mica.serviceprovider.instrument.v1.RemoveInstrumentResponse.Status
-	42, // 14: mica.serviceprovider.instrument.v1.RemoveInstrumentResponse.error:type_name -> micashared.common.v1.Error
+	33, // 14: mica.serviceprovider.instrument.v1.RemoveInstrumentResponse.error:type_name -> micashared.common.v1.Error
 	3,  // 15: mica.serviceprovider.instrument.v1.SearchInstrumentResponse.status:type_name -> mica.serviceprovider.instrument.v1.SearchInstrumentResponse.Status
-	42, // 16: mica.serviceprovider.instrument.v1.SearchInstrumentResponse.error:type_name -> micashared.common.v1.Error
-	16, // 17: mica.serviceprovider.instrument.v1.SearchInstrumentResponse.instruments:type_name -> mica.serviceprovider.instrument.v1.Instrument
-	44, // 18: mica.serviceprovider.instrument.v1.ProvisionInstrumentLinkingCodeRequest.claims:type_name -> micashared.common.v1.InstrumentLinkClaims
-	32, // 19: mica.serviceprovider.instrument.v1.ProvisionInstrumentLinkingCodeRequest.usage_profile:type_name -> mica.serviceprovider.instrument.v1.LinkUsageProfile
+	33, // 16: mica.serviceprovider.instrument.v1.SearchInstrumentResponse.error:type_name -> micashared.common.v1.Error
+	13, // 17: mica.serviceprovider.instrument.v1.SearchInstrumentResponse.instruments:type_name -> mica.serviceprovider.instrument.v1.Instrument
+	35, // 18: mica.serviceprovider.instrument.v1.ProvisionInstrumentLinkingCodeRequest.claims:type_name -> micashared.common.v1.InstrumentLinkClaims
+	29, // 19: mica.serviceprovider.instrument.v1.ProvisionInstrumentLinkingCodeRequest.usage_profile:type_name -> mica.serviceprovider.instrument.v1.LinkUsageProfile
 	4,  // 20: mica.serviceprovider.instrument.v1.ProvisionInstrumentLinkingCodeResponse.status:type_name -> mica.serviceprovider.instrument.v1.ProvisionInstrumentLinkingCodeResponse.Status
-	42, // 21: mica.serviceprovider.instrument.v1.ProvisionInstrumentLinkingCodeResponse.error:type_name -> micashared.common.v1.Error
+	33, // 21: mica.serviceprovider.instrument.v1.ProvisionInstrumentLinkingCodeResponse.error:type_name -> micashared.common.v1.Error
 	5,  // 22: mica.serviceprovider.instrument.v1.CompleteLinkingWithCodeResponse.status:type_name -> mica.serviceprovider.instrument.v1.CompleteLinkingWithCodeResponse.Status
-	42, // 23: mica.serviceprovider.instrument.v1.CompleteLinkingWithCodeResponse.error:type_name -> micashared.common.v1.Error
-	33, // 24: mica.serviceprovider.instrument.v1.CompleteLinkingWithCodeResponse.instrument_link:type_name -> mica.serviceprovider.instrument.v1.InstrumentLink
-	44, // 25: mica.serviceprovider.instrument.v1.CompleteLinkingWithCodeResponse.claims:type_name -> micashared.common.v1.InstrumentLinkClaims
+	33, // 23: mica.serviceprovider.instrument.v1.CompleteLinkingWithCodeResponse.error:type_name -> micashared.common.v1.Error
+	30, // 24: mica.serviceprovider.instrument.v1.CompleteLinkingWithCodeResponse.instrument_link:type_name -> mica.serviceprovider.instrument.v1.InstrumentLink
+	35, // 25: mica.serviceprovider.instrument.v1.CompleteLinkingWithCodeResponse.claims:type_name -> micashared.common.v1.InstrumentLinkClaims
 	6,  // 26: mica.serviceprovider.instrument.v1.GetInstrumentLinkResponse.status:type_name -> mica.serviceprovider.instrument.v1.GetInstrumentLinkResponse.Status
-	42, // 27: mica.serviceprovider.instrument.v1.GetInstrumentLinkResponse.error:type_name -> micashared.common.v1.Error
-	33, // 28: mica.serviceprovider.instrument.v1.GetInstrumentLinkResponse.instrument_link:type_name -> mica.serviceprovider.instrument.v1.InstrumentLink
+	33, // 27: mica.serviceprovider.instrument.v1.GetInstrumentLinkResponse.error:type_name -> micashared.common.v1.Error
+	30, // 28: mica.serviceprovider.instrument.v1.GetInstrumentLinkResponse.instrument_link:type_name -> mica.serviceprovider.instrument.v1.InstrumentLink
 	7,  // 29: mica.serviceprovider.instrument.v1.SearchInstrumentLinksResponse.status:type_name -> mica.serviceprovider.instrument.v1.SearchInstrumentLinksResponse.Status
-	42, // 30: mica.serviceprovider.instrument.v1.SearchInstrumentLinksResponse.error:type_name -> micashared.common.v1.Error
-	33, // 31: mica.serviceprovider.instrument.v1.SearchInstrumentLinksResponse.instrument_links:type_name -> mica.serviceprovider.instrument.v1.InstrumentLink
+	33, // 30: mica.serviceprovider.instrument.v1.SearchInstrumentLinksResponse.error:type_name -> micashared.common.v1.Error
+	30, // 31: mica.serviceprovider.instrument.v1.SearchInstrumentLinksResponse.instrument_links:type_name -> mica.serviceprovider.instrument.v1.InstrumentLink
 	8,  // 32: mica.serviceprovider.instrument.v1.RemoveInstrumentLinkResponse.status:type_name -> mica.serviceprovider.instrument.v1.RemoveInstrumentLinkResponse.Status
-	42, // 33: mica.serviceprovider.instrument.v1.RemoveInstrumentLinkResponse.error:type_name -> micashared.common.v1.Error
-	43, // 34: mica.serviceprovider.instrument.v1.InstrumentLink.created:type_name -> google.protobuf.Timestamp
-	43, // 35: mica.serviceprovider.instrument.v1.InstrumentLink.updated:type_name -> google.protobuf.Timestamp
-	45, // 36: mica.serviceprovider.instrument.v1.InstrumentLink.linked_instrument_data:type_name -> micashared.common.v1.LinkedInstrumentData
-	9,  // 37: mica.serviceprovider.instrument.v1.GetRecurringPaymentResponse.status:type_name -> mica.serviceprovider.instrument.v1.GetRecurringPaymentResponse.Status
-	42, // 38: mica.serviceprovider.instrument.v1.GetRecurringPaymentResponse.error:type_name -> micashared.common.v1.Error
-	46, // 39: mica.serviceprovider.instrument.v1.GetRecurringPaymentResponse.recurring_payment:type_name -> micashared.common.v1.RecurringPayment
-	10, // 40: mica.serviceprovider.instrument.v1.CancelRecurringPaymentResponse.status:type_name -> mica.serviceprovider.instrument.v1.CancelRecurringPaymentResponse.Status
-	42, // 41: mica.serviceprovider.instrument.v1.CancelRecurringPaymentResponse.error:type_name -> micashared.common.v1.Error
-	11, // 42: mica.serviceprovider.instrument.v1.SearchRecurringPaymentsResponse.status:type_name -> mica.serviceprovider.instrument.v1.SearchRecurringPaymentsResponse.Status
-	42, // 43: mica.serviceprovider.instrument.v1.SearchRecurringPaymentsResponse.error:type_name -> micashared.common.v1.Error
-	46, // 44: mica.serviceprovider.instrument.v1.SearchRecurringPaymentsResponse.recurring_payments:type_name -> micashared.common.v1.RecurringPayment
-	45, // [45:45] is the sub-list for method output_type
-	45, // [45:45] is the sub-list for method input_type
-	45, // [45:45] is the sub-list for extension type_name
-	45, // [45:45] is the sub-list for extension extendee
-	0,  // [0:45] is the sub-list for field type_name
+	33, // 33: mica.serviceprovider.instrument.v1.RemoveInstrumentLinkResponse.error:type_name -> micashared.common.v1.Error
+	34, // 34: mica.serviceprovider.instrument.v1.InstrumentLink.created:type_name -> google.protobuf.Timestamp
+	34, // 35: mica.serviceprovider.instrument.v1.InstrumentLink.updated:type_name -> google.protobuf.Timestamp
+	36, // 36: mica.serviceprovider.instrument.v1.InstrumentLink.linked_instrument_data:type_name -> micashared.common.v1.LinkedInstrumentData
+	37, // [37:37] is the sub-list for method output_type
+	37, // [37:37] is the sub-list for method input_type
+	37, // [37:37] is the sub-list for extension type_name
+	37, // [37:37] is the sub-list for extension extendee
+	0,  // [0:37] is the sub-list for field type_name
 }
 
 func init() { file_mica_serviceprovider_instrument_v1_instrument_proto_init() }
@@ -3888,78 +3237,6 @@ func file_mica_serviceprovider_instrument_v1_instrument_proto_init() {
 				return nil
 			}
 		}
-		file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRecurringPaymentRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetRecurringPaymentResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CancelRecurringPaymentRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CancelRecurringPaymentResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SearchRecurringPaymentsRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SearchRecurringPaymentsResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
 	}
 	file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[0].OneofWrappers = []interface{}{
 		(*RegisterInstrumentRequest_ServiceProviderUserKey)(nil),
@@ -3997,19 +3274,13 @@ func file_mica_serviceprovider_instrument_v1_instrument_proto_init() {
 		(*SearchInstrumentLinksRequest_InstrumentRef)(nil),
 		(*SearchInstrumentLinksRequest_InstrumentKey)(nil),
 	}
-	file_mica_serviceprovider_instrument_v1_instrument_proto_msgTypes[26].OneofWrappers = []interface{}{
-		(*SearchRecurringPaymentsRequest_UserRef)(nil),
-		(*SearchRecurringPaymentsRequest_UserKey)(nil),
-		(*SearchRecurringPaymentsRequest_InstrumentRef)(nil),
-		(*SearchRecurringPaymentsRequest_InstrumentKey)(nil),
-	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_mica_serviceprovider_instrument_v1_instrument_proto_rawDesc,
-			NumEnums:      12,
-			NumMessages:   28,
+			NumEnums:      9,
+			NumMessages:   22,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

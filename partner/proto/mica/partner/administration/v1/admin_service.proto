@@ -10,9 +10,7 @@ syntax = "proto3";
 
 package mica.partner.administration.v1;
 
-import "micashared/common/v1/console_user.proto";
 import "micashared/common/v1/data_extraction.proto";
-import "micashared/common/v1/mtls_certificate.proto";
 
 option go_package = "mica/partner/administrationv1";
 option java_outer_classname = "AdministrationServiceProto";
@@ -21,25 +19,6 @@ option objc_class_prefix = "MICA";
 
 // This is the administrative interface for a Partner member
 service PartnerAdministrationService {
-  //  Generate a new mTLS certificate. SignToMicaClientCSR GenerateToMicaCertificate
-  rpc GenerateToMicaCertificate(micashared.common.v1.GenerateToMicaCertificateRequest) returns (micashared.common.v1.GenerateToMicaCertificateResponse) {}
-  // Update the certificate with a given serial number, only supports enable/disable for now
-  rpc EnableToMicaCertificate(micashared.common.v1.EnableToMicaCertificateRequest) returns (micashared.common.v1.EnableToMicaCertificateResponse) {}
-  // do we need a separate Disable call?
-  rpc DisableToMicaCertificate(micashared.common.v1.DisableToMicaCertificateRequest) returns (micashared.common.v1.DisableToMicaCertificateResponse) {}
-  //Search for certificates and return the ones that match the criteria provided
-  rpc SearchToMicaCertificate(micashared.common.v1.SearchToMicaCertificateRequest) returns (micashared.common.v1.SearchToMicaCertificateResponse) {}
-  // return a single certificate
-  rpc GetToMicaCertificate(micashared.common.v1.GetToMicaCertificateRequest) returns (micashared.common.v1.GetToMicaCertificateResponse) {}
-
-  rpc CreateSingleSignOnConsoleUser(micashared.common.v1.CreateSingleSignOnConsoleUserRequest) returns (micashared.common.v1.CreateSingleSignOnConsoleUserResponse) {}
-
-  rpc UpdateSingleSignOnConsoleUser(micashared.common.v1.UpdateSingleSignOnConsoleUserRequest) returns (micashared.common.v1.UpdateSingleSignOnConsoleUserResponse) {}
-
-  rpc SearchSingleSignOnUser(micashared.common.v1.SearchSingleSignOnConsoleUserRequest) returns (micashared.common.v1.SearchSingleSignOnConsoleUserResponse) {}
-
-  rpc GetSingleSignOnConsoleUser(micashared.common.v1.GetSingleSignOnConsoleUserRequest) returns (micashared.common.v1.GetSingleSignOnConsoleUserResponse) {}
-
   rpc SearchDataExtractionStatistics(micashared.common.v1.SearchDataExtractionRequest) returns (micashared.common.v1.SearchDataExtractionResponse) {}
 
   rpc GetDataExtractionStatistics(micashared.common.v1.GetDataExtractionRequest) returns (micashared.common.v1.GetDataExtractionResponse) {}

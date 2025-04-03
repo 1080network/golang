@@ -12,57 +12,12 @@ package mica.partner.instrument.v1;
 
 import "micashared/common/v1/error.proto";
 import "micashared/common/v1/instrument.proto";
-import "micashared/common/enums/currency/v1/currency.proto";
-import "micashared/common/enums/approvaltype/v1/approval_type.proto";
-import "micashared/common/enums/recurringpaymenttype/v1/recurringpaymenttype.proto";
-import "micashared/common/enums/recurringpaymentfrequency/v1/recurringpaymentfrequency.proto";
-import "micashared/common/v1/line_item.proto";
-import "micashared/common/v1/transaction.proto";
-import "micashared/common/v1/uuek.proto";
-import "micashared/common/v1/risk_signals.proto";
-import "mica/partner/value/v1/value.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/partner/instrumentv1";
 option java_outer_classname = "InstrumentProto";
 option java_package = "io.mica.partner.instrument.v1";
 option objc_class_prefix = "MICA";
-
-message ExchangeSessionKeyRequest {
-  reserved 2, 3, 4;
-  // The session key that was established when the Widget was initialized
-  string session_key = 1 [(validate.rules).string = {
-    min_len: 27,
-    max_len: 50
-  }];
-
-  // The organization this operation is being processed for.
-  oneof organization_identifier {
-    string organization_key = 5 [(validate.rules).string = {max_len: 50}];
-
-    // The primary key for this organization at the Partner.
-    string organization_ref = 6 [(validate.rules).string = {max_len: 100}];
-  }
-}
-
-message ExchangeSessionKeyResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-    STATUS_MATCHING_CODE_MISMATCH = 3;
-    STATUS_NOT_FOUND = 4;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  // The UUEK that the Partner can use to obtain or return value for this user.
-  string partner_uuek = 3 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-}
 
 message ProvisionUUEKFromLinkRequest {
   // Use the session key to provision a UUEK
@@ -97,7 +52,7 @@ message CompleteLinkingWithCodeRequest{
     string organization_key = 2 [(validate.rules).string = {max_len: 50}];
     // The primary key for this organization at the Partner.
     string organization_ref = 3 [(validate.rules).string = {max_len: 100}];
-  }  
+  }
 
   // If a multi use session is requested (i.e. is_one_time_use is false), setting this flag to true will return both a
   // link session and a uuek
@@ -114,7 +69,7 @@ message CompleteLinkingWithCodeResponse{
     STATUS_INVALID_ORGANIZATION = 3;
     //the source account or instrument for this link is not supported
     STATUS_UNSUPPORTED_LINK_SOURCE = 4;
-    //the provided code is inccorect
+    //the provided code is incorrect
     STATUS_INVALID_CODE = 5;
   }
   Status status = 1;
@@ -124,7 +79,7 @@ message CompleteLinkingWithCodeResponse{
   // If the requested link is one time use there will be no link session key
   bool is_one_time_use = 3;
 
-  // If it is not a one time use the session key is the token to request other uueks in the future
+  // If it is not a one time use the session key is the token to request other UUEKs in the future
   string link_key = 4;
 
   // If a uuek was requested or if one time use was requested a uuek is minted
@@ -185,278 +140,4 @@ message RemoveInstrumentLinkResponse {
 message Link {
   string key = 1;
   micashared.common.v1.LinkedInstrumentData instrument_data = 2;
-}
-
-// the recurring payment must have an associated link object which refers to a
-// service provider link, which in turn refers to an instrument and user
-message CreateRecurringPaymentRequest {
-
-  oneof organization_identifier {
-    string organization_key = 1 [(validate.rules).string = {max_len: 50}];
-
-    // The primary key for this organization at the Partner.
-    string organization_ref = 2 [(validate.rules).string = {max_len: 100}];
-  }
-
-  string linking_code = 4;
-
-  micashared.common.enums.currency.v1.Currency currency = 5;
-
-  string amount = 6;
-
-  int64 number_payments = 7;
-
-  micashared.common.enums.recurringpaymentfrequency.v1.RecurringPaymentFrequency frequency = 8;
-
-  micashared.common.enums.recurringpaymenttype.v1.RecurringPaymentType recurring_payment_type = 9;
-}
-
-message CreateRecurringPaymentResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_INVALID_LINK = 2;
-    STATUS_INVALID_ORGANIZATION = 3;
-    STATUS_INVALID_NETWORK = 4;
-    STATUS_INVALID_RECURRING_PAYMENT_PARAMETER = 5;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  micashared.common.v1.RecurringPayment recurring_payment = 3;
-}
-
-message CancelRecurringPaymentRequest {
-  string recurring_payment_key = 1;
-}
-
-message CancelRecurringPaymentResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-  }
-
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-}
-
-message ActivateRecurringPaymentRequest {
-  string recurring_payment_key = 1;
-}
-
-message ActivateRecurringPaymentResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-  }
-
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-}
-
-// right now we can only search by the
-// link id but perhaps later we can use
-// a different search parameter
-message SearchRecurringPaymentRequest {
-  string link_key = 1;
-}
-
-message SearchRecurringPaymentResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-  }
-
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  repeated micashared.common.v1.RecurringPayment recurring_payments =3;
-}
-
-message GetRecurringPaymentRequest {
-
-  string recurring_payment_key = 1;
-
-}
-
-message GetRecurringPaymentResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_NOT_FOUND = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  micashared.common.v1.RecurringPayment recurring_payment = 3;
-
-}
-
-message ProvisionRecurringPaymentUUEKRequest {
-  string recurring_payment_key = 1;
-}
-
-message ProvisionRecurringPaymentUUEKResponse {
-
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_NOT_FOUND = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  string partner_uuek = 3;
-
-}
-
-message RecurringPaymentObtainValueRequest {
-
-  string recurring_payment_key = 1;
-
-  micashared.common.enums.approvaltype.v1.ApprovalType approval_type = 2;
-
-  value.v1.ValueRequest value = 3;
-
-  micashared.common.v1.RiskSignal risk_signal = 4;
-
-}
-
-message RecurringPaymentObtainValueResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    // An approval for the full amount
-    STATUS_FULL_APPROVAL = 1;
-    // An error occurred when processing the request
-    STATUS_ERROR = 2;
-    // An approval was given for a partial amount
-    STATUS_PARTIAL_APPROVAL = 3;
-    // User instrument doesn't have sufficient value to cover the transaction
-    STATUS_INSUFFICIENT_VALUE = 4;
-    // When all products are either ineligible or age restricted
-    STATUS_INELIGIBLE_PRODUCTS = 5;
-    // Instrument/account not found
-    STATUS_NOT_FOUND = 6;
-    // User instrument is closed
-    STATUS_INSTRUMENT_CLOSED = 7;
-    // Request triggered a transactional risk or fraud check resulting in a decline
-    STATUS_TRANSACTION_RISK_FRAUD = 8;
-    // Request triggered a bad actor risk or fraud check resulting in a decline
-    STATUS_BAD_ACTOR_RISK_FRAUD = 16;
-    // Request triggered a user-based risk or fraud check resulting in a decline
-    STATUS_USER_RISK_FRAUD = 17;
-    // Request triggered a instrument-based risk or fraud check resulting in a decline
-    STATUS_INSTRUMENT_RISK_FRAUD = 18;
-    // The user needs to call the Service Provider to resolve an issue
-    STATUS_USER_CALL_SERVICE_PROVIDER = 9;
-    // The operation isn't supported by the Service Provider
-    STATUS_UNSUPPORTED = 10;
-    // The Fi is unavailable at this time
-    STATUS_SERVICE_PROVIDER_UNAVAILABLE = 11;
-    // The UUEK sent is invalid or not found
-    STATUS_INVALID_UUEK = 12;
-    // A valid PIN is required for this transaction
-    STATUS_PIN_REQUIRED = 13;
-    // returned when processing an EBT transaction but no line items have been given
-    STATUS_MISSING_LINE_ITEMS = 14;
-    // when partial approval is requested but not supported
-    STATUS_PARTIAL_APPROVAL_INVALID = 15;
-    // Request resulted in one or more limits being exceeded at the Service Provider
-    STATUS_LIMIT_EXCEEDED = 19;
-    // The referenced Organization of this request isn't fully configured to process transactions
-    STATUS_ORGANIZATION_NOT_CONFIGURED = 21;
-    // The total amount of the line items does not match the total amount of the transaction
-    STATUS_LINE_ITEM_TOTAL_MISMATCH = 22;
-    // The call to the Service Provider (a.k.a. the issuer) timed out
-    STATUS_SERVICE_PROVIDER_TIMEOUT = 23;
-  }
-
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  // Primary key of created transaction assigned by Mica.
-  string transaction_key = 3 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-
-  // Correlation ID of the request assigned by Mica.
-  string cid = 4;
-
-  // Amount expressed as: ([0-9]*[.])?[0-9]+
-  string approved_amount = 5;
-
-  // status of each line item based on processing by Mica. The list will be in the same order as the request and will
-  // will typically have a status of LINE_ITEM_STATUS_ELIGIBLE.
-  repeated micashared.common.v1.LineItemSequenceAndStatus line_item_sequence_and_statuses = 6;
-
-  // This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
-  // stable references or knowledge of the underlying instrument that was used to transact.
-  micashared.common.v1.ImmutableInstrumentDetails immutable_instrument_details = 8;
-
-  micashared.common.v1.TransactionIdentifier transaction_identifier = 9;
-
-}
-
-message RecurringPaymentReturnValueRequest {
-
-  string recurring_payment_key = 1;
-
-  value.v1.ValueRequest value = 2;
-
-  micashared.common.v1.RiskSignal risk_signal = 3;
-
-}
-
-message RecurringPaymentReturnValueResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    // An approval for the full amount
-    STATUS_FULL_APPROVAL = 1;
-    // An error occurred when processing the request
-    STATUS_ERROR = 2;
-    // User instrument is closed
-    STATUS_INSTRUMENT_CLOSED = 3;
-    // Instrument/account not found
-    STATUS_NOT_FOUND = 4;
-    // Request triggered a transactional risk or fraud check resulting in a decline
-    STATUS_TRANSACTION_RISK_FRAUD = 5;
-    // Request triggered a bad actor risk or fraud check resulting in a decline
-    STATUS_BAD_ACTOR_RISK_FRAUD = 16;
-    // Request triggered a user-based risk or fraud check resulting in a decline
-    STATUS_USER_RISK_FRAUD = 17;
-    // Request triggered a instrument-based risk or fraud check resulting in a decline
-    STATUS_INSTRUMENT_RISK_FRAUD = 18;
-    // The user needs to call the Service Provider to resolve an issue
-    STATUS_USER_CALL_SERVICE_PROVIDER = 6;
-    // The operation isn't supported by the Service Provider
-    STATUS_UNSUPPORTED = 7;
-    // The Fi is unavailable at this time
-    STATUS_SERVICE_PROVIDER_UNAVAILABLE = 8;
-    // The UUEK sent is invalid or not found
-    STATUS_INVALID_UUEK = 9;
-    // Request resulted in one or more limits being exceeded at the Service Provider
-    STATUS_LIMIT_EXCEEDED = 19;
-    // The referenced Organization of this request isn't fully configured to process transactions
-    STATUS_ORGANIZATION_NOT_CONFIGURED = 20;
-    // The total amount of the line items does not match the total amount of the transaction
-    STATUS_LINE_ITEM_TOTAL_MISMATCH = 21;
-    // The call to the Service Provider (a.k.a. the issuer) timed out
-    STATUS_SERVICE_PROVIDER_TIMEOUT = 22;
-  }
-
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
 }

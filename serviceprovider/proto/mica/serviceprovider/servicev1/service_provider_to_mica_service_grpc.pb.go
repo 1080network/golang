@@ -19,7 +19,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	discountv1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/discountv1"
 	instrumentv1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/instrumentv1"
 	serviceproviderv1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/serviceproviderv1"
 	userv1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/userv1"
@@ -53,12 +52,7 @@ const (
 	ServiceProviderToMicaService_GetInstrumentLink_FullMethodName              = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetInstrumentLink"
 	ServiceProviderToMicaService_SearchInstrumentLinks_FullMethodName          = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchInstrumentLinks"
 	ServiceProviderToMicaService_RemoveInstrumentLink_FullMethodName           = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveInstrumentLink"
-	ServiceProviderToMicaService_GetRecurringPayment_FullMethodName            = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetRecurringPayment"
-	ServiceProviderToMicaService_CancelRecurringPayment_FullMethodName         = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/CancelRecurringPayment"
-	ServiceProviderToMicaService_SearchRecurringPayments_FullMethodName        = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchRecurringPayments"
-	ServiceProviderToMicaService_SendValue_FullMethodName                      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SendValue"
 	ServiceProviderToMicaService_GetValue_FullMethodName                       = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetValue"
-	ServiceProviderToMicaService_SearchUserDiscount_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchUserDiscount"
 	ServiceProviderToMicaService_GetReceipt_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetReceipt"
 	ServiceProviderToMicaService_Ping_FullMethodName                           = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/Ping"
 )
@@ -67,46 +61,48 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceProviderToMicaServiceClient interface {
-	// Retrieves the details of the SP at mica.
+	// Retrieves the details of the service provider record at Mica.
 	GetServiceProvider(ctx context.Context, in *serviceproviderv1.GetServiceProviderRequest, opts ...grpc.CallOption) (*serviceproviderv1.GetServiceProviderResponse, error)
-	// Called when the Service Provider wants to register one of their users for mica. Note that this does only the user and not the instrument (account).
+	// Called when the Service Provider wants to register one of their users for Mica. Note that this does only the user and not the instrument (account).
 	RegisterUser(ctx context.Context, in *userv1.RegisterUserRequest, opts ...grpc.CallOption) (*userv1.RegisterUserResponse, error)
-	// Retrieve a user based on it's key.
+	// Retrieve a user based on it's identifier.
 	GetUser(ctx context.Context, in *userv1.GetUserRequest, opts ...grpc.CallOption) (*userv1.GetUserResponse, error)
-	// Update the User demographic data held at mica.
+	// Update a user's demographic data held at Mica.
 	UpdateUser(ctx context.Context, in *userv1.UpdateUserRequest, opts ...grpc.CallOption) (*userv1.UpdateUserResponse, error)
-	// Remove a User from mica. Typically called when a User ends their relationship with the SP.
+	// Remove a User from Mica. Typically called when a User ends their relationship with the issuer (e.g. closes their account).
 	RemoveUser(ctx context.Context, in *userv1.RemoveUserRequest, opts ...grpc.CallOption) (*userv1.RemoveUserResponse, error)
-	// Searches for Users held at mica..
+	// Searches for Users held at Mica.
 	SearchUser(ctx context.Context, in *userv1.SearchUserRequest, opts ...grpc.CallOption) (*userv1.SearchUserResponse, error)
-	// Called to register a Users instrument (account) for use at mica. This requires a user to already have been registered.
+	// Called to register a Users instrument (account) for use at Mica. This requires a user to already have been registered.
 	RegisterInstrument(ctx context.Context, in *instrumentv1.RegisterInstrumentRequest, opts ...grpc.CallOption) (*instrumentv1.RegisterInstrumentResponse, error)
 	// Retrieve an instrument based on it's key.
 	GetInstrument(ctx context.Context, in *instrumentv1.GetInstrumentRequest, opts ...grpc.CallOption) (*instrumentv1.GetInstrumentResponse, error)
-	// Remove an instrument (and any SP or Partner UUEKs) from mica. This renders any existing UUEKs as inoperative.
+	// Remove an instrument from Mica.
 	RemoveInstrument(ctx context.Context, in *instrumentv1.RemoveInstrumentRequest, opts ...grpc.CallOption) (*instrumentv1.RemoveInstrumentResponse, error)
 	// Like GetInstrument, can be used to retrieve Instruments based on the criteria in the request.
 	SearchInstrument(ctx context.Context, in *instrumentv1.SearchInstrumentRequest, opts ...grpc.CallOption) (*instrumentv1.SearchInstrumentResponse, error)
-	// Used to create a UUEK that can be given to the SP's users in order to transact at Partners (merhants) that support mica.
+	// Used to create a UUEK that can be given to the Issuer's users in order to transact at Merchants (Partners) that support Mica.
 	ProvisionServiceProviderUUEK(ctx context.Context, in *uuekv1.ProvisionServiceProviderUUEKRequest, opts ...grpc.CallOption) (*uuekv1.ProvisionServiceProviderUUEKResponse, error)
-	// Used to remove an existing UUEK from mica rendering it inoperable.
+	// Used to remove an existing UUEK from Mica rendering it inoperable.
 	RemoveServiceProviderUUEK(ctx context.Context, in *uuekv1.RemoveServiceProviderUUEKRequest, opts ...grpc.CallOption) (*uuekv1.RemoveServiceProviderUUEKResponse, error)
-	// Searches for UUEKs by criteria.
+	// Searches for UUEKs by criteria. This would generally not be used assuming that UUEK's are created single use (i.e. number_of_uses is one when provisioning the UUEK).
 	SearchServiceProviderUUEK(ctx context.Context, in *uuekv1.SearchServiceProviderUUEKRequest, opts ...grpc.CallOption) (*uuekv1.SearchServiceProviderUUEKResponse, error)
-	// <editor-fold desc="Account linking operations">
-	// Initiates a linking proces by returning a code based on the account owned by this instance which will be linked to something else
+	// Initiates a linking process by returning a code based on the account owned by this user which will be linked to
+	// another member. This would typically be used by the user to establish a persistent payment method at a merchant.
 	ProvisionInstrumentLinkingCode(ctx context.Context, in *instrumentv1.ProvisionInstrumentLinkingCodeRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionInstrumentLinkingCodeResponse, error)
-	// If another instance of the network initiated a link then this allows the link to be completed
+	// If another member of the network initiated a link then this allows the link to be completed.
 	CompleteLinkingWithCode(ctx context.Context, in *instrumentv1.CompleteLinkingWithCodeRequest, opts ...grpc.CallOption) (*instrumentv1.CompleteLinkingWithCodeResponse, error)
+	// Retrieve a specific instrument link between two members.
 	GetInstrumentLink(ctx context.Context, in *instrumentv1.GetInstrumentLinkRequest, opts ...grpc.CallOption) (*instrumentv1.GetInstrumentLinkResponse, error)
+	// Search for instrument links.
 	SearchInstrumentLinks(ctx context.Context, in *instrumentv1.SearchInstrumentLinksRequest, opts ...grpc.CallOption) (*instrumentv1.SearchInstrumentLinksResponse, error)
+	// Remove a instrument link.
 	RemoveInstrumentLink(ctx context.Context, in *instrumentv1.RemoveInstrumentLinkRequest, opts ...grpc.CallOption) (*instrumentv1.RemoveInstrumentLinkResponse, error)
-	GetRecurringPayment(ctx context.Context, in *instrumentv1.GetRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.GetRecurringPaymentResponse, error)
-	CancelRecurringPayment(ctx context.Context, in *instrumentv1.CancelRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.CancelRecurringPaymentResponse, error)
-	SearchRecurringPayments(ctx context.Context, in *instrumentv1.SearchRecurringPaymentsRequest, opts ...grpc.CallOption) (*instrumentv1.SearchRecurringPaymentsResponse, error)
-	SendValue(ctx context.Context, in *valuev1.SendValueRequest, opts ...grpc.CallOption) (*valuev1.SendValueResponse, error)
+	// Retrieve a given transaction based on the transaction identifier. This is used to retrieve the details of a
+	// transaction that has already occurred and is intended to be used in a pre-production environment. Mica aggressively
+	// purges transaction data from the operational data store within a short period of time and this call retrieves
+	// transactions from the operational data store.
 	GetValue(ctx context.Context, in *valuev1.GetValueRequest, opts ...grpc.CallOption) (*valuev1.GetValueResponse, error)
-	SearchUserDiscount(ctx context.Context, in *discountv1.SearchUserDiscountRequest, opts ...grpc.CallOption) (*discountv1.SearchUserDiscountResponse, error)
 	// Retrieve a receipt based on the transaction key.
 	GetReceipt(ctx context.Context, in *v1.GetReceiptRequest, opts ...grpc.CallOption) (*v1.GetReceiptResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
@@ -283,54 +279,9 @@ func (c *serviceProviderToMicaServiceClient) RemoveInstrumentLink(ctx context.Co
 	return out, nil
 }
 
-func (c *serviceProviderToMicaServiceClient) GetRecurringPayment(ctx context.Context, in *instrumentv1.GetRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.GetRecurringPaymentResponse, error) {
-	out := new(instrumentv1.GetRecurringPaymentResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_GetRecurringPayment_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderToMicaServiceClient) CancelRecurringPayment(ctx context.Context, in *instrumentv1.CancelRecurringPaymentRequest, opts ...grpc.CallOption) (*instrumentv1.CancelRecurringPaymentResponse, error) {
-	out := new(instrumentv1.CancelRecurringPaymentResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_CancelRecurringPayment_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderToMicaServiceClient) SearchRecurringPayments(ctx context.Context, in *instrumentv1.SearchRecurringPaymentsRequest, opts ...grpc.CallOption) (*instrumentv1.SearchRecurringPaymentsResponse, error) {
-	out := new(instrumentv1.SearchRecurringPaymentsResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_SearchRecurringPayments_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderToMicaServiceClient) SendValue(ctx context.Context, in *valuev1.SendValueRequest, opts ...grpc.CallOption) (*valuev1.SendValueResponse, error) {
-	out := new(valuev1.SendValueResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_SendValue_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *serviceProviderToMicaServiceClient) GetValue(ctx context.Context, in *valuev1.GetValueRequest, opts ...grpc.CallOption) (*valuev1.GetValueResponse, error) {
 	out := new(valuev1.GetValueResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_GetValue_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderToMicaServiceClient) SearchUserDiscount(ctx context.Context, in *discountv1.SearchUserDiscountRequest, opts ...grpc.CallOption) (*discountv1.SearchUserDiscountResponse, error) {
-	out := new(discountv1.SearchUserDiscountResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_SearchUserDiscount_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -359,46 +310,48 @@ func (c *serviceProviderToMicaServiceClient) Ping(ctx context.Context, in *pingv
 // All implementations must embed UnimplementedServiceProviderToMicaServiceServer
 // for forward compatibility
 type ServiceProviderToMicaServiceServer interface {
-	// Retrieves the details of the SP at mica.
+	// Retrieves the details of the service provider record at Mica.
 	GetServiceProvider(context.Context, *serviceproviderv1.GetServiceProviderRequest) (*serviceproviderv1.GetServiceProviderResponse, error)
-	// Called when the Service Provider wants to register one of their users for mica. Note that this does only the user and not the instrument (account).
+	// Called when the Service Provider wants to register one of their users for Mica. Note that this does only the user and not the instrument (account).
 	RegisterUser(context.Context, *userv1.RegisterUserRequest) (*userv1.RegisterUserResponse, error)
-	// Retrieve a user based on it's key.
+	// Retrieve a user based on it's identifier.
 	GetUser(context.Context, *userv1.GetUserRequest) (*userv1.GetUserResponse, error)
-	// Update the User demographic data held at mica.
+	// Update a user's demographic data held at Mica.
 	UpdateUser(context.Context, *userv1.UpdateUserRequest) (*userv1.UpdateUserResponse, error)
-	// Remove a User from mica. Typically called when a User ends their relationship with the SP.
+	// Remove a User from Mica. Typically called when a User ends their relationship with the issuer (e.g. closes their account).
 	RemoveUser(context.Context, *userv1.RemoveUserRequest) (*userv1.RemoveUserResponse, error)
-	// Searches for Users held at mica..
+	// Searches for Users held at Mica.
 	SearchUser(context.Context, *userv1.SearchUserRequest) (*userv1.SearchUserResponse, error)
-	// Called to register a Users instrument (account) for use at mica. This requires a user to already have been registered.
+	// Called to register a Users instrument (account) for use at Mica. This requires a user to already have been registered.
 	RegisterInstrument(context.Context, *instrumentv1.RegisterInstrumentRequest) (*instrumentv1.RegisterInstrumentResponse, error)
 	// Retrieve an instrument based on it's key.
 	GetInstrument(context.Context, *instrumentv1.GetInstrumentRequest) (*instrumentv1.GetInstrumentResponse, error)
-	// Remove an instrument (and any SP or Partner UUEKs) from mica. This renders any existing UUEKs as inoperative.
+	// Remove an instrument from Mica.
 	RemoveInstrument(context.Context, *instrumentv1.RemoveInstrumentRequest) (*instrumentv1.RemoveInstrumentResponse, error)
 	// Like GetInstrument, can be used to retrieve Instruments based on the criteria in the request.
 	SearchInstrument(context.Context, *instrumentv1.SearchInstrumentRequest) (*instrumentv1.SearchInstrumentResponse, error)
-	// Used to create a UUEK that can be given to the SP's users in order to transact at Partners (merhants) that support mica.
+	// Used to create a UUEK that can be given to the Issuer's users in order to transact at Merchants (Partners) that support Mica.
 	ProvisionServiceProviderUUEK(context.Context, *uuekv1.ProvisionServiceProviderUUEKRequest) (*uuekv1.ProvisionServiceProviderUUEKResponse, error)
-	// Used to remove an existing UUEK from mica rendering it inoperable.
+	// Used to remove an existing UUEK from Mica rendering it inoperable.
 	RemoveServiceProviderUUEK(context.Context, *uuekv1.RemoveServiceProviderUUEKRequest) (*uuekv1.RemoveServiceProviderUUEKResponse, error)
-	// Searches for UUEKs by criteria.
+	// Searches for UUEKs by criteria. This would generally not be used assuming that UUEK's are created single use (i.e. number_of_uses is one when provisioning the UUEK).
 	SearchServiceProviderUUEK(context.Context, *uuekv1.SearchServiceProviderUUEKRequest) (*uuekv1.SearchServiceProviderUUEKResponse, error)
-	// <editor-fold desc="Account linking operations">
-	// Initiates a linking proces by returning a code based on the account owned by this instance which will be linked to something else
+	// Initiates a linking process by returning a code based on the account owned by this user which will be linked to
+	// another member. This would typically be used by the user to establish a persistent payment method at a merchant.
 	ProvisionInstrumentLinkingCode(context.Context, *instrumentv1.ProvisionInstrumentLinkingCodeRequest) (*instrumentv1.ProvisionInstrumentLinkingCodeResponse, error)
-	// If another instance of the network initiated a link then this allows the link to be completed
+	// If another member of the network initiated a link then this allows the link to be completed.
 	CompleteLinkingWithCode(context.Context, *instrumentv1.CompleteLinkingWithCodeRequest) (*instrumentv1.CompleteLinkingWithCodeResponse, error)
+	// Retrieve a specific instrument link between two members.
 	GetInstrumentLink(context.Context, *instrumentv1.GetInstrumentLinkRequest) (*instrumentv1.GetInstrumentLinkResponse, error)
+	// Search for instrument links.
 	SearchInstrumentLinks(context.Context, *instrumentv1.SearchInstrumentLinksRequest) (*instrumentv1.SearchInstrumentLinksResponse, error)
+	// Remove a instrument link.
 	RemoveInstrumentLink(context.Context, *instrumentv1.RemoveInstrumentLinkRequest) (*instrumentv1.RemoveInstrumentLinkResponse, error)
-	GetRecurringPayment(context.Context, *instrumentv1.GetRecurringPaymentRequest) (*instrumentv1.GetRecurringPaymentResponse, error)
-	CancelRecurringPayment(context.Context, *instrumentv1.CancelRecurringPaymentRequest) (*instrumentv1.CancelRecurringPaymentResponse, error)
-	SearchRecurringPayments(context.Context, *instrumentv1.SearchRecurringPaymentsRequest) (*instrumentv1.SearchRecurringPaymentsResponse, error)
-	SendValue(context.Context, *valuev1.SendValueRequest) (*valuev1.SendValueResponse, error)
+	// Retrieve a given transaction based on the transaction identifier. This is used to retrieve the details of a
+	// transaction that has already occurred and is intended to be used in a pre-production environment. Mica aggressively
+	// purges transaction data from the operational data store within a short period of time and this call retrieves
+	// transactions from the operational data store.
 	GetValue(context.Context, *valuev1.GetValueRequest) (*valuev1.GetValueResponse, error)
-	SearchUserDiscount(context.Context, *discountv1.SearchUserDiscountRequest) (*discountv1.SearchUserDiscountResponse, error)
 	// Retrieve a receipt based on the transaction key.
 	GetReceipt(context.Context, *v1.GetReceiptRequest) (*v1.GetReceiptResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
@@ -464,23 +417,8 @@ func (UnimplementedServiceProviderToMicaServiceServer) SearchInstrumentLinks(con
 func (UnimplementedServiceProviderToMicaServiceServer) RemoveInstrumentLink(context.Context, *instrumentv1.RemoveInstrumentLinkRequest) (*instrumentv1.RemoveInstrumentLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveInstrumentLink not implemented")
 }
-func (UnimplementedServiceProviderToMicaServiceServer) GetRecurringPayment(context.Context, *instrumentv1.GetRecurringPaymentRequest) (*instrumentv1.GetRecurringPaymentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRecurringPayment not implemented")
-}
-func (UnimplementedServiceProviderToMicaServiceServer) CancelRecurringPayment(context.Context, *instrumentv1.CancelRecurringPaymentRequest) (*instrumentv1.CancelRecurringPaymentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CancelRecurringPayment not implemented")
-}
-func (UnimplementedServiceProviderToMicaServiceServer) SearchRecurringPayments(context.Context, *instrumentv1.SearchRecurringPaymentsRequest) (*instrumentv1.SearchRecurringPaymentsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchRecurringPayments not implemented")
-}
-func (UnimplementedServiceProviderToMicaServiceServer) SendValue(context.Context, *valuev1.SendValueRequest) (*valuev1.SendValueResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SendValue not implemented")
-}
 func (UnimplementedServiceProviderToMicaServiceServer) GetValue(context.Context, *valuev1.GetValueRequest) (*valuev1.GetValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetValue not implemented")
-}
-func (UnimplementedServiceProviderToMicaServiceServer) SearchUserDiscount(context.Context, *discountv1.SearchUserDiscountRequest) (*discountv1.SearchUserDiscountResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchUserDiscount not implemented")
 }
 func (UnimplementedServiceProviderToMicaServiceServer) GetReceipt(context.Context, *v1.GetReceiptRequest) (*v1.GetReceiptResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetReceipt not implemented")
@@ -826,78 +764,6 @@ func _ServiceProviderToMicaService_RemoveInstrumentLink_Handler(srv interface{},
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ServiceProviderToMicaService_GetRecurringPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(instrumentv1.GetRecurringPaymentRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderToMicaServiceServer).GetRecurringPayment(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderToMicaService_GetRecurringPayment_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderToMicaServiceServer).GetRecurringPayment(ctx, req.(*instrumentv1.GetRecurringPaymentRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderToMicaService_CancelRecurringPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(instrumentv1.CancelRecurringPaymentRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderToMicaServiceServer).CancelRecurringPayment(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderToMicaService_CancelRecurringPayment_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderToMicaServiceServer).CancelRecurringPayment(ctx, req.(*instrumentv1.CancelRecurringPaymentRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderToMicaService_SearchRecurringPayments_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(instrumentv1.SearchRecurringPaymentsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderToMicaServiceServer).SearchRecurringPayments(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderToMicaService_SearchRecurringPayments_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderToMicaServiceServer).SearchRecurringPayments(ctx, req.(*instrumentv1.SearchRecurringPaymentsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderToMicaService_SendValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(valuev1.SendValueRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderToMicaServiceServer).SendValue(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderToMicaService_SendValue_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderToMicaServiceServer).SendValue(ctx, req.(*valuev1.SendValueRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _ServiceProviderToMicaService_GetValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(valuev1.GetValueRequest)
 	if err := dec(in); err != nil {
@@ -912,24 +778,6 @@ func _ServiceProviderToMicaService_GetValue_Handler(srv interface{}, ctx context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ServiceProviderToMicaServiceServer).GetValue(ctx, req.(*valuev1.GetValueRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderToMicaService_SearchUserDiscount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(discountv1.SearchUserDiscountRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderToMicaServiceServer).SearchUserDiscount(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderToMicaService_SearchUserDiscount_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderToMicaServiceServer).SearchUserDiscount(ctx, req.(*discountv1.SearchUserDiscountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1050,28 +898,8 @@ var ServiceProviderToMicaService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _ServiceProviderToMicaService_RemoveInstrumentLink_Handler,
 		},
 		{
-			MethodName: "GetRecurringPayment",
-			Handler:    _ServiceProviderToMicaService_GetRecurringPayment_Handler,
-		},
-		{
-			MethodName: "CancelRecurringPayment",
-			Handler:    _ServiceProviderToMicaService_CancelRecurringPayment_Handler,
-		},
-		{
-			MethodName: "SearchRecurringPayments",
-			Handler:    _ServiceProviderToMicaService_SearchRecurringPayments_Handler,
-		},
-		{
-			MethodName: "SendValue",
-			Handler:    _ServiceProviderToMicaService_SendValue_Handler,
-		},
-		{
 			MethodName: "GetValue",
 			Handler:    _ServiceProviderToMicaService_GetValue_Handler,
-		},
-		{
-			MethodName: "SearchUserDiscount",
-			Handler:    _ServiceProviderToMicaService_SearchUserDiscount_Handler,
 		},
 		{
 			MethodName: "GetReceipt",

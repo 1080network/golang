@@ -957,55 +957,6 @@ func (GetValueResponse_Status) EnumDescriptor() ([]byte, []int) {
 	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{23, 0}
 }
 
-type SendValueResponse_Status int32
-
-const (
-	SendValueResponse_STATUS_UNSPECIFIED SendValueResponse_Status = 0
-	SendValueResponse_STATUS_SUCCESS     SendValueResponse_Status = 1
-	SendValueResponse_STATUS_ERROR       SendValueResponse_Status = 2
-)
-
-// Enum value maps for SendValueResponse_Status.
-var (
-	SendValueResponse_Status_name = map[int32]string{
-		0: "STATUS_UNSPECIFIED",
-		1: "STATUS_SUCCESS",
-		2: "STATUS_ERROR",
-	}
-	SendValueResponse_Status_value = map[string]int32{
-		"STATUS_UNSPECIFIED": 0,
-		"STATUS_SUCCESS":     1,
-		"STATUS_ERROR":       2,
-	}
-)
-
-func (x SendValueResponse_Status) Enum() *SendValueResponse_Status {
-	p := new(SendValueResponse_Status)
-	*p = x
-	return p
-}
-
-func (x SendValueResponse_Status) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (SendValueResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[12].Descriptor()
-}
-
-func (SendValueResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[12]
-}
-
-func (x SendValueResponse_Status) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use SendValueResponse_Status.Descriptor instead.
-func (SendValueResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{25, 0}
-}
-
 // Type that represents the details of the value request (either to obtain or return).
 type Value struct {
 	state         protoimpl.MessageState
@@ -3136,245 +3087,6 @@ func (x *GetValueResponse) GetTransactionIdentifier() *v1.TransactionIdentifier 
 	return nil
 }
 
-type SendValueRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	FromServiceProviderUserKey string `protobuf:"bytes,1,opt,name=from_service_provider_user_key,json=fromServiceProviderUserKey,proto3" json:"from_service_provider_user_key,omitempty"`
-	// Types that are assignable to UserIdentifier:
-	//
-	//	*SendValueRequest_ServiceProviderUserKey
-	//	*SendValueRequest_ServiceProviderUserRef
-	UserIdentifier                   isSendValueRequest_UserIdentifier `protobuf_oneof:"user_identifier"`
-	FromServiceProviderInstrumentKey string                            `protobuf:"bytes,2,opt,name=from_service_provider_instrument_key,json=fromServiceProviderInstrumentKey,proto3" json:"from_service_provider_instrument_key,omitempty"`
-	// Types that are assignable to InstrumentIdentifier:
-	//
-	//	*SendValueRequest_ServiceProviderInstrumentKey
-	//	*SendValueRequest_ServiceProviderInstrumentRef
-	InstrumentIdentifier isSendValueRequest_InstrumentIdentifier `protobuf_oneof:"instrument_identifier"`
-	// @gotags: mask:"security"
-	ToUuek   string              `protobuf:"bytes,3,opt,name=to_uuek,json=toUuek,proto3" json:"to_uuek,omitempty"`
-	Currency currencyv1.Currency `protobuf:"varint,4,opt,name=currency,proto3,enum=micashared.common.enums.currency.v1.Currency" json:"currency,omitempty"`
-	// Amount expressed as: ([0-9]*[.])?[0-9]+
-	Amount string `protobuf:"bytes,5,opt,name=amount,proto3" json:"amount,omitempty"`
-	// use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
-	RiskSignal *v1.RiskSignal `protobuf:"bytes,10,opt,name=risk_signal,json=riskSignal,proto3" json:"risk_signal,omitempty"`
-}
-
-func (x *SendValueRequest) Reset() {
-	*x = SendValueRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[24]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SendValueRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SendValueRequest) ProtoMessage() {}
-
-func (x *SendValueRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[24]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SendValueRequest.ProtoReflect.Descriptor instead.
-func (*SendValueRequest) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{24}
-}
-
-func (x *SendValueRequest) GetFromServiceProviderUserKey() string {
-	if x != nil {
-		return x.FromServiceProviderUserKey
-	}
-	return ""
-}
-
-func (m *SendValueRequest) GetUserIdentifier() isSendValueRequest_UserIdentifier {
-	if m != nil {
-		return m.UserIdentifier
-	}
-	return nil
-}
-
-func (x *SendValueRequest) GetServiceProviderUserKey() string {
-	if x, ok := x.GetUserIdentifier().(*SendValueRequest_ServiceProviderUserKey); ok {
-		return x.ServiceProviderUserKey
-	}
-	return ""
-}
-
-func (x *SendValueRequest) GetServiceProviderUserRef() string {
-	if x, ok := x.GetUserIdentifier().(*SendValueRequest_ServiceProviderUserRef); ok {
-		return x.ServiceProviderUserRef
-	}
-	return ""
-}
-
-func (x *SendValueRequest) GetFromServiceProviderInstrumentKey() string {
-	if x != nil {
-		return x.FromServiceProviderInstrumentKey
-	}
-	return ""
-}
-
-func (m *SendValueRequest) GetInstrumentIdentifier() isSendValueRequest_InstrumentIdentifier {
-	if m != nil {
-		return m.InstrumentIdentifier
-	}
-	return nil
-}
-
-func (x *SendValueRequest) GetServiceProviderInstrumentKey() string {
-	if x, ok := x.GetInstrumentIdentifier().(*SendValueRequest_ServiceProviderInstrumentKey); ok {
-		return x.ServiceProviderInstrumentKey
-	}
-	return ""
-}
-
-func (x *SendValueRequest) GetServiceProviderInstrumentRef() string {
-	if x, ok := x.GetInstrumentIdentifier().(*SendValueRequest_ServiceProviderInstrumentRef); ok {
-		return x.ServiceProviderInstrumentRef
-	}
-	return ""
-}
-
-func (x *SendValueRequest) GetToUuek() string {
-	if x != nil {
-		return x.ToUuek
-	}
-	return ""
-}
-
-func (x *SendValueRequest) GetCurrency() currencyv1.Currency {
-	if x != nil {
-		return x.Currency
-	}
-	return currencyv1.Currency(0)
-}
-
-func (x *SendValueRequest) GetAmount() string {
-	if x != nil {
-		return x.Amount
-	}
-	return ""
-}
-
-func (x *SendValueRequest) GetRiskSignal() *v1.RiskSignal {
-	if x != nil {
-		return x.RiskSignal
-	}
-	return nil
-}
-
-type isSendValueRequest_UserIdentifier interface {
-	isSendValueRequest_UserIdentifier()
-}
-
-type SendValueRequest_ServiceProviderUserKey struct {
-	// The key representing this user in Mica.
-	ServiceProviderUserKey string `protobuf:"bytes,6,opt,name=service_provider_user_key,json=serviceProviderUserKey,proto3,oneof"`
-}
-
-type SendValueRequest_ServiceProviderUserRef struct {
-	ServiceProviderUserRef string `protobuf:"bytes,7,opt,name=service_provider_user_ref,json=serviceProviderUserRef,proto3,oneof"`
-}
-
-func (*SendValueRequest_ServiceProviderUserKey) isSendValueRequest_UserIdentifier() {}
-
-func (*SendValueRequest_ServiceProviderUserRef) isSendValueRequest_UserIdentifier() {}
-
-type isSendValueRequest_InstrumentIdentifier interface {
-	isSendValueRequest_InstrumentIdentifier()
-}
-
-type SendValueRequest_ServiceProviderInstrumentKey struct {
-	// The key representing this instrument in Mica.
-	ServiceProviderInstrumentKey string `protobuf:"bytes,8,opt,name=service_provider_instrument_key,json=serviceProviderInstrumentKey,proto3,oneof"`
-}
-
-type SendValueRequest_ServiceProviderInstrumentRef struct {
-	ServiceProviderInstrumentRef string `protobuf:"bytes,9,opt,name=service_provider_instrument_ref,json=serviceProviderInstrumentRef,proto3,oneof"`
-}
-
-func (*SendValueRequest_ServiceProviderInstrumentKey) isSendValueRequest_InstrumentIdentifier() {}
-
-func (*SendValueRequest_ServiceProviderInstrumentRef) isSendValueRequest_InstrumentIdentifier() {}
-
-type SendValueResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Status         SendValueResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=mica.serviceprovider.value.v1.SendValueResponse_Status" json:"status,omitempty"`
-	Error          *v1.Error                `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
-	TransactionKey string                   `protobuf:"bytes,3,opt,name=transaction_key,json=transactionKey,proto3" json:"transaction_key,omitempty"`
-}
-
-func (x *SendValueResponse) Reset() {
-	*x = SendValueResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[25]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *SendValueResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*SendValueResponse) ProtoMessage() {}
-
-func (x *SendValueResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[25]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use SendValueResponse.ProtoReflect.Descriptor instead.
-func (*SendValueResponse) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{25}
-}
-
-func (x *SendValueResponse) GetStatus() SendValueResponse_Status {
-	if x != nil {
-		return x.Status
-	}
-	return SendValueResponse_STATUS_UNSPECIFIED
-}
-
-func (x *SendValueResponse) GetError() *v1.Error {
-	if x != nil {
-		return x.Error
-	}
-	return nil
-}
-
-func (x *SendValueResponse) GetTransactionKey() string {
-	if x != nil {
-		return x.TransactionKey
-	}
-	return ""
-}
-
 var File_mica_serviceprovider_value_v1_value_proto protoreflect.FileDescriptor
 
 var file_mica_serviceprovider_value_v1_value_proto_rawDesc = []byte{
@@ -4151,98 +3863,36 @@ var file_mica_serviceprovider_value_v1_value_proto_rawDesc = []byte{
 	0x0a, 0x0e, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x53, 0x55, 0x43, 0x43, 0x45, 0x53, 0x53,
 	0x10, 0x01, 0x12, 0x10, 0x0a, 0x0c, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x45, 0x52, 0x52,
 	0x4f, 0x52, 0x10, 0x02, 0x12, 0x14, 0x0a, 0x10, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x4e,
-	0x4f, 0x54, 0x5f, 0x46, 0x4f, 0x55, 0x4e, 0x44, 0x10, 0x03, 0x22, 0xd3, 0x05, 0x0a, 0x10, 0x53,
-	0x65, 0x6e, 0x64, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
-	0x4b, 0x0a, 0x1e, 0x66, 0x72, 0x6f, 0x6d, 0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5f,
-	0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x6b, 0x65,
-	0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x18, 0x32,
-	0x52, 0x1a, 0x66, 0x72, 0x6f, 0x6d, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f,
-	0x76, 0x69, 0x64, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x4b, 0x65, 0x79, 0x12, 0x44, 0x0a, 0x19,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5f, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72,
-	0x5f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x06, 0x20, 0x01, 0x28, 0x09, 0x42,
-	0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x18, 0x32, 0x48, 0x00, 0x52, 0x16, 0x73, 0x65, 0x72, 0x76,
-	0x69, 0x63, 0x65, 0x50, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x55, 0x73, 0x65, 0x72, 0x4b,
-	0x65, 0x79, 0x12, 0x44, 0x0a, 0x19, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5f, 0x70, 0x72,
-	0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x5f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x72, 0x65, 0x66, 0x18,
-	0x07, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x18, 0x64, 0x48, 0x00,
-	0x52, 0x16, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65,
-	0x72, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x66, 0x12, 0x57, 0x0a, 0x24, 0x66, 0x72, 0x6f, 0x6d,
-	0x5f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5f, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65,
-	0x72, 0x5f, 0x69, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x5f, 0x6b, 0x65, 0x79,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x18, 0x32, 0x52,
-	0x20, 0x66, 0x72, 0x6f, 0x6d, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x50, 0x72, 0x6f, 0x76,
-	0x69, 0x64, 0x65, 0x72, 0x49, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x4b, 0x65,
-	0x79, 0x12, 0x50, 0x0a, 0x1f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5f, 0x70, 0x72, 0x6f,
-	0x76, 0x69, 0x64, 0x65, 0x72, 0x5f, 0x69, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74,
-	0x5f, 0x6b, 0x65, 0x79, 0x18, 0x08, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72,
-	0x02, 0x18, 0x32, 0x48, 0x01, 0x52, 0x1c, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x50, 0x72,
-	0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x49, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65, 0x6e, 0x74,
-	0x4b, 0x65, 0x79, 0x12, 0x50, 0x0a, 0x1f, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x5f, 0x70,
-	0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x5f, 0x69, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65,
-	0x6e, 0x74, 0x5f, 0x72, 0x65, 0x66, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42,
-	0x04, 0x72, 0x02, 0x18, 0x64, 0x48, 0x01, 0x52, 0x1c, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
-	0x50, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x49, 0x6e, 0x73, 0x74, 0x72, 0x75, 0x6d, 0x65,
-	0x6e, 0x74, 0x52, 0x65, 0x66, 0x12, 0x17, 0x0a, 0x07, 0x74, 0x6f, 0x5f, 0x75, 0x75, 0x65, 0x6b,
-	0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x74, 0x6f, 0x55, 0x75, 0x65, 0x6b, 0x12, 0x49,
-	0x0a, 0x08, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x63, 0x79, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0e,
-	0x32, 0x2d, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f,
-	0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x65, 0x6e, 0x75, 0x6d, 0x73, 0x2e, 0x63, 0x75, 0x72, 0x72, 0x65,
-	0x6e, 0x63, 0x79, 0x2e, 0x76, 0x31, 0x2e, 0x43, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x63, 0x79, 0x52,
-	0x08, 0x63, 0x75, 0x72, 0x72, 0x65, 0x6e, 0x63, 0x79, 0x12, 0x16, 0x0a, 0x06, 0x61, 0x6d, 0x6f,
-	0x75, 0x6e, 0x74, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x61, 0x6d, 0x6f, 0x75, 0x6e,
-	0x74, 0x12, 0x41, 0x0a, 0x0b, 0x72, 0x69, 0x73, 0x6b, 0x5f, 0x73, 0x69, 0x67, 0x6e, 0x61, 0x6c,
-	0x18, 0x0a, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61,
-	0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x69,
-	0x73, 0x6b, 0x53, 0x69, 0x67, 0x6e, 0x61, 0x6c, 0x52, 0x0a, 0x72, 0x69, 0x73, 0x6b, 0x53, 0x69,
-	0x67, 0x6e, 0x61, 0x6c, 0x42, 0x11, 0x0a, 0x0f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x65,
-	0x6e, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72, 0x42, 0x17, 0x0a, 0x15, 0x69, 0x6e, 0x73, 0x74, 0x72,
-	0x75, 0x6d, 0x65, 0x6e, 0x74, 0x5f, 0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72,
-	0x22, 0x88, 0x02, 0x0a, 0x11, 0x53, 0x65, 0x6e, 0x64, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4f, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x37, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x2e, 0x73, 0x65,
-	0x72, 0x76, 0x69, 0x63, 0x65, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x2e, 0x76, 0x61,
-	0x6c, 0x75, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x53, 0x65, 0x6e, 0x64, 0x56, 0x61, 0x6c, 0x75, 0x65,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52,
-	0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x31, 0x0a, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72,
-	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61,
-	0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x45, 0x72,
-	0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x27, 0x0a, 0x0f, 0x74, 0x72,
-	0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x03, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x0e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e,
-	0x4b, 0x65, 0x79, 0x22, 0x46, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x16, 0x0a,
-	0x12, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46,
-	0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f,
-	0x53, 0x55, 0x43, 0x43, 0x45, 0x53, 0x53, 0x10, 0x01, 0x12, 0x10, 0x0a, 0x0c, 0x53, 0x54, 0x41,
-	0x54, 0x55, 0x53, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x2a, 0x3d, 0x0a, 0x09, 0x50,
-	0x49, 0x4e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x1a, 0x0a, 0x16, 0x50, 0x49, 0x4e, 0x5f,
-	0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49,
-	0x45, 0x44, 0x10, 0x00, 0x12, 0x14, 0x0a, 0x10, 0x50, 0x49, 0x4e, 0x5f, 0x53, 0x54, 0x41, 0x54,
-	0x55, 0x53, 0x5f, 0x4d, 0x41, 0x54, 0x43, 0x48, 0x10, 0x01, 0x2a, 0xac, 0x02, 0x0a, 0x0c, 0x41,
-	0x64, 0x76, 0x69, 0x63, 0x65, 0x52, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12, 0x1d, 0x0a, 0x19, 0x41,
-	0x44, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x5f, 0x55, 0x4e, 0x53,
-	0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x17, 0x0a, 0x13, 0x41, 0x44,
-	0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x5f, 0x45, 0x52, 0x52, 0x4f,
-	0x52, 0x10, 0x01, 0x12, 0x1e, 0x0a, 0x1a, 0x41, 0x44, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45,
-	0x41, 0x53, 0x4f, 0x4e, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x5f, 0x55, 0x55, 0x45,
-	0x4b, 0x10, 0x02, 0x12, 0x1b, 0x0a, 0x17, 0x41, 0x44, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45,
-	0x41, 0x53, 0x4f, 0x4e, 0x5f, 0x4e, 0x4f, 0x54, 0x5f, 0x46, 0x4f, 0x55, 0x4e, 0x44, 0x10, 0x03,
-	0x12, 0x24, 0x0a, 0x20, 0x41, 0x44, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f,
-	0x4e, 0x5f, 0x4d, 0x49, 0x53, 0x53, 0x49, 0x4e, 0x47, 0x5f, 0x4c, 0x49, 0x4e, 0x45, 0x5f, 0x49,
-	0x54, 0x45, 0x4d, 0x53, 0x10, 0x04, 0x12, 0x25, 0x0a, 0x21, 0x41, 0x44, 0x56, 0x49, 0x43, 0x45,
-	0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x5f, 0x49, 0x4e, 0x45, 0x4c, 0x49, 0x47, 0x49, 0x42,
-	0x4c, 0x45, 0x5f, 0x50, 0x52, 0x4f, 0x44, 0x55, 0x43, 0x54, 0x53, 0x10, 0x05, 0x12, 0x2e, 0x0a,
-	0x2a, 0x41, 0x44, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x5f, 0x53,
-	0x45, 0x52, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x50, 0x52, 0x4f, 0x56, 0x49, 0x44, 0x45, 0x52, 0x5f,
-	0x55, 0x4e, 0x41, 0x56, 0x41, 0x49, 0x4c, 0x41, 0x42, 0x4c, 0x45, 0x10, 0x06, 0x12, 0x2a, 0x0a,
-	0x26, 0x41, 0x44, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x5f, 0x53,
-	0x45, 0x52, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x50, 0x52, 0x4f, 0x56, 0x49, 0x44, 0x45, 0x52, 0x5f,
-	0x54, 0x49, 0x4d, 0x45, 0x4f, 0x55, 0x54, 0x10, 0x07, 0x42, 0x53, 0x0a, 0x20, 0x69, 0x6f, 0x2e,
-	0x6d, 0x69, 0x63, 0x61, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x70, 0x72, 0x6f, 0x76,
-	0x69, 0x64, 0x65, 0x72, 0x2e, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x0a, 0x56,
-	0x61, 0x6c, 0x75, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x5a, 0x1c, 0x6d, 0x69, 0x63, 0x61, 0x2f,
-	0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x2f,
-	0x76, 0x61, 0x6c, 0x75, 0x65, 0x76, 0x31, 0xa2, 0x02, 0x04, 0x4d, 0x49, 0x43, 0x41, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x4f, 0x54, 0x5f, 0x46, 0x4f, 0x55, 0x4e, 0x44, 0x10, 0x03, 0x2a, 0x3d, 0x0a, 0x09, 0x50, 0x49,
+	0x4e, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x1a, 0x0a, 0x16, 0x50, 0x49, 0x4e, 0x5f, 0x53,
+	0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45,
+	0x44, 0x10, 0x00, 0x12, 0x14, 0x0a, 0x10, 0x50, 0x49, 0x4e, 0x5f, 0x53, 0x54, 0x41, 0x54, 0x55,
+	0x53, 0x5f, 0x4d, 0x41, 0x54, 0x43, 0x48, 0x10, 0x01, 0x2a, 0xac, 0x02, 0x0a, 0x0c, 0x41, 0x64,
+	0x76, 0x69, 0x63, 0x65, 0x52, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x12, 0x1d, 0x0a, 0x19, 0x41, 0x44,
+	0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x5f, 0x55, 0x4e, 0x53, 0x50,
+	0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x17, 0x0a, 0x13, 0x41, 0x44, 0x56,
+	0x49, 0x43, 0x45, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52,
+	0x10, 0x01, 0x12, 0x1e, 0x0a, 0x1a, 0x41, 0x44, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45, 0x41,
+	0x53, 0x4f, 0x4e, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x5f, 0x55, 0x55, 0x45, 0x4b,
+	0x10, 0x02, 0x12, 0x1b, 0x0a, 0x17, 0x41, 0x44, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45, 0x41,
+	0x53, 0x4f, 0x4e, 0x5f, 0x4e, 0x4f, 0x54, 0x5f, 0x46, 0x4f, 0x55, 0x4e, 0x44, 0x10, 0x03, 0x12,
+	0x24, 0x0a, 0x20, 0x41, 0x44, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e,
+	0x5f, 0x4d, 0x49, 0x53, 0x53, 0x49, 0x4e, 0x47, 0x5f, 0x4c, 0x49, 0x4e, 0x45, 0x5f, 0x49, 0x54,
+	0x45, 0x4d, 0x53, 0x10, 0x04, 0x12, 0x25, 0x0a, 0x21, 0x41, 0x44, 0x56, 0x49, 0x43, 0x45, 0x5f,
+	0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x5f, 0x49, 0x4e, 0x45, 0x4c, 0x49, 0x47, 0x49, 0x42, 0x4c,
+	0x45, 0x5f, 0x50, 0x52, 0x4f, 0x44, 0x55, 0x43, 0x54, 0x53, 0x10, 0x05, 0x12, 0x2e, 0x0a, 0x2a,
+	0x41, 0x44, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x5f, 0x53, 0x45,
+	0x52, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x50, 0x52, 0x4f, 0x56, 0x49, 0x44, 0x45, 0x52, 0x5f, 0x55,
+	0x4e, 0x41, 0x56, 0x41, 0x49, 0x4c, 0x41, 0x42, 0x4c, 0x45, 0x10, 0x06, 0x12, 0x2a, 0x0a, 0x26,
+	0x41, 0x44, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x52, 0x45, 0x41, 0x53, 0x4f, 0x4e, 0x5f, 0x53, 0x45,
+	0x52, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x50, 0x52, 0x4f, 0x56, 0x49, 0x44, 0x45, 0x52, 0x5f, 0x54,
+	0x49, 0x4d, 0x45, 0x4f, 0x55, 0x54, 0x10, 0x07, 0x42, 0x53, 0x0a, 0x20, 0x69, 0x6f, 0x2e, 0x6d,
+	0x69, 0x63, 0x61, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x70, 0x72, 0x6f, 0x76, 0x69,
+	0x64, 0x65, 0x72, 0x2e, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x2e, 0x76, 0x31, 0x42, 0x0a, 0x56, 0x61,
+	0x6c, 0x75, 0x65, 0x50, 0x72, 0x6f, 0x74, 0x6f, 0x5a, 0x1c, 0x6d, 0x69, 0x63, 0x61, 0x2f, 0x73,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x2f, 0x76,
+	0x61, 0x6c, 0x75, 0x65, 0x76, 0x31, 0xa2, 0x02, 0x04, 0x4d, 0x49, 0x43, 0x41, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -4257,8 +3907,8 @@ func file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP() []byte {
 	return file_mica_serviceprovider_value_v1_value_proto_rawDescData
 }
 
-var file_mica_serviceprovider_value_v1_value_proto_enumTypes = make([]protoimpl.EnumInfo, 13)
-var file_mica_serviceprovider_value_v1_value_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
+var file_mica_serviceprovider_value_v1_value_proto_enumTypes = make([]protoimpl.EnumInfo, 12)
+var file_mica_serviceprovider_value_v1_value_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
 var file_mica_serviceprovider_value_v1_value_proto_goTypes = []interface{}{
 	(PINStatus)(0),                                   // 0: mica.serviceprovider.value.v1.PINStatus
 	(AdviceReason)(0),                                // 1: mica.serviceprovider.value.v1.AdviceReason
@@ -4272,118 +3922,111 @@ var file_mica_serviceprovider_value_v1_value_proto_goTypes = []interface{}{
 	(ReceiveValueResponse_Status)(0),                 // 9: mica.serviceprovider.value.v1.ReceiveValueResponse.Status
 	(ValueAdviceResponse_Status)(0),                  // 10: mica.serviceprovider.value.v1.ValueAdviceResponse.Status
 	(GetValueResponse_Status)(0),                     // 11: mica.serviceprovider.value.v1.GetValueResponse.Status
-	(SendValueResponse_Status)(0),                    // 12: mica.serviceprovider.value.v1.SendValueResponse.Status
-	(*Value)(nil),                                    // 13: mica.serviceprovider.value.v1.Value
-	(*ValueRequest)(nil),                             // 14: mica.serviceprovider.value.v1.ValueRequest
-	(*ObtainValueRequest)(nil),                       // 15: mica.serviceprovider.value.v1.ObtainValueRequest
-	(*ObtainValueResponse)(nil),                      // 16: mica.serviceprovider.value.v1.ObtainValueResponse
-	(*ReverseValueRequest)(nil),                      // 17: mica.serviceprovider.value.v1.ReverseValueRequest
-	(*ReverseValueResponse)(nil),                     // 18: mica.serviceprovider.value.v1.ReverseValueResponse
-	(*ReturnValueRequest)(nil),                       // 19: mica.serviceprovider.value.v1.ReturnValueRequest
-	(*ReturnValueResponse)(nil),                      // 20: mica.serviceprovider.value.v1.ReturnValueResponse
-	(*HoldValueRequest)(nil),                         // 21: mica.serviceprovider.value.v1.HoldValueRequest
-	(*HoldValueResponse)(nil),                        // 22: mica.serviceprovider.value.v1.HoldValueResponse
-	(*AmendHoldValueRequest)(nil),                    // 23: mica.serviceprovider.value.v1.AmendHoldValueRequest
-	(*AmendHoldValueResponse)(nil),                   // 24: mica.serviceprovider.value.v1.AmendHoldValueResponse
-	(*ReleaseHoldValueRequest)(nil),                  // 25: mica.serviceprovider.value.v1.ReleaseHoldValueRequest
-	(*ReleaseHoldValueResponse)(nil),                 // 26: mica.serviceprovider.value.v1.ReleaseHoldValueResponse
-	(*ObtainHoldValueRequest)(nil),                   // 27: mica.serviceprovider.value.v1.ObtainHoldValueRequest
-	(*ObtainHoldValueResponse)(nil),                  // 28: mica.serviceprovider.value.v1.ObtainHoldValueResponse
-	(*From)(nil),                                     // 29: mica.serviceprovider.value.v1.From
-	(*ReceiveValueRequest)(nil),                      // 30: mica.serviceprovider.value.v1.ReceiveValueRequest
-	(*ReceiveValueResponse)(nil),                     // 31: mica.serviceprovider.value.v1.ReceiveValueResponse
-	(*ValueAdvice)(nil),                              // 32: mica.serviceprovider.value.v1.ValueAdvice
-	(*ValueAdviceRequest)(nil),                       // 33: mica.serviceprovider.value.v1.ValueAdviceRequest
-	(*ValueAdviceResponse)(nil),                      // 34: mica.serviceprovider.value.v1.ValueAdviceResponse
-	(*GetValueRequest)(nil),                          // 35: mica.serviceprovider.value.v1.GetValueRequest
-	(*GetValueResponse)(nil),                         // 36: mica.serviceprovider.value.v1.GetValueResponse
-	(*SendValueRequest)(nil),                         // 37: mica.serviceprovider.value.v1.SendValueRequest
-	(*SendValueResponse)(nil),                        // 38: mica.serviceprovider.value.v1.SendValueResponse
-	(*timestamppb.Timestamp)(nil),                    // 39: google.protobuf.Timestamp
-	(valueoperationtypev1.ValueOperationType)(0),     // 40: micashared.common.enums.valueoperationtype.v1.ValueOperationType
-	(currencyv1.Currency)(0),                         // 41: micashared.common.enums.currency.v1.Currency
-	(*v1.Address)(nil),                               // 42: micashared.common.v1.Address
-	(organizationcategoryv1.OrganizationCategory)(0), // 43: micashared.common.enums.organizationcategory.v1.OrganizationCategory
-	(*instrumentv1.InstrumentExternalReference)(nil), // 44: mica.serviceprovider.instrument.v1.InstrumentExternalReference
-	(*v1.TransactionIdentifier)(nil),                 // 45: micashared.common.v1.TransactionIdentifier
-	(approvaltypev1.ApprovalType)(0),                 // 46: micashared.common.enums.approvaltype.v1.ApprovalType
-	(*v1.RiskSignal)(nil),                            // 47: micashared.common.v1.RiskSignal
-	(*v1.Error)(nil),                                 // 48: micashared.common.v1.Error
+	(*Value)(nil),                                    // 12: mica.serviceprovider.value.v1.Value
+	(*ValueRequest)(nil),                             // 13: mica.serviceprovider.value.v1.ValueRequest
+	(*ObtainValueRequest)(nil),                       // 14: mica.serviceprovider.value.v1.ObtainValueRequest
+	(*ObtainValueResponse)(nil),                      // 15: mica.serviceprovider.value.v1.ObtainValueResponse
+	(*ReverseValueRequest)(nil),                      // 16: mica.serviceprovider.value.v1.ReverseValueRequest
+	(*ReverseValueResponse)(nil),                     // 17: mica.serviceprovider.value.v1.ReverseValueResponse
+	(*ReturnValueRequest)(nil),                       // 18: mica.serviceprovider.value.v1.ReturnValueRequest
+	(*ReturnValueResponse)(nil),                      // 19: mica.serviceprovider.value.v1.ReturnValueResponse
+	(*HoldValueRequest)(nil),                         // 20: mica.serviceprovider.value.v1.HoldValueRequest
+	(*HoldValueResponse)(nil),                        // 21: mica.serviceprovider.value.v1.HoldValueResponse
+	(*AmendHoldValueRequest)(nil),                    // 22: mica.serviceprovider.value.v1.AmendHoldValueRequest
+	(*AmendHoldValueResponse)(nil),                   // 23: mica.serviceprovider.value.v1.AmendHoldValueResponse
+	(*ReleaseHoldValueRequest)(nil),                  // 24: mica.serviceprovider.value.v1.ReleaseHoldValueRequest
+	(*ReleaseHoldValueResponse)(nil),                 // 25: mica.serviceprovider.value.v1.ReleaseHoldValueResponse
+	(*ObtainHoldValueRequest)(nil),                   // 26: mica.serviceprovider.value.v1.ObtainHoldValueRequest
+	(*ObtainHoldValueResponse)(nil),                  // 27: mica.serviceprovider.value.v1.ObtainHoldValueResponse
+	(*From)(nil),                                     // 28: mica.serviceprovider.value.v1.From
+	(*ReceiveValueRequest)(nil),                      // 29: mica.serviceprovider.value.v1.ReceiveValueRequest
+	(*ReceiveValueResponse)(nil),                     // 30: mica.serviceprovider.value.v1.ReceiveValueResponse
+	(*ValueAdvice)(nil),                              // 31: mica.serviceprovider.value.v1.ValueAdvice
+	(*ValueAdviceRequest)(nil),                       // 32: mica.serviceprovider.value.v1.ValueAdviceRequest
+	(*ValueAdviceResponse)(nil),                      // 33: mica.serviceprovider.value.v1.ValueAdviceResponse
+	(*GetValueRequest)(nil),                          // 34: mica.serviceprovider.value.v1.GetValueRequest
+	(*GetValueResponse)(nil),                         // 35: mica.serviceprovider.value.v1.GetValueResponse
+	(*timestamppb.Timestamp)(nil),                    // 36: google.protobuf.Timestamp
+	(valueoperationtypev1.ValueOperationType)(0),     // 37: micashared.common.enums.valueoperationtype.v1.ValueOperationType
+	(currencyv1.Currency)(0),                         // 38: micashared.common.enums.currency.v1.Currency
+	(*v1.Address)(nil),                               // 39: micashared.common.v1.Address
+	(organizationcategoryv1.OrganizationCategory)(0), // 40: micashared.common.enums.organizationcategory.v1.OrganizationCategory
+	(*instrumentv1.InstrumentExternalReference)(nil), // 41: mica.serviceprovider.instrument.v1.InstrumentExternalReference
+	(*v1.TransactionIdentifier)(nil),                 // 42: micashared.common.v1.TransactionIdentifier
+	(approvaltypev1.ApprovalType)(0),                 // 43: micashared.common.enums.approvaltype.v1.ApprovalType
+	(*v1.RiskSignal)(nil),                            // 44: micashared.common.v1.RiskSignal
+	(*v1.Error)(nil),                                 // 45: micashared.common.v1.Error
 }
 var file_mica_serviceprovider_value_v1_value_proto_depIdxs = []int32{
-	39, // 0: mica.serviceprovider.value.v1.Value.created:type_name -> google.protobuf.Timestamp
-	39, // 1: mica.serviceprovider.value.v1.Value.updated:type_name -> google.protobuf.Timestamp
-	40, // 2: mica.serviceprovider.value.v1.Value.operation_type:type_name -> micashared.common.enums.valueoperationtype.v1.ValueOperationType
-	41, // 3: mica.serviceprovider.value.v1.Value.currency:type_name -> micashared.common.enums.currency.v1.Currency
-	42, // 4: mica.serviceprovider.value.v1.Value.organization_address:type_name -> micashared.common.v1.Address
-	43, // 5: mica.serviceprovider.value.v1.Value.category:type_name -> micashared.common.enums.organizationcategory.v1.OrganizationCategory
-	42, // 6: mica.serviceprovider.value.v1.Value.store_address:type_name -> micashared.common.v1.Address
-	39, // 7: mica.serviceprovider.value.v1.Value.expiration:type_name -> google.protobuf.Timestamp
-	44, // 8: mica.serviceprovider.value.v1.ValueRequest.instrument_external_reference:type_name -> mica.serviceprovider.instrument.v1.InstrumentExternalReference
-	41, // 9: mica.serviceprovider.value.v1.ValueRequest.currency:type_name -> micashared.common.enums.currency.v1.Currency
-	42, // 10: mica.serviceprovider.value.v1.ValueRequest.organization_address:type_name -> micashared.common.v1.Address
-	43, // 11: mica.serviceprovider.value.v1.ValueRequest.category:type_name -> micashared.common.enums.organizationcategory.v1.OrganizationCategory
-	42, // 12: mica.serviceprovider.value.v1.ValueRequest.store_address:type_name -> micashared.common.v1.Address
-	45, // 13: mica.serviceprovider.value.v1.ValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
-	46, // 14: mica.serviceprovider.value.v1.ObtainValueRequest.approval_type:type_name -> micashared.common.enums.approvaltype.v1.ApprovalType
-	14, // 15: mica.serviceprovider.value.v1.ObtainValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
-	47, // 16: mica.serviceprovider.value.v1.ObtainValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	36, // 0: mica.serviceprovider.value.v1.Value.created:type_name -> google.protobuf.Timestamp
+	36, // 1: mica.serviceprovider.value.v1.Value.updated:type_name -> google.protobuf.Timestamp
+	37, // 2: mica.serviceprovider.value.v1.Value.operation_type:type_name -> micashared.common.enums.valueoperationtype.v1.ValueOperationType
+	38, // 3: mica.serviceprovider.value.v1.Value.currency:type_name -> micashared.common.enums.currency.v1.Currency
+	39, // 4: mica.serviceprovider.value.v1.Value.organization_address:type_name -> micashared.common.v1.Address
+	40, // 5: mica.serviceprovider.value.v1.Value.category:type_name -> micashared.common.enums.organizationcategory.v1.OrganizationCategory
+	39, // 6: mica.serviceprovider.value.v1.Value.store_address:type_name -> micashared.common.v1.Address
+	36, // 7: mica.serviceprovider.value.v1.Value.expiration:type_name -> google.protobuf.Timestamp
+	41, // 8: mica.serviceprovider.value.v1.ValueRequest.instrument_external_reference:type_name -> mica.serviceprovider.instrument.v1.InstrumentExternalReference
+	38, // 9: mica.serviceprovider.value.v1.ValueRequest.currency:type_name -> micashared.common.enums.currency.v1.Currency
+	39, // 10: mica.serviceprovider.value.v1.ValueRequest.organization_address:type_name -> micashared.common.v1.Address
+	40, // 11: mica.serviceprovider.value.v1.ValueRequest.category:type_name -> micashared.common.enums.organizationcategory.v1.OrganizationCategory
+	39, // 12: mica.serviceprovider.value.v1.ValueRequest.store_address:type_name -> micashared.common.v1.Address
+	42, // 13: mica.serviceprovider.value.v1.ValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	43, // 14: mica.serviceprovider.value.v1.ObtainValueRequest.approval_type:type_name -> micashared.common.enums.approvaltype.v1.ApprovalType
+	13, // 15: mica.serviceprovider.value.v1.ObtainValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
+	44, // 16: mica.serviceprovider.value.v1.ObtainValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
 	2,  // 17: mica.serviceprovider.value.v1.ObtainValueResponse.status:type_name -> mica.serviceprovider.value.v1.ObtainValueResponse.Status
-	48, // 18: mica.serviceprovider.value.v1.ObtainValueResponse.error:type_name -> micashared.common.v1.Error
-	47, // 19: mica.serviceprovider.value.v1.ReverseValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
-	45, // 20: mica.serviceprovider.value.v1.ReverseValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	45, // 18: mica.serviceprovider.value.v1.ObtainValueResponse.error:type_name -> micashared.common.v1.Error
+	44, // 19: mica.serviceprovider.value.v1.ReverseValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	42, // 20: mica.serviceprovider.value.v1.ReverseValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
 	3,  // 21: mica.serviceprovider.value.v1.ReverseValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReverseValueResponse.Status
-	48, // 22: mica.serviceprovider.value.v1.ReverseValueResponse.error:type_name -> micashared.common.v1.Error
-	14, // 23: mica.serviceprovider.value.v1.ReturnValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
-	47, // 24: mica.serviceprovider.value.v1.ReturnValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	45, // 22: mica.serviceprovider.value.v1.ReverseValueResponse.error:type_name -> micashared.common.v1.Error
+	13, // 23: mica.serviceprovider.value.v1.ReturnValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
+	44, // 24: mica.serviceprovider.value.v1.ReturnValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
 	4,  // 25: mica.serviceprovider.value.v1.ReturnValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReturnValueResponse.Status
-	48, // 26: mica.serviceprovider.value.v1.ReturnValueResponse.error:type_name -> micashared.common.v1.Error
-	39, // 27: mica.serviceprovider.value.v1.HoldValueRequest.expiration:type_name -> google.protobuf.Timestamp
-	14, // 28: mica.serviceprovider.value.v1.HoldValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
-	47, // 29: mica.serviceprovider.value.v1.HoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	45, // 26: mica.serviceprovider.value.v1.ReturnValueResponse.error:type_name -> micashared.common.v1.Error
+	36, // 27: mica.serviceprovider.value.v1.HoldValueRequest.expiration:type_name -> google.protobuf.Timestamp
+	13, // 28: mica.serviceprovider.value.v1.HoldValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
+	44, // 29: mica.serviceprovider.value.v1.HoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
 	5,  // 30: mica.serviceprovider.value.v1.HoldValueResponse.status:type_name -> mica.serviceprovider.value.v1.HoldValueResponse.Status
-	48, // 31: mica.serviceprovider.value.v1.HoldValueResponse.error:type_name -> micashared.common.v1.Error
-	39, // 32: mica.serviceprovider.value.v1.AmendHoldValueRequest.expiration:type_name -> google.protobuf.Timestamp
-	47, // 33: mica.serviceprovider.value.v1.AmendHoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
-	45, // 34: mica.serviceprovider.value.v1.AmendHoldValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	45, // 31: mica.serviceprovider.value.v1.HoldValueResponse.error:type_name -> micashared.common.v1.Error
+	36, // 32: mica.serviceprovider.value.v1.AmendHoldValueRequest.expiration:type_name -> google.protobuf.Timestamp
+	44, // 33: mica.serviceprovider.value.v1.AmendHoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	42, // 34: mica.serviceprovider.value.v1.AmendHoldValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
 	6,  // 35: mica.serviceprovider.value.v1.AmendHoldValueResponse.status:type_name -> mica.serviceprovider.value.v1.AmendHoldValueResponse.Status
-	48, // 36: mica.serviceprovider.value.v1.AmendHoldValueResponse.error:type_name -> micashared.common.v1.Error
-	39, // 37: mica.serviceprovider.value.v1.ReleaseHoldValueRequest.release_timestamp:type_name -> google.protobuf.Timestamp
-	47, // 38: mica.serviceprovider.value.v1.ReleaseHoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
-	45, // 39: mica.serviceprovider.value.v1.ReleaseHoldValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	45, // 36: mica.serviceprovider.value.v1.AmendHoldValueResponse.error:type_name -> micashared.common.v1.Error
+	36, // 37: mica.serviceprovider.value.v1.ReleaseHoldValueRequest.release_timestamp:type_name -> google.protobuf.Timestamp
+	44, // 38: mica.serviceprovider.value.v1.ReleaseHoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	42, // 39: mica.serviceprovider.value.v1.ReleaseHoldValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
 	7,  // 40: mica.serviceprovider.value.v1.ReleaseHoldValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReleaseHoldValueResponse.Status
-	48, // 41: mica.serviceprovider.value.v1.ReleaseHoldValueResponse.error:type_name -> micashared.common.v1.Error
-	14, // 42: mica.serviceprovider.value.v1.ObtainHoldValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
-	47, // 43: mica.serviceprovider.value.v1.ObtainHoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	45, // 41: mica.serviceprovider.value.v1.ReleaseHoldValueResponse.error:type_name -> micashared.common.v1.Error
+	13, // 42: mica.serviceprovider.value.v1.ObtainHoldValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
+	44, // 43: mica.serviceprovider.value.v1.ObtainHoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
 	8,  // 44: mica.serviceprovider.value.v1.ObtainHoldValueResponse.status:type_name -> mica.serviceprovider.value.v1.ObtainHoldValueResponse.Status
-	48, // 45: mica.serviceprovider.value.v1.ObtainHoldValueResponse.error:type_name -> micashared.common.v1.Error
-	44, // 46: mica.serviceprovider.value.v1.ReceiveValueRequest.instrument_external_reference:type_name -> mica.serviceprovider.instrument.v1.InstrumentExternalReference
-	41, // 47: mica.serviceprovider.value.v1.ReceiveValueRequest.currency:type_name -> micashared.common.enums.currency.v1.Currency
-	29, // 48: mica.serviceprovider.value.v1.ReceiveValueRequest.from:type_name -> mica.serviceprovider.value.v1.From
-	47, // 49: mica.serviceprovider.value.v1.ReceiveValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
-	45, // 50: mica.serviceprovider.value.v1.ReceiveValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	45, // 45: mica.serviceprovider.value.v1.ObtainHoldValueResponse.error:type_name -> micashared.common.v1.Error
+	41, // 46: mica.serviceprovider.value.v1.ReceiveValueRequest.instrument_external_reference:type_name -> mica.serviceprovider.instrument.v1.InstrumentExternalReference
+	38, // 47: mica.serviceprovider.value.v1.ReceiveValueRequest.currency:type_name -> micashared.common.enums.currency.v1.Currency
+	28, // 48: mica.serviceprovider.value.v1.ReceiveValueRequest.from:type_name -> mica.serviceprovider.value.v1.From
+	44, // 49: mica.serviceprovider.value.v1.ReceiveValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	42, // 50: mica.serviceprovider.value.v1.ReceiveValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
 	9,  // 51: mica.serviceprovider.value.v1.ReceiveValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReceiveValueResponse.Status
-	48, // 52: mica.serviceprovider.value.v1.ReceiveValueResponse.error:type_name -> micashared.common.v1.Error
+	45, // 52: mica.serviceprovider.value.v1.ReceiveValueResponse.error:type_name -> micashared.common.v1.Error
 	1,  // 53: mica.serviceprovider.value.v1.ValueAdvice.advice_reason:type_name -> mica.serviceprovider.value.v1.AdviceReason
-	46, // 54: mica.serviceprovider.value.v1.ValueAdvice.approval_type:type_name -> micashared.common.enums.approvaltype.v1.ApprovalType
-	14, // 55: mica.serviceprovider.value.v1.ValueAdvice.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
-	32, // 56: mica.serviceprovider.value.v1.ValueAdviceRequest.value_advices:type_name -> mica.serviceprovider.value.v1.ValueAdvice
+	43, // 54: mica.serviceprovider.value.v1.ValueAdvice.approval_type:type_name -> micashared.common.enums.approvaltype.v1.ApprovalType
+	13, // 55: mica.serviceprovider.value.v1.ValueAdvice.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
+	31, // 56: mica.serviceprovider.value.v1.ValueAdviceRequest.value_advices:type_name -> mica.serviceprovider.value.v1.ValueAdvice
 	10, // 57: mica.serviceprovider.value.v1.ValueAdviceResponse.status:type_name -> mica.serviceprovider.value.v1.ValueAdviceResponse.Status
-	48, // 58: mica.serviceprovider.value.v1.ValueAdviceResponse.error:type_name -> micashared.common.v1.Error
+	45, // 58: mica.serviceprovider.value.v1.ValueAdviceResponse.error:type_name -> micashared.common.v1.Error
 	11, // 59: mica.serviceprovider.value.v1.GetValueResponse.status:type_name -> mica.serviceprovider.value.v1.GetValueResponse.Status
-	48, // 60: mica.serviceprovider.value.v1.GetValueResponse.error:type_name -> micashared.common.v1.Error
-	13, // 61: mica.serviceprovider.value.v1.GetValueResponse.value:type_name -> mica.serviceprovider.value.v1.Value
-	39, // 62: mica.serviceprovider.value.v1.GetValueResponse.oldest_transaction_time:type_name -> google.protobuf.Timestamp
-	45, // 63: mica.serviceprovider.value.v1.GetValueResponse.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
-	41, // 64: mica.serviceprovider.value.v1.SendValueRequest.currency:type_name -> micashared.common.enums.currency.v1.Currency
-	47, // 65: mica.serviceprovider.value.v1.SendValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
-	12, // 66: mica.serviceprovider.value.v1.SendValueResponse.status:type_name -> mica.serviceprovider.value.v1.SendValueResponse.Status
-	48, // 67: mica.serviceprovider.value.v1.SendValueResponse.error:type_name -> micashared.common.v1.Error
-	68, // [68:68] is the sub-list for method output_type
-	68, // [68:68] is the sub-list for method input_type
-	68, // [68:68] is the sub-list for extension type_name
-	68, // [68:68] is the sub-list for extension extendee
-	0,  // [0:68] is the sub-list for field type_name
+	45, // 60: mica.serviceprovider.value.v1.GetValueResponse.error:type_name -> micashared.common.v1.Error
+	12, // 61: mica.serviceprovider.value.v1.GetValueResponse.value:type_name -> mica.serviceprovider.value.v1.Value
+	36, // 62: mica.serviceprovider.value.v1.GetValueResponse.oldest_transaction_time:type_name -> google.protobuf.Timestamp
+	42, // 63: mica.serviceprovider.value.v1.GetValueResponse.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	64, // [64:64] is the sub-list for method output_type
+	64, // [64:64] is the sub-list for method input_type
+	64, // [64:64] is the sub-list for extension type_name
+	64, // [64:64] is the sub-list for extension extendee
+	0,  // [0:64] is the sub-list for field type_name
 }
 
 func init() { file_mica_serviceprovider_value_v1_value_proto_init() }
@@ -4680,48 +4323,18 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 				return nil
 			}
 		}
-		file_mica_serviceprovider_value_v1_value_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SendValueRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_mica_serviceprovider_value_v1_value_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SendValueResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
 	}
 	file_mica_serviceprovider_value_v1_value_proto_msgTypes[22].OneofWrappers = []interface{}{
 		(*GetValueRequest_TransactionKey)(nil),
 		(*GetValueRequest_TransactionRef)(nil),
-	}
-	file_mica_serviceprovider_value_v1_value_proto_msgTypes[24].OneofWrappers = []interface{}{
-		(*SendValueRequest_ServiceProviderUserKey)(nil),
-		(*SendValueRequest_ServiceProviderUserRef)(nil),
-		(*SendValueRequest_ServiceProviderInstrumentKey)(nil),
-		(*SendValueRequest_ServiceProviderInstrumentRef)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_mica_serviceprovider_value_v1_value_proto_rawDesc,
-			NumEnums:      13,
-			NumMessages:   26,
+			NumEnums:      12,
+			NumMessages:   24,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

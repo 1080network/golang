@@ -19,7 +19,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	pingv1 "github.com/1080network/golang/fullsdk/proto/micashared/common/pingv1"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -34,8 +33,6 @@ const (
 	ValueProviderToMicaService_UpdateBalance_FullMethodName               = "/mica.valueexchange.service.v1.ValueProviderToMicaService/UpdateBalance"
 	ValueProviderToMicaService_RemoveAccount_FullMethodName               = "/mica.valueexchange.service.v1.ValueProviderToMicaService/RemoveAccount"
 	ValueProviderToMicaService_ProvisionAccountLinkingCode_FullMethodName = "/mica.valueexchange.service.v1.ValueProviderToMicaService/ProvisionAccountLinkingCode"
-	ValueProviderToMicaService_Ping_FullMethodName                        = "/mica.valueexchange.service.v1.ValueProviderToMicaService/Ping"
-	ValueProviderToMicaService_PingWithRoundTrip_FullMethodName           = "/mica.valueexchange.service.v1.ValueProviderToMicaService/PingWithRoundTrip"
 )
 
 // ValueProviderToMicaServiceClient is the client API for ValueProviderToMicaService service.
@@ -49,11 +46,6 @@ type ValueProviderToMicaServiceClient interface {
 	UpdateBalance(ctx context.Context, in *UpdateBalanceRequest, opts ...grpc.CallOption) (*UpdateBalanceResponse, error)
 	RemoveAccount(ctx context.Context, in *RemoveAccountRequest, opts ...grpc.CallOption) (*RemoveAccountResponse, error)
 	ProvisionAccountLinkingCode(ctx context.Context, in *ProvisionAccountLinkingCodeRequest, opts ...grpc.CallOption) (*ProvisionAccountLinkingCodeResponse, error)
-	// An operation to ping the server to ensure it's up and running and that the connection is good.
-	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
-	// An operation that triggers a ping to the Mica servervice and that in turn triggers a ping to the discount provider service.
-	// This is a useful call to ensure that the connectivity and security between the mica an external services is working.
-	PingWithRoundTrip(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
 }
 
 type valueProviderToMicaServiceClient struct {
@@ -118,24 +110,6 @@ func (c *valueProviderToMicaServiceClient) ProvisionAccountLinkingCode(ctx conte
 	return out, nil
 }
 
-func (c *valueProviderToMicaServiceClient) Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
-	out := new(pingv1.PingResponse)
-	err := c.cc.Invoke(ctx, ValueProviderToMicaService_Ping_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *valueProviderToMicaServiceClient) PingWithRoundTrip(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
-	out := new(pingv1.PingResponse)
-	err := c.cc.Invoke(ctx, ValueProviderToMicaService_PingWithRoundTrip_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // ValueProviderToMicaServiceServer is the server API for ValueProviderToMicaService service.
 // All implementations must embed UnimplementedValueProviderToMicaServiceServer
 // for forward compatibility
@@ -147,11 +121,6 @@ type ValueProviderToMicaServiceServer interface {
 	UpdateBalance(context.Context, *UpdateBalanceRequest) (*UpdateBalanceResponse, error)
 	RemoveAccount(context.Context, *RemoveAccountRequest) (*RemoveAccountResponse, error)
 	ProvisionAccountLinkingCode(context.Context, *ProvisionAccountLinkingCodeRequest) (*ProvisionAccountLinkingCodeResponse, error)
-	// An operation to ping the server to ensure it's up and running and that the connection is good.
-	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
-	// An operation that triggers a ping to the Mica servervice and that in turn triggers a ping to the discount provider service.
-	// This is a useful call to ensure that the connectivity and security between the mica an external services is working.
-	PingWithRoundTrip(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
 	mustEmbedUnimplementedValueProviderToMicaServiceServer()
 }
 
@@ -176,12 +145,6 @@ func (UnimplementedValueProviderToMicaServiceServer) RemoveAccount(context.Conte
 }
 func (UnimplementedValueProviderToMicaServiceServer) ProvisionAccountLinkingCode(context.Context, *ProvisionAccountLinkingCodeRequest) (*ProvisionAccountLinkingCodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ProvisionAccountLinkingCode not implemented")
-}
-func (UnimplementedValueProviderToMicaServiceServer) Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
-}
-func (UnimplementedValueProviderToMicaServiceServer) PingWithRoundTrip(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PingWithRoundTrip not implemented")
 }
 func (UnimplementedValueProviderToMicaServiceServer) mustEmbedUnimplementedValueProviderToMicaServiceServer() {
 }
@@ -305,42 +268,6 @@ func _ValueProviderToMicaService_ProvisionAccountLinkingCode_Handler(srv interfa
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ValueProviderToMicaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(pingv1.PingRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ValueProviderToMicaServiceServer).Ping(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ValueProviderToMicaService_Ping_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ValueProviderToMicaServiceServer).Ping(ctx, req.(*pingv1.PingRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ValueProviderToMicaService_PingWithRoundTrip_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(pingv1.PingRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ValueProviderToMicaServiceServer).PingWithRoundTrip(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ValueProviderToMicaService_PingWithRoundTrip_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ValueProviderToMicaServiceServer).PingWithRoundTrip(ctx, req.(*pingv1.PingRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // ValueProviderToMicaService_ServiceDesc is the grpc.ServiceDesc for ValueProviderToMicaService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -371,14 +298,6 @@ var ValueProviderToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ProvisionAccountLinkingCode",
 			Handler:    _ValueProviderToMicaService_ProvisionAccountLinkingCode_Handler,
-		},
-		{
-			MethodName: "Ping",
-			Handler:    _ValueProviderToMicaService_Ping_Handler,
-		},
-		{
-			MethodName: "PingWithRoundTrip",
-			Handler:    _ValueProviderToMicaService_PingWithRoundTrip_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

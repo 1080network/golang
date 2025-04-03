@@ -12,7 +12,6 @@ package mica.ebt.service.v1;
 
 import "mica/ebt/listitem/v1/list_item.proto";
 import "mica/ebt/program/v1/program.proto";
-import "micashared/common/ping/v1/ping.proto";
 
 option go_package = "mica/ebt/servicev1";
 option java_outer_classname = "EbtServiceProto";
@@ -44,16 +43,12 @@ option objc_class_prefix = "MICA";
 // reject only those that are AGE_RESTRICTED/INELIGIBLE or accept/reject those that aren't either
 // of those.</p>
 service EBTService {
-  //<editor-fold desc="EBT Program Management">
 
   // Retrieve an EBT Program based on it's key.
   rpc GetEBTProgram(program.v1.GetEBTProgramRequest) returns (program.v1.GetEBTProgramResponse) {}
 
   // Update an EBT program's rules.
   rpc UpdateEBTProgram(program.v1.UpdateEBTProgramRequest) returns (program.v1.UpdateEBTProgramResponse) {}
-  //</editor-fold>
-
-  //<editor-fold desc="List Management Operations">
 
   // Create a list item (either eligible, ineligible or age restricted) for a given program and product code.
   rpc CreateListItem(listitem.v1.CreateListItemRequest) returns (listitem.v1.CreateListItemResponse) {}
@@ -69,11 +64,4 @@ service EBTService {
 
   // Like GetListItem, can be used to retrieve List Items based on the criteria in the request.
   rpc SearchListItem(listitem.v1.SearchListItemRequest) returns (listitem.v1.SearchListItemResponse) {}
-  //</editor-fold>
-
-  //<editor-fold desc="Admin Operations">
-
-  // An operation to ping the server to ensure it's up and running and that the connection is good.
-  rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
-  //</editor-fold>
 }
