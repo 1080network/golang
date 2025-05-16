@@ -10,6 +10,7 @@ syntax = "proto3";
 
 package mica.partner.service.v1;
 
+import "google/protobuf/timestamp.proto";
 import "mica/partner/account/v1/account.proto";
 import "mica/partner/instrument/v1/instrument.proto";
 import "mica/partner/organization/v1/organization.proto";
@@ -17,7 +18,6 @@ import "mica/partner/partner/v1/partner.proto";
 import "mica/partner/serviceprovider/v1/service_provider.proto";
 import "mica/partner/store/v1/store.proto";
 import "mica/partner/value/v1/value.proto";
-import "micashared/common/ping/v1/ping.proto";
 
 option go_package = "mica/partner/servicev1";
 option java_outer_classname = "PartnerToMicaServiceProto";
@@ -30,9 +30,6 @@ service PartnerToMicaService {
 
   // Create an ABA account for a partner for use in settling transactions.
   rpc CreateABAAccount(mica.partner.account.v1.CreateABAAccountRequest) returns (mica.partner.account.v1.CreateABAAccountResponse) {}
-
-  // Retrieve an ABA account based on it's key.
-  rpc GetABAAccount(mica.partner.account.v1.GetABAAccountRequest) returns (mica.partner.account.v1.GetABAAccountResponse) {}
 
   // Search for ABA accounts based on the criteria in the request.
   rpc SearchABAAccount(mica.partner.account.v1.SearchABAAccountRequest) returns (mica.partner.account.v1.SearchABAAccountResponse) {}
@@ -80,13 +77,13 @@ service PartnerToMicaService {
   rpc ObtainValue(value.v1.ObtainValueRequest) returns (value.v1.ObtainValueResponse) {}
 
   // A method to reverse obtain value, including transaction fees and discounts for a given transaction
-  rpc ReverseObtainValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseObtainValueResponse) {}
+  rpc ReverseObtainValue(value.v1.ReverseObtainValueRequest) returns (value.v1.ReverseObtainValueResponse) {}
 
   // A method to return value to a user in order to refund them for goods or services.
   rpc ReturnValue(value.v1.ReturnValueRequest) returns (value.v1.ReturnValueResponse) {}
 
   // A method to reverse return value for a given transaction
-  rpc ReverseReturnValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseReturnValueResponse) {}
+  rpc ReverseReturnValue(value.v1.ReverseReturnValueRequest) returns (value.v1.ReverseReturnValueResponse) {}
 
   // A method to retrieve a value transaction
   rpc GetValue(value.v1.GetValueRequest) returns (value.v1.GetValueResponse) {}
@@ -116,5 +113,27 @@ service PartnerToMicaService {
   rpc ProvisionUUEKFromLink(instrument.v1.ProvisionUUEKFromLinkRequest) returns (instrument.v1.ProvisionUUEKFromLinkResponse){}
 
   // A method to ping the server to ensure it's up and running and that the connection is good.
-  rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+  rpc Ping(PingRequest) returns (PingResponse) {}
+}
+
+message PingRequest {}
+
+message PingResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+  }
+  Status status = 1;
+
+  google.protobuf.Timestamp server_time = 2;
+
+  google.protobuf.Timestamp server_start_time = 7;
+
+  string build_version = 3;
+
+  string build_sha = 4;
+
+  string build_time = 5;
+
+  string service_type = 6;
 }

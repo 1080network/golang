@@ -56,21 +56,3 @@ message CreateABAAccountResponse{
 
   string account_key = 3;
 }
-
-
-message GetABAAccountRequest {
-  string account_key = 1;
-}
-
-message GetABAAccountResponse{
-  enum Status{
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_NOT_FOUND = 3;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  micashared.common.v1.ABAAccountNumber account = 3;
-}

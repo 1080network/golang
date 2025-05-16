@@ -12,7 +12,6 @@ package mica.serviceprovider.service.v1;
 
 import "mica/serviceprovider/user/v1/user.proto";
 import "mica/serviceprovider/value/v1/value.proto";
-import "micashared/common/ping/v1/ping.proto";
 
 option go_package = "mica/serviceprovider/servicev1";
 option java_outer_classname = "ServiceProviderFromMicaServiceProto";
@@ -34,20 +33,18 @@ service ServiceProviderFromMicaService {
   // whatever channel they already use to message their users.
   rpc EnrollUserInstrument(user.v1.EnrollUserInstrumentRequest) returns (user.v1.EnrollUserInstrumentResponse) {}
 
-  //<editor-fold desc="Value Operations">
-
   // Operation to obtain value from a given instrument. Along with a common Value object (see
   // above), it includes an approval type of either FULL or PARTIAL.
   rpc ObtainValue(value.v1.ObtainValueRequest) returns (value.v1.ObtainValueResponse) {}
 
   // Reverse a ObtainValue transaction
-  rpc ReverseObtainValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseValueResponse) {}
+  rpc ReverseObtainValue(value.v1.ReverseObtainValueRequest) returns (value.v1.ReverseObtainValueResponse) {}
 
   // Operation to return value to a given instrument.
   rpc ReturnValue(value.v1.ReturnValueRequest) returns (value.v1.ReturnValueResponse) {}
 
   // Reverse a ReturnValue transaction
-  rpc ReverseReturnValue(value.v1.ReverseValueRequest) returns (value.v1.ReverseValueResponse) {}
+  rpc ReverseReturnValue(value.v1.ReverseReturnValueRequest) returns (value.v1.ReverseReturnValueResponse) {}
 
   // Hold a value for a given instrument to be used at a later time
   rpc HoldValue(value.v1.HoldValueRequest) returns (value.v1.HoldValueResponse) {}
@@ -64,11 +61,15 @@ service ServiceProviderFromMicaService {
   rpc ReceiveValue(value.v1.ReceiveValueRequest) returns (value.v1.ReceiveValueResponse) {}
 
   rpc ValueAdvice(value.v1.ValueAdviceRequest) returns (value.v1.ValueAdviceResponse) {}
-  //</editor-fold>
-
-  //<editor-fold desc="Admin Operations">
 
   // An operation to ping the server to ensure it's up and running and that the connection is good.
-  rpc Ping(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
-  //</editor-fold>
+  rpc Ping(ServiceProviderFromMicaServicePingRequest) returns (ServiceProviderFromMicaServicePingResponse) {}
+}
+
+message ServiceProviderFromMicaServicePingRequest {
+
+}
+
+message ServiceProviderFromMicaServicePingResponse {
+
 }

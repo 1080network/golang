@@ -268,45 +268,45 @@ func (ObtainValueResponse_Status) EnumDescriptor() ([]byte, []int) {
 	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{3, 0}
 }
 
-type ReverseValueResponse_Status int32
+type ReverseObtainValueResponse_Status int32
 
 const (
-	ReverseValueResponse_STATUS_UNSPECIFIED ReverseValueResponse_Status = 0
+	ReverseObtainValueResponse_STATUS_UNSPECIFIED ReverseObtainValueResponse_Status = 0
 	// An approval for the full amount
-	ReverseValueResponse_STATUS_SUCCESS ReverseValueResponse_Status = 3
+	ReverseObtainValueResponse_STATUS_SUCCESS ReverseObtainValueResponse_Status = 3
 	// An error occurred when processing the request
-	ReverseValueResponse_STATUS_ERROR ReverseValueResponse_Status = 2
+	ReverseObtainValueResponse_STATUS_ERROR ReverseObtainValueResponse_Status = 2
 	// An approval was given for a partial amount
-	ReverseValueResponse_STATUS_NOT_FOUND ReverseValueResponse_Status = 4
+	ReverseObtainValueResponse_STATUS_NOT_FOUND ReverseObtainValueResponse_Status = 4
 	// The user needs to call the Service Provider to resolve an issue
-	ReverseValueResponse_STATUS_USER_CALL_SERVICE_PROVIDER ReverseValueResponse_Status = 14
+	ReverseObtainValueResponse_STATUS_USER_CALL_SERVICE_PROVIDER ReverseObtainValueResponse_Status = 14
 	// The original transaction falls outside the allowable time window for reversal
-	ReverseValueResponse_STATUS_CUTOFF_EXCEEDED ReverseValueResponse_Status = 15
+	ReverseObtainValueResponse_STATUS_CUTOFF_EXCEEDED ReverseObtainValueResponse_Status = 15
 	// The original transaction has already been reversed
-	ReverseValueResponse_STATUS_ALREADY_REVERSED ReverseValueResponse_Status = 16
+	ReverseObtainValueResponse_STATUS_ALREADY_REVERSED ReverseObtainValueResponse_Status = 16
 	// The original transaction is not one that can be reversed
-	ReverseValueResponse_STATUS_INVALID_TRANSACTION_TYPE ReverseValueResponse_Status = 17
+	ReverseObtainValueResponse_STATUS_INVALID_TRANSACTION_TYPE ReverseObtainValueResponse_Status = 17
 	// User instrument is closed
-	ReverseValueResponse_STATUS_INSTRUMENT_CLOSED ReverseValueResponse_Status = 5
+	ReverseObtainValueResponse_STATUS_INSTRUMENT_CLOSED ReverseObtainValueResponse_Status = 5
 	// Request triggered a transactional risk or fraud check resulting in a decline
-	ReverseValueResponse_STATUS_TRANSACTION_RISK_FRAUD ReverseValueResponse_Status = 6
+	ReverseObtainValueResponse_STATUS_TRANSACTION_RISK_FRAUD ReverseObtainValueResponse_Status = 6
 	// Request triggered a bad actor risk or fraud check resulting in a decline
-	ReverseValueResponse_STATUS_BAD_ACTOR_RISK_FRAUD ReverseValueResponse_Status = 7
+	ReverseObtainValueResponse_STATUS_BAD_ACTOR_RISK_FRAUD ReverseObtainValueResponse_Status = 7
 	// Request triggered a user-based risk or fraud check resulting in a decline
-	ReverseValueResponse_STATUS_USER_RISK_FRAUD ReverseValueResponse_Status = 8
+	ReverseObtainValueResponse_STATUS_USER_RISK_FRAUD ReverseObtainValueResponse_Status = 8
 	// Request triggered a instrument-based risk or fraud check resulting in a decline
-	ReverseValueResponse_STATUS_INSTRUMENT_RISK_FRAUD ReverseValueResponse_Status = 9
+	ReverseObtainValueResponse_STATUS_INSTRUMENT_RISK_FRAUD ReverseObtainValueResponse_Status = 9
 	// The operation isn't supported by the Service Provider
-	ReverseValueResponse_STATUS_UNSUPPORTED ReverseValueResponse_Status = 11
+	ReverseObtainValueResponse_STATUS_UNSUPPORTED ReverseObtainValueResponse_Status = 11
 	// The Service Provider is temporarily unavailable
-	ReverseValueResponse_STATUS_SERVICE_PROVIDER_UNAVAILABLE ReverseValueResponse_Status = 12
+	ReverseObtainValueResponse_STATUS_SERVICE_PROVIDER_UNAVAILABLE ReverseObtainValueResponse_Status = 12
 	// Request resulted in one or more limits being exceeded at the Service Provider
-	ReverseValueResponse_STATUS_LIMIT_EXCEEDED ReverseValueResponse_Status = 13
+	ReverseObtainValueResponse_STATUS_LIMIT_EXCEEDED ReverseObtainValueResponse_Status = 13
 )
 
-// Enum value maps for ReverseValueResponse_Status.
+// Enum value maps for ReverseObtainValueResponse_Status.
 var (
-	ReverseValueResponse_Status_name = map[int32]string{
+	ReverseObtainValueResponse_Status_name = map[int32]string{
 		0:  "STATUS_UNSPECIFIED",
 		3:  "STATUS_SUCCESS",
 		2:  "STATUS_ERROR",
@@ -324,7 +324,7 @@ var (
 		12: "STATUS_SERVICE_PROVIDER_UNAVAILABLE",
 		13: "STATUS_LIMIT_EXCEEDED",
 	}
-	ReverseValueResponse_Status_value = map[string]int32{
+	ReverseObtainValueResponse_Status_value = map[string]int32{
 		"STATUS_UNSPECIFIED":                  0,
 		"STATUS_SUCCESS":                      3,
 		"STATUS_ERROR":                        2,
@@ -344,31 +344,134 @@ var (
 	}
 )
 
-func (x ReverseValueResponse_Status) Enum() *ReverseValueResponse_Status {
-	p := new(ReverseValueResponse_Status)
+func (x ReverseObtainValueResponse_Status) Enum() *ReverseObtainValueResponse_Status {
+	p := new(ReverseObtainValueResponse_Status)
 	*p = x
 	return p
 }
 
-func (x ReverseValueResponse_Status) String() string {
+func (x ReverseObtainValueResponse_Status) String() string {
 	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
 }
 
-func (ReverseValueResponse_Status) Descriptor() protoreflect.EnumDescriptor {
+func (ReverseObtainValueResponse_Status) Descriptor() protoreflect.EnumDescriptor {
 	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[3].Descriptor()
 }
 
-func (ReverseValueResponse_Status) Type() protoreflect.EnumType {
+func (ReverseObtainValueResponse_Status) Type() protoreflect.EnumType {
 	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[3]
 }
 
-func (x ReverseValueResponse_Status) Number() protoreflect.EnumNumber {
+func (x ReverseObtainValueResponse_Status) Number() protoreflect.EnumNumber {
 	return protoreflect.EnumNumber(x)
 }
 
-// Deprecated: Use ReverseValueResponse_Status.Descriptor instead.
-func (ReverseValueResponse_Status) EnumDescriptor() ([]byte, []int) {
+// Deprecated: Use ReverseObtainValueResponse_Status.Descriptor instead.
+func (ReverseObtainValueResponse_Status) EnumDescriptor() ([]byte, []int) {
 	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{5, 0}
+}
+
+type ReverseReturnValueResponse_Status int32
+
+const (
+	ReverseReturnValueResponse_STATUS_UNSPECIFIED ReverseReturnValueResponse_Status = 0
+	// An approval for the full amount
+	ReverseReturnValueResponse_STATUS_SUCCESS ReverseReturnValueResponse_Status = 3
+	// An error occurred when processing the request
+	ReverseReturnValueResponse_STATUS_ERROR ReverseReturnValueResponse_Status = 2
+	// An approval was given for a partial amount
+	ReverseReturnValueResponse_STATUS_NOT_FOUND ReverseReturnValueResponse_Status = 4
+	// The user needs to call the Service Provider to resolve an issue
+	ReverseReturnValueResponse_STATUS_USER_CALL_SERVICE_PROVIDER ReverseReturnValueResponse_Status = 14
+	// The original transaction falls outside the allowable time window for reversal
+	ReverseReturnValueResponse_STATUS_CUTOFF_EXCEEDED ReverseReturnValueResponse_Status = 15
+	// The original transaction has already been reversed
+	ReverseReturnValueResponse_STATUS_ALREADY_REVERSED ReverseReturnValueResponse_Status = 16
+	// The original transaction is not one that can be reversed
+	ReverseReturnValueResponse_STATUS_INVALID_TRANSACTION_TYPE ReverseReturnValueResponse_Status = 17
+	// User instrument is closed
+	ReverseReturnValueResponse_STATUS_INSTRUMENT_CLOSED ReverseReturnValueResponse_Status = 5
+	// Request triggered a transactional risk or fraud check resulting in a decline
+	ReverseReturnValueResponse_STATUS_TRANSACTION_RISK_FRAUD ReverseReturnValueResponse_Status = 6
+	// Request triggered a bad actor risk or fraud check resulting in a decline
+	ReverseReturnValueResponse_STATUS_BAD_ACTOR_RISK_FRAUD ReverseReturnValueResponse_Status = 7
+	// Request triggered a user-based risk or fraud check resulting in a decline
+	ReverseReturnValueResponse_STATUS_USER_RISK_FRAUD ReverseReturnValueResponse_Status = 8
+	// Request triggered a instrument-based risk or fraud check resulting in a decline
+	ReverseReturnValueResponse_STATUS_INSTRUMENT_RISK_FRAUD ReverseReturnValueResponse_Status = 9
+	// The operation isn't supported by the Service Provider
+	ReverseReturnValueResponse_STATUS_UNSUPPORTED ReverseReturnValueResponse_Status = 11
+	// The Service Provider is temporarily unavailable
+	ReverseReturnValueResponse_STATUS_SERVICE_PROVIDER_UNAVAILABLE ReverseReturnValueResponse_Status = 12
+	// Request resulted in one or more limits being exceeded at the Service Provider
+	ReverseReturnValueResponse_STATUS_LIMIT_EXCEEDED ReverseReturnValueResponse_Status = 13
+)
+
+// Enum value maps for ReverseReturnValueResponse_Status.
+var (
+	ReverseReturnValueResponse_Status_name = map[int32]string{
+		0:  "STATUS_UNSPECIFIED",
+		3:  "STATUS_SUCCESS",
+		2:  "STATUS_ERROR",
+		4:  "STATUS_NOT_FOUND",
+		14: "STATUS_USER_CALL_SERVICE_PROVIDER",
+		15: "STATUS_CUTOFF_EXCEEDED",
+		16: "STATUS_ALREADY_REVERSED",
+		17: "STATUS_INVALID_TRANSACTION_TYPE",
+		5:  "STATUS_INSTRUMENT_CLOSED",
+		6:  "STATUS_TRANSACTION_RISK_FRAUD",
+		7:  "STATUS_BAD_ACTOR_RISK_FRAUD",
+		8:  "STATUS_USER_RISK_FRAUD",
+		9:  "STATUS_INSTRUMENT_RISK_FRAUD",
+		11: "STATUS_UNSUPPORTED",
+		12: "STATUS_SERVICE_PROVIDER_UNAVAILABLE",
+		13: "STATUS_LIMIT_EXCEEDED",
+	}
+	ReverseReturnValueResponse_Status_value = map[string]int32{
+		"STATUS_UNSPECIFIED":                  0,
+		"STATUS_SUCCESS":                      3,
+		"STATUS_ERROR":                        2,
+		"STATUS_NOT_FOUND":                    4,
+		"STATUS_USER_CALL_SERVICE_PROVIDER":   14,
+		"STATUS_CUTOFF_EXCEEDED":              15,
+		"STATUS_ALREADY_REVERSED":             16,
+		"STATUS_INVALID_TRANSACTION_TYPE":     17,
+		"STATUS_INSTRUMENT_CLOSED":            5,
+		"STATUS_TRANSACTION_RISK_FRAUD":       6,
+		"STATUS_BAD_ACTOR_RISK_FRAUD":         7,
+		"STATUS_USER_RISK_FRAUD":              8,
+		"STATUS_INSTRUMENT_RISK_FRAUD":        9,
+		"STATUS_UNSUPPORTED":                  11,
+		"STATUS_SERVICE_PROVIDER_UNAVAILABLE": 12,
+		"STATUS_LIMIT_EXCEEDED":               13,
+	}
+)
+
+func (x ReverseReturnValueResponse_Status) Enum() *ReverseReturnValueResponse_Status {
+	p := new(ReverseReturnValueResponse_Status)
+	*p = x
+	return p
+}
+
+func (x ReverseReturnValueResponse_Status) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ReverseReturnValueResponse_Status) Descriptor() protoreflect.EnumDescriptor {
+	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[4].Descriptor()
+}
+
+func (ReverseReturnValueResponse_Status) Type() protoreflect.EnumType {
+	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[4]
+}
+
+func (x ReverseReturnValueResponse_Status) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ReverseReturnValueResponse_Status.Descriptor instead.
+func (ReverseReturnValueResponse_Status) EnumDescriptor() ([]byte, []int) {
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{7, 0}
 }
 
 type ReturnValueResponse_Status int32
@@ -454,11 +557,11 @@ func (x ReturnValueResponse_Status) String() string {
 }
 
 func (ReturnValueResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[4].Descriptor()
+	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[5].Descriptor()
 }
 
 func (ReturnValueResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[4]
+	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[5]
 }
 
 func (x ReturnValueResponse_Status) Number() protoreflect.EnumNumber {
@@ -467,7 +570,7 @@ func (x ReturnValueResponse_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ReturnValueResponse_Status.Descriptor instead.
 func (ReturnValueResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{7, 0}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{9, 0}
 }
 
 type HoldValueResponse_Status int32
@@ -557,11 +660,11 @@ func (x HoldValueResponse_Status) String() string {
 }
 
 func (HoldValueResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[5].Descriptor()
+	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[6].Descriptor()
 }
 
 func (HoldValueResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[5]
+	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[6]
 }
 
 func (x HoldValueResponse_Status) Number() protoreflect.EnumNumber {
@@ -570,7 +673,7 @@ func (x HoldValueResponse_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use HoldValueResponse_Status.Descriptor instead.
 func (HoldValueResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{9, 0}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{11, 0}
 }
 
 type AmendHoldValueResponse_Status int32
@@ -652,11 +755,11 @@ func (x AmendHoldValueResponse_Status) String() string {
 }
 
 func (AmendHoldValueResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[6].Descriptor()
+	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[7].Descriptor()
 }
 
 func (AmendHoldValueResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[6]
+	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[7]
 }
 
 func (x AmendHoldValueResponse_Status) Number() protoreflect.EnumNumber {
@@ -665,7 +768,7 @@ func (x AmendHoldValueResponse_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use AmendHoldValueResponse_Status.Descriptor instead.
 func (AmendHoldValueResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{11, 0}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{13, 0}
 }
 
 type ReleaseHoldValueResponse_Status int32
@@ -710,11 +813,11 @@ func (x ReleaseHoldValueResponse_Status) String() string {
 }
 
 func (ReleaseHoldValueResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[7].Descriptor()
+	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[8].Descriptor()
 }
 
 func (ReleaseHoldValueResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[7]
+	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[8]
 }
 
 func (x ReleaseHoldValueResponse_Status) Number() protoreflect.EnumNumber {
@@ -723,7 +826,7 @@ func (x ReleaseHoldValueResponse_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ReleaseHoldValueResponse_Status.Descriptor instead.
 func (ReleaseHoldValueResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{13, 0}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{15, 0}
 }
 
 type ObtainHoldValueResponse_Status int32
@@ -789,11 +892,11 @@ func (x ObtainHoldValueResponse_Status) String() string {
 }
 
 func (ObtainHoldValueResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[8].Descriptor()
+	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[9].Descriptor()
 }
 
 func (ObtainHoldValueResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[8]
+	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[9]
 }
 
 func (x ObtainHoldValueResponse_Status) Number() protoreflect.EnumNumber {
@@ -802,7 +905,7 @@ func (x ObtainHoldValueResponse_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ObtainHoldValueResponse_Status.Descriptor instead.
 func (ObtainHoldValueResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{15, 0}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{17, 0}
 }
 
 type ReceiveValueResponse_Status int32
@@ -838,11 +941,11 @@ func (x ReceiveValueResponse_Status) String() string {
 }
 
 func (ReceiveValueResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[9].Descriptor()
+	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[10].Descriptor()
 }
 
 func (ReceiveValueResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[9]
+	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[10]
 }
 
 func (x ReceiveValueResponse_Status) Number() protoreflect.EnumNumber {
@@ -851,7 +954,7 @@ func (x ReceiveValueResponse_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ReceiveValueResponse_Status.Descriptor instead.
 func (ReceiveValueResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{18, 0}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{20, 0}
 }
 
 type ValueAdviceResponse_Status int32
@@ -889,11 +992,11 @@ func (x ValueAdviceResponse_Status) String() string {
 }
 
 func (ValueAdviceResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[10].Descriptor()
+	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[11].Descriptor()
 }
 
 func (ValueAdviceResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[10]
+	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[11]
 }
 
 func (x ValueAdviceResponse_Status) Number() protoreflect.EnumNumber {
@@ -902,7 +1005,7 @@ func (x ValueAdviceResponse_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use ValueAdviceResponse_Status.Descriptor instead.
 func (ValueAdviceResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{21, 0}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{23, 0}
 }
 
 type GetValueResponse_Status int32
@@ -941,11 +1044,11 @@ func (x GetValueResponse_Status) String() string {
 }
 
 func (GetValueResponse_Status) Descriptor() protoreflect.EnumDescriptor {
-	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[11].Descriptor()
+	return file_mica_serviceprovider_value_v1_value_proto_enumTypes[12].Descriptor()
 }
 
 func (GetValueResponse_Status) Type() protoreflect.EnumType {
-	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[11]
+	return &file_mica_serviceprovider_value_v1_value_proto_enumTypes[12]
 }
 
 func (x GetValueResponse_Status) Number() protoreflect.EnumNumber {
@@ -954,7 +1057,7 @@ func (x GetValueResponse_Status) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use GetValueResponse_Status.Descriptor instead.
 func (GetValueResponse_Status) EnumDescriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{23, 0}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{25, 0}
 }
 
 // Type that represents the details of the value request (either to obtain or return).
@@ -1614,7 +1717,7 @@ func (x *ObtainValueResponse) GetApprovedAmount() string {
 	return ""
 }
 
-type ReverseValueRequest struct {
+type ReverseObtainValueRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -1626,8 +1729,8 @@ type ReverseValueRequest struct {
 	TransactionIdentifier *v1.TransactionIdentifier `protobuf:"bytes,4,opt,name=transaction_identifier,json=transactionIdentifier,proto3" json:"transaction_identifier,omitempty"`
 }
 
-func (x *ReverseValueRequest) Reset() {
-	*x = ReverseValueRequest{}
+func (x *ReverseObtainValueRequest) Reset() {
+	*x = ReverseObtainValueRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1635,13 +1738,13 @@ func (x *ReverseValueRequest) Reset() {
 	}
 }
 
-func (x *ReverseValueRequest) String() string {
+func (x *ReverseObtainValueRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ReverseValueRequest) ProtoMessage() {}
+func (*ReverseObtainValueRequest) ProtoMessage() {}
 
-func (x *ReverseValueRequest) ProtoReflect() protoreflect.Message {
+func (x *ReverseObtainValueRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1653,52 +1756,52 @@ func (x *ReverseValueRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ReverseValueRequest.ProtoReflect.Descriptor instead.
-func (*ReverseValueRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use ReverseObtainValueRequest.ProtoReflect.Descriptor instead.
+func (*ReverseObtainValueRequest) Descriptor() ([]byte, []int) {
 	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *ReverseValueRequest) GetTransactionKey() string {
+func (x *ReverseObtainValueRequest) GetTransactionKey() string {
 	if x != nil {
 		return x.TransactionKey
 	}
 	return ""
 }
 
-func (x *ReverseValueRequest) GetTransactionRef() string {
+func (x *ReverseObtainValueRequest) GetTransactionRef() string {
 	if x != nil {
 		return x.TransactionRef
 	}
 	return ""
 }
 
-func (x *ReverseValueRequest) GetRiskSignal() *v1.RiskSignal {
+func (x *ReverseObtainValueRequest) GetRiskSignal() *v1.RiskSignal {
 	if x != nil {
 		return x.RiskSignal
 	}
 	return nil
 }
 
-func (x *ReverseValueRequest) GetTransactionIdentifier() *v1.TransactionIdentifier {
+func (x *ReverseObtainValueRequest) GetTransactionIdentifier() *v1.TransactionIdentifier {
 	if x != nil {
 		return x.TransactionIdentifier
 	}
 	return nil
 }
 
-type ReverseValueResponse struct {
+type ReverseObtainValueResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Status ReverseValueResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=mica.serviceprovider.value.v1.ReverseValueResponse_Status" json:"status,omitempty"`
-	Error  *v1.Error                   `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
+	Status ReverseObtainValueResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=mica.serviceprovider.value.v1.ReverseObtainValueResponse_Status" json:"status,omitempty"`
+	Error  *v1.Error                         `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
 	// Service Provider's unique transaction ID, new for reversal transaction
 	TransactionRef string `protobuf:"bytes,3,opt,name=transaction_ref,json=transactionRef,proto3" json:"transaction_ref,omitempty"`
 }
 
-func (x *ReverseValueResponse) Reset() {
-	*x = ReverseValueResponse{}
+func (x *ReverseObtainValueResponse) Reset() {
+	*x = ReverseObtainValueResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1706,13 +1809,13 @@ func (x *ReverseValueResponse) Reset() {
 	}
 }
 
-func (x *ReverseValueResponse) String() string {
+func (x *ReverseObtainValueResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ReverseValueResponse) ProtoMessage() {}
+func (*ReverseObtainValueResponse) ProtoMessage() {}
 
-func (x *ReverseValueResponse) ProtoReflect() protoreflect.Message {
+func (x *ReverseObtainValueResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1724,26 +1827,162 @@ func (x *ReverseValueResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ReverseValueResponse.ProtoReflect.Descriptor instead.
-func (*ReverseValueResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use ReverseObtainValueResponse.ProtoReflect.Descriptor instead.
+func (*ReverseObtainValueResponse) Descriptor() ([]byte, []int) {
 	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *ReverseValueResponse) GetStatus() ReverseValueResponse_Status {
+func (x *ReverseObtainValueResponse) GetStatus() ReverseObtainValueResponse_Status {
 	if x != nil {
 		return x.Status
 	}
-	return ReverseValueResponse_STATUS_UNSPECIFIED
+	return ReverseObtainValueResponse_STATUS_UNSPECIFIED
 }
 
-func (x *ReverseValueResponse) GetError() *v1.Error {
+func (x *ReverseObtainValueResponse) GetError() *v1.Error {
 	if x != nil {
 		return x.Error
 	}
 	return nil
 }
 
-func (x *ReverseValueResponse) GetTransactionRef() string {
+func (x *ReverseObtainValueResponse) GetTransactionRef() string {
+	if x != nil {
+		return x.TransactionRef
+	}
+	return ""
+}
+
+type ReverseReturnValueRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TransactionKey string `protobuf:"bytes,1,opt,name=transaction_key,json=transactionKey,proto3" json:"transaction_key,omitempty"`
+	TransactionRef string `protobuf:"bytes,2,opt,name=transaction_ref,json=transactionRef,proto3" json:"transaction_ref,omitempty"`
+	// use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+	RiskSignal            *v1.RiskSignal            `protobuf:"bytes,3,opt,name=risk_signal,json=riskSignal,proto3" json:"risk_signal,omitempty"`
+	TransactionIdentifier *v1.TransactionIdentifier `protobuf:"bytes,4,opt,name=transaction_identifier,json=transactionIdentifier,proto3" json:"transaction_identifier,omitempty"`
+}
+
+func (x *ReverseReturnValueRequest) Reset() {
+	*x = ReverseReturnValueRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[6]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReverseReturnValueRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReverseReturnValueRequest) ProtoMessage() {}
+
+func (x *ReverseReturnValueRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[6]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReverseReturnValueRequest.ProtoReflect.Descriptor instead.
+func (*ReverseReturnValueRequest) Descriptor() ([]byte, []int) {
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ReverseReturnValueRequest) GetTransactionKey() string {
+	if x != nil {
+		return x.TransactionKey
+	}
+	return ""
+}
+
+func (x *ReverseReturnValueRequest) GetTransactionRef() string {
+	if x != nil {
+		return x.TransactionRef
+	}
+	return ""
+}
+
+func (x *ReverseReturnValueRequest) GetRiskSignal() *v1.RiskSignal {
+	if x != nil {
+		return x.RiskSignal
+	}
+	return nil
+}
+
+func (x *ReverseReturnValueRequest) GetTransactionIdentifier() *v1.TransactionIdentifier {
+	if x != nil {
+		return x.TransactionIdentifier
+	}
+	return nil
+}
+
+type ReverseReturnValueResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status ReverseReturnValueResponse_Status `protobuf:"varint,1,opt,name=status,proto3,enum=mica.serviceprovider.value.v1.ReverseReturnValueResponse_Status" json:"status,omitempty"`
+	Error  *v1.Error                         `protobuf:"bytes,2,opt,name=error,proto3" json:"error,omitempty"`
+	// Service Provider's unique transaction ID, new for reversal transaction
+	TransactionRef string `protobuf:"bytes,3,opt,name=transaction_ref,json=transactionRef,proto3" json:"transaction_ref,omitempty"`
+}
+
+func (x *ReverseReturnValueResponse) Reset() {
+	*x = ReverseReturnValueResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReverseReturnValueResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReverseReturnValueResponse) ProtoMessage() {}
+
+func (x *ReverseReturnValueResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReverseReturnValueResponse.ProtoReflect.Descriptor instead.
+func (*ReverseReturnValueResponse) Descriptor() ([]byte, []int) {
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *ReverseReturnValueResponse) GetStatus() ReverseReturnValueResponse_Status {
+	if x != nil {
+		return x.Status
+	}
+	return ReverseReturnValueResponse_STATUS_UNSPECIFIED
+}
+
+func (x *ReverseReturnValueResponse) GetError() *v1.Error {
+	if x != nil {
+		return x.Error
+	}
+	return nil
+}
+
+func (x *ReverseReturnValueResponse) GetTransactionRef() string {
 	if x != nil {
 		return x.TransactionRef
 	}
@@ -1767,7 +2006,7 @@ type ReturnValueRequest struct {
 func (x *ReturnValueRequest) Reset() {
 	*x = ReturnValueRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[6]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1780,7 +2019,7 @@ func (x *ReturnValueRequest) String() string {
 func (*ReturnValueRequest) ProtoMessage() {}
 
 func (x *ReturnValueRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[6]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1793,7 +2032,7 @@ func (x *ReturnValueRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReturnValueRequest.ProtoReflect.Descriptor instead.
 func (*ReturnValueRequest) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{6}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *ReturnValueRequest) GetValue() *ValueRequest {
@@ -1832,7 +2071,7 @@ type ReturnValueResponse struct {
 func (x *ReturnValueResponse) Reset() {
 	*x = ReturnValueResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[7]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1845,7 +2084,7 @@ func (x *ReturnValueResponse) String() string {
 func (*ReturnValueResponse) ProtoMessage() {}
 
 func (x *ReturnValueResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[7]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1858,7 +2097,7 @@ func (x *ReturnValueResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReturnValueResponse.ProtoReflect.Descriptor instead.
 func (*ReturnValueResponse) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{7}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *ReturnValueResponse) GetStatus() ReturnValueResponse_Status {
@@ -1903,7 +2142,7 @@ type HoldValueRequest struct {
 func (x *HoldValueRequest) Reset() {
 	*x = HoldValueRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[8]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1916,7 +2155,7 @@ func (x *HoldValueRequest) String() string {
 func (*HoldValueRequest) ProtoMessage() {}
 
 func (x *HoldValueRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[8]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1929,7 +2168,7 @@ func (x *HoldValueRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HoldValueRequest.ProtoReflect.Descriptor instead.
 func (*HoldValueRequest) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{8}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *HoldValueRequest) GetExpiration() *timestamppb.Timestamp {
@@ -1968,7 +2207,7 @@ type HoldValueResponse struct {
 func (x *HoldValueResponse) Reset() {
 	*x = HoldValueResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[9]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1981,7 +2220,7 @@ func (x *HoldValueResponse) String() string {
 func (*HoldValueResponse) ProtoMessage() {}
 
 func (x *HoldValueResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[9]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1994,7 +2233,7 @@ func (x *HoldValueResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HoldValueResponse.ProtoReflect.Descriptor instead.
 func (*HoldValueResponse) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{9}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *HoldValueResponse) GetStatus() HoldValueResponse_Status {
@@ -2051,7 +2290,7 @@ type AmendHoldValueRequest struct {
 func (x *AmendHoldValueRequest) Reset() {
 	*x = AmendHoldValueRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[10]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2064,7 +2303,7 @@ func (x *AmendHoldValueRequest) String() string {
 func (*AmendHoldValueRequest) ProtoMessage() {}
 
 func (x *AmendHoldValueRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[10]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2077,7 +2316,7 @@ func (x *AmendHoldValueRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AmendHoldValueRequest.ProtoReflect.Descriptor instead.
 func (*AmendHoldValueRequest) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{10}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *AmendHoldValueRequest) GetTransactionKey() string {
@@ -2150,7 +2389,7 @@ type AmendHoldValueResponse struct {
 func (x *AmendHoldValueResponse) Reset() {
 	*x = AmendHoldValueResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[11]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2163,7 +2402,7 @@ func (x *AmendHoldValueResponse) String() string {
 func (*AmendHoldValueResponse) ProtoMessage() {}
 
 func (x *AmendHoldValueResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[11]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2176,7 +2415,7 @@ func (x *AmendHoldValueResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AmendHoldValueResponse.ProtoReflect.Descriptor instead.
 func (*AmendHoldValueResponse) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{11}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *AmendHoldValueResponse) GetStatus() AmendHoldValueResponse_Status {
@@ -2218,7 +2457,7 @@ type ReleaseHoldValueRequest struct {
 func (x *ReleaseHoldValueRequest) Reset() {
 	*x = ReleaseHoldValueRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[12]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2231,7 +2470,7 @@ func (x *ReleaseHoldValueRequest) String() string {
 func (*ReleaseHoldValueRequest) ProtoMessage() {}
 
 func (x *ReleaseHoldValueRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[12]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2244,7 +2483,7 @@ func (x *ReleaseHoldValueRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReleaseHoldValueRequest.ProtoReflect.Descriptor instead.
 func (*ReleaseHoldValueRequest) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{12}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *ReleaseHoldValueRequest) GetTransactionKey() string {
@@ -2296,7 +2535,7 @@ type ReleaseHoldValueResponse struct {
 func (x *ReleaseHoldValueResponse) Reset() {
 	*x = ReleaseHoldValueResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[13]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2309,7 +2548,7 @@ func (x *ReleaseHoldValueResponse) String() string {
 func (*ReleaseHoldValueResponse) ProtoMessage() {}
 
 func (x *ReleaseHoldValueResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[13]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2322,7 +2561,7 @@ func (x *ReleaseHoldValueResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReleaseHoldValueResponse.ProtoReflect.Descriptor instead.
 func (*ReleaseHoldValueResponse) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{13}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *ReleaseHoldValueResponse) GetStatus() ReleaseHoldValueResponse_Status {
@@ -2363,7 +2602,7 @@ type ObtainHoldValueRequest struct {
 func (x *ObtainHoldValueRequest) Reset() {
 	*x = ObtainHoldValueRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[14]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2376,7 +2615,7 @@ func (x *ObtainHoldValueRequest) String() string {
 func (*ObtainHoldValueRequest) ProtoMessage() {}
 
 func (x *ObtainHoldValueRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[14]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2389,7 +2628,7 @@ func (x *ObtainHoldValueRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ObtainHoldValueRequest.ProtoReflect.Descriptor instead.
 func (*ObtainHoldValueRequest) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{14}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *ObtainHoldValueRequest) GetTransactionKey() string {
@@ -2435,7 +2674,7 @@ type ObtainHoldValueResponse struct {
 func (x *ObtainHoldValueResponse) Reset() {
 	*x = ObtainHoldValueResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[15]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2448,7 +2687,7 @@ func (x *ObtainHoldValueResponse) String() string {
 func (*ObtainHoldValueResponse) ProtoMessage() {}
 
 func (x *ObtainHoldValueResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[15]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2461,7 +2700,7 @@ func (x *ObtainHoldValueResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ObtainHoldValueResponse.ProtoReflect.Descriptor instead.
 func (*ObtainHoldValueResponse) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{15}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *ObtainHoldValueResponse) GetStatus() ObtainHoldValueResponse_Status {
@@ -2512,7 +2751,7 @@ type From struct {
 func (x *From) Reset() {
 	*x = From{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[16]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2525,7 +2764,7 @@ func (x *From) String() string {
 func (*From) ProtoMessage() {}
 
 func (x *From) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[16]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2538,7 +2777,7 @@ func (x *From) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use From.ProtoReflect.Descriptor instead.
 func (*From) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{16}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *From) GetUuek() string {
@@ -2599,7 +2838,7 @@ type ReceiveValueRequest struct {
 func (x *ReceiveValueRequest) Reset() {
 	*x = ReceiveValueRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[17]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2612,7 +2851,7 @@ func (x *ReceiveValueRequest) String() string {
 func (*ReceiveValueRequest) ProtoMessage() {}
 
 func (x *ReceiveValueRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[17]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2625,7 +2864,7 @@ func (x *ReceiveValueRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReceiveValueRequest.ProtoReflect.Descriptor instead.
 func (*ReceiveValueRequest) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{17}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *ReceiveValueRequest) GetToServiceProviderInstrumentKey() string {
@@ -2697,7 +2936,7 @@ type ReceiveValueResponse struct {
 func (x *ReceiveValueResponse) Reset() {
 	*x = ReceiveValueResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[18]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2710,7 +2949,7 @@ func (x *ReceiveValueResponse) String() string {
 func (*ReceiveValueResponse) ProtoMessage() {}
 
 func (x *ReceiveValueResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[18]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2723,7 +2962,7 @@ func (x *ReceiveValueResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ReceiveValueResponse.ProtoReflect.Descriptor instead.
 func (*ReceiveValueResponse) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{18}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *ReceiveValueResponse) GetStatus() ReceiveValueResponse_Status {
@@ -2763,7 +3002,7 @@ type ValueAdvice struct {
 func (x *ValueAdvice) Reset() {
 	*x = ValueAdvice{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[19]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2776,7 +3015,7 @@ func (x *ValueAdvice) String() string {
 func (*ValueAdvice) ProtoMessage() {}
 
 func (x *ValueAdvice) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[19]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2789,7 +3028,7 @@ func (x *ValueAdvice) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValueAdvice.ProtoReflect.Descriptor instead.
 func (*ValueAdvice) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{19}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *ValueAdvice) GetAdvicePriority() int32 {
@@ -2833,7 +3072,7 @@ type ValueAdviceRequest struct {
 func (x *ValueAdviceRequest) Reset() {
 	*x = ValueAdviceRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[20]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2846,7 +3085,7 @@ func (x *ValueAdviceRequest) String() string {
 func (*ValueAdviceRequest) ProtoMessage() {}
 
 func (x *ValueAdviceRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[20]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2859,7 +3098,7 @@ func (x *ValueAdviceRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValueAdviceRequest.ProtoReflect.Descriptor instead.
 func (*ValueAdviceRequest) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{20}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *ValueAdviceRequest) GetValueAdvices() []*ValueAdvice {
@@ -2882,7 +3121,7 @@ type ValueAdviceResponse struct {
 func (x *ValueAdviceResponse) Reset() {
 	*x = ValueAdviceResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[21]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2895,7 +3134,7 @@ func (x *ValueAdviceResponse) String() string {
 func (*ValueAdviceResponse) ProtoMessage() {}
 
 func (x *ValueAdviceResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[21]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2908,7 +3147,7 @@ func (x *ValueAdviceResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ValueAdviceResponse.ProtoReflect.Descriptor instead.
 func (*ValueAdviceResponse) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{21}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *ValueAdviceResponse) GetStatus() ValueAdviceResponse_Status {
@@ -2940,7 +3179,7 @@ type GetValueRequest struct {
 func (x *GetValueRequest) Reset() {
 	*x = GetValueRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[22]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2953,7 +3192,7 @@ func (x *GetValueRequest) String() string {
 func (*GetValueRequest) ProtoMessage() {}
 
 func (x *GetValueRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[22]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2966,7 +3205,7 @@ func (x *GetValueRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetValueRequest.ProtoReflect.Descriptor instead.
 func (*GetValueRequest) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{22}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{24}
 }
 
 func (m *GetValueRequest) GetIdentifier() isGetValueRequest_Identifier {
@@ -3023,7 +3262,7 @@ type GetValueResponse struct {
 func (x *GetValueResponse) Reset() {
 	*x = GetValueResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[23]
+		mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3036,7 +3275,7 @@ func (x *GetValueResponse) String() string {
 func (*GetValueResponse) ProtoMessage() {}
 
 func (x *GetValueResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[23]
+	mi := &file_mica_serviceprovider_value_v1_value_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3049,7 +3288,7 @@ func (x *GetValueResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetValueResponse.ProtoReflect.Descriptor instead.
 func (*GetValueResponse) Descriptor() ([]byte, []int) {
-	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{23}
+	return file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *GetValueResponse) GetStatus() GetValueResponse_Status {
@@ -3369,29 +3608,92 @@ var file_mica_serviceprovider_value_v1_value_proto_rawDesc = []byte{
 	0x0a, 0x13, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x50, 0x49, 0x4e, 0x5f, 0x52, 0x45, 0x51,
 	0x55, 0x49, 0x52, 0x45, 0x44, 0x10, 0x0d, 0x12, 0x19, 0x0a, 0x15, 0x53, 0x54, 0x41, 0x54, 0x55,
 	0x53, 0x5f, 0x4c, 0x49, 0x4d, 0x49, 0x54, 0x5f, 0x45, 0x58, 0x43, 0x45, 0x45, 0x44, 0x45, 0x44,
-	0x10, 0x13, 0x22, 0x97, 0x02, 0x0a, 0x13, 0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x56, 0x61,
-	0x6c, 0x75, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x27, 0x0a, 0x0f, 0x74, 0x72,
-	0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6b, 0x65, 0x79, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x0e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e,
-	0x4b, 0x65, 0x79, 0x12, 0x30, 0x0a, 0x0f, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69,
-	0x6f, 0x6e, 0x5f, 0x72, 0x65, 0x66, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42,
-	0x04, 0x72, 0x02, 0x18, 0x64, 0x52, 0x0e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69,
-	0x6f, 0x6e, 0x52, 0x65, 0x66, 0x12, 0x41, 0x0a, 0x0b, 0x72, 0x69, 0x73, 0x6b, 0x5f, 0x73, 0x69,
-	0x67, 0x6e, 0x61, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x6d, 0x69, 0x63,
+	0x10, 0x13, 0x22, 0x9d, 0x02, 0x0a, 0x19, 0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x4f, 0x62,
+	0x74, 0x61, 0x69, 0x6e, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x27, 0x0a, 0x0f, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f,
+	0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x74, 0x72, 0x61, 0x6e, 0x73,
+	0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x4b, 0x65, 0x79, 0x12, 0x30, 0x0a, 0x0f, 0x74, 0x72, 0x61,
+	0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x72, 0x65, 0x66, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x18, 0x64, 0x52, 0x0e, 0x74, 0x72, 0x61,
+	0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x66, 0x12, 0x41, 0x0a, 0x0b, 0x72,
+	0x69, 0x73, 0x6b, 0x5f, 0x73, 0x69, 0x67, 0x6e, 0x61, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x20, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f,
+	0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x69, 0x73, 0x6b, 0x53, 0x69, 0x67, 0x6e,
+	0x61, 0x6c, 0x52, 0x0a, 0x72, 0x69, 0x73, 0x6b, 0x53, 0x69, 0x67, 0x6e, 0x61, 0x6c, 0x12, 0x62,
+	0x0a, 0x16, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64,
+	0x65, 0x6e, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2b,
+	0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d,
+	0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f,
+	0x6e, 0x49, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72, 0x52, 0x15, 0x74, 0x72, 0x61,
+	0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x66, 0x69,
+	0x65, 0x72, 0x22, 0xbb, 0x05, 0x0a, 0x1a, 0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x4f, 0x62,
+	0x74, 0x61, 0x69, 0x6e, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x58, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x0e, 0x32, 0x40, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65,
+	0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x2e, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x2e, 0x76,
+	0x31, 0x2e, 0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x4f, 0x62, 0x74, 0x61, 0x69, 0x6e, 0x56,
+	0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x53, 0x74, 0x61,
+	0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x31, 0x0a, 0x05, 0x65,
+	0x72, 0x72, 0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x6d, 0x69, 0x63,
 	0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76,
-	0x31, 0x2e, 0x52, 0x69, 0x73, 0x6b, 0x53, 0x69, 0x67, 0x6e, 0x61, 0x6c, 0x52, 0x0a, 0x72, 0x69,
-	0x73, 0x6b, 0x53, 0x69, 0x67, 0x6e, 0x61, 0x6c, 0x12, 0x62, 0x0a, 0x16, 0x74, 0x72, 0x61, 0x6e,
-	0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x66, 0x69,
-	0x65, 0x72, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73,
-	0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e,
-	0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x65, 0x6e, 0x74,
-	0x69, 0x66, 0x69, 0x65, 0x72, 0x52, 0x15, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69,
-	0x6f, 0x6e, 0x49, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72, 0x22, 0xaf, 0x05, 0x0a,
-	0x14, 0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x52, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18,
-	0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x3a, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x2e, 0x73, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x70, 0x72, 0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x2e, 0x76, 0x61, 0x6c,
-	0x75, 0x65, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x56, 0x61, 0x6c,
+	0x31, 0x2e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x52, 0x05, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x30,
+	0x0a, 0x0f, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x72, 0x65,
+	0x66, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x18, 0x64,
+	0x52, 0x0e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x66,
+	0x22, 0xdd, 0x03, 0x0a, 0x06, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x16, 0x0a, 0x12, 0x53,
+	0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x4e, 0x53, 0x50, 0x45, 0x43, 0x49, 0x46, 0x49, 0x45,
+	0x44, 0x10, 0x00, 0x12, 0x12, 0x0a, 0x0e, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x53, 0x55,
+	0x43, 0x43, 0x45, 0x53, 0x53, 0x10, 0x03, 0x12, 0x10, 0x0a, 0x0c, 0x53, 0x54, 0x41, 0x54, 0x55,
+	0x53, 0x5f, 0x45, 0x52, 0x52, 0x4f, 0x52, 0x10, 0x02, 0x12, 0x14, 0x0a, 0x10, 0x53, 0x54, 0x41,
+	0x54, 0x55, 0x53, 0x5f, 0x4e, 0x4f, 0x54, 0x5f, 0x46, 0x4f, 0x55, 0x4e, 0x44, 0x10, 0x04, 0x12,
+	0x25, 0x0a, 0x21, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55, 0x53, 0x45, 0x52, 0x5f, 0x43,
+	0x41, 0x4c, 0x4c, 0x5f, 0x53, 0x45, 0x52, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x50, 0x52, 0x4f, 0x56,
+	0x49, 0x44, 0x45, 0x52, 0x10, 0x0e, 0x12, 0x1a, 0x0a, 0x16, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53,
+	0x5f, 0x43, 0x55, 0x54, 0x4f, 0x46, 0x46, 0x5f, 0x45, 0x58, 0x43, 0x45, 0x45, 0x44, 0x45, 0x44,
+	0x10, 0x0f, 0x12, 0x1b, 0x0a, 0x17, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x41, 0x4c, 0x52,
+	0x45, 0x41, 0x44, 0x59, 0x5f, 0x52, 0x45, 0x56, 0x45, 0x52, 0x53, 0x45, 0x44, 0x10, 0x10, 0x12,
+	0x23, 0x0a, 0x1f, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49,
+	0x44, 0x5f, 0x54, 0x52, 0x41, 0x4e, 0x53, 0x41, 0x43, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x54, 0x59,
+	0x50, 0x45, 0x10, 0x11, 0x12, 0x1c, 0x0a, 0x18, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x49,
+	0x4e, 0x53, 0x54, 0x52, 0x55, 0x4d, 0x45, 0x4e, 0x54, 0x5f, 0x43, 0x4c, 0x4f, 0x53, 0x45, 0x44,
+	0x10, 0x05, 0x12, 0x21, 0x0a, 0x1d, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x54, 0x52, 0x41,
+	0x4e, 0x53, 0x41, 0x43, 0x54, 0x49, 0x4f, 0x4e, 0x5f, 0x52, 0x49, 0x53, 0x4b, 0x5f, 0x46, 0x52,
+	0x41, 0x55, 0x44, 0x10, 0x06, 0x12, 0x1f, 0x0a, 0x1b, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f,
+	0x42, 0x41, 0x44, 0x5f, 0x41, 0x43, 0x54, 0x4f, 0x52, 0x5f, 0x52, 0x49, 0x53, 0x4b, 0x5f, 0x46,
+	0x52, 0x41, 0x55, 0x44, 0x10, 0x07, 0x12, 0x1a, 0x0a, 0x16, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53,
+	0x5f, 0x55, 0x53, 0x45, 0x52, 0x5f, 0x52, 0x49, 0x53, 0x4b, 0x5f, 0x46, 0x52, 0x41, 0x55, 0x44,
+	0x10, 0x08, 0x12, 0x20, 0x0a, 0x1c, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x49, 0x4e, 0x53,
+	0x54, 0x52, 0x55, 0x4d, 0x45, 0x4e, 0x54, 0x5f, 0x52, 0x49, 0x53, 0x4b, 0x5f, 0x46, 0x52, 0x41,
+	0x55, 0x44, 0x10, 0x09, 0x12, 0x16, 0x0a, 0x12, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x55,
+	0x4e, 0x53, 0x55, 0x50, 0x50, 0x4f, 0x52, 0x54, 0x45, 0x44, 0x10, 0x0b, 0x12, 0x27, 0x0a, 0x23,
+	0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x53, 0x45, 0x52, 0x56, 0x49, 0x43, 0x45, 0x5f, 0x50,
+	0x52, 0x4f, 0x56, 0x49, 0x44, 0x45, 0x52, 0x5f, 0x55, 0x4e, 0x41, 0x56, 0x41, 0x49, 0x4c, 0x41,
+	0x42, 0x4c, 0x45, 0x10, 0x0c, 0x12, 0x19, 0x0a, 0x15, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f,
+	0x4c, 0x49, 0x4d, 0x49, 0x54, 0x5f, 0x45, 0x58, 0x43, 0x45, 0x45, 0x44, 0x45, 0x44, 0x10, 0x0d,
+	0x22, 0x9d, 0x02, 0x0a, 0x19, 0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x52, 0x65, 0x74, 0x75,
+	0x72, 0x6e, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x27,
+	0x0a, 0x0f, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x6b, 0x65,
+	0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0e, 0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63,
+	0x74, 0x69, 0x6f, 0x6e, 0x4b, 0x65, 0x79, 0x12, 0x30, 0x0a, 0x0f, 0x74, 0x72, 0x61, 0x6e, 0x73,
+	0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x72, 0x65, 0x66, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
+	0x42, 0x07, 0xfa, 0x42, 0x04, 0x72, 0x02, 0x18, 0x64, 0x52, 0x0e, 0x74, 0x72, 0x61, 0x6e, 0x73,
+	0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x66, 0x12, 0x41, 0x0a, 0x0b, 0x72, 0x69, 0x73,
+	0x6b, 0x5f, 0x73, 0x69, 0x67, 0x6e, 0x61, 0x6c, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20,
+	0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d,
+	0x6f, 0x6e, 0x2e, 0x76, 0x31, 0x2e, 0x52, 0x69, 0x73, 0x6b, 0x53, 0x69, 0x67, 0x6e, 0x61, 0x6c,
+	0x52, 0x0a, 0x72, 0x69, 0x73, 0x6b, 0x53, 0x69, 0x67, 0x6e, 0x61, 0x6c, 0x12, 0x62, 0x0a, 0x16,
+	0x74, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x5f, 0x69, 0x64, 0x65, 0x6e,
+	0x74, 0x69, 0x66, 0x69, 0x65, 0x72, 0x18, 0x04, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x2b, 0x2e, 0x6d,
+	0x69, 0x63, 0x61, 0x73, 0x68, 0x61, 0x72, 0x65, 0x64, 0x2e, 0x63, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e,
+	0x2e, 0x76, 0x31, 0x2e, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x49,
+	0x64, 0x65, 0x6e, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72, 0x52, 0x15, 0x74, 0x72, 0x61, 0x6e, 0x73,
+	0x61, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x49, 0x64, 0x65, 0x6e, 0x74, 0x69, 0x66, 0x69, 0x65, 0x72,
+	0x22, 0xbb, 0x05, 0x0a, 0x1a, 0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x52, 0x65, 0x74, 0x75,
+	0x72, 0x6e, 0x56, 0x61, 0x6c, 0x75, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x58, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32,
+	0x40, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x2e, 0x73, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x70, 0x72,
+	0x6f, 0x76, 0x69, 0x64, 0x65, 0x72, 0x2e, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x2e, 0x76, 0x31, 0x2e,
+	0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x52, 0x65, 0x74, 0x75, 0x72, 0x6e, 0x56, 0x61, 0x6c,
 	0x75, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x75,
 	0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x31, 0x0a, 0x05, 0x65, 0x72, 0x72,
 	0x6f, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1b, 0x2e, 0x6d, 0x69, 0x63, 0x61, 0x73,
@@ -3907,126 +4209,133 @@ func file_mica_serviceprovider_value_v1_value_proto_rawDescGZIP() []byte {
 	return file_mica_serviceprovider_value_v1_value_proto_rawDescData
 }
 
-var file_mica_serviceprovider_value_v1_value_proto_enumTypes = make([]protoimpl.EnumInfo, 12)
-var file_mica_serviceprovider_value_v1_value_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
+var file_mica_serviceprovider_value_v1_value_proto_enumTypes = make([]protoimpl.EnumInfo, 13)
+var file_mica_serviceprovider_value_v1_value_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
 var file_mica_serviceprovider_value_v1_value_proto_goTypes = []interface{}{
 	(PINStatus)(0),                                   // 0: mica.serviceprovider.value.v1.PINStatus
 	(AdviceReason)(0),                                // 1: mica.serviceprovider.value.v1.AdviceReason
 	(ObtainValueResponse_Status)(0),                  // 2: mica.serviceprovider.value.v1.ObtainValueResponse.Status
-	(ReverseValueResponse_Status)(0),                 // 3: mica.serviceprovider.value.v1.ReverseValueResponse.Status
-	(ReturnValueResponse_Status)(0),                  // 4: mica.serviceprovider.value.v1.ReturnValueResponse.Status
-	(HoldValueResponse_Status)(0),                    // 5: mica.serviceprovider.value.v1.HoldValueResponse.Status
-	(AmendHoldValueResponse_Status)(0),               // 6: mica.serviceprovider.value.v1.AmendHoldValueResponse.Status
-	(ReleaseHoldValueResponse_Status)(0),             // 7: mica.serviceprovider.value.v1.ReleaseHoldValueResponse.Status
-	(ObtainHoldValueResponse_Status)(0),              // 8: mica.serviceprovider.value.v1.ObtainHoldValueResponse.Status
-	(ReceiveValueResponse_Status)(0),                 // 9: mica.serviceprovider.value.v1.ReceiveValueResponse.Status
-	(ValueAdviceResponse_Status)(0),                  // 10: mica.serviceprovider.value.v1.ValueAdviceResponse.Status
-	(GetValueResponse_Status)(0),                     // 11: mica.serviceprovider.value.v1.GetValueResponse.Status
-	(*Value)(nil),                                    // 12: mica.serviceprovider.value.v1.Value
-	(*ValueRequest)(nil),                             // 13: mica.serviceprovider.value.v1.ValueRequest
-	(*ObtainValueRequest)(nil),                       // 14: mica.serviceprovider.value.v1.ObtainValueRequest
-	(*ObtainValueResponse)(nil),                      // 15: mica.serviceprovider.value.v1.ObtainValueResponse
-	(*ReverseValueRequest)(nil),                      // 16: mica.serviceprovider.value.v1.ReverseValueRequest
-	(*ReverseValueResponse)(nil),                     // 17: mica.serviceprovider.value.v1.ReverseValueResponse
-	(*ReturnValueRequest)(nil),                       // 18: mica.serviceprovider.value.v1.ReturnValueRequest
-	(*ReturnValueResponse)(nil),                      // 19: mica.serviceprovider.value.v1.ReturnValueResponse
-	(*HoldValueRequest)(nil),                         // 20: mica.serviceprovider.value.v1.HoldValueRequest
-	(*HoldValueResponse)(nil),                        // 21: mica.serviceprovider.value.v1.HoldValueResponse
-	(*AmendHoldValueRequest)(nil),                    // 22: mica.serviceprovider.value.v1.AmendHoldValueRequest
-	(*AmendHoldValueResponse)(nil),                   // 23: mica.serviceprovider.value.v1.AmendHoldValueResponse
-	(*ReleaseHoldValueRequest)(nil),                  // 24: mica.serviceprovider.value.v1.ReleaseHoldValueRequest
-	(*ReleaseHoldValueResponse)(nil),                 // 25: mica.serviceprovider.value.v1.ReleaseHoldValueResponse
-	(*ObtainHoldValueRequest)(nil),                   // 26: mica.serviceprovider.value.v1.ObtainHoldValueRequest
-	(*ObtainHoldValueResponse)(nil),                  // 27: mica.serviceprovider.value.v1.ObtainHoldValueResponse
-	(*From)(nil),                                     // 28: mica.serviceprovider.value.v1.From
-	(*ReceiveValueRequest)(nil),                      // 29: mica.serviceprovider.value.v1.ReceiveValueRequest
-	(*ReceiveValueResponse)(nil),                     // 30: mica.serviceprovider.value.v1.ReceiveValueResponse
-	(*ValueAdvice)(nil),                              // 31: mica.serviceprovider.value.v1.ValueAdvice
-	(*ValueAdviceRequest)(nil),                       // 32: mica.serviceprovider.value.v1.ValueAdviceRequest
-	(*ValueAdviceResponse)(nil),                      // 33: mica.serviceprovider.value.v1.ValueAdviceResponse
-	(*GetValueRequest)(nil),                          // 34: mica.serviceprovider.value.v1.GetValueRequest
-	(*GetValueResponse)(nil),                         // 35: mica.serviceprovider.value.v1.GetValueResponse
-	(*timestamppb.Timestamp)(nil),                    // 36: google.protobuf.Timestamp
-	(valueoperationtypev1.ValueOperationType)(0),     // 37: micashared.common.enums.valueoperationtype.v1.ValueOperationType
-	(currencyv1.Currency)(0),                         // 38: micashared.common.enums.currency.v1.Currency
-	(*v1.Address)(nil),                               // 39: micashared.common.v1.Address
-	(organizationcategoryv1.OrganizationCategory)(0), // 40: micashared.common.enums.organizationcategory.v1.OrganizationCategory
-	(*instrumentv1.InstrumentExternalReference)(nil), // 41: mica.serviceprovider.instrument.v1.InstrumentExternalReference
-	(*v1.TransactionIdentifier)(nil),                 // 42: micashared.common.v1.TransactionIdentifier
-	(approvaltypev1.ApprovalType)(0),                 // 43: micashared.common.enums.approvaltype.v1.ApprovalType
-	(*v1.RiskSignal)(nil),                            // 44: micashared.common.v1.RiskSignal
-	(*v1.Error)(nil),                                 // 45: micashared.common.v1.Error
+	(ReverseObtainValueResponse_Status)(0),           // 3: mica.serviceprovider.value.v1.ReverseObtainValueResponse.Status
+	(ReverseReturnValueResponse_Status)(0),           // 4: mica.serviceprovider.value.v1.ReverseReturnValueResponse.Status
+	(ReturnValueResponse_Status)(0),                  // 5: mica.serviceprovider.value.v1.ReturnValueResponse.Status
+	(HoldValueResponse_Status)(0),                    // 6: mica.serviceprovider.value.v1.HoldValueResponse.Status
+	(AmendHoldValueResponse_Status)(0),               // 7: mica.serviceprovider.value.v1.AmendHoldValueResponse.Status
+	(ReleaseHoldValueResponse_Status)(0),             // 8: mica.serviceprovider.value.v1.ReleaseHoldValueResponse.Status
+	(ObtainHoldValueResponse_Status)(0),              // 9: mica.serviceprovider.value.v1.ObtainHoldValueResponse.Status
+	(ReceiveValueResponse_Status)(0),                 // 10: mica.serviceprovider.value.v1.ReceiveValueResponse.Status
+	(ValueAdviceResponse_Status)(0),                  // 11: mica.serviceprovider.value.v1.ValueAdviceResponse.Status
+	(GetValueResponse_Status)(0),                     // 12: mica.serviceprovider.value.v1.GetValueResponse.Status
+	(*Value)(nil),                                    // 13: mica.serviceprovider.value.v1.Value
+	(*ValueRequest)(nil),                             // 14: mica.serviceprovider.value.v1.ValueRequest
+	(*ObtainValueRequest)(nil),                       // 15: mica.serviceprovider.value.v1.ObtainValueRequest
+	(*ObtainValueResponse)(nil),                      // 16: mica.serviceprovider.value.v1.ObtainValueResponse
+	(*ReverseObtainValueRequest)(nil),                // 17: mica.serviceprovider.value.v1.ReverseObtainValueRequest
+	(*ReverseObtainValueResponse)(nil),               // 18: mica.serviceprovider.value.v1.ReverseObtainValueResponse
+	(*ReverseReturnValueRequest)(nil),                // 19: mica.serviceprovider.value.v1.ReverseReturnValueRequest
+	(*ReverseReturnValueResponse)(nil),               // 20: mica.serviceprovider.value.v1.ReverseReturnValueResponse
+	(*ReturnValueRequest)(nil),                       // 21: mica.serviceprovider.value.v1.ReturnValueRequest
+	(*ReturnValueResponse)(nil),                      // 22: mica.serviceprovider.value.v1.ReturnValueResponse
+	(*HoldValueRequest)(nil),                         // 23: mica.serviceprovider.value.v1.HoldValueRequest
+	(*HoldValueResponse)(nil),                        // 24: mica.serviceprovider.value.v1.HoldValueResponse
+	(*AmendHoldValueRequest)(nil),                    // 25: mica.serviceprovider.value.v1.AmendHoldValueRequest
+	(*AmendHoldValueResponse)(nil),                   // 26: mica.serviceprovider.value.v1.AmendHoldValueResponse
+	(*ReleaseHoldValueRequest)(nil),                  // 27: mica.serviceprovider.value.v1.ReleaseHoldValueRequest
+	(*ReleaseHoldValueResponse)(nil),                 // 28: mica.serviceprovider.value.v1.ReleaseHoldValueResponse
+	(*ObtainHoldValueRequest)(nil),                   // 29: mica.serviceprovider.value.v1.ObtainHoldValueRequest
+	(*ObtainHoldValueResponse)(nil),                  // 30: mica.serviceprovider.value.v1.ObtainHoldValueResponse
+	(*From)(nil),                                     // 31: mica.serviceprovider.value.v1.From
+	(*ReceiveValueRequest)(nil),                      // 32: mica.serviceprovider.value.v1.ReceiveValueRequest
+	(*ReceiveValueResponse)(nil),                     // 33: mica.serviceprovider.value.v1.ReceiveValueResponse
+	(*ValueAdvice)(nil),                              // 34: mica.serviceprovider.value.v1.ValueAdvice
+	(*ValueAdviceRequest)(nil),                       // 35: mica.serviceprovider.value.v1.ValueAdviceRequest
+	(*ValueAdviceResponse)(nil),                      // 36: mica.serviceprovider.value.v1.ValueAdviceResponse
+	(*GetValueRequest)(nil),                          // 37: mica.serviceprovider.value.v1.GetValueRequest
+	(*GetValueResponse)(nil),                         // 38: mica.serviceprovider.value.v1.GetValueResponse
+	(*timestamppb.Timestamp)(nil),                    // 39: google.protobuf.Timestamp
+	(valueoperationtypev1.ValueOperationType)(0),     // 40: micashared.common.enums.valueoperationtype.v1.ValueOperationType
+	(currencyv1.Currency)(0),                         // 41: micashared.common.enums.currency.v1.Currency
+	(*v1.Address)(nil),                               // 42: micashared.common.v1.Address
+	(organizationcategoryv1.OrganizationCategory)(0), // 43: micashared.common.enums.organizationcategory.v1.OrganizationCategory
+	(*instrumentv1.InstrumentExternalReference)(nil), // 44: mica.serviceprovider.instrument.v1.InstrumentExternalReference
+	(*v1.TransactionIdentifier)(nil),                 // 45: micashared.common.v1.TransactionIdentifier
+	(approvaltypev1.ApprovalType)(0),                 // 46: micashared.common.enums.approvaltype.v1.ApprovalType
+	(*v1.RiskSignal)(nil),                            // 47: micashared.common.v1.RiskSignal
+	(*v1.Error)(nil),                                 // 48: micashared.common.v1.Error
 }
 var file_mica_serviceprovider_value_v1_value_proto_depIdxs = []int32{
-	36, // 0: mica.serviceprovider.value.v1.Value.created:type_name -> google.protobuf.Timestamp
-	36, // 1: mica.serviceprovider.value.v1.Value.updated:type_name -> google.protobuf.Timestamp
-	37, // 2: mica.serviceprovider.value.v1.Value.operation_type:type_name -> micashared.common.enums.valueoperationtype.v1.ValueOperationType
-	38, // 3: mica.serviceprovider.value.v1.Value.currency:type_name -> micashared.common.enums.currency.v1.Currency
-	39, // 4: mica.serviceprovider.value.v1.Value.organization_address:type_name -> micashared.common.v1.Address
-	40, // 5: mica.serviceprovider.value.v1.Value.category:type_name -> micashared.common.enums.organizationcategory.v1.OrganizationCategory
-	39, // 6: mica.serviceprovider.value.v1.Value.store_address:type_name -> micashared.common.v1.Address
-	36, // 7: mica.serviceprovider.value.v1.Value.expiration:type_name -> google.protobuf.Timestamp
-	41, // 8: mica.serviceprovider.value.v1.ValueRequest.instrument_external_reference:type_name -> mica.serviceprovider.instrument.v1.InstrumentExternalReference
-	38, // 9: mica.serviceprovider.value.v1.ValueRequest.currency:type_name -> micashared.common.enums.currency.v1.Currency
-	39, // 10: mica.serviceprovider.value.v1.ValueRequest.organization_address:type_name -> micashared.common.v1.Address
-	40, // 11: mica.serviceprovider.value.v1.ValueRequest.category:type_name -> micashared.common.enums.organizationcategory.v1.OrganizationCategory
-	39, // 12: mica.serviceprovider.value.v1.ValueRequest.store_address:type_name -> micashared.common.v1.Address
-	42, // 13: mica.serviceprovider.value.v1.ValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
-	43, // 14: mica.serviceprovider.value.v1.ObtainValueRequest.approval_type:type_name -> micashared.common.enums.approvaltype.v1.ApprovalType
-	13, // 15: mica.serviceprovider.value.v1.ObtainValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
-	44, // 16: mica.serviceprovider.value.v1.ObtainValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	39, // 0: mica.serviceprovider.value.v1.Value.created:type_name -> google.protobuf.Timestamp
+	39, // 1: mica.serviceprovider.value.v1.Value.updated:type_name -> google.protobuf.Timestamp
+	40, // 2: mica.serviceprovider.value.v1.Value.operation_type:type_name -> micashared.common.enums.valueoperationtype.v1.ValueOperationType
+	41, // 3: mica.serviceprovider.value.v1.Value.currency:type_name -> micashared.common.enums.currency.v1.Currency
+	42, // 4: mica.serviceprovider.value.v1.Value.organization_address:type_name -> micashared.common.v1.Address
+	43, // 5: mica.serviceprovider.value.v1.Value.category:type_name -> micashared.common.enums.organizationcategory.v1.OrganizationCategory
+	42, // 6: mica.serviceprovider.value.v1.Value.store_address:type_name -> micashared.common.v1.Address
+	39, // 7: mica.serviceprovider.value.v1.Value.expiration:type_name -> google.protobuf.Timestamp
+	44, // 8: mica.serviceprovider.value.v1.ValueRequest.instrument_external_reference:type_name -> mica.serviceprovider.instrument.v1.InstrumentExternalReference
+	41, // 9: mica.serviceprovider.value.v1.ValueRequest.currency:type_name -> micashared.common.enums.currency.v1.Currency
+	42, // 10: mica.serviceprovider.value.v1.ValueRequest.organization_address:type_name -> micashared.common.v1.Address
+	43, // 11: mica.serviceprovider.value.v1.ValueRequest.category:type_name -> micashared.common.enums.organizationcategory.v1.OrganizationCategory
+	42, // 12: mica.serviceprovider.value.v1.ValueRequest.store_address:type_name -> micashared.common.v1.Address
+	45, // 13: mica.serviceprovider.value.v1.ValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	46, // 14: mica.serviceprovider.value.v1.ObtainValueRequest.approval_type:type_name -> micashared.common.enums.approvaltype.v1.ApprovalType
+	14, // 15: mica.serviceprovider.value.v1.ObtainValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
+	47, // 16: mica.serviceprovider.value.v1.ObtainValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
 	2,  // 17: mica.serviceprovider.value.v1.ObtainValueResponse.status:type_name -> mica.serviceprovider.value.v1.ObtainValueResponse.Status
-	45, // 18: mica.serviceprovider.value.v1.ObtainValueResponse.error:type_name -> micashared.common.v1.Error
-	44, // 19: mica.serviceprovider.value.v1.ReverseValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
-	42, // 20: mica.serviceprovider.value.v1.ReverseValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
-	3,  // 21: mica.serviceprovider.value.v1.ReverseValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReverseValueResponse.Status
-	45, // 22: mica.serviceprovider.value.v1.ReverseValueResponse.error:type_name -> micashared.common.v1.Error
-	13, // 23: mica.serviceprovider.value.v1.ReturnValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
-	44, // 24: mica.serviceprovider.value.v1.ReturnValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
-	4,  // 25: mica.serviceprovider.value.v1.ReturnValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReturnValueResponse.Status
-	45, // 26: mica.serviceprovider.value.v1.ReturnValueResponse.error:type_name -> micashared.common.v1.Error
-	36, // 27: mica.serviceprovider.value.v1.HoldValueRequest.expiration:type_name -> google.protobuf.Timestamp
-	13, // 28: mica.serviceprovider.value.v1.HoldValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
-	44, // 29: mica.serviceprovider.value.v1.HoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
-	5,  // 30: mica.serviceprovider.value.v1.HoldValueResponse.status:type_name -> mica.serviceprovider.value.v1.HoldValueResponse.Status
-	45, // 31: mica.serviceprovider.value.v1.HoldValueResponse.error:type_name -> micashared.common.v1.Error
-	36, // 32: mica.serviceprovider.value.v1.AmendHoldValueRequest.expiration:type_name -> google.protobuf.Timestamp
-	44, // 33: mica.serviceprovider.value.v1.AmendHoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
-	42, // 34: mica.serviceprovider.value.v1.AmendHoldValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
-	6,  // 35: mica.serviceprovider.value.v1.AmendHoldValueResponse.status:type_name -> mica.serviceprovider.value.v1.AmendHoldValueResponse.Status
-	45, // 36: mica.serviceprovider.value.v1.AmendHoldValueResponse.error:type_name -> micashared.common.v1.Error
-	36, // 37: mica.serviceprovider.value.v1.ReleaseHoldValueRequest.release_timestamp:type_name -> google.protobuf.Timestamp
-	44, // 38: mica.serviceprovider.value.v1.ReleaseHoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
-	42, // 39: mica.serviceprovider.value.v1.ReleaseHoldValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
-	7,  // 40: mica.serviceprovider.value.v1.ReleaseHoldValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReleaseHoldValueResponse.Status
-	45, // 41: mica.serviceprovider.value.v1.ReleaseHoldValueResponse.error:type_name -> micashared.common.v1.Error
-	13, // 42: mica.serviceprovider.value.v1.ObtainHoldValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
-	44, // 43: mica.serviceprovider.value.v1.ObtainHoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
-	8,  // 44: mica.serviceprovider.value.v1.ObtainHoldValueResponse.status:type_name -> mica.serviceprovider.value.v1.ObtainHoldValueResponse.Status
-	45, // 45: mica.serviceprovider.value.v1.ObtainHoldValueResponse.error:type_name -> micashared.common.v1.Error
-	41, // 46: mica.serviceprovider.value.v1.ReceiveValueRequest.instrument_external_reference:type_name -> mica.serviceprovider.instrument.v1.InstrumentExternalReference
-	38, // 47: mica.serviceprovider.value.v1.ReceiveValueRequest.currency:type_name -> micashared.common.enums.currency.v1.Currency
-	28, // 48: mica.serviceprovider.value.v1.ReceiveValueRequest.from:type_name -> mica.serviceprovider.value.v1.From
-	44, // 49: mica.serviceprovider.value.v1.ReceiveValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
-	42, // 50: mica.serviceprovider.value.v1.ReceiveValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
-	9,  // 51: mica.serviceprovider.value.v1.ReceiveValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReceiveValueResponse.Status
-	45, // 52: mica.serviceprovider.value.v1.ReceiveValueResponse.error:type_name -> micashared.common.v1.Error
-	1,  // 53: mica.serviceprovider.value.v1.ValueAdvice.advice_reason:type_name -> mica.serviceprovider.value.v1.AdviceReason
-	43, // 54: mica.serviceprovider.value.v1.ValueAdvice.approval_type:type_name -> micashared.common.enums.approvaltype.v1.ApprovalType
-	13, // 55: mica.serviceprovider.value.v1.ValueAdvice.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
-	31, // 56: mica.serviceprovider.value.v1.ValueAdviceRequest.value_advices:type_name -> mica.serviceprovider.value.v1.ValueAdvice
-	10, // 57: mica.serviceprovider.value.v1.ValueAdviceResponse.status:type_name -> mica.serviceprovider.value.v1.ValueAdviceResponse.Status
-	45, // 58: mica.serviceprovider.value.v1.ValueAdviceResponse.error:type_name -> micashared.common.v1.Error
-	11, // 59: mica.serviceprovider.value.v1.GetValueResponse.status:type_name -> mica.serviceprovider.value.v1.GetValueResponse.Status
-	45, // 60: mica.serviceprovider.value.v1.GetValueResponse.error:type_name -> micashared.common.v1.Error
-	12, // 61: mica.serviceprovider.value.v1.GetValueResponse.value:type_name -> mica.serviceprovider.value.v1.Value
-	36, // 62: mica.serviceprovider.value.v1.GetValueResponse.oldest_transaction_time:type_name -> google.protobuf.Timestamp
-	42, // 63: mica.serviceprovider.value.v1.GetValueResponse.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
-	64, // [64:64] is the sub-list for method output_type
-	64, // [64:64] is the sub-list for method input_type
-	64, // [64:64] is the sub-list for extension type_name
-	64, // [64:64] is the sub-list for extension extendee
-	0,  // [0:64] is the sub-list for field type_name
+	48, // 18: mica.serviceprovider.value.v1.ObtainValueResponse.error:type_name -> micashared.common.v1.Error
+	47, // 19: mica.serviceprovider.value.v1.ReverseObtainValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	45, // 20: mica.serviceprovider.value.v1.ReverseObtainValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	3,  // 21: mica.serviceprovider.value.v1.ReverseObtainValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReverseObtainValueResponse.Status
+	48, // 22: mica.serviceprovider.value.v1.ReverseObtainValueResponse.error:type_name -> micashared.common.v1.Error
+	47, // 23: mica.serviceprovider.value.v1.ReverseReturnValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	45, // 24: mica.serviceprovider.value.v1.ReverseReturnValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	4,  // 25: mica.serviceprovider.value.v1.ReverseReturnValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReverseReturnValueResponse.Status
+	48, // 26: mica.serviceprovider.value.v1.ReverseReturnValueResponse.error:type_name -> micashared.common.v1.Error
+	14, // 27: mica.serviceprovider.value.v1.ReturnValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
+	47, // 28: mica.serviceprovider.value.v1.ReturnValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	5,  // 29: mica.serviceprovider.value.v1.ReturnValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReturnValueResponse.Status
+	48, // 30: mica.serviceprovider.value.v1.ReturnValueResponse.error:type_name -> micashared.common.v1.Error
+	39, // 31: mica.serviceprovider.value.v1.HoldValueRequest.expiration:type_name -> google.protobuf.Timestamp
+	14, // 32: mica.serviceprovider.value.v1.HoldValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
+	47, // 33: mica.serviceprovider.value.v1.HoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	6,  // 34: mica.serviceprovider.value.v1.HoldValueResponse.status:type_name -> mica.serviceprovider.value.v1.HoldValueResponse.Status
+	48, // 35: mica.serviceprovider.value.v1.HoldValueResponse.error:type_name -> micashared.common.v1.Error
+	39, // 36: mica.serviceprovider.value.v1.AmendHoldValueRequest.expiration:type_name -> google.protobuf.Timestamp
+	47, // 37: mica.serviceprovider.value.v1.AmendHoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	45, // 38: mica.serviceprovider.value.v1.AmendHoldValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	7,  // 39: mica.serviceprovider.value.v1.AmendHoldValueResponse.status:type_name -> mica.serviceprovider.value.v1.AmendHoldValueResponse.Status
+	48, // 40: mica.serviceprovider.value.v1.AmendHoldValueResponse.error:type_name -> micashared.common.v1.Error
+	39, // 41: mica.serviceprovider.value.v1.ReleaseHoldValueRequest.release_timestamp:type_name -> google.protobuf.Timestamp
+	47, // 42: mica.serviceprovider.value.v1.ReleaseHoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	45, // 43: mica.serviceprovider.value.v1.ReleaseHoldValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	8,  // 44: mica.serviceprovider.value.v1.ReleaseHoldValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReleaseHoldValueResponse.Status
+	48, // 45: mica.serviceprovider.value.v1.ReleaseHoldValueResponse.error:type_name -> micashared.common.v1.Error
+	14, // 46: mica.serviceprovider.value.v1.ObtainHoldValueRequest.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
+	47, // 47: mica.serviceprovider.value.v1.ObtainHoldValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	9,  // 48: mica.serviceprovider.value.v1.ObtainHoldValueResponse.status:type_name -> mica.serviceprovider.value.v1.ObtainHoldValueResponse.Status
+	48, // 49: mica.serviceprovider.value.v1.ObtainHoldValueResponse.error:type_name -> micashared.common.v1.Error
+	44, // 50: mica.serviceprovider.value.v1.ReceiveValueRequest.instrument_external_reference:type_name -> mica.serviceprovider.instrument.v1.InstrumentExternalReference
+	41, // 51: mica.serviceprovider.value.v1.ReceiveValueRequest.currency:type_name -> micashared.common.enums.currency.v1.Currency
+	31, // 52: mica.serviceprovider.value.v1.ReceiveValueRequest.from:type_name -> mica.serviceprovider.value.v1.From
+	47, // 53: mica.serviceprovider.value.v1.ReceiveValueRequest.risk_signal:type_name -> micashared.common.v1.RiskSignal
+	45, // 54: mica.serviceprovider.value.v1.ReceiveValueRequest.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	10, // 55: mica.serviceprovider.value.v1.ReceiveValueResponse.status:type_name -> mica.serviceprovider.value.v1.ReceiveValueResponse.Status
+	48, // 56: mica.serviceprovider.value.v1.ReceiveValueResponse.error:type_name -> micashared.common.v1.Error
+	1,  // 57: mica.serviceprovider.value.v1.ValueAdvice.advice_reason:type_name -> mica.serviceprovider.value.v1.AdviceReason
+	46, // 58: mica.serviceprovider.value.v1.ValueAdvice.approval_type:type_name -> micashared.common.enums.approvaltype.v1.ApprovalType
+	14, // 59: mica.serviceprovider.value.v1.ValueAdvice.value:type_name -> mica.serviceprovider.value.v1.ValueRequest
+	34, // 60: mica.serviceprovider.value.v1.ValueAdviceRequest.value_advices:type_name -> mica.serviceprovider.value.v1.ValueAdvice
+	11, // 61: mica.serviceprovider.value.v1.ValueAdviceResponse.status:type_name -> mica.serviceprovider.value.v1.ValueAdviceResponse.Status
+	48, // 62: mica.serviceprovider.value.v1.ValueAdviceResponse.error:type_name -> micashared.common.v1.Error
+	12, // 63: mica.serviceprovider.value.v1.GetValueResponse.status:type_name -> mica.serviceprovider.value.v1.GetValueResponse.Status
+	48, // 64: mica.serviceprovider.value.v1.GetValueResponse.error:type_name -> micashared.common.v1.Error
+	13, // 65: mica.serviceprovider.value.v1.GetValueResponse.value:type_name -> mica.serviceprovider.value.v1.Value
+	39, // 66: mica.serviceprovider.value.v1.GetValueResponse.oldest_transaction_time:type_name -> google.protobuf.Timestamp
+	45, // 67: mica.serviceprovider.value.v1.GetValueResponse.transaction_identifier:type_name -> micashared.common.v1.TransactionIdentifier
+	68, // [68:68] is the sub-list for method output_type
+	68, // [68:68] is the sub-list for method input_type
+	68, // [68:68] is the sub-list for extension type_name
+	68, // [68:68] is the sub-list for extension extendee
+	0,  // [0:68] is the sub-list for field type_name
 }
 
 func init() { file_mica_serviceprovider_value_v1_value_proto_init() }
@@ -4084,7 +4393,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReverseValueRequest); i {
+			switch v := v.(*ReverseObtainValueRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4096,7 +4405,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReverseValueResponse); i {
+			switch v := v.(*ReverseObtainValueResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4108,7 +4417,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReturnValueRequest); i {
+			switch v := v.(*ReverseReturnValueRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4120,7 +4429,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReturnValueResponse); i {
+			switch v := v.(*ReverseReturnValueResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4132,7 +4441,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*HoldValueRequest); i {
+			switch v := v.(*ReturnValueRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4144,7 +4453,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*HoldValueResponse); i {
+			switch v := v.(*ReturnValueResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4156,7 +4465,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AmendHoldValueRequest); i {
+			switch v := v.(*HoldValueRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4168,7 +4477,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AmendHoldValueResponse); i {
+			switch v := v.(*HoldValueResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4180,7 +4489,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReleaseHoldValueRequest); i {
+			switch v := v.(*AmendHoldValueRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4192,7 +4501,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReleaseHoldValueResponse); i {
+			switch v := v.(*AmendHoldValueResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4204,7 +4513,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ObtainHoldValueRequest); i {
+			switch v := v.(*ReleaseHoldValueRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4216,7 +4525,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ObtainHoldValueResponse); i {
+			switch v := v.(*ReleaseHoldValueResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4228,7 +4537,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*From); i {
+			switch v := v.(*ObtainHoldValueRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4240,7 +4549,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReceiveValueRequest); i {
+			switch v := v.(*ObtainHoldValueResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4252,7 +4561,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ReceiveValueResponse); i {
+			switch v := v.(*From); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4264,7 +4573,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ValueAdvice); i {
+			switch v := v.(*ReceiveValueRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4276,7 +4585,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ValueAdviceRequest); i {
+			switch v := v.(*ReceiveValueResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4288,7 +4597,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ValueAdviceResponse); i {
+			switch v := v.(*ValueAdvice); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4300,7 +4609,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetValueRequest); i {
+			switch v := v.(*ValueAdviceRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4312,6 +4621,30 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 		file_mica_serviceprovider_value_v1_value_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ValueAdviceResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_mica_serviceprovider_value_v1_value_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetValueRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_mica_serviceprovider_value_v1_value_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetValueResponse); i {
 			case 0:
 				return &v.state
@@ -4324,7 +4657,7 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 			}
 		}
 	}
-	file_mica_serviceprovider_value_v1_value_proto_msgTypes[22].OneofWrappers = []interface{}{
+	file_mica_serviceprovider_value_v1_value_proto_msgTypes[24].OneofWrappers = []interface{}{
 		(*GetValueRequest_TransactionKey)(nil),
 		(*GetValueRequest_TransactionRef)(nil),
 	}
@@ -4333,8 +4666,8 @@ func file_mica_serviceprovider_value_v1_value_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_mica_serviceprovider_value_v1_value_proto_rawDesc,
-			NumEnums:      12,
-			NumMessages:   24,
+			NumEnums:      13,
+			NumMessages:   26,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

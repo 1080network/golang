@@ -24,7 +24,6 @@ import (
 	userv1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/userv1"
 	uuekv1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/uuekv1"
 	valuev1 "github.com/1080network/golang/serviceprovider/proto/mica/serviceprovider/valuev1"
-	pingv1 "github.com/1080network/golang/serviceprovider/proto/micashared/common/pingv1"
 	v1 "github.com/1080network/golang/serviceprovider/proto/micashared/common/v1"
 )
 
@@ -105,8 +104,10 @@ type ServiceProviderToMicaServiceClient interface {
 	GetValue(ctx context.Context, in *valuev1.GetValueRequest, opts ...grpc.CallOption) (*valuev1.GetValueResponse, error)
 	// Retrieve a receipt based on the transaction key.
 	GetReceipt(ctx context.Context, in *v1.GetReceiptRequest, opts ...grpc.CallOption) (*v1.GetReceiptResponse, error)
+	// Deprecated: Do not use.
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
-	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
+	// DEPRECATED. Please switch use cases to dedicated mica.member.ping.v1.PingService
+	Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error)
 }
 
 type serviceProviderToMicaServiceClient struct {
@@ -297,8 +298,9 @@ func (c *serviceProviderToMicaServiceClient) GetReceipt(ctx context.Context, in 
 	return out, nil
 }
 
-func (c *serviceProviderToMicaServiceClient) Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
-	out := new(pingv1.PingResponse)
+// Deprecated: Do not use.
+func (c *serviceProviderToMicaServiceClient) Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error) {
+	out := new(PingResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_Ping_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -354,8 +356,10 @@ type ServiceProviderToMicaServiceServer interface {
 	GetValue(context.Context, *valuev1.GetValueRequest) (*valuev1.GetValueResponse, error)
 	// Retrieve a receipt based on the transaction key.
 	GetReceipt(context.Context, *v1.GetReceiptRequest) (*v1.GetReceiptResponse, error)
+	// Deprecated: Do not use.
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
-	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
+	// DEPRECATED. Please switch use cases to dedicated mica.member.ping.v1.PingService
+	Ping(context.Context, *PingRequest) (*PingResponse, error)
 	mustEmbedUnimplementedServiceProviderToMicaServiceServer()
 }
 
@@ -423,7 +427,7 @@ func (UnimplementedServiceProviderToMicaServiceServer) GetValue(context.Context,
 func (UnimplementedServiceProviderToMicaServiceServer) GetReceipt(context.Context, *v1.GetReceiptRequest) (*v1.GetReceiptResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetReceipt not implemented")
 }
-func (UnimplementedServiceProviderToMicaServiceServer) Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
+func (UnimplementedServiceProviderToMicaServiceServer) Ping(context.Context, *PingRequest) (*PingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
 }
 func (UnimplementedServiceProviderToMicaServiceServer) mustEmbedUnimplementedServiceProviderToMicaServiceServer() {
@@ -801,7 +805,7 @@ func _ServiceProviderToMicaService_GetReceipt_Handler(srv interface{}, ctx conte
 }
 
 func _ServiceProviderToMicaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(pingv1.PingRequest)
+	in := new(PingRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -813,7 +817,7 @@ func _ServiceProviderToMicaService_Ping_Handler(srv interface{}, ctx context.Con
 		FullMethod: ServiceProviderToMicaService_Ping_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderToMicaServiceServer).Ping(ctx, req.(*pingv1.PingRequest))
+		return srv.(ServiceProviderToMicaServiceServer).Ping(ctx, req.(*PingRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

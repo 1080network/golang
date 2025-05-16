@@ -178,26 +178,6 @@ message UpdateFromMicaClientCallbackAddressResponse {
   int64 version = 3 [(validate.rules).int64.gte = 0];
 }
 
-message UpdateFromMicaClientAuthenticationTypeRequest {
-  int64 version = 1 [(validate.rules).int64.gte = 0];
-  micashared.common.v1.ClientAuthenticationType authentication_type = 3 [(validate.rules).enum = {
-    not_in: [0]
-  }];
-}
-
-message UpdateFromMicaClientAuthenticationTypeResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  int64 version = 3 [(validate.rules).int64.gte = 0];
-}
-
 message CreateApiTokenConfigurationRequest {
   micashared.common.v1.AuthenticationHeaderConfiguration header_configuration = 1 [(validate.rules).message.required = true];
   string api_token_value = 2 [(validate.rules).string.min_len = 1];
