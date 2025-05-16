@@ -26,7 +26,6 @@ import (
 	serviceproviderv1 "github.com/1080network/golang/fullsdk/proto/mica/partner/serviceproviderv1"
 	storev1 "github.com/1080network/golang/fullsdk/proto/mica/partner/storev1"
 	valuev1 "github.com/1080network/golang/fullsdk/proto/mica/partner/valuev1"
-	pingv1 "github.com/1080network/golang/fullsdk/proto/micashared/common/pingv1"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -37,7 +36,6 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	PartnerToMicaService_GetPartner_FullMethodName                       = "/mica.partner.service.v1.PartnerToMicaService/GetPartner"
 	PartnerToMicaService_CreateABAAccount_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/CreateABAAccount"
-	PartnerToMicaService_GetABAAccount_FullMethodName                    = "/mica.partner.service.v1.PartnerToMicaService/GetABAAccount"
 	PartnerToMicaService_SearchABAAccount_FullMethodName                 = "/mica.partner.service.v1.PartnerToMicaService/SearchABAAccount"
 	PartnerToMicaService_CreateOrganization_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/CreateOrganization"
 	PartnerToMicaService_GetOrganization_FullMethodName                  = "/mica.partner.service.v1.PartnerToMicaService/GetOrganization"
@@ -76,8 +74,6 @@ type PartnerToMicaServiceClient interface {
 	GetPartner(ctx context.Context, in *partnerv1.GetPartnerRequest, opts ...grpc.CallOption) (*partnerv1.GetPartnerResponse, error)
 	// Create an ABA account for a partner for use in settling transactions.
 	CreateABAAccount(ctx context.Context, in *accountv1.CreateABAAccountRequest, opts ...grpc.CallOption) (*accountv1.CreateABAAccountResponse, error)
-	// Retrieve an ABA account based on it's key.
-	GetABAAccount(ctx context.Context, in *accountv1.GetABAAccountRequest, opts ...grpc.CallOption) (*accountv1.GetABAAccountResponse, error)
 	// Search for ABA accounts based on the criteria in the request.
 	SearchABAAccount(ctx context.Context, in *accountv1.SearchABAAccountRequest, opts ...grpc.CallOption) (*accountv1.SearchABAAccountResponse, error)
 	// A method to create an organization.
@@ -109,11 +105,11 @@ type PartnerToMicaServiceClient interface {
 	// A method to obtain value from a user in order to pay for goods or services rendered to the user.
 	ObtainValue(ctx context.Context, in *valuev1.ObtainValueRequest, opts ...grpc.CallOption) (*valuev1.ObtainValueResponse, error)
 	// A method to reverse obtain value, including transaction fees and discounts for a given transaction
-	ReverseObtainValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseObtainValueResponse, error)
+	ReverseObtainValue(ctx context.Context, in *valuev1.ReverseObtainValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseObtainValueResponse, error)
 	// A method to return value to a user in order to refund them for goods or services.
 	ReturnValue(ctx context.Context, in *valuev1.ReturnValueRequest, opts ...grpc.CallOption) (*valuev1.ReturnValueResponse, error)
 	// A method to reverse return value for a given transaction
-	ReverseReturnValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseReturnValueResponse, error)
+	ReverseReturnValue(ctx context.Context, in *valuev1.ReverseReturnValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseReturnValueResponse, error)
 	// A method to retrieve a value transaction
 	GetValue(ctx context.Context, in *valuev1.GetValueRequest, opts ...grpc.CallOption) (*valuev1.GetValueResponse, error)
 	// A method to hold some value to be obtained at a later date via ObtainHoldValue
@@ -133,7 +129,7 @@ type PartnerToMicaServiceClient interface {
 	// Provision a UUEK from a link in order to process a transaction
 	ProvisionUUEKFromLink(ctx context.Context, in *instrumentv1.ProvisionUUEKFromLinkRequest, opts ...grpc.CallOption) (*instrumentv1.ProvisionUUEKFromLinkResponse, error)
 	// A method to ping the server to ensure it's up and running and that the connection is good.
-	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
+	Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error)
 }
 
 type partnerToMicaServiceClient struct {
@@ -156,15 +152,6 @@ func (c *partnerToMicaServiceClient) GetPartner(ctx context.Context, in *partner
 func (c *partnerToMicaServiceClient) CreateABAAccount(ctx context.Context, in *accountv1.CreateABAAccountRequest, opts ...grpc.CallOption) (*accountv1.CreateABAAccountResponse, error) {
 	out := new(accountv1.CreateABAAccountResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_CreateABAAccount_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *partnerToMicaServiceClient) GetABAAccount(ctx context.Context, in *accountv1.GetABAAccountRequest, opts ...grpc.CallOption) (*accountv1.GetABAAccountResponse, error) {
-	out := new(accountv1.GetABAAccountResponse)
-	err := c.cc.Invoke(ctx, PartnerToMicaService_GetABAAccount_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -306,7 +293,7 @@ func (c *partnerToMicaServiceClient) ObtainValue(ctx context.Context, in *valuev
 	return out, nil
 }
 
-func (c *partnerToMicaServiceClient) ReverseObtainValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseObtainValueResponse, error) {
+func (c *partnerToMicaServiceClient) ReverseObtainValue(ctx context.Context, in *valuev1.ReverseObtainValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseObtainValueResponse, error) {
 	out := new(valuev1.ReverseObtainValueResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_ReverseObtainValue_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -324,7 +311,7 @@ func (c *partnerToMicaServiceClient) ReturnValue(ctx context.Context, in *valuev
 	return out, nil
 }
 
-func (c *partnerToMicaServiceClient) ReverseReturnValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseReturnValueResponse, error) {
+func (c *partnerToMicaServiceClient) ReverseReturnValue(ctx context.Context, in *valuev1.ReverseReturnValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseReturnValueResponse, error) {
 	out := new(valuev1.ReverseReturnValueResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_ReverseReturnValue_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -414,8 +401,8 @@ func (c *partnerToMicaServiceClient) ProvisionUUEKFromLink(ctx context.Context, 
 	return out, nil
 }
 
-func (c *partnerToMicaServiceClient) Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
-	out := new(pingv1.PingResponse)
+func (c *partnerToMicaServiceClient) Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error) {
+	out := new(PingResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_Ping_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -431,8 +418,6 @@ type PartnerToMicaServiceServer interface {
 	GetPartner(context.Context, *partnerv1.GetPartnerRequest) (*partnerv1.GetPartnerResponse, error)
 	// Create an ABA account for a partner for use in settling transactions.
 	CreateABAAccount(context.Context, *accountv1.CreateABAAccountRequest) (*accountv1.CreateABAAccountResponse, error)
-	// Retrieve an ABA account based on it's key.
-	GetABAAccount(context.Context, *accountv1.GetABAAccountRequest) (*accountv1.GetABAAccountResponse, error)
 	// Search for ABA accounts based on the criteria in the request.
 	SearchABAAccount(context.Context, *accountv1.SearchABAAccountRequest) (*accountv1.SearchABAAccountResponse, error)
 	// A method to create an organization.
@@ -464,11 +449,11 @@ type PartnerToMicaServiceServer interface {
 	// A method to obtain value from a user in order to pay for goods or services rendered to the user.
 	ObtainValue(context.Context, *valuev1.ObtainValueRequest) (*valuev1.ObtainValueResponse, error)
 	// A method to reverse obtain value, including transaction fees and discounts for a given transaction
-	ReverseObtainValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseObtainValueResponse, error)
+	ReverseObtainValue(context.Context, *valuev1.ReverseObtainValueRequest) (*valuev1.ReverseObtainValueResponse, error)
 	// A method to return value to a user in order to refund them for goods or services.
 	ReturnValue(context.Context, *valuev1.ReturnValueRequest) (*valuev1.ReturnValueResponse, error)
 	// A method to reverse return value for a given transaction
-	ReverseReturnValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseReturnValueResponse, error)
+	ReverseReturnValue(context.Context, *valuev1.ReverseReturnValueRequest) (*valuev1.ReverseReturnValueResponse, error)
 	// A method to retrieve a value transaction
 	GetValue(context.Context, *valuev1.GetValueRequest) (*valuev1.GetValueResponse, error)
 	// A method to hold some value to be obtained at a later date via ObtainHoldValue
@@ -488,7 +473,7 @@ type PartnerToMicaServiceServer interface {
 	// Provision a UUEK from a link in order to process a transaction
 	ProvisionUUEKFromLink(context.Context, *instrumentv1.ProvisionUUEKFromLinkRequest) (*instrumentv1.ProvisionUUEKFromLinkResponse, error)
 	// A method to ping the server to ensure it's up and running and that the connection is good.
-	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
+	Ping(context.Context, *PingRequest) (*PingResponse, error)
 	mustEmbedUnimplementedPartnerToMicaServiceServer()
 }
 
@@ -501,9 +486,6 @@ func (UnimplementedPartnerToMicaServiceServer) GetPartner(context.Context, *part
 }
 func (UnimplementedPartnerToMicaServiceServer) CreateABAAccount(context.Context, *accountv1.CreateABAAccountRequest) (*accountv1.CreateABAAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateABAAccount not implemented")
-}
-func (UnimplementedPartnerToMicaServiceServer) GetABAAccount(context.Context, *accountv1.GetABAAccountRequest) (*accountv1.GetABAAccountResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetABAAccount not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) SearchABAAccount(context.Context, *accountv1.SearchABAAccountRequest) (*accountv1.SearchABAAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchABAAccount not implemented")
@@ -550,13 +532,13 @@ func (UnimplementedPartnerToMicaServiceServer) SearchServiceProvider(context.Con
 func (UnimplementedPartnerToMicaServiceServer) ObtainValue(context.Context, *valuev1.ObtainValueRequest) (*valuev1.ObtainValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ObtainValue not implemented")
 }
-func (UnimplementedPartnerToMicaServiceServer) ReverseObtainValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseObtainValueResponse, error) {
+func (UnimplementedPartnerToMicaServiceServer) ReverseObtainValue(context.Context, *valuev1.ReverseObtainValueRequest) (*valuev1.ReverseObtainValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReverseObtainValue not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) ReturnValue(context.Context, *valuev1.ReturnValueRequest) (*valuev1.ReturnValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReturnValue not implemented")
 }
-func (UnimplementedPartnerToMicaServiceServer) ReverseReturnValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseReturnValueResponse, error) {
+func (UnimplementedPartnerToMicaServiceServer) ReverseReturnValue(context.Context, *valuev1.ReverseReturnValueRequest) (*valuev1.ReverseReturnValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReverseReturnValue not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) GetValue(context.Context, *valuev1.GetValueRequest) (*valuev1.GetValueResponse, error) {
@@ -586,7 +568,7 @@ func (UnimplementedPartnerToMicaServiceServer) RemoveInstrumentLink(context.Cont
 func (UnimplementedPartnerToMicaServiceServer) ProvisionUUEKFromLink(context.Context, *instrumentv1.ProvisionUUEKFromLinkRequest) (*instrumentv1.ProvisionUUEKFromLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ProvisionUUEKFromLink not implemented")
 }
-func (UnimplementedPartnerToMicaServiceServer) Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
+func (UnimplementedPartnerToMicaServiceServer) Ping(context.Context, *PingRequest) (*PingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) mustEmbedUnimplementedPartnerToMicaServiceServer() {}
@@ -634,24 +616,6 @@ func _PartnerToMicaService_CreateABAAccount_Handler(srv interface{}, ctx context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(PartnerToMicaServiceServer).CreateABAAccount(ctx, req.(*accountv1.CreateABAAccountRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _PartnerToMicaService_GetABAAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(accountv1.GetABAAccountRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).GetABAAccount(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PartnerToMicaService_GetABAAccount_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).GetABAAccount(ctx, req.(*accountv1.GetABAAccountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -927,7 +891,7 @@ func _PartnerToMicaService_ObtainValue_Handler(srv interface{}, ctx context.Cont
 }
 
 func _PartnerToMicaService_ReverseObtainValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(valuev1.ReverseValueRequest)
+	in := new(valuev1.ReverseObtainValueRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -939,7 +903,7 @@ func _PartnerToMicaService_ReverseObtainValue_Handler(srv interface{}, ctx conte
 		FullMethod: PartnerToMicaService_ReverseObtainValue_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).ReverseObtainValue(ctx, req.(*valuev1.ReverseValueRequest))
+		return srv.(PartnerToMicaServiceServer).ReverseObtainValue(ctx, req.(*valuev1.ReverseObtainValueRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -963,7 +927,7 @@ func _PartnerToMicaService_ReturnValue_Handler(srv interface{}, ctx context.Cont
 }
 
 func _PartnerToMicaService_ReverseReturnValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(valuev1.ReverseValueRequest)
+	in := new(valuev1.ReverseReturnValueRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -975,7 +939,7 @@ func _PartnerToMicaService_ReverseReturnValue_Handler(srv interface{}, ctx conte
 		FullMethod: PartnerToMicaService_ReverseReturnValue_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).ReverseReturnValue(ctx, req.(*valuev1.ReverseValueRequest))
+		return srv.(PartnerToMicaServiceServer).ReverseReturnValue(ctx, req.(*valuev1.ReverseReturnValueRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1143,7 +1107,7 @@ func _PartnerToMicaService_ProvisionUUEKFromLink_Handler(srv interface{}, ctx co
 }
 
 func _PartnerToMicaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(pingv1.PingRequest)
+	in := new(PingRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1155,7 +1119,7 @@ func _PartnerToMicaService_Ping_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: PartnerToMicaService_Ping_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).Ping(ctx, req.(*pingv1.PingRequest))
+		return srv.(PartnerToMicaServiceServer).Ping(ctx, req.(*PingRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1174,10 +1138,6 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateABAAccount",
 			Handler:    _PartnerToMicaService_CreateABAAccount_Handler,
-		},
-		{
-			MethodName: "GetABAAccount",
-			Handler:    _PartnerToMicaService_GetABAAccount_Handler,
 		},
 		{
 			MethodName: "SearchABAAccount",

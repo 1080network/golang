@@ -8,14 +8,19 @@
 
 syntax = "proto3";
 
-package micashared.common.ping.v1;
+package mica.member.ping.v1;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "micashared/common/pingv1";
-option java_outer_classname = "PingProto";
-option java_package = "io.micashared.common.ping.v1";
+option go_package = "mica/member/pingv1";
+option java_outer_classname = "PingServiceProto";
+option java_package = "io.mica.member.ping.v1";
 option objc_class_prefix = "MICA";
+
+service PingService {
+  // Test connectivity to the Mica network
+  rpc Ping(PingRequest) returns (PingResponse) {}
+}
 
 message PingRequest {}
 

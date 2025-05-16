@@ -21,7 +21,6 @@ import (
 	status "google.golang.org/grpc/status"
 	userv1 "github.com/1080network/golang/fullsdk/proto/mica/serviceprovider/userv1"
 	valuev1 "github.com/1080network/golang/fullsdk/proto/mica/serviceprovider/valuev1"
-	pingv1 "github.com/1080network/golang/fullsdk/proto/micashared/common/pingv1"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -56,11 +55,11 @@ type ServiceProviderFromMicaServiceClient interface {
 	// above), it includes an approval type of either FULL or PARTIAL.
 	ObtainValue(ctx context.Context, in *valuev1.ObtainValueRequest, opts ...grpc.CallOption) (*valuev1.ObtainValueResponse, error)
 	// Reverse a ObtainValue transaction
-	ReverseObtainValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseValueResponse, error)
+	ReverseObtainValue(ctx context.Context, in *valuev1.ReverseObtainValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseObtainValueResponse, error)
 	// Operation to return value to a given instrument.
 	ReturnValue(ctx context.Context, in *valuev1.ReturnValueRequest, opts ...grpc.CallOption) (*valuev1.ReturnValueResponse, error)
 	// Reverse a ReturnValue transaction
-	ReverseReturnValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseValueResponse, error)
+	ReverseReturnValue(ctx context.Context, in *valuev1.ReverseReturnValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseReturnValueResponse, error)
 	// Hold a value for a given instrument to be used at a later time
 	HoldValue(ctx context.Context, in *valuev1.HoldValueRequest, opts ...grpc.CallOption) (*valuev1.HoldValueResponse, error)
 	// Release a previously placed hold
@@ -72,7 +71,7 @@ type ServiceProviderFromMicaServiceClient interface {
 	ReceiveValue(ctx context.Context, in *valuev1.ReceiveValueRequest, opts ...grpc.CallOption) (*valuev1.ReceiveValueResponse, error)
 	ValueAdvice(ctx context.Context, in *valuev1.ValueAdviceRequest, opts ...grpc.CallOption) (*valuev1.ValueAdviceResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
-	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
+	Ping(ctx context.Context, in *ServiceProviderFromMicaServicePingRequest, opts ...grpc.CallOption) (*ServiceProviderFromMicaServicePingResponse, error)
 }
 
 type serviceProviderFromMicaServiceClient struct {
@@ -101,8 +100,8 @@ func (c *serviceProviderFromMicaServiceClient) ObtainValue(ctx context.Context, 
 	return out, nil
 }
 
-func (c *serviceProviderFromMicaServiceClient) ReverseObtainValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseValueResponse, error) {
-	out := new(valuev1.ReverseValueResponse)
+func (c *serviceProviderFromMicaServiceClient) ReverseObtainValue(ctx context.Context, in *valuev1.ReverseObtainValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseObtainValueResponse, error) {
+	out := new(valuev1.ReverseObtainValueResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderFromMicaService_ReverseObtainValue_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -119,8 +118,8 @@ func (c *serviceProviderFromMicaServiceClient) ReturnValue(ctx context.Context, 
 	return out, nil
 }
 
-func (c *serviceProviderFromMicaServiceClient) ReverseReturnValue(ctx context.Context, in *valuev1.ReverseValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseValueResponse, error) {
-	out := new(valuev1.ReverseValueResponse)
+func (c *serviceProviderFromMicaServiceClient) ReverseReturnValue(ctx context.Context, in *valuev1.ReverseReturnValueRequest, opts ...grpc.CallOption) (*valuev1.ReverseReturnValueResponse, error) {
+	out := new(valuev1.ReverseReturnValueResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderFromMicaService_ReverseReturnValue_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -182,8 +181,8 @@ func (c *serviceProviderFromMicaServiceClient) ValueAdvice(ctx context.Context, 
 	return out, nil
 }
 
-func (c *serviceProviderFromMicaServiceClient) Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
-	out := new(pingv1.PingResponse)
+func (c *serviceProviderFromMicaServiceClient) Ping(ctx context.Context, in *ServiceProviderFromMicaServicePingRequest, opts ...grpc.CallOption) (*ServiceProviderFromMicaServicePingResponse, error) {
+	out := new(ServiceProviderFromMicaServicePingResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderFromMicaService_Ping_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -203,11 +202,11 @@ type ServiceProviderFromMicaServiceServer interface {
 	// above), it includes an approval type of either FULL or PARTIAL.
 	ObtainValue(context.Context, *valuev1.ObtainValueRequest) (*valuev1.ObtainValueResponse, error)
 	// Reverse a ObtainValue transaction
-	ReverseObtainValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseValueResponse, error)
+	ReverseObtainValue(context.Context, *valuev1.ReverseObtainValueRequest) (*valuev1.ReverseObtainValueResponse, error)
 	// Operation to return value to a given instrument.
 	ReturnValue(context.Context, *valuev1.ReturnValueRequest) (*valuev1.ReturnValueResponse, error)
 	// Reverse a ReturnValue transaction
-	ReverseReturnValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseValueResponse, error)
+	ReverseReturnValue(context.Context, *valuev1.ReverseReturnValueRequest) (*valuev1.ReverseReturnValueResponse, error)
 	// Hold a value for a given instrument to be used at a later time
 	HoldValue(context.Context, *valuev1.HoldValueRequest) (*valuev1.HoldValueResponse, error)
 	// Release a previously placed hold
@@ -219,7 +218,7 @@ type ServiceProviderFromMicaServiceServer interface {
 	ReceiveValue(context.Context, *valuev1.ReceiveValueRequest) (*valuev1.ReceiveValueResponse, error)
 	ValueAdvice(context.Context, *valuev1.ValueAdviceRequest) (*valuev1.ValueAdviceResponse, error)
 	// An operation to ping the server to ensure it's up and running and that the connection is good.
-	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
+	Ping(context.Context, *ServiceProviderFromMicaServicePingRequest) (*ServiceProviderFromMicaServicePingResponse, error)
 	mustEmbedUnimplementedServiceProviderFromMicaServiceServer()
 }
 
@@ -233,13 +232,13 @@ func (UnimplementedServiceProviderFromMicaServiceServer) EnrollUserInstrument(co
 func (UnimplementedServiceProviderFromMicaServiceServer) ObtainValue(context.Context, *valuev1.ObtainValueRequest) (*valuev1.ObtainValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ObtainValue not implemented")
 }
-func (UnimplementedServiceProviderFromMicaServiceServer) ReverseObtainValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseValueResponse, error) {
+func (UnimplementedServiceProviderFromMicaServiceServer) ReverseObtainValue(context.Context, *valuev1.ReverseObtainValueRequest) (*valuev1.ReverseObtainValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReverseObtainValue not implemented")
 }
 func (UnimplementedServiceProviderFromMicaServiceServer) ReturnValue(context.Context, *valuev1.ReturnValueRequest) (*valuev1.ReturnValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReturnValue not implemented")
 }
-func (UnimplementedServiceProviderFromMicaServiceServer) ReverseReturnValue(context.Context, *valuev1.ReverseValueRequest) (*valuev1.ReverseValueResponse, error) {
+func (UnimplementedServiceProviderFromMicaServiceServer) ReverseReturnValue(context.Context, *valuev1.ReverseReturnValueRequest) (*valuev1.ReverseReturnValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReverseReturnValue not implemented")
 }
 func (UnimplementedServiceProviderFromMicaServiceServer) HoldValue(context.Context, *valuev1.HoldValueRequest) (*valuev1.HoldValueResponse, error) {
@@ -260,7 +259,7 @@ func (UnimplementedServiceProviderFromMicaServiceServer) ReceiveValue(context.Co
 func (UnimplementedServiceProviderFromMicaServiceServer) ValueAdvice(context.Context, *valuev1.ValueAdviceRequest) (*valuev1.ValueAdviceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ValueAdvice not implemented")
 }
-func (UnimplementedServiceProviderFromMicaServiceServer) Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
+func (UnimplementedServiceProviderFromMicaServiceServer) Ping(context.Context, *ServiceProviderFromMicaServicePingRequest) (*ServiceProviderFromMicaServicePingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
 }
 func (UnimplementedServiceProviderFromMicaServiceServer) mustEmbedUnimplementedServiceProviderFromMicaServiceServer() {
@@ -314,7 +313,7 @@ func _ServiceProviderFromMicaService_ObtainValue_Handler(srv interface{}, ctx co
 }
 
 func _ServiceProviderFromMicaService_ReverseObtainValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(valuev1.ReverseValueRequest)
+	in := new(valuev1.ReverseObtainValueRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -326,7 +325,7 @@ func _ServiceProviderFromMicaService_ReverseObtainValue_Handler(srv interface{},
 		FullMethod: ServiceProviderFromMicaService_ReverseObtainValue_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderFromMicaServiceServer).ReverseObtainValue(ctx, req.(*valuev1.ReverseValueRequest))
+		return srv.(ServiceProviderFromMicaServiceServer).ReverseObtainValue(ctx, req.(*valuev1.ReverseObtainValueRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -350,7 +349,7 @@ func _ServiceProviderFromMicaService_ReturnValue_Handler(srv interface{}, ctx co
 }
 
 func _ServiceProviderFromMicaService_ReverseReturnValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(valuev1.ReverseValueRequest)
+	in := new(valuev1.ReverseReturnValueRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -362,7 +361,7 @@ func _ServiceProviderFromMicaService_ReverseReturnValue_Handler(srv interface{},
 		FullMethod: ServiceProviderFromMicaService_ReverseReturnValue_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderFromMicaServiceServer).ReverseReturnValue(ctx, req.(*valuev1.ReverseValueRequest))
+		return srv.(ServiceProviderFromMicaServiceServer).ReverseReturnValue(ctx, req.(*valuev1.ReverseReturnValueRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -476,7 +475,7 @@ func _ServiceProviderFromMicaService_ValueAdvice_Handler(srv interface{}, ctx co
 }
 
 func _ServiceProviderFromMicaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(pingv1.PingRequest)
+	in := new(ServiceProviderFromMicaServicePingRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -488,7 +487,7 @@ func _ServiceProviderFromMicaService_Ping_Handler(srv interface{}, ctx context.C
 		FullMethod: ServiceProviderFromMicaService_Ping_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderFromMicaServiceServer).Ping(ctx, req.(*pingv1.PingRequest))
+		return srv.(ServiceProviderFromMicaServiceServer).Ping(ctx, req.(*ServiceProviderFromMicaServicePingRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

@@ -24,6 +24,7 @@ partner: vendor
 	cp -r proto/micashared partner/proto
 	mkdir -p partner/proto/mica
 	cp -r proto/mica/partner partner/proto/mica/.
+	cp -r proto/mica/member partner/proto/mica/.
 	./generateGo.sh partner
 	cd partner && go mod tidy
 
@@ -34,6 +35,7 @@ serviceprovider: vendor
 	mkdir -p serviceprovider/proto/mica/discount
 	cp -r proto/mica/serviceprovider serviceprovider/proto/mica/.
 	cp -r proto/mica/discount/discount  serviceprovider/proto/mica/discount/.
+	cp -r proto/mica/member partner/proto/mica/.
 	./generateGo.sh serviceprovider
 	cd serviceprovider && go mod tidy
 

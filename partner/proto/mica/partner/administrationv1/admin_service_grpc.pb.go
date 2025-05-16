@@ -19,7 +19,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	v1 "github.com/1080network/golang/partner/proto/micashared/common/v1"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -36,8 +35,8 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PartnerAdministrationServiceClient interface {
-	SearchDataExtractionStatistics(ctx context.Context, in *v1.SearchDataExtractionRequest, opts ...grpc.CallOption) (*v1.SearchDataExtractionResponse, error)
-	GetDataExtractionStatistics(ctx context.Context, in *v1.GetDataExtractionRequest, opts ...grpc.CallOption) (*v1.GetDataExtractionResponse, error)
+	SearchDataExtractionStatistics(ctx context.Context, in *SearchDataExtractionStatisticsRequest, opts ...grpc.CallOption) (*SearchDataExtractionStatisticsResponse, error)
+	GetDataExtractionStatistics(ctx context.Context, in *GetDataExtractionStatisticsRequest, opts ...grpc.CallOption) (*GetDataExtractionStatisticsResponse, error)
 }
 
 type partnerAdministrationServiceClient struct {
@@ -48,8 +47,8 @@ func NewPartnerAdministrationServiceClient(cc grpc.ClientConnInterface) PartnerA
 	return &partnerAdministrationServiceClient{cc}
 }
 
-func (c *partnerAdministrationServiceClient) SearchDataExtractionStatistics(ctx context.Context, in *v1.SearchDataExtractionRequest, opts ...grpc.CallOption) (*v1.SearchDataExtractionResponse, error) {
-	out := new(v1.SearchDataExtractionResponse)
+func (c *partnerAdministrationServiceClient) SearchDataExtractionStatistics(ctx context.Context, in *SearchDataExtractionStatisticsRequest, opts ...grpc.CallOption) (*SearchDataExtractionStatisticsResponse, error) {
+	out := new(SearchDataExtractionStatisticsResponse)
 	err := c.cc.Invoke(ctx, PartnerAdministrationService_SearchDataExtractionStatistics_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -57,8 +56,8 @@ func (c *partnerAdministrationServiceClient) SearchDataExtractionStatistics(ctx 
 	return out, nil
 }
 
-func (c *partnerAdministrationServiceClient) GetDataExtractionStatistics(ctx context.Context, in *v1.GetDataExtractionRequest, opts ...grpc.CallOption) (*v1.GetDataExtractionResponse, error) {
-	out := new(v1.GetDataExtractionResponse)
+func (c *partnerAdministrationServiceClient) GetDataExtractionStatistics(ctx context.Context, in *GetDataExtractionStatisticsRequest, opts ...grpc.CallOption) (*GetDataExtractionStatisticsResponse, error) {
+	out := new(GetDataExtractionStatisticsResponse)
 	err := c.cc.Invoke(ctx, PartnerAdministrationService_GetDataExtractionStatistics_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -70,8 +69,8 @@ func (c *partnerAdministrationServiceClient) GetDataExtractionStatistics(ctx con
 // All implementations must embed UnimplementedPartnerAdministrationServiceServer
 // for forward compatibility
 type PartnerAdministrationServiceServer interface {
-	SearchDataExtractionStatistics(context.Context, *v1.SearchDataExtractionRequest) (*v1.SearchDataExtractionResponse, error)
-	GetDataExtractionStatistics(context.Context, *v1.GetDataExtractionRequest) (*v1.GetDataExtractionResponse, error)
+	SearchDataExtractionStatistics(context.Context, *SearchDataExtractionStatisticsRequest) (*SearchDataExtractionStatisticsResponse, error)
+	GetDataExtractionStatistics(context.Context, *GetDataExtractionStatisticsRequest) (*GetDataExtractionStatisticsResponse, error)
 	mustEmbedUnimplementedPartnerAdministrationServiceServer()
 }
 
@@ -79,10 +78,10 @@ type PartnerAdministrationServiceServer interface {
 type UnimplementedPartnerAdministrationServiceServer struct {
 }
 
-func (UnimplementedPartnerAdministrationServiceServer) SearchDataExtractionStatistics(context.Context, *v1.SearchDataExtractionRequest) (*v1.SearchDataExtractionResponse, error) {
+func (UnimplementedPartnerAdministrationServiceServer) SearchDataExtractionStatistics(context.Context, *SearchDataExtractionStatisticsRequest) (*SearchDataExtractionStatisticsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchDataExtractionStatistics not implemented")
 }
-func (UnimplementedPartnerAdministrationServiceServer) GetDataExtractionStatistics(context.Context, *v1.GetDataExtractionRequest) (*v1.GetDataExtractionResponse, error) {
+func (UnimplementedPartnerAdministrationServiceServer) GetDataExtractionStatistics(context.Context, *GetDataExtractionStatisticsRequest) (*GetDataExtractionStatisticsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataExtractionStatistics not implemented")
 }
 func (UnimplementedPartnerAdministrationServiceServer) mustEmbedUnimplementedPartnerAdministrationServiceServer() {
@@ -100,7 +99,7 @@ func RegisterPartnerAdministrationServiceServer(s grpc.ServiceRegistrar, srv Par
 }
 
 func _PartnerAdministrationService_SearchDataExtractionStatistics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.SearchDataExtractionRequest)
+	in := new(SearchDataExtractionStatisticsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -112,13 +111,13 @@ func _PartnerAdministrationService_SearchDataExtractionStatistics_Handler(srv in
 		FullMethod: PartnerAdministrationService_SearchDataExtractionStatistics_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerAdministrationServiceServer).SearchDataExtractionStatistics(ctx, req.(*v1.SearchDataExtractionRequest))
+		return srv.(PartnerAdministrationServiceServer).SearchDataExtractionStatistics(ctx, req.(*SearchDataExtractionStatisticsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _PartnerAdministrationService_GetDataExtractionStatistics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GetDataExtractionRequest)
+	in := new(GetDataExtractionStatisticsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -130,7 +129,7 @@ func _PartnerAdministrationService_GetDataExtractionStatistics_Handler(srv inter
 		FullMethod: PartnerAdministrationService_GetDataExtractionStatistics_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerAdministrationServiceServer).GetDataExtractionStatistics(ctx, req.(*v1.GetDataExtractionRequest))
+		return srv.(PartnerAdministrationServiceServer).GetDataExtractionStatistics(ctx, req.(*GetDataExtractionStatisticsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

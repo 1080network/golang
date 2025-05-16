@@ -10,8 +10,9 @@ syntax = "proto3";
 
 package mica.serviceprovider.administration.v1;
 
-import "micashared/common/ping/v1/ping.proto";
+import "google/protobuf/timestamp.proto";
 import "micashared/common/v1/data_extraction.proto";
+import "micashared/common/v1/error.proto";
 import "micashared/common/v1/external_client.proto";
 import "micashared/common/v1/mtls_certificate.proto";
 import "validate/validate.proto";
@@ -24,26 +25,31 @@ option objc_class_prefix = "MICA";
 // This is the administrative interface for a Service Provider member
 service ServiceProviderAdministrationService {
   // Client certificates are used when mica needs to call out to a customers environment.
-  rpc GenerateFromMicaClientCertificate(micashared.common.v1.GenerateFromMicaClientCertificateRequest) returns (micashared.common.v1.GenerateFromMicaClientCertificateResponse) {}
+  rpc GenerateFromMicaClientCertificate(GenerateFromMicaClientCertificateRequest) returns (GenerateFromMicaClientCertificateResponse) {}
   // After signing the CSR the member will upload the signed cert
-  rpc UpdateFromMicaClientCertificate(micashared.common.v1.UpdateFromMicaClientCertificateRequest) returns (micashared.common.v1.UpdateFromMicaClientCertificateResponse) {}
+  rpc UpdateFromMicaClientCertificate(UpdateFromMicaClientCertificateRequest) returns (UpdateFromMicaClientCertificateResponse) {}
   // there can only be one enable cert for each endpoint
-  rpc EnableFromMicaClientCertificate(micashared.common.v1.EnableFromMicaClientCertificateRequest) returns (micashared.common.v1.EnableFromMicaClientCertificateResponse) {}
+  rpc EnableFromMicaClientCertificate(EnableFromMicaClientCertificateRequest) returns (EnableFromMicaClientCertificateResponse) {}
   // return all from mica certs for now
-  rpc SearchFromMicaClientCertificate(micashared.common.v1.SearchFromMicaClientCertificateRequest) returns (micashared.common.v1.SearchFromMicaClientCertificateResponse) {}
+  rpc SearchFromMicaClientCertificate(SearchFromMicaClientCertificateRequest) returns (SearchFromMicaClientCertificateResponse) {}
   // External authentication mechanisms for Mica to call provider endpoints
-  rpc GetFromMicaClientSettings(micashared.common.v1.GetFromMicaClientSettingsRequest) returns (micashared.common.v1.GetFromMicaClientSettingsResponse) {}
+  rpc GetFromMicaClientSettings(GetFromMicaClientSettingsRequest) returns (GetFromMicaClientSettingsResponse) {}
 
-  rpc UpdateFromMicaClientCallbackAddress(micashared.common.v1.UpdateFromMicaClientCallBackAddressRequest) returns (micashared.common.v1.UpdateFromMicaClientCallBackAddressResponse) {}
+  rpc UpdateFromMicaClientCallbackAddress(UpdateFromMicaClientCallbackAddressRequest) returns (UpdateFromMicaClientCallbackAddressResponse) {}
 
-  rpc SearchDataExtractionStatistics(micashared.common.v1.SearchDataExtractionRequest) returns (micashared.common.v1.SearchDataExtractionResponse) {}
+  rpc SearchDataExtractionStatistics(SearchDataExtractionStatisticsRequest) returns (SearchDataExtractionStatisticsResponse) {}
 
-  rpc GetDataExtractionStatistics(micashared.common.v1.GetDataExtractionRequest) returns (micashared.common.v1.GetDataExtractionResponse) {}
+  rpc GetDataExtractionStatistics(GetDataExtractionStatisticsRequest) returns (GetDataExtractionStatisticsResponse) {}
   // tests the external call to verify proper configuration and connectivity using the currently enabled certificate
-  rpc PingExternal(micashared.common.ping.v1.PingRequest) returns (micashared.common.ping.v1.PingResponse) {}
+  rpc PingExternal(PingExternalRequest) returns (PingExternalResponse) {}
+
   // tests the call to the callback service using a specific certificate that may or may not be enabled
   rpc PingExternalWithCertificate(PingExternalWithCertificateRequest) returns (PingExternalWithCertificateResponse) {}
 }
+
+message PingExternalRequest {}
+
+message PingExternalResponse {}
 
 message PingExternalWithCertificateRequest {
   string certificate_id = 1 [(validate.rules).string = {
@@ -54,5 +60,192 @@ message PingExternalWithCertificateRequest {
 
 message PingExternalWithCertificateResponse {
   string certificate_id = 1;
-  micashared.common.ping.v1.PingResponse response = 2;
+}
+
+message UpdateFromMicaClientCallbackAddressRequest {
+  int64 version = 1 [(validate.rules).int64.gte = 0];
+  // the callback address must folow a <hostname>:<port> pattern for example
+  // mycallbackservicie.somecompany.io:443
+  string callback_address = 2 [(validate.rules).string.pattern = "^[^/]+:\\d{3,6}$"];
+}
+
+message UpdateFromMicaClientCallbackAddressResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  int64 version = 3 [(validate.rules).int64.gte = 0];
+}
+
+
+message GetFromMicaClientSettingsRequest {}
+
+message GetFromMicaClientSettingsResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  micashared.common.v1.ExternalClientSettings settings = 3;
+}
+
+
+message UpdateFromMicaClientAuthenticationTypeRequest {
+  int64 version = 1 [(validate.rules).int64.gte = 0];
+  ClientAuthenticationType authentication_type = 3 [(validate.rules).enum = {
+    not_in: [0]
+  }];
+}
+
+message UpdateFromMicaClientAuthenticationTypeResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  int64 version = 3 [(validate.rules).int64.gte = 0];
+}
+
+enum ClientAuthenticationType {
+  CLIENT_AUTHENTICATION_TYPE_UNSPECIFIED = 0;
+  CLIENT_AUTHENTICATION_TYPE_CLIENT_CERTIFICATE = 1;
+  CLIENT_AUTHENTICATION_TYPE_API_TOKEN = 2;
+}
+
+message ExternalClientSettings {
+  int64 version = 1 [(validate.rules).int64.gte = 0];
+
+  google.protobuf.Timestamp created = 2;
+
+  google.protobuf.Timestamp updated = 3;
+
+  string callback_address = 4 [(validate.rules).string = {
+    min_len: 3,
+    max_len: 200
+  }];
+
+  ClientAuthenticationSettings client_authentication_settings = 5;
+}
+
+message ClientAuthenticationSettings {
+  repeated ClientAuthenticationType suported_client_authentication_types = 1;
+  ClientAuthenticationType current_authentication_type = 2;
+}
+
+// We generate the db entry and return the csr to the user so they can sign it.
+message GenerateFromMicaClientCertificateRequest {
+  string display_name = 1;
+}
+
+message GenerateFromMicaClientCertificateResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  micashared.common.v1.FromMicaClientCertificate certificate_to_sign = 3;
+}
+
+message UpdateFromMicaClientCertificateRequest {
+  string certificate_id = 1;
+  string display_name = 2;
+  //Base64 standard encoded PEM string
+  string base64_signed_cert_pem_from_csr = 3;
+  //Base64 standard encoded PEM string
+  string base64_rootca_pem = 4;
+
+}
+
+message UpdateFromMicaClientCertificateResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+  micashared.common.v1.FromMicaClientCertificate certificate = 3;
+}
+
+message EnableFromMicaClientCertificateRequest {
+  string certificate_id = 1 ;
+}
+
+message EnableFromMicaClientCertificateResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+  micashared.common.v1.FromMicaClientCertificate certificate = 3;
+}
+
+
+message SearchFromMicaClientCertificateRequest {}
+
+message SearchFromMicaClientCertificateResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+  repeated micashared.common.v1.FromMicaClientCertificate certificates = 3;
+}
+
+message GetDataExtractionStatisticsRequest {
+  string extractor_name = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GetDataExtractionStatisticsResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_NOT_FOUND = 2;
+    STATUS_ERROR = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  micashared.common.v1.DataExtraction extraction = 3;
+}
+
+message SearchDataExtractionStatisticsRequest {
+  // Nothing for now; we will add criteria as we add console use-cases.
+}
+
+message SearchDataExtractionStatisticsResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+  repeated micashared.common.v1.DataExtraction extractions = 3;
 }

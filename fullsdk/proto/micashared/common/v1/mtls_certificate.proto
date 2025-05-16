@@ -10,8 +10,6 @@ syntax = "proto3";
 
 package micashared.common.v1;
 
-import "micashared/common/v1/error.proto";
-
 option go_package = "micashared/common/v1;commonv1";
 option java_outer_classname = "MTLSCertificatesProto";
 option java_package = "io.micashared.common.v1";
@@ -36,75 +34,4 @@ message FromMicaClientCertificate {
   bool enabled = 6;
 
   bool use_host_trusted_certs = 10;
-}
-
-// We generate the db entry and return the csr to the user so they can sign it.
-message GenerateFromMicaClientCertificateRequest {
-  string display_name = 1;
-}
-
-message GenerateFromMicaClientCertificateResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  FromMicaClientCertificate certificate_to_sign = 3;
-}
-
-message UpdateFromMicaClientCertificateRequest {
-  string certificate_id = 1;
-  string display_name = 2;
-  //Base64 standard encoded PEM string
-  string base64_signed_cert_pem_from_csr = 3;
-  //Base64 standard encoded PEM string
-  string base64_rootca_pem = 4;
-
-}
-
-message UpdateFromMicaClientCertificateResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-  FromMicaClientCertificate certificate = 3;
-}
-
-message EnableFromMicaClientCertificateRequest {
-  string certificate_id = 1 ;
-}
-
-message EnableFromMicaClientCertificateResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-  FromMicaClientCertificate certificate = 3;
-}
-
-
-message SearchFromMicaClientCertificateRequest {}
-
-message SearchFromMicaClientCertificateResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-  repeated FromMicaClientCertificate certificates = 3;
 }

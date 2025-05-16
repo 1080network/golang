@@ -19,8 +19,6 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
-	pingv1 "github.com/1080network/golang/serviceprovider/proto/micashared/common/pingv1"
-	v1 "github.com/1080network/golang/serviceprovider/proto/micashared/common/v1"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -46,20 +44,20 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceProviderAdministrationServiceClient interface {
 	// Client certificates are used when mica needs to call out to a customers environment.
-	GenerateFromMicaClientCertificate(ctx context.Context, in *v1.GenerateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateFromMicaClientCertificateResponse, error)
+	GenerateFromMicaClientCertificate(ctx context.Context, in *GenerateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*GenerateFromMicaClientCertificateResponse, error)
 	// After signing the CSR the member will upload the signed cert
-	UpdateFromMicaClientCertificate(ctx context.Context, in *v1.UpdateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateFromMicaClientCertificateResponse, error)
+	UpdateFromMicaClientCertificate(ctx context.Context, in *UpdateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*UpdateFromMicaClientCertificateResponse, error)
 	// there can only be one enable cert for each endpoint
-	EnableFromMicaClientCertificate(ctx context.Context, in *v1.EnableFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.EnableFromMicaClientCertificateResponse, error)
+	EnableFromMicaClientCertificate(ctx context.Context, in *EnableFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*EnableFromMicaClientCertificateResponse, error)
 	// return all from mica certs for now
-	SearchFromMicaClientCertificate(ctx context.Context, in *v1.SearchFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.SearchFromMicaClientCertificateResponse, error)
+	SearchFromMicaClientCertificate(ctx context.Context, in *SearchFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*SearchFromMicaClientCertificateResponse, error)
 	// External authentication mechanisms for Mica to call provider endpoints
-	GetFromMicaClientSettings(ctx context.Context, in *v1.GetFromMicaClientSettingsRequest, opts ...grpc.CallOption) (*v1.GetFromMicaClientSettingsResponse, error)
-	UpdateFromMicaClientCallbackAddress(ctx context.Context, in *v1.UpdateFromMicaClientCallBackAddressRequest, opts ...grpc.CallOption) (*v1.UpdateFromMicaClientCallBackAddressResponse, error)
-	SearchDataExtractionStatistics(ctx context.Context, in *v1.SearchDataExtractionRequest, opts ...grpc.CallOption) (*v1.SearchDataExtractionResponse, error)
-	GetDataExtractionStatistics(ctx context.Context, in *v1.GetDataExtractionRequest, opts ...grpc.CallOption) (*v1.GetDataExtractionResponse, error)
+	GetFromMicaClientSettings(ctx context.Context, in *GetFromMicaClientSettingsRequest, opts ...grpc.CallOption) (*GetFromMicaClientSettingsResponse, error)
+	UpdateFromMicaClientCallbackAddress(ctx context.Context, in *UpdateFromMicaClientCallbackAddressRequest, opts ...grpc.CallOption) (*UpdateFromMicaClientCallbackAddressResponse, error)
+	SearchDataExtractionStatistics(ctx context.Context, in *SearchDataExtractionStatisticsRequest, opts ...grpc.CallOption) (*SearchDataExtractionStatisticsResponse, error)
+	GetDataExtractionStatistics(ctx context.Context, in *GetDataExtractionStatisticsRequest, opts ...grpc.CallOption) (*GetDataExtractionStatisticsResponse, error)
 	// tests the external call to verify proper configuration and connectivity using the currently enabled certificate
-	PingExternal(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
+	PingExternal(ctx context.Context, in *PingExternalRequest, opts ...grpc.CallOption) (*PingExternalResponse, error)
 	// tests the call to the callback service using a specific certificate that may or may not be enabled
 	PingExternalWithCertificate(ctx context.Context, in *PingExternalWithCertificateRequest, opts ...grpc.CallOption) (*PingExternalWithCertificateResponse, error)
 }
@@ -72,8 +70,8 @@ func NewServiceProviderAdministrationServiceClient(cc grpc.ClientConnInterface) 
 	return &serviceProviderAdministrationServiceClient{cc}
 }
 
-func (c *serviceProviderAdministrationServiceClient) GenerateFromMicaClientCertificate(ctx context.Context, in *v1.GenerateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.GenerateFromMicaClientCertificateResponse, error) {
-	out := new(v1.GenerateFromMicaClientCertificateResponse)
+func (c *serviceProviderAdministrationServiceClient) GenerateFromMicaClientCertificate(ctx context.Context, in *GenerateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*GenerateFromMicaClientCertificateResponse, error) {
+	out := new(GenerateFromMicaClientCertificateResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_GenerateFromMicaClientCertificate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -81,8 +79,8 @@ func (c *serviceProviderAdministrationServiceClient) GenerateFromMicaClientCerti
 	return out, nil
 }
 
-func (c *serviceProviderAdministrationServiceClient) UpdateFromMicaClientCertificate(ctx context.Context, in *v1.UpdateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.UpdateFromMicaClientCertificateResponse, error) {
-	out := new(v1.UpdateFromMicaClientCertificateResponse)
+func (c *serviceProviderAdministrationServiceClient) UpdateFromMicaClientCertificate(ctx context.Context, in *UpdateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*UpdateFromMicaClientCertificateResponse, error) {
+	out := new(UpdateFromMicaClientCertificateResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_UpdateFromMicaClientCertificate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -90,8 +88,8 @@ func (c *serviceProviderAdministrationServiceClient) UpdateFromMicaClientCertifi
 	return out, nil
 }
 
-func (c *serviceProviderAdministrationServiceClient) EnableFromMicaClientCertificate(ctx context.Context, in *v1.EnableFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.EnableFromMicaClientCertificateResponse, error) {
-	out := new(v1.EnableFromMicaClientCertificateResponse)
+func (c *serviceProviderAdministrationServiceClient) EnableFromMicaClientCertificate(ctx context.Context, in *EnableFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*EnableFromMicaClientCertificateResponse, error) {
+	out := new(EnableFromMicaClientCertificateResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_EnableFromMicaClientCertificate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -99,8 +97,8 @@ func (c *serviceProviderAdministrationServiceClient) EnableFromMicaClientCertifi
 	return out, nil
 }
 
-func (c *serviceProviderAdministrationServiceClient) SearchFromMicaClientCertificate(ctx context.Context, in *v1.SearchFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*v1.SearchFromMicaClientCertificateResponse, error) {
-	out := new(v1.SearchFromMicaClientCertificateResponse)
+func (c *serviceProviderAdministrationServiceClient) SearchFromMicaClientCertificate(ctx context.Context, in *SearchFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*SearchFromMicaClientCertificateResponse, error) {
+	out := new(SearchFromMicaClientCertificateResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_SearchFromMicaClientCertificate_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -108,8 +106,8 @@ func (c *serviceProviderAdministrationServiceClient) SearchFromMicaClientCertifi
 	return out, nil
 }
 
-func (c *serviceProviderAdministrationServiceClient) GetFromMicaClientSettings(ctx context.Context, in *v1.GetFromMicaClientSettingsRequest, opts ...grpc.CallOption) (*v1.GetFromMicaClientSettingsResponse, error) {
-	out := new(v1.GetFromMicaClientSettingsResponse)
+func (c *serviceProviderAdministrationServiceClient) GetFromMicaClientSettings(ctx context.Context, in *GetFromMicaClientSettingsRequest, opts ...grpc.CallOption) (*GetFromMicaClientSettingsResponse, error) {
+	out := new(GetFromMicaClientSettingsResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_GetFromMicaClientSettings_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -117,8 +115,8 @@ func (c *serviceProviderAdministrationServiceClient) GetFromMicaClientSettings(c
 	return out, nil
 }
 
-func (c *serviceProviderAdministrationServiceClient) UpdateFromMicaClientCallbackAddress(ctx context.Context, in *v1.UpdateFromMicaClientCallBackAddressRequest, opts ...grpc.CallOption) (*v1.UpdateFromMicaClientCallBackAddressResponse, error) {
-	out := new(v1.UpdateFromMicaClientCallBackAddressResponse)
+func (c *serviceProviderAdministrationServiceClient) UpdateFromMicaClientCallbackAddress(ctx context.Context, in *UpdateFromMicaClientCallbackAddressRequest, opts ...grpc.CallOption) (*UpdateFromMicaClientCallbackAddressResponse, error) {
+	out := new(UpdateFromMicaClientCallbackAddressResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_UpdateFromMicaClientCallbackAddress_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -126,8 +124,8 @@ func (c *serviceProviderAdministrationServiceClient) UpdateFromMicaClientCallbac
 	return out, nil
 }
 
-func (c *serviceProviderAdministrationServiceClient) SearchDataExtractionStatistics(ctx context.Context, in *v1.SearchDataExtractionRequest, opts ...grpc.CallOption) (*v1.SearchDataExtractionResponse, error) {
-	out := new(v1.SearchDataExtractionResponse)
+func (c *serviceProviderAdministrationServiceClient) SearchDataExtractionStatistics(ctx context.Context, in *SearchDataExtractionStatisticsRequest, opts ...grpc.CallOption) (*SearchDataExtractionStatisticsResponse, error) {
+	out := new(SearchDataExtractionStatisticsResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_SearchDataExtractionStatistics_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -135,8 +133,8 @@ func (c *serviceProviderAdministrationServiceClient) SearchDataExtractionStatist
 	return out, nil
 }
 
-func (c *serviceProviderAdministrationServiceClient) GetDataExtractionStatistics(ctx context.Context, in *v1.GetDataExtractionRequest, opts ...grpc.CallOption) (*v1.GetDataExtractionResponse, error) {
-	out := new(v1.GetDataExtractionResponse)
+func (c *serviceProviderAdministrationServiceClient) GetDataExtractionStatistics(ctx context.Context, in *GetDataExtractionStatisticsRequest, opts ...grpc.CallOption) (*GetDataExtractionStatisticsResponse, error) {
+	out := new(GetDataExtractionStatisticsResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_GetDataExtractionStatistics_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -144,8 +142,8 @@ func (c *serviceProviderAdministrationServiceClient) GetDataExtractionStatistics
 	return out, nil
 }
 
-func (c *serviceProviderAdministrationServiceClient) PingExternal(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
-	out := new(pingv1.PingResponse)
+func (c *serviceProviderAdministrationServiceClient) PingExternal(ctx context.Context, in *PingExternalRequest, opts ...grpc.CallOption) (*PingExternalResponse, error) {
+	out := new(PingExternalResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderAdministrationService_PingExternal_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -167,20 +165,20 @@ func (c *serviceProviderAdministrationServiceClient) PingExternalWithCertificate
 // for forward compatibility
 type ServiceProviderAdministrationServiceServer interface {
 	// Client certificates are used when mica needs to call out to a customers environment.
-	GenerateFromMicaClientCertificate(context.Context, *v1.GenerateFromMicaClientCertificateRequest) (*v1.GenerateFromMicaClientCertificateResponse, error)
+	GenerateFromMicaClientCertificate(context.Context, *GenerateFromMicaClientCertificateRequest) (*GenerateFromMicaClientCertificateResponse, error)
 	// After signing the CSR the member will upload the signed cert
-	UpdateFromMicaClientCertificate(context.Context, *v1.UpdateFromMicaClientCertificateRequest) (*v1.UpdateFromMicaClientCertificateResponse, error)
+	UpdateFromMicaClientCertificate(context.Context, *UpdateFromMicaClientCertificateRequest) (*UpdateFromMicaClientCertificateResponse, error)
 	// there can only be one enable cert for each endpoint
-	EnableFromMicaClientCertificate(context.Context, *v1.EnableFromMicaClientCertificateRequest) (*v1.EnableFromMicaClientCertificateResponse, error)
+	EnableFromMicaClientCertificate(context.Context, *EnableFromMicaClientCertificateRequest) (*EnableFromMicaClientCertificateResponse, error)
 	// return all from mica certs for now
-	SearchFromMicaClientCertificate(context.Context, *v1.SearchFromMicaClientCertificateRequest) (*v1.SearchFromMicaClientCertificateResponse, error)
+	SearchFromMicaClientCertificate(context.Context, *SearchFromMicaClientCertificateRequest) (*SearchFromMicaClientCertificateResponse, error)
 	// External authentication mechanisms for Mica to call provider endpoints
-	GetFromMicaClientSettings(context.Context, *v1.GetFromMicaClientSettingsRequest) (*v1.GetFromMicaClientSettingsResponse, error)
-	UpdateFromMicaClientCallbackAddress(context.Context, *v1.UpdateFromMicaClientCallBackAddressRequest) (*v1.UpdateFromMicaClientCallBackAddressResponse, error)
-	SearchDataExtractionStatistics(context.Context, *v1.SearchDataExtractionRequest) (*v1.SearchDataExtractionResponse, error)
-	GetDataExtractionStatistics(context.Context, *v1.GetDataExtractionRequest) (*v1.GetDataExtractionResponse, error)
+	GetFromMicaClientSettings(context.Context, *GetFromMicaClientSettingsRequest) (*GetFromMicaClientSettingsResponse, error)
+	UpdateFromMicaClientCallbackAddress(context.Context, *UpdateFromMicaClientCallbackAddressRequest) (*UpdateFromMicaClientCallbackAddressResponse, error)
+	SearchDataExtractionStatistics(context.Context, *SearchDataExtractionStatisticsRequest) (*SearchDataExtractionStatisticsResponse, error)
+	GetDataExtractionStatistics(context.Context, *GetDataExtractionStatisticsRequest) (*GetDataExtractionStatisticsResponse, error)
 	// tests the external call to verify proper configuration and connectivity using the currently enabled certificate
-	PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
+	PingExternal(context.Context, *PingExternalRequest) (*PingExternalResponse, error)
 	// tests the call to the callback service using a specific certificate that may or may not be enabled
 	PingExternalWithCertificate(context.Context, *PingExternalWithCertificateRequest) (*PingExternalWithCertificateResponse, error)
 	mustEmbedUnimplementedServiceProviderAdministrationServiceServer()
@@ -190,31 +188,31 @@ type ServiceProviderAdministrationServiceServer interface {
 type UnimplementedServiceProviderAdministrationServiceServer struct {
 }
 
-func (UnimplementedServiceProviderAdministrationServiceServer) GenerateFromMicaClientCertificate(context.Context, *v1.GenerateFromMicaClientCertificateRequest) (*v1.GenerateFromMicaClientCertificateResponse, error) {
+func (UnimplementedServiceProviderAdministrationServiceServer) GenerateFromMicaClientCertificate(context.Context, *GenerateFromMicaClientCertificateRequest) (*GenerateFromMicaClientCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateFromMicaClientCertificate not implemented")
 }
-func (UnimplementedServiceProviderAdministrationServiceServer) UpdateFromMicaClientCertificate(context.Context, *v1.UpdateFromMicaClientCertificateRequest) (*v1.UpdateFromMicaClientCertificateResponse, error) {
+func (UnimplementedServiceProviderAdministrationServiceServer) UpdateFromMicaClientCertificate(context.Context, *UpdateFromMicaClientCertificateRequest) (*UpdateFromMicaClientCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateFromMicaClientCertificate not implemented")
 }
-func (UnimplementedServiceProviderAdministrationServiceServer) EnableFromMicaClientCertificate(context.Context, *v1.EnableFromMicaClientCertificateRequest) (*v1.EnableFromMicaClientCertificateResponse, error) {
+func (UnimplementedServiceProviderAdministrationServiceServer) EnableFromMicaClientCertificate(context.Context, *EnableFromMicaClientCertificateRequest) (*EnableFromMicaClientCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EnableFromMicaClientCertificate not implemented")
 }
-func (UnimplementedServiceProviderAdministrationServiceServer) SearchFromMicaClientCertificate(context.Context, *v1.SearchFromMicaClientCertificateRequest) (*v1.SearchFromMicaClientCertificateResponse, error) {
+func (UnimplementedServiceProviderAdministrationServiceServer) SearchFromMicaClientCertificate(context.Context, *SearchFromMicaClientCertificateRequest) (*SearchFromMicaClientCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchFromMicaClientCertificate not implemented")
 }
-func (UnimplementedServiceProviderAdministrationServiceServer) GetFromMicaClientSettings(context.Context, *v1.GetFromMicaClientSettingsRequest) (*v1.GetFromMicaClientSettingsResponse, error) {
+func (UnimplementedServiceProviderAdministrationServiceServer) GetFromMicaClientSettings(context.Context, *GetFromMicaClientSettingsRequest) (*GetFromMicaClientSettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFromMicaClientSettings not implemented")
 }
-func (UnimplementedServiceProviderAdministrationServiceServer) UpdateFromMicaClientCallbackAddress(context.Context, *v1.UpdateFromMicaClientCallBackAddressRequest) (*v1.UpdateFromMicaClientCallBackAddressResponse, error) {
+func (UnimplementedServiceProviderAdministrationServiceServer) UpdateFromMicaClientCallbackAddress(context.Context, *UpdateFromMicaClientCallbackAddressRequest) (*UpdateFromMicaClientCallbackAddressResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateFromMicaClientCallbackAddress not implemented")
 }
-func (UnimplementedServiceProviderAdministrationServiceServer) SearchDataExtractionStatistics(context.Context, *v1.SearchDataExtractionRequest) (*v1.SearchDataExtractionResponse, error) {
+func (UnimplementedServiceProviderAdministrationServiceServer) SearchDataExtractionStatistics(context.Context, *SearchDataExtractionStatisticsRequest) (*SearchDataExtractionStatisticsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchDataExtractionStatistics not implemented")
 }
-func (UnimplementedServiceProviderAdministrationServiceServer) GetDataExtractionStatistics(context.Context, *v1.GetDataExtractionRequest) (*v1.GetDataExtractionResponse, error) {
+func (UnimplementedServiceProviderAdministrationServiceServer) GetDataExtractionStatistics(context.Context, *GetDataExtractionStatisticsRequest) (*GetDataExtractionStatisticsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataExtractionStatistics not implemented")
 }
-func (UnimplementedServiceProviderAdministrationServiceServer) PingExternal(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
+func (UnimplementedServiceProviderAdministrationServiceServer) PingExternal(context.Context, *PingExternalRequest) (*PingExternalResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PingExternal not implemented")
 }
 func (UnimplementedServiceProviderAdministrationServiceServer) PingExternalWithCertificate(context.Context, *PingExternalWithCertificateRequest) (*PingExternalWithCertificateResponse, error) {
@@ -235,7 +233,7 @@ func RegisterServiceProviderAdministrationServiceServer(s grpc.ServiceRegistrar,
 }
 
 func _ServiceProviderAdministrationService_GenerateFromMicaClientCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GenerateFromMicaClientCertificateRequest)
+	in := new(GenerateFromMicaClientCertificateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -247,13 +245,13 @@ func _ServiceProviderAdministrationService_GenerateFromMicaClientCertificate_Han
 		FullMethod: ServiceProviderAdministrationService_GenerateFromMicaClientCertificate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).GenerateFromMicaClientCertificate(ctx, req.(*v1.GenerateFromMicaClientCertificateRequest))
+		return srv.(ServiceProviderAdministrationServiceServer).GenerateFromMicaClientCertificate(ctx, req.(*GenerateFromMicaClientCertificateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ServiceProviderAdministrationService_UpdateFromMicaClientCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.UpdateFromMicaClientCertificateRequest)
+	in := new(UpdateFromMicaClientCertificateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -265,13 +263,13 @@ func _ServiceProviderAdministrationService_UpdateFromMicaClientCertificate_Handl
 		FullMethod: ServiceProviderAdministrationService_UpdateFromMicaClientCertificate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).UpdateFromMicaClientCertificate(ctx, req.(*v1.UpdateFromMicaClientCertificateRequest))
+		return srv.(ServiceProviderAdministrationServiceServer).UpdateFromMicaClientCertificate(ctx, req.(*UpdateFromMicaClientCertificateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ServiceProviderAdministrationService_EnableFromMicaClientCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.EnableFromMicaClientCertificateRequest)
+	in := new(EnableFromMicaClientCertificateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -283,13 +281,13 @@ func _ServiceProviderAdministrationService_EnableFromMicaClientCertificate_Handl
 		FullMethod: ServiceProviderAdministrationService_EnableFromMicaClientCertificate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).EnableFromMicaClientCertificate(ctx, req.(*v1.EnableFromMicaClientCertificateRequest))
+		return srv.(ServiceProviderAdministrationServiceServer).EnableFromMicaClientCertificate(ctx, req.(*EnableFromMicaClientCertificateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ServiceProviderAdministrationService_SearchFromMicaClientCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.SearchFromMicaClientCertificateRequest)
+	in := new(SearchFromMicaClientCertificateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -301,13 +299,13 @@ func _ServiceProviderAdministrationService_SearchFromMicaClientCertificate_Handl
 		FullMethod: ServiceProviderAdministrationService_SearchFromMicaClientCertificate_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).SearchFromMicaClientCertificate(ctx, req.(*v1.SearchFromMicaClientCertificateRequest))
+		return srv.(ServiceProviderAdministrationServiceServer).SearchFromMicaClientCertificate(ctx, req.(*SearchFromMicaClientCertificateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ServiceProviderAdministrationService_GetFromMicaClientSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GetFromMicaClientSettingsRequest)
+	in := new(GetFromMicaClientSettingsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -319,13 +317,13 @@ func _ServiceProviderAdministrationService_GetFromMicaClientSettings_Handler(srv
 		FullMethod: ServiceProviderAdministrationService_GetFromMicaClientSettings_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).GetFromMicaClientSettings(ctx, req.(*v1.GetFromMicaClientSettingsRequest))
+		return srv.(ServiceProviderAdministrationServiceServer).GetFromMicaClientSettings(ctx, req.(*GetFromMicaClientSettingsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ServiceProviderAdministrationService_UpdateFromMicaClientCallbackAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.UpdateFromMicaClientCallBackAddressRequest)
+	in := new(UpdateFromMicaClientCallbackAddressRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -337,13 +335,13 @@ func _ServiceProviderAdministrationService_UpdateFromMicaClientCallbackAddress_H
 		FullMethod: ServiceProviderAdministrationService_UpdateFromMicaClientCallbackAddress_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).UpdateFromMicaClientCallbackAddress(ctx, req.(*v1.UpdateFromMicaClientCallBackAddressRequest))
+		return srv.(ServiceProviderAdministrationServiceServer).UpdateFromMicaClientCallbackAddress(ctx, req.(*UpdateFromMicaClientCallbackAddressRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ServiceProviderAdministrationService_SearchDataExtractionStatistics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.SearchDataExtractionRequest)
+	in := new(SearchDataExtractionStatisticsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -355,13 +353,13 @@ func _ServiceProviderAdministrationService_SearchDataExtractionStatistics_Handle
 		FullMethod: ServiceProviderAdministrationService_SearchDataExtractionStatistics_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).SearchDataExtractionStatistics(ctx, req.(*v1.SearchDataExtractionRequest))
+		return srv.(ServiceProviderAdministrationServiceServer).SearchDataExtractionStatistics(ctx, req.(*SearchDataExtractionStatisticsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ServiceProviderAdministrationService_GetDataExtractionStatistics_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.GetDataExtractionRequest)
+	in := new(GetDataExtractionStatisticsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -373,13 +371,13 @@ func _ServiceProviderAdministrationService_GetDataExtractionStatistics_Handler(s
 		FullMethod: ServiceProviderAdministrationService_GetDataExtractionStatistics_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).GetDataExtractionStatistics(ctx, req.(*v1.GetDataExtractionRequest))
+		return srv.(ServiceProviderAdministrationServiceServer).GetDataExtractionStatistics(ctx, req.(*GetDataExtractionStatisticsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _ServiceProviderAdministrationService_PingExternal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(pingv1.PingRequest)
+	in := new(PingExternalRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -391,7 +389,7 @@ func _ServiceProviderAdministrationService_PingExternal_Handler(srv interface{},
 		FullMethod: ServiceProviderAdministrationService_PingExternal_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderAdministrationServiceServer).PingExternal(ctx, req.(*pingv1.PingRequest))
+		return srv.(ServiceProviderAdministrationServiceServer).PingExternal(ctx, req.(*PingExternalRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }

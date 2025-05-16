@@ -11,7 +11,6 @@ syntax = "proto3";
 package micashared.common.v1;
 
 import "google/protobuf/timestamp.proto";
-import "micashared/common/v1/error.proto";
 import "validate/validate.proto";
 
 option go_package = "micashared/common/v1;commonv1";
@@ -28,38 +27,4 @@ message DataExtraction {
   google.protobuf.Timestamp last_execution_time = 3;
 
   uint32 records_processed = 4;
-}
-
-message GetDataExtractionRequest {
-  string extractor_name = 1 [(validate.rules).string.min_len = 1];
-}
-
-message GetDataExtractionResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_NOT_FOUND = 2;
-    STATUS_ERROR = 3;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  DataExtraction extraction = 3;
-}
-
-message SearchDataExtractionRequest {
-  // Nothing for now; we will add criteria as we add console use-cases.
-}
-
-message SearchDataExtractionResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-  repeated DataExtraction extractions = 3;
 }

@@ -266,7 +266,7 @@ message ObtainValueResponse {
   string approved_amount = 4;
 }
 
-message ReverseValueRequest {
+message ReverseObtainValueRequest {
   string transaction_key = 1;
 
   string transaction_ref = 2 [(validate.rules).string.max_len = 100];
@@ -277,7 +277,60 @@ message ReverseValueRequest {
   micashared.common.v1.TransactionIdentifier transaction_identifier = 4;
 }
 
-message ReverseValueResponse {
+message ReverseObtainValueResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    // An approval for the full amount
+    STATUS_SUCCESS = 3;
+    // An error occurred when processing the request
+    STATUS_ERROR = 2;
+    // An approval was given for a partial amount
+    STATUS_NOT_FOUND = 4;
+    // The user needs to call the Service Provider to resolve an issue
+    STATUS_USER_CALL_SERVICE_PROVIDER = 14;
+    // The original transaction falls outside the allowable time window for reversal
+    STATUS_CUTOFF_EXCEEDED = 15;
+    // The original transaction has already been reversed
+    STATUS_ALREADY_REVERSED = 16;
+    // The original transaction is not one that can be reversed
+    STATUS_INVALID_TRANSACTION_TYPE = 17;
+    // User instrument is closed
+    STATUS_INSTRUMENT_CLOSED = 5;
+    // Request triggered a transactional risk or fraud check resulting in a decline
+    STATUS_TRANSACTION_RISK_FRAUD = 6;
+    // Request triggered a bad actor risk or fraud check resulting in a decline
+    STATUS_BAD_ACTOR_RISK_FRAUD = 7;
+    // Request triggered a user-based risk or fraud check resulting in a decline
+    STATUS_USER_RISK_FRAUD = 8;
+    // Request triggered a instrument-based risk or fraud check resulting in a decline
+    STATUS_INSTRUMENT_RISK_FRAUD = 9;
+    // The operation isn't supported by the Service Provider
+    STATUS_UNSUPPORTED = 11;
+    // The Service Provider is temporarily unavailable
+    STATUS_SERVICE_PROVIDER_UNAVAILABLE = 12;
+    // Request resulted in one or more limits being exceeded at the Service Provider
+    STATUS_LIMIT_EXCEEDED = 13;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  // Service Provider's unique transaction ID, new for reversal transaction
+  string transaction_ref = 3 [(validate.rules).string.max_len = 100];
+}
+
+message ReverseReturnValueRequest {
+  string transaction_key = 1;
+
+  string transaction_ref = 2 [(validate.rules).string.max_len = 100];
+
+  // use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 3;
+
+  micashared.common.v1.TransactionIdentifier transaction_identifier = 4;
+}
+
+message ReverseReturnValueResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
     // An approval for the full amount

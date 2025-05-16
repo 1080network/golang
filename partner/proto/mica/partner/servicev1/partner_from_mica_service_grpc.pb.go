@@ -20,7 +20,6 @@ import (
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
 	userv1 "github.com/1080network/golang/partner/proto/mica/partner/userv1"
-	pingv1 "github.com/1080network/golang/partner/proto/micashared/common/pingv1"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -30,7 +29,6 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	PartnerFromMicaService_EnrollUserInstrument_FullMethodName = "/mica.partner.service.v1.PartnerFromMicaService/EnrollUserInstrument"
-	PartnerFromMicaService_Ping_FullMethodName                 = "/mica.partner.service.v1.PartnerFromMicaService/Ping"
 )
 
 // PartnerFromMicaServiceClient is the client API for PartnerFromMicaService service.
@@ -41,8 +39,6 @@ type PartnerFromMicaServiceClient interface {
 	// new enrollment. For example, a User starting at the Mica user website could sign up for Netflix assuming that
 	// Netflix supported Mica and have implemented this API.
 	EnrollUserInstrument(ctx context.Context, in *userv1.EnrollUserInstrumentRequest, opts ...grpc.CallOption) (*userv1.EnrollUserInstrumentResponse, error)
-	// An operation to ping the server to ensure it's up and running and that the connection is good.
-	Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error)
 }
 
 type partnerFromMicaServiceClient struct {
@@ -62,15 +58,6 @@ func (c *partnerFromMicaServiceClient) EnrollUserInstrument(ctx context.Context,
 	return out, nil
 }
 
-func (c *partnerFromMicaServiceClient) Ping(ctx context.Context, in *pingv1.PingRequest, opts ...grpc.CallOption) (*pingv1.PingResponse, error) {
-	out := new(pingv1.PingResponse)
-	err := c.cc.Invoke(ctx, PartnerFromMicaService_Ping_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // PartnerFromMicaServiceServer is the server API for PartnerFromMicaService service.
 // All implementations must embed UnimplementedPartnerFromMicaServiceServer
 // for forward compatibility
@@ -79,8 +66,6 @@ type PartnerFromMicaServiceServer interface {
 	// new enrollment. For example, a User starting at the Mica user website could sign up for Netflix assuming that
 	// Netflix supported Mica and have implemented this API.
 	EnrollUserInstrument(context.Context, *userv1.EnrollUserInstrumentRequest) (*userv1.EnrollUserInstrumentResponse, error)
-	// An operation to ping the server to ensure it's up and running and that the connection is good.
-	Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error)
 	mustEmbedUnimplementedPartnerFromMicaServiceServer()
 }
 
@@ -90,9 +75,6 @@ type UnimplementedPartnerFromMicaServiceServer struct {
 
 func (UnimplementedPartnerFromMicaServiceServer) EnrollUserInstrument(context.Context, *userv1.EnrollUserInstrumentRequest) (*userv1.EnrollUserInstrumentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method EnrollUserInstrument not implemented")
-}
-func (UnimplementedPartnerFromMicaServiceServer) Ping(context.Context, *pingv1.PingRequest) (*pingv1.PingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
 }
 func (UnimplementedPartnerFromMicaServiceServer) mustEmbedUnimplementedPartnerFromMicaServiceServer() {
 }
@@ -126,24 +108,6 @@ func _PartnerFromMicaService_EnrollUserInstrument_Handler(srv interface{}, ctx c
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PartnerFromMicaService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(pingv1.PingRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PartnerFromMicaServiceServer).Ping(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PartnerFromMicaService_Ping_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerFromMicaServiceServer).Ping(ctx, req.(*pingv1.PingRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // PartnerFromMicaService_ServiceDesc is the grpc.ServiceDesc for PartnerFromMicaService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -154,10 +118,6 @@ var PartnerFromMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "EnrollUserInstrument",
 			Handler:    _PartnerFromMicaService_EnrollUserInstrument_Handler,
-		},
-		{
-			MethodName: "Ping",
-			Handler:    _PartnerFromMicaService_Ping_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -386,7 +386,28 @@ message GetValueResponse {
   micashared.common.v1.TransactionIdentifier transaction_identifier = 5;
 }
 
-message ReverseValueRequest {
+message ReverseReturnValueRequest {
+  oneof transaction_identifier {
+    option (validate.required) = true;
+
+    // Mica primary key, returned when the original transaction was processed by Mica
+    string original_transaction_key = 1 [(validate.rules).string = {
+      min_len: 27,
+      max_len: 50
+    }];
+
+    // A unique identifier at the Partner for the transaction being reversed.
+    string original_transaction_ref = 2 [(validate.rules).string.min_len = 1];
+  }
+
+  // A unique identifier at the Partner for this reversal transaction
+  string transaction_ref = 3 [(validate.rules).string.max_len = 100];
+
+  // use the risk signals to pass enhanced data that can be used by the service provider to understand the origination characteristics of the transaction origin
+  micashared.common.v1.RiskSignal risk_signal = 4;
+}
+
+message ReverseObtainValueRequest {
   oneof transaction_identifier {
     option (validate.required) = true;
 
@@ -460,7 +481,6 @@ message ReverseObtainValueResponse {
   micashared.common.v1.TransactionIdentifier transaction_identifier = 4;
 }
 
-// TODO if this remains the same as ObtainReversalResponse, dedupe. probably not because of discounts
 message ReverseReturnValueResponse {
   enum Status {
     STATUS_UNSPECIFIED = 0;
