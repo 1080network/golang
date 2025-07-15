@@ -13,35 +13,12 @@ package mica.serviceprovider.uuek.v1;
 import "google/protobuf/timestamp.proto";
 import "mica/serviceprovider/instrument/v1/instrument.proto";
 import "micashared/common/v1/error.proto";
-import "micashared/common/v1/uuek.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/serviceprovider/uuekv1";
 option java_outer_classname = "ProvisionServiceProviderUUEKProto";
 option java_package = "io.mica.serviceprovider.uuek.v1";
 option objc_class_prefix = "MICA";
-
-message ServiceProviderUUEK {
-  // Mica generated key for the user that owns this UUEK.
-  string service_provider_user_key = 1 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-
-  // the primary key of this user at the Service Provider.
-  string service_provider_user_ref = 2 [(validate.rules).string.max_len = 100];
-
-  // Mica generated key for the instrument that this UUEK represents.
-  string service_provider_instrument_key = 3 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-
-  // the primary key of this instrument at the Service Provider.
-  string service_provider_instrument_ref = 4 [(validate.rules).string.max_len = 100];
-
-  micashared.common.v1.CommonUUEK uuek = 5;
-}
 
 // to Mica
 message ProvisionServiceProviderUUEKRequest {
@@ -65,19 +42,23 @@ message ProvisionServiceProviderUUEKRequest {
   // if set the provisioned UUEK will not be valid until the specified time if not set the UUEK is valid immediately
   google.protobuf.Timestamp valid_from = 3;
 
-  // if set the provisioned UUEK will expired at the specified time, if not set it will be used until removed
+  // if set the provisioned UUEK will expired at the specified time, if not set it will be used until removed. This
+  // should typically be set to some number of minutes or small number of hours in the future.
   google.protobuf.Timestamp valid_to = 4;
 
-  // a maximum transaction that is allowed for this UUEK if the value request exceeds this
-  // amount it will fail. If not set any transaction amount is allowed.
+  // a maximum transaction amount that is allowed for this UUEK in a single transaction. If the value request exceeds
+  // this amount, it will declined. If not set any transaction amount is allowed.
   string spend_limit = 5;
 
   // the number of transactions that this UUEK can be used
   // either a positive value greater than 0 or make it unlimited
   oneof use_criteria {
     option (validate.required) = true;
+
+    // a maximum number of times this UUEK can be used. It's recommended that this be set to 1 in most cases.
     uint32 number_of_uses = 6 [(validate.rules).uint32.gt = 0];
 
+    // this UUEK can be used an unlimited number of times and should be used with caution.
     bool unlimited = 7;
   }
 }
@@ -100,63 +81,4 @@ message ProvisionServiceProviderUUEKResponse {
     min_len: 30,
     max_len: 50
   }];
-}
-
-message RemoveServiceProviderUUEKRequest {
-  oneof identifier {
-    option (validate.required) = true;
-
-    // The key representing this instrument in Mica.
-    string service_provider_instrument_key = 1 [(validate.rules).string = {
-      min_len: 30,
-      max_len: 50
-    }];
-
-    // Primary key on the external system.
-    // DEPRECATED - use instrument_external_reference instead. If you use this an ref is ambiguous call will fail
-    string obsolete_service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100, deprecated = true];
-
-    // Primary key on the external system.
-    mica.serviceprovider.instrument.v1.InstrumentExternalReference instrument_external_reference = 4;
-
-    // A UUEK that can be used at all partners.
-    string service_provider_uuek = 3; // @gotags: mask:"security"
-  }
-}
-
-message RemoveServiceProviderUUEKResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-    STATUS_NOT_FOUND = 3;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  repeated string service_provider_uueks = 3; // @gotags: mask:"security"
-}
-
-message SearchServiceProviderUUEKRequest {
-  string service_provider_user_key = 1 [(validate.rules).string = {max_len: 50}];
-
-  string service_provider_user_ref = 3 [(validate.rules).string = {max_len: 100}];
-
-  string service_provider_instrument_key = 2 [(validate.rules).string = {max_len: 50}];
-
-  string service_provider_instrument_ref = 4 [(validate.rules).string = {max_len: 100}];
-}
-
-message SearchServiceProviderUUEKResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  repeated ServiceProviderUUEK service_provider_uueks = 3; // @gotags: mask:"security"
 }

@@ -70,12 +70,6 @@ service ServiceProviderToMicaService {
   // Used to create a UUEK that can be given to the Issuer's users in order to transact at Merchants (Partners) that support Mica.
   rpc ProvisionServiceProviderUUEK(uuek.v1.ProvisionServiceProviderUUEKRequest) returns (uuek.v1.ProvisionServiceProviderUUEKResponse) {}
 
-  // Used to remove an existing UUEK from Mica rendering it inoperable.
-  rpc RemoveServiceProviderUUEK(uuek.v1.RemoveServiceProviderUUEKRequest) returns (uuek.v1.RemoveServiceProviderUUEKResponse) {}
-
-  // Searches for UUEKs by criteria. This would generally not be used assuming that UUEK's are created single use (i.e. number_of_uses is one when provisioning the UUEK).
-  rpc SearchServiceProviderUUEK(uuek.v1.SearchServiceProviderUUEKRequest) returns (uuek.v1.SearchServiceProviderUUEKResponse) {}
-
   // Initiates a linking process by returning a code based on the account owned by this user which will be linked to
   // another member. This would typically be used by the user to establish a persistent payment method at a merchant.
   rpc ProvisionInstrumentLinkingCode(instrument.v1.ProvisionInstrumentLinkingCodeRequest) returns (instrument.v1.ProvisionInstrumentLinkingCodeResponse) {}

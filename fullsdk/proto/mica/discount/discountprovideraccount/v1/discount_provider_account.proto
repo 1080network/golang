@@ -222,10 +222,6 @@ message SearchDiscountProviderAccountRequest {
   DiscountProviderAccountStatus discount_provider_account_status = 1;
 
   string name = 2 [(validate.rules).string.max_len = 100];
-
-  micashared.common.v1.BankAccountDetailSearch operating_account = 3;
-
-  micashared.common.v1.BankAccountDetailSearch revenue_account = 4;
 }
 
 message SearchDiscountProviderAccountResponse {

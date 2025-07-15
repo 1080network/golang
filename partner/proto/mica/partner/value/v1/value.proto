@@ -11,6 +11,7 @@ syntax = "proto3";
 package mica.partner.value.v1;
 
 import "google/protobuf/timestamp.proto";
+import "mica/common/v1/currency.proto";
 import "micashared/common/enums/approvaltype/v1/approval_type.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
@@ -54,7 +55,9 @@ message Value {
   string transaction_ref = 7 [(validate.rules).string.max_len = 100];
 
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
-  micashared.common.enums.currency.v1.Currency currency = 9;
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 9 [deprecated = true];
+
+  mica.common.v1.Currency currency = 24;
 
   string obsolete_organization_key = 10 [
     deprecated = true,
@@ -124,7 +127,9 @@ message ValueRequest {
   }];
 
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
-  micashared.common.enums.currency.v1.Currency currency = 4;
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 4 [deprecated = true];
+
+  mica.common.v1.Currency currency = 22;
 
   string obsolete_organization_key = 5 [
     deprecated = true,
@@ -331,7 +336,7 @@ message ReturnValueResponse {
     // The provided instrument is not the same one used for the original obtain and is required
     STATUS_INSTRUMENT_MISMATCH = 23;
     // The source network group is incompatible with the destination network group
-    STATUS_INCOMPATIBLE_NETWORK_GROUP = 24;
+    STATUS_INCOMPATIBLE_NETWORK_GROUP = 24 [deprecated = true];
   }
   Status status = 1;
 
@@ -460,7 +465,7 @@ message ReverseObtainValueResponse {
     // The Service Provider is temporarily unavailable
     STATUS_SERVICE_PROVIDER_UNAVAILABLE = 6;
     // The source network group is incompatible with the destination network group
-    STATUS_INCOMPATIBLE_NETWORK_GROUP = 8;
+    STATUS_INCOMPATIBLE_NETWORK_GROUP = 8 [deprecated = true];
     // Request resulted in one or more limits being exceeded at the Service Provider
     STATUS_LIMIT_EXCEEDED = 9;
     // The call to the Service Provider (a.k.a. the issuer) timed out
@@ -513,7 +518,7 @@ message ReverseReturnValueResponse {
     // The Service Provider is temporarily unavailable
     STATUS_SERVICE_PROVIDER_UNAVAILABLE = 6;
     // The source network group is incompatible with the destination network group
-    STATUS_INCOMPATIBLE_NETWORK_GROUP = 8;
+    STATUS_INCOMPATIBLE_NETWORK_GROUP = 8 [deprecated = true];
     // Request resulted in one or more limits being exceeded at the Service Provider
     STATUS_LIMIT_EXCEEDED = 17;
     // The call to the Service Provider (a.k.a. the issuer) timed out
@@ -543,7 +548,9 @@ message HoldValueRequest {
   string transaction_ref = 3 [(validate.rules).string.max_len = 100];
 
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
-  micashared.common.enums.currency.v1.Currency currency = 4;
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 4 [deprecated = true];
+
+  mica.common.v1.Currency currency = 11;
 
   LocationDetails location_details = 5 [(validate.rules).message = {required: true}];
 
@@ -689,7 +696,7 @@ message AmendHoldValueResponse {
     // The referenced Organization of this request isn't fully configured to process transactions
     STATUS_ORGANIZATION_NOT_CONFIGURED = 16;
     // The source network group is incompatible with the destination network group
-    STATUS_INCOMPATIBLE_NETWORK_GROUP = 17;
+    STATUS_INCOMPATIBLE_NETWORK_GROUP = 17 [deprecated = true];
     // The hold transaction has already expired
     STATUS_ALREADY_EXPIRED = 18;
     // The hold transaction has already been released
@@ -799,7 +806,9 @@ message ObtainHoldValueRequest {
   string transaction_ref = 4 [(validate.rules).string.max_len = 100];
 
   // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
-  micashared.common.enums.currency.v1.Currency currency = 5;
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 5 [deprecated = true];
+
+  mica.common.v1.Currency currency = 17;
 
   LocationDetails location_details = 6 [(validate.rules).message = {required: true}];
 

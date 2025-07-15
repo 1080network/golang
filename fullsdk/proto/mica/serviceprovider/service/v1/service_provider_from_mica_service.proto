@@ -10,7 +10,6 @@ syntax = "proto3";
 
 package mica.serviceprovider.service.v1;
 
-import "mica/serviceprovider/user/v1/user.proto";
 import "mica/serviceprovider/value/v1/value.proto";
 
 option go_package = "mica/serviceprovider/servicev1";
@@ -28,11 +27,6 @@ option objc_class_prefix = "MICA";
 // the currency, the organization and store the transaction occurred in and optionally a list of
 // items the user is purchasing or returning.
 service ServiceProviderFromMicaService {
-  // When a User initiates an enrollment at a Partner, mica will call this operation in order to
-  // pass the SP the matching code. The SP will then send the matching code to their User through
-  // whatever channel they already use to message their users.
-  rpc EnrollUserInstrument(user.v1.EnrollUserInstrumentRequest) returns (user.v1.EnrollUserInstrumentResponse) {}
-
   // Operation to obtain value from a given instrument. Along with a common Value object (see
   // above), it includes an approval type of either FULL or PARTIAL.
   rpc ObtainValue(value.v1.ObtainValueRequest) returns (value.v1.ObtainValueResponse) {}
@@ -57,8 +51,6 @@ service ServiceProviderFromMicaService {
 
   // Obtain a value that was previously held
   rpc ObtainHoldValue(value.v1.ObtainHoldValueRequest) returns (value.v1.ObtainHoldValueResponse) {}
-
-  rpc ReceiveValue(value.v1.ReceiveValueRequest) returns (value.v1.ReceiveValueResponse) {}
 
   rpc ValueAdvice(value.v1.ValueAdviceRequest) returns (value.v1.ValueAdviceResponse) {}
 

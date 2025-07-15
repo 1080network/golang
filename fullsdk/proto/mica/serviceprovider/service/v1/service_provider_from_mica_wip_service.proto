@@ -1,0 +1,73 @@
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.serviceprovider.service.v1;
+
+import "mica/common/v1/currency.proto";
+import "mica/serviceprovider/instrument/v1/instrument.proto";
+import "mica/serviceprovider/value/v1/value.proto";
+import "micashared/common/v1/error.proto";
+import "micashared/common/v1/transaction.proto";
+import "validate/validate.proto";
+
+option go_package = "mica/serviceprovider/servicev1";
+option java_outer_classname = "ServiceProviderFromMicaWIPServiceProto";
+option java_package = "io.mica.serviceprovider.service.v1";
+option objc_class_prefix = "MICA";
+
+// Service for Work In Progress or experimental operations that may become a standard product feature in the future
+service ServiceProviderFromMicaWIPService {
+  // This operation will only be used when a dispute is resolved in favor of the user _and_ the money is going back to
+  // the users instrument. If the dispute resulted in a replacement or an in-store credit, then the Service Provider
+  // is not called.
+  rpc ApproveChargeback(ApproveChargebackRequest) returns (ApproveChargebackResponse) {}
+
+  rpc ReceiveValue(value.v1.ReceiveValueRequest) returns (value.v1.ReceiveValueResponse) {}
+}
+
+message ApproveChargebackRequest {
+
+  // The Mica generated key for this instrument.
+  string service_provider_instrument_key = 2 [(validate.rules).string = {max_len: 50}];
+
+  // Service Provider's primary key for their instrument.
+  mica.serviceprovider.instrument.v1.InstrumentExternalReference instrument_external_reference = 22 [(validate.rules).message.required = true];
+
+  // The currency
+  mica.common.v1.Currency currency = 5;
+
+  // Amount expressed as: ([0-9]*[.])?[0-9]+
+  string requested_amount = 15;
+
+  // The original transaction which is being charged back.
+  micashared.common.v1.TransactionIdentifier original_transaction_identifier = 19;
+}
+
+message ApproveChargebackResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+
+    // An approval for the full amount
+    STATUS_FULL_APPROVAL = 1;
+
+    // The chargeback was not approved.
+    STATUS_NOT_APPROVED = 2;
+
+    // An error occurred when processing the request.
+    STATUS_ERROR = 3;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  string approval_operation_ref = 3 [(validate.rules).string.max_len = 100];
+
+  string message = 4;
+}

@@ -11,6 +11,7 @@ syntax = "proto3";
 package mica.discount.discountdefinition.v1;
 
 import "google/protobuf/timestamp.proto";
+import "mica/common/v1/currency.proto";
 import "mica/discount/discount/v1/discount.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/discounttype/v1/discount_type.proto";
@@ -64,7 +65,7 @@ message DiscountDefinition {
   // discount to apply
   repeated discount.v1.DiscountCriteria discount_criteria = 12 [(validate.rules).repeated.min_items = 1];
 
-  micashared.common.enums.currency.v1.Currency currency = 13;
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 13 [ deprecated = true ];
 
   oneof discount_amount {
     option (validate.required) = true;
@@ -75,6 +76,8 @@ message DiscountDefinition {
 
   // address to the image for this discount definition (note that this image is expected to be square)
   string thumbnail_url = 18 [(validate.rules).string.max_len = 300];
+
+  mica.common.v1.Currency currency = 19;
 }
 
 enum DiscountDefinitionStatus {
@@ -121,7 +124,7 @@ message CreateDiscountDefinitionRequest {
   // discount to apply
   repeated discount.v1.DiscountCriteria discount_criteria = 8 [(validate.rules).repeated.min_items = 1];
 
-  micashared.common.enums.currency.v1.Currency currency = 9;
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 9 [deprecated = true];
 
   oneof discount_amount {
     option (validate.required) = true;
@@ -132,6 +135,8 @@ message CreateDiscountDefinitionRequest {
 
   // address to the image for this discount definition (note that this image is expected to be square)
   string thumbnail_url = 14 [(validate.rules).string.max_len = 300];
+
+  mica.common.v1.Currency currency = 15;
 }
 
 message CreateDiscountDefinitionResponse {
@@ -227,7 +232,7 @@ message UpdateDiscountDefinitionRequest {
   // discount to apply
   repeated discount.v1.DiscountCriteria discount_criteria = 9 [(validate.rules).repeated.min_items = 1];
 
-  micashared.common.enums.currency.v1.Currency currency = 10;
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 10 [deprecated = true];
 
   oneof discount_amount {
     option (validate.required) = true;
@@ -235,6 +240,8 @@ message UpdateDiscountDefinitionRequest {
     discount.v1.MonetaryAmount monetary_amount = 11;
     discount.v1.PercentageAmount percentage_amount = 12;
   }
+
+  mica.common.v1.Currency currency = 17;
 }
 
 message UpdateDiscountDefinitionResponse {
@@ -323,7 +330,9 @@ message SearchDiscountDefinitionRequest {
 
   google.protobuf.Timestamp valid_to = 5;
 
-  micashared.common.enums.currency.v1.Currency currency = 7;
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 7 [deprecated=true];
+
+  mica.common.v1.Currency currency = 8;
 }
 
 message SearchDiscountDefinitionResponse {

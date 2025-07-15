@@ -11,6 +11,7 @@ syntax = "proto3";
 package mica.serviceprovider.instrument.v1;
 
 import "google/protobuf/timestamp.proto";
+import "mica/common/v1/currency.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/instrumenttype/v1/instrument_type.proto";
 import "micashared/common/v1/instrument.proto";
@@ -39,11 +40,13 @@ message RegisterInstrumentRequest {
 
   micashared.common.enums.instrumenttype.v1.InstrumentType instrument_type = 3;
 
-  // The 3-letter currency code defined in ISO 4217.
-  micashared.common.enums.currency.v1.Currency currency = 4;
+  // DEPRECATED - use currency instead.
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 4 [deprecated = true];
 
   // Last 4 digits of this instrument.
   string nickname = 5;
+
+  mica.common.v1.Currency currency = 8;
 }
 
 message RegisterInstrumentResponse {
@@ -124,11 +127,13 @@ message Instrument {
 
   micashared.common.enums.instrumenttype.v1.InstrumentType instrument_type = 8;
 
-  // The 3-letter currency code defined in ISO 4217.
-  micashared.common.enums.currency.v1.Currency currency = 9;
+  // DEPRECATED - use currency instead
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 9 [deprecated = true];
 
   // Last for characters of this instrument.
   string nickname = 10;
+
+  mica.common.v1.Currency currency = 11;
 }
 
 message GetInstrumentResponse {

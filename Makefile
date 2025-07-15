@@ -15,6 +15,7 @@ discount: vendor
 	cp -r proto/micashared discount/proto
 	mkdir -p discount/proto/mica
 	cp -r proto/mica/discount discount/proto/mica/.
+	cp -r proto/mica/common discount/proto/mica/.
 	./generateGo.sh discount
 	cd discount && go mod tidy
 
@@ -25,6 +26,7 @@ partner: vendor
 	mkdir -p partner/proto/mica
 	cp -r proto/mica/partner partner/proto/mica/.
 	cp -r proto/mica/member partner/proto/mica/.
+	cp -r proto/mica/common partner/proto/mica/.
 	./generateGo.sh partner
 	cd partner && go mod tidy
 
@@ -35,7 +37,8 @@ serviceprovider: vendor
 	mkdir -p serviceprovider/proto/mica/discount
 	cp -r proto/mica/serviceprovider serviceprovider/proto/mica/.
 	cp -r proto/mica/discount/discount  serviceprovider/proto/mica/discount/.
-	cp -r proto/mica/member partner/proto/mica/.
+	cp -r proto/mica/member serviceprovider/proto/mica/.
+	cp -r proto/mica/common serviceprovider/proto/mica/.
 	./generateGo.sh serviceprovider
 	cd serviceprovider && go mod tidy
 

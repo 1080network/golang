@@ -11,13 +11,12 @@ syntax = "proto3";
 package mica.serviceprovider.service.v1;
 
 import "google/protobuf/timestamp.proto";
+import "mica/common/v1/currency.proto";
 import "mica/discount/discount/v1/discount.proto";
 import "mica/serviceprovider/instrument/v1/instrument.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/discounttype/v1/discount_type.proto";
 import "micashared/common/enums/instrumenttype/v1/instrument_type.proto";
-import "micashared/common/enums/recurringpaymentfrequency/v1/recurringpaymentfrequency.proto";
-import "micashared/common/enums/recurringpaymenttype/v1/recurringpaymenttype.proto";
 import "micashared/common/v1/error.proto";
 import "micashared/common/v1/pagination.proto";
 import "micashared/common/v1/risk_signals.proto";
@@ -31,14 +30,6 @@ option objc_class_prefix = "MICA";
 
 // Service for Work In Progress or experimental operations that may become a standard product feature in the future
 service ServiceProviderToMicaWIPService {
-  // Set visibility status for P2P operations.
-  rpc SetVisibilityStatus(SetVisibilityStatusRequest) returns (SetVisibilityStatusResponse) {}
-
-  // Used to find users that are discoverable (i.e. visible to other users) for P2P operations.
-  rpc DiscoverUser(DiscoverUserRequest) returns (DiscoverUserResponse) {}
-
-  rpc GetServiceProviderUUEK(GetServiceProviderUUEKRequest) returns (GetServiceProviderUUEKResponse) {option deprecated = true;}
-
   // Set the network PIN for a user.
   rpc SetPIN(SetPINRequest) returns (SetPINResponse) {}
 
@@ -57,12 +48,6 @@ service ServiceProviderToMicaWIPService {
   // Update the enable for purchase flag for a linked account so that it will be used in a multi-tender transaction.
   rpc UpdateAccountEnableForPurchase(UpdateAccountEnableForPurchaseRequest) returns (UpdateAccountEnableForPurchaseResponse) {}
 
-  // Retrieve the details of a recurring payment.
-  rpc GetRecurringPayment(GetRecurringPaymentRequest) returns (GetRecurringPaymentResponse) {}
-
-  // Cancel a recurring payment where allowed.
-  rpc CancelRecurringPayment(CancelRecurringPaymentRequest) returns (CancelRecurringPaymentResponse) {}
-
   // Search for recurring payments of a given user.
   rpc SearchRecurringPayments(SearchRecurringPaymentsRequest) returns (SearchRecurringPaymentsResponse) {}
 
@@ -71,38 +56,6 @@ service ServiceProviderToMicaWIPService {
 
   // Search for discounts available to a user.
   rpc SearchUserDiscount(SearchUserDiscountRequest) returns (SearchUserDiscountResponse) {}
-}
-
-enum VisibilityStatus {
-  VISIBILITY_STATUS_UNSPECIFIED = 0;
-  VISIBILITY_STATUS_DISCOVERABLE = 1;
-  VISIBILITY_STATUS_HIDDEN = 2;
-}
-
-message SetVisibilityStatusRequest {
-  string service_provider_user_key = 1 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-
-  string service_provider_instrument_key = 3 [(validate.rules).string = {
-    min_len: 30,
-    max_len: 50
-  }];
-
-  VisibilityStatus visibility_status = 7;
-}
-
-message SetVisibilityStatusResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-    STATUS_NOT_FOUND = 3;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
 }
 
 message DiscoverUserRequest {
@@ -124,24 +77,6 @@ message DiscoverUserResponse {
   repeated User users = 3;
 
   micashared.common.v1.Pagination pagination = 5;
-}
-
-message GetServiceProviderUUEKRequest {
-  string uuek = 4;
-}
-
-message GetServiceProviderUUEKResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-    STATUS_INSTRUMENT_NOT_FOUND = 3;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  micashared.common.v1.UserDemographic user_demographic = 3;
 }
 
 message SetPINRequest {
@@ -299,8 +234,7 @@ message GetLinkedAccountBalanceResponse {
 
   micashared.common.v1.Error error = 2;
 
-  // URN that represents the FIAT urn:value:fiat:usd
-  string currency = 3;
+  string currency = 3 [deprecated = true];
 
   // the amount of money available in a given currency for purchases
   string available_balance = 4;
@@ -337,99 +271,48 @@ message RecurringPayment {
 
   string nickname = 2;
 
-  micashared.common.enums.currency.v1.Currency currency = 3;
+  string instrument_key = 3;
 
-  string amount = 4;
+  mica.serviceprovider.instrument.v1.InstrumentExternalReference instrument_external_ref = 4;
 
-  micashared.common.enums.recurringpaymentfrequency.v1.RecurringPaymentFrequency frequency = 5;
+  mica.common.v1.Currency currency = 5;
 
-  micashared.common.enums.recurringpaymenttype.v1.RecurringPaymentType recurring_payment_type = 6;
+  google.protobuf.Timestamp created_at = 6;
 
-  google.protobuf.Timestamp created = 7;
+  RecurringPaymentUsage usage = 7;
 
-  int64 total_number_payments = 8;
-
-  google.protobuf.Timestamp last_payment = 9;
-
-  string last_payment_amount = 10;
-
-  int64 number_payments_made = 11;
-
-  RecurringPaymentStatus status = 12;
+  RecurringPaymentTerms terms = 8;
 }
 
-enum RecurringPaymentStatus {
-  RECURRING_PAYMENT_STATUS_UNSPECIFIED = 0;
+message RecurringPaymentUsage {
+  google.protobuf.Timestamp last_payment = 1;
 
-  RECURRING_PAYMENT_STATUS_ACTIVE = 1;
+  string last_payment_amount = 2;
 
-  RECURRING_PAYMENT_STATUS_INACTIVE = 2;
+  uint32 number_of_payments_made = 3;
 
-  RECURRING_PAYMENT_STATUS_CANCELED = 3;
+  string total_payment_amount = 4;
 }
 
-message GetRecurringPaymentRequest {
-
-  string recurring_payment_key = 1[(validate.rules).string = {min_len: 30,max_len: 50}];
-
-}
-
-message GetRecurringPaymentResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_NOT_FOUND = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  RecurringPayment recurring_payment = 4;
-}
-
-message CancelRecurringPaymentRequest {
-
-  string recurring_payment_key = 1[(validate.rules).string = {min_len: 30,max_len: 50}];
-
-}
-
-message CancelRecurringPaymentResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_NOT_FOUND = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
+message RecurringPaymentTerms {
+  string total_spend_limit = 1;
 }
 
 message SearchRecurringPaymentsRequest {
-  oneof by_user{
-    //this is the id in the service provider for the user that is requesting an enrollment
-    string user_ref = 1 [(validate.rules).string.max_len = 100];
-    string user_key = 2 [(validate.rules).string = {
-      min_len: 30,
-      max_len: 50
-    }];
+  oneof by {
+    ByUser user = 1;
   }
 
-  oneof by_instrument{
-    // this is the id in the service provider for the user that is requesting an enrollment
-    string instrument_ref = 3 [(validate.rules).string.max_len = 100];
-
-    string instrument_key = 4 [(validate.rules).string = {
-      min_len: 30,
-      max_len: 50
-    }];
+  message ByUser {
+    oneof id {
+      //this is the id in the service provider for the user that is requesting an enrollment
+      string user_ref = 1 [(validate.rules).string.max_len = 100];
+      string user_key = 2 [(validate.rules).string = {
+        min_len: 30,
+        max_len: 50
+      }];
+    }
   }
-}
-
-message RecurringPaymentDetail {
-  RecurringPayment recurring_payment = 1;
-
-  mica.serviceprovider.instrument.v1.InstrumentLink instrument_link = 2;
 }
 
 message SearchRecurringPaymentsResponse {
@@ -442,7 +325,7 @@ message SearchRecurringPaymentsResponse {
 
   micashared.common.v1.Error error = 2;
 
-  repeated RecurringPaymentDetail recurring_payments = 4;
+  repeated RecurringPayment recurring_payments = 4;
 }
 
 message SendValueRequest {
@@ -465,7 +348,7 @@ message SendValueRequest {
   // @gotags: mask:"security"
   string to_uuek = 3;
 
-  micashared.common.enums.currency.v1.Currency currency = 4;
+  mica.common.v1.Currency currency = 4;
 
   // Amount expressed as: ([0-9]*[.])?[0-9]+
   string amount = 5;
@@ -513,7 +396,7 @@ message ServiceProviderUserDiscount {
     gt_now: true
   }];
 
-  micashared.common.enums.currency.v1.Currency currency = 7;
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 7 [deprecated = true];
 
   oneof discount_amount {
     option (validate.required) = true;
@@ -524,6 +407,8 @@ message ServiceProviderUserDiscount {
 
   // address to the image for this discount definition (note that this image is expected to be square)
   string thumbnail_url = 10;
+
+  mica.common.v1.Currency currency = 13;
 }
 
 // This operation will only filter discounts that are valid and ignores any that aren't
