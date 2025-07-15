@@ -11,6 +11,7 @@ syntax = "proto3";
 package mica.discount.discount.v1;
 
 import "google/protobuf/timestamp.proto";
+import "mica/common/v1/currency.proto";
 import "micashared/common/enums/approvaltype/v1/approval_type.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/discounttype/v1/discount_type.proto";
@@ -120,7 +121,8 @@ message Discount {
   // discount to apply
   repeated DiscountCriteria discount_criteria = 13;
 
-  micashared.common.enums.currency.v1.Currency currency = 14;
+  // Deprecated - use currency instead
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 14;
 
   string user_key = 15 [(validate.rules).string = {
     min_len: 27,
@@ -138,6 +140,8 @@ message Discount {
   }
 
   TransactionDetails transaction_details = 19;
+
+  mica.common.v1.Currency currency = 24;
 }
 
 enum DiscountStatus {
@@ -427,7 +431,8 @@ message ApplyDiscountNotificationRequest {
 
   DiscountStatus status = 3; // only USED supported initially
 
-  micashared.common.enums.currency.v1.Currency currency = 4;
+  // DEPRECATED - use currency instead
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 4 [deprecated = true];
 
   MonetaryAmount monetary_amount = 5;
 
@@ -470,6 +475,8 @@ message ApplyDiscountNotificationRequest {
   // string federated_user_key = 22;
 
   repeated micashared.common.v1.LineItem line_items = 22;
+
+  mica.common.v1.Currency currency = 24;
 }
 
 message ApplyDiscountNotificationResponse {
@@ -504,9 +511,11 @@ message SearchDiscountRequest {
 
   google.protobuf.Timestamp valid_to = 7;
 
-  micashared.common.enums.currency.v1.Currency currency = 8;
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 8 [deprecated = true];
 
   string user_ref = 9 [(validate.rules).string.max_len = 100];
+
+  mica.common.v1.Currency currency = 10;
 }
 
 message SearchDiscountResponse {

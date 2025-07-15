@@ -11,6 +11,7 @@ syntax = "proto3";
 package mica.serviceprovider.value.v1;
 
 import "google/protobuf/timestamp.proto";
+import "mica/common/v1/currency.proto";
 import "mica/serviceprovider/instrument/v1/instrument.proto";
 import "micashared/common/enums/approvaltype/v1/approval_type.proto";
 import "micashared/common/enums/currency/v1/currency.proto";
@@ -59,8 +60,8 @@ message Value {
   // a given Partner.
   string partner_transaction_ref = 23 [(validate.rules).string.max_len = 100];
 
-  // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
-  micashared.common.enums.currency.v1.Currency currency = 9;
+  // DEPRECATED - Use mica.common.v1.Currency field instead.
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 9 [deprecated = true];
 
   // The organization this operation is being processed for.
   string organization_key = 10 [(validate.rules).string = {
@@ -118,6 +119,8 @@ message Value {
   // would typically refer to the first Obtain transaction and passed in for Return transactions. The
   // Service Provider can then use this field to match up Returns with the original Obtain.
   string initial_partner_transaction_ref = 26 [(validate.rules).string.max_len = 100];
+
+  mica.common.v1.Currency currency = 27;
 }
 
 // Type that represents the details of the value request (either to obtain or return).
@@ -144,8 +147,8 @@ message ValueRequest {
   // a given Partner.
   string partner_transaction_ref = 4 [(validate.rules).string.max_len = 100];
 
-  // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
-  micashared.common.enums.currency.v1.Currency currency = 5;
+  // DEPRECATED - use currency instead
+  micashared.common.enums.currency.v1.Currency obsolete_currency = 5 [deprecated = true];
 
   // The organization this operation is being processed for.
   string organization_key = 6 [(validate.rules).string = {
@@ -201,6 +204,8 @@ message ValueRequest {
   string order_number = 16;
 
   micashared.common.v1.TransactionIdentifier transaction_identifier = 20;
+
+  mica.common.v1.Currency currency = 23;
 }
 
 enum PINStatus {
@@ -653,7 +658,7 @@ message ReceiveValueRequest {
 
   mica.serviceprovider.instrument.v1.InstrumentExternalReference instrument_external_reference = 8 [(validate.rules).message.required = true];
 
-  micashared.common.enums.currency.v1.Currency currency = 3;
+  mica.common.v1.Currency currency = 3;
 
   // the amount that's being received
   // Amount expressed as: ([0-9]*[.])?[0-9]+

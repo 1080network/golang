@@ -25,6 +25,27 @@ message ProvisionUUEKFromLinkRequest {
     min_len: 27,
     max_len: 50
   }];
+
+  // The action the partner intends to take with this UUEK.
+  // Provisioned UUEKs are restricted to the requested intent.
+  oneof intent {
+    // Provision UUEK to obtain value from this linked instrument
+    ObtainValueIntent obtain_value = 2;
+
+    // Provision a UUEK to return value to this linked instrument
+    ReturnValueIntent return_value = 3;
+
+    // Provision a UUEK to hold value against this linked instrument
+    HoldValueIntent hold_value = 4;
+
+    // Provision a UUEK to authorize the creation of a recurring payment
+    CreateRecurringPaymentIntent create_recurring_payment = 5;
+  }
+
+  message ObtainValueIntent {}
+  message ReturnValueIntent {}
+  message HoldValueIntent {}
+  message CreateRecurringPaymentIntent {}
 }
 
 message ProvisionUUEKFromLinkResponse {
@@ -39,8 +60,8 @@ message ProvisionUUEKFromLinkResponse {
 
   micashared.common.v1.Error error = 2;
 
-  // The UUEK that can be used to run a transaction
-  string partner_uuek = 3;
+  // The UUEK that can be used for the requested intent
+  string uuek = 3;
 }
 
 message CompleteLinkingWithCodeRequest{

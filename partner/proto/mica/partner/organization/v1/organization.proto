@@ -111,15 +111,22 @@ message UpdateOrganizationRequest {
 
   int64 version = 2;
 
-  string name = 3;
+  string name = 3 [(validate.rules).string = {
+    min_len: 1,
+    max_len: 100,
+  }];
 
-  micashared.common.v1.Address address = 4;
+  micashared.common.v1.Address address = 4 [(validate.rules).message.required = true];
 
   repeated micashared.common.enums.organizationcategory.v1.OrganizationCategory categories = 5; // [(validate.rules) .repeated.min_items = 1];
 
-  micashared.common.enums.barcodetype.v1.BarcodeType barcode_type = 16;
+  micashared.common.enums.barcodetype.v1.BarcodeType barcode_type = 16 [(validate.rules).enum = {
+    not_in: [0]
+  }];
 
-  micashared.common.enums.barcodelocation.v1.BarcodeLocation barcode_location = 17;
+  micashared.common.enums.barcodelocation.v1.BarcodeLocation barcode_location = 17 [(validate.rules).enum = {
+    not_in: [0]
+  }];
 }
 
 message UpdateOrganizationResponse {

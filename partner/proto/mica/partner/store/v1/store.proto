@@ -150,8 +150,6 @@ message UpdateStoreRequest {
 
   int64 version = 3;
 
-  // TODO(tim): allow update of store_ref?
-
   // The number of this store (an alternative unique value)
   string store_number = 4;
 

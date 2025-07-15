@@ -1,0 +1,45 @@
+// Copyright (c) 2022-2024 Mica. All rights reserved. All software, including, without limitation, all source
+// code and object code, is the intellectual property of Mica, Inc. and is protected by copyright, trademark and
+// other intellectual property laws (collective "Mica Software"). You may not use, copy, reproduce, download, store,
+// post, broadcast, transmit, modify, sell or make available to the public content from the Mica Software without a
+// valid license or the prior written approval of Mica, Inc. Mica, its logos, slogans, taglines,
+// products, feature names, and other trademarks are trademarks of Mica, Inc. and may not be used without
+// permission.
+
+syntax = "proto3";
+
+package mica.member.ping.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "mica/member/pingv1";
+option java_outer_classname = "PingServiceProto";
+option java_package = "io.mica.member.ping.v1";
+option objc_class_prefix = "MICA";
+
+service PingService {
+  // Test connectivity to the Mica network
+  rpc Ping(PingRequest) returns (PingResponse) {}
+}
+
+message PingRequest {}
+
+message PingResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+  }
+  Status status = 1;
+
+  google.protobuf.Timestamp server_time = 2;
+
+  google.protobuf.Timestamp server_start_time = 7;
+
+  string build_version = 3;
+
+  string build_sha = 4;
+
+  string build_time = 5;
+
+  string service_type = 6;
+}

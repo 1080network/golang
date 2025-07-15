@@ -10,48 +10,10 @@ syntax = "proto3";
 
 package micashared.common.v1;
 
-import "google/protobuf/timestamp.proto";
-import "micashared/common/enums/currency/v1/currency.proto";
-import "micashared/common/enums/uuektype/v1/uuek_type.proto";
-import "validate/validate.proto";
-
 option go_package = "micashared/common/v1;commonv1";
 option java_outer_classname = "UUEKProto";
 option java_package = "io.micashared.common.v1";
 option objc_class_prefix = "MICA";
-
-message CommonUUEK {
-  micashared.common.enums.uuektype.v1.UUEKType uuek_type = 1;
-
-  string uuek = 2;
-
-  // version of the UUEK record, used for optimistic locking
-  int64 version = 3;
-
-  // Date that the UUEK was created at Mica.
-  google.protobuf.Timestamp created = 4;
-
-  // Date that the UUEK was last updated at Mica.
-  google.protobuf.Timestamp updated = 5;
-
-  google.protobuf.Timestamp valid_from = 9;
-
-  google.protobuf.Timestamp valid_to = 7;
-
-  // a maximum transaction that is allowed for this UUEK if the value request exceeds this
-  // amount it will fail. If not set any transaction amount is allowed.
-  string spend_limit = 10;
-
-  oneof use_criteria {
-    option (validate.required) = true;
-    uint32 number_of_uses = 11 [(validate.rules).uint32.gt = 0];
-
-    bool unlimited = 12;
-  }
-
-  // The 3-letter currency code defined in ISO 4217.
-  micashared.common.enums.currency.v1.Currency currency = 8;
-}
 
 // This message holds immutable details about the instruments that back UUEKs. These attributes can be used to have
 // stable references or knowledge of the underlying instrument that was used to transact.

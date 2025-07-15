@@ -24,8 +24,8 @@ fi
 GITHUB_MODULE_ADDRESS_SED="github.com\\/1080network\\/golang"
 IMPORT_PATH="\\\"$GITHUB_MODULE_ADDRESS_SED\\/$SDK\\/proto"
 for gofile in `find . -name "*.pb.go"` ; do
-	sed -i.bak "s/\"mica\\//${IMPORT_PATH}\\/mica\\//g" $gofile
-      sed -i.bak "s/\"micashared\\//${IMPORT_PATH}\\/micashared\\//g" $gofile
+	sed -i.bak "s/ \"mica\\// ${IMPORT_PATH}\\/mica\\//g" $gofile
+      sed -i.bak "s/ \"micashared\\// ${IMPORT_PATH}\\/micashared\\//g" $gofile
 done
 #clean up all the backup files
 for file in `find . -name "*.bak"` ; do
