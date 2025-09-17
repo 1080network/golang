@@ -16,16 +16,15 @@ package servicev1
 
 import (
 	context "context"
-	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	accountv1 "github.com/1080network/golang/partner/proto/mica/partner/accountv1"
 	instrumentv1 "github.com/1080network/golang/partner/proto/mica/partner/instrumentv1"
 	organizationv1 "github.com/1080network/golang/partner/proto/mica/partner/organizationv1"
 	partnerv1 "github.com/1080network/golang/partner/proto/mica/partner/partnerv1"
-	serviceproviderv1 "github.com/1080network/golang/partner/proto/mica/partner/serviceproviderv1"
 	storev1 "github.com/1080network/golang/partner/proto/mica/partner/storev1"
 	valuev1 "github.com/1080network/golang/partner/proto/mica/partner/valuev1"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -49,7 +48,6 @@ const (
 	PartnerToMicaService_UpdateStore_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/UpdateStore"
 	PartnerToMicaService_RemoveStore_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/RemoveStore"
 	PartnerToMicaService_SearchStore_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/SearchStore"
-	PartnerToMicaService_SearchServiceProvider_FullMethodName            = "/mica.partner.service.v1.PartnerToMicaService/SearchServiceProvider"
 	PartnerToMicaService_ObtainValue_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/ObtainValue"
 	PartnerToMicaService_ReverseObtainValue_FullMethodName               = "/mica.partner.service.v1.PartnerToMicaService/ReverseObtainValue"
 	PartnerToMicaService_ReturnValue_FullMethodName                      = "/mica.partner.service.v1.PartnerToMicaService/ReturnValue"
@@ -100,8 +98,6 @@ type PartnerToMicaServiceClient interface {
 	RemoveStore(ctx context.Context, in *storev1.RemoveStoreRequest, opts ...grpc.CallOption) (*storev1.RemoveStoreResponse, error)
 	// Like GetStore, can be used to retrieve Stores based on the criteria in the request.
 	SearchStore(ctx context.Context, in *storev1.SearchStoreRequest, opts ...grpc.CallOption) (*storev1.SearchStoreResponse, error)
-	// Used to retrieve issuers/service providers based on the criteria in the request.
-	SearchServiceProvider(ctx context.Context, in *serviceproviderv1.SearchServiceProviderRequest, opts ...grpc.CallOption) (*serviceproviderv1.SearchServiceProviderResponse, error)
 	// A method to obtain value from a user in order to pay for goods or services rendered to the user.
 	ObtainValue(ctx context.Context, in *valuev1.ObtainValueRequest, opts ...grpc.CallOption) (*valuev1.ObtainValueResponse, error)
 	// A method to reverse obtain value, including transaction fees and discounts for a given transaction
@@ -275,15 +271,6 @@ func (c *partnerToMicaServiceClient) SearchStore(ctx context.Context, in *storev
 	return out, nil
 }
 
-func (c *partnerToMicaServiceClient) SearchServiceProvider(ctx context.Context, in *serviceproviderv1.SearchServiceProviderRequest, opts ...grpc.CallOption) (*serviceproviderv1.SearchServiceProviderResponse, error) {
-	out := new(serviceproviderv1.SearchServiceProviderResponse)
-	err := c.cc.Invoke(ctx, PartnerToMicaService_SearchServiceProvider_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *partnerToMicaServiceClient) ObtainValue(ctx context.Context, in *valuev1.ObtainValueRequest, opts ...grpc.CallOption) (*valuev1.ObtainValueResponse, error) {
 	out := new(valuev1.ObtainValueResponse)
 	err := c.cc.Invoke(ctx, PartnerToMicaService_ObtainValue_FullMethodName, in, out, opts...)
@@ -444,8 +431,6 @@ type PartnerToMicaServiceServer interface {
 	RemoveStore(context.Context, *storev1.RemoveStoreRequest) (*storev1.RemoveStoreResponse, error)
 	// Like GetStore, can be used to retrieve Stores based on the criteria in the request.
 	SearchStore(context.Context, *storev1.SearchStoreRequest) (*storev1.SearchStoreResponse, error)
-	// Used to retrieve issuers/service providers based on the criteria in the request.
-	SearchServiceProvider(context.Context, *serviceproviderv1.SearchServiceProviderRequest) (*serviceproviderv1.SearchServiceProviderResponse, error)
 	// A method to obtain value from a user in order to pay for goods or services rendered to the user.
 	ObtainValue(context.Context, *valuev1.ObtainValueRequest) (*valuev1.ObtainValueResponse, error)
 	// A method to reverse obtain value, including transaction fees and discounts for a given transaction
@@ -525,9 +510,6 @@ func (UnimplementedPartnerToMicaServiceServer) RemoveStore(context.Context, *sto
 }
 func (UnimplementedPartnerToMicaServiceServer) SearchStore(context.Context, *storev1.SearchStoreRequest) (*storev1.SearchStoreResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchStore not implemented")
-}
-func (UnimplementedPartnerToMicaServiceServer) SearchServiceProvider(context.Context, *serviceproviderv1.SearchServiceProviderRequest) (*serviceproviderv1.SearchServiceProviderResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchServiceProvider not implemented")
 }
 func (UnimplementedPartnerToMicaServiceServer) ObtainValue(context.Context, *valuev1.ObtainValueRequest) (*valuev1.ObtainValueResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ObtainValue not implemented")
@@ -854,24 +836,6 @@ func _PartnerToMicaService_SearchStore_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PartnerToMicaService_SearchServiceProvider_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(serviceproviderv1.SearchServiceProviderRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PartnerToMicaServiceServer).SearchServiceProvider(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: PartnerToMicaService_SearchServiceProvider_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PartnerToMicaServiceServer).SearchServiceProvider(ctx, req.(*serviceproviderv1.SearchServiceProviderRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _PartnerToMicaService_ObtainValue_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(valuev1.ObtainValueRequest)
 	if err := dec(in); err != nil {
@@ -1190,10 +1154,6 @@ var PartnerToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchStore",
 			Handler:    _PartnerToMicaService_SearchStore_Handler,
-		},
-		{
-			MethodName: "SearchServiceProvider",
-			Handler:    _PartnerToMicaService_SearchServiceProvider_Handler,
 		},
 		{
 			MethodName: "ObtainValue",

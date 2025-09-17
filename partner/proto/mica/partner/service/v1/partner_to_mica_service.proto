@@ -15,7 +15,6 @@ import "mica/partner/account/v1/account.proto";
 import "mica/partner/instrument/v1/instrument.proto";
 import "mica/partner/organization/v1/organization.proto";
 import "mica/partner/partner/v1/partner.proto";
-import "mica/partner/serviceprovider/v1/service_provider.proto";
 import "mica/partner/store/v1/store.proto";
 import "mica/partner/value/v1/value.proto";
 
@@ -69,9 +68,6 @@ service PartnerToMicaService {
 
   // Like GetStore, can be used to retrieve Stores based on the criteria in the request.
   rpc SearchStore(store.v1.SearchStoreRequest) returns (store.v1.SearchStoreResponse) {}
-
-  // Used to retrieve issuers/service providers based on the criteria in the request.
-  rpc SearchServiceProvider(serviceprovider.v1.SearchServiceProviderRequest) returns (serviceprovider.v1.SearchServiceProviderResponse) {}
 
   // A method to obtain value from a user in order to pay for goods or services rendered to the user.
   rpc ObtainValue(value.v1.ObtainValueRequest) returns (value.v1.ObtainValueResponse) {}

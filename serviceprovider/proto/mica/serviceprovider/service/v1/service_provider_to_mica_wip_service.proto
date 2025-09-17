@@ -56,6 +56,10 @@ service ServiceProviderToMicaWIPService {
 
   // Search for discounts available to a user.
   rpc SearchUserDiscount(SearchUserDiscountRequest) returns (SearchUserDiscountResponse) {}
+
+  rpc GetAdjudicationProgram(GetAdjudicationProgramRequest) returns (GetAdjudicationProgramResponse) {}
+
+  rpc SetAdjudicationProgram(SetAdjudicationProgramRequest) returns (SetAdjudicationProgramResponse) {}
 }
 
 message DiscoverUserRequest {
@@ -443,3 +447,27 @@ message SearchUserDiscountResponse {
 
   micashared.common.v1.Pagination pagination = 5;
 }
+
+message GetAdjudicationProgramRequest {
+  // The key representing this instrument in Mica.
+  string service_provider_instrument_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+}
+
+message GetAdjudicationProgramResponse {
+  string adjudication_program_code = 3 [(validate.rules).string.max_len = 50];
+}
+
+message SetAdjudicationProgramRequest {
+  // The key representing this instrument in Mica.
+  string service_provider_instrument_key = 1 [(validate.rules).string = {
+    min_len: 30,
+    max_len: 50
+  }];
+
+  string adjudication_program_code = 3 [(validate.rules).string.max_len = 50];
+}
+
+message SetAdjudicationProgramResponse {}

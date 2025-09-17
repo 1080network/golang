@@ -23,6 +23,9 @@ option java_package = "io.mica.discount.administration.v1";
 option objc_class_prefix = "MICA";
 
 service DiscountAdministrationService {
+
+  rpc GenerateToMicaCertificate(GenerateToMicaCertificateRequest) returns (GenerateToMicaCertificateResponse) {}
+
   // Client certificates are used when mica needs to call out to a customers environment.
   rpc GenerateFromMicaClientCertificate(GenerateFromMicaClientCertificateRequest) returns (GenerateFromMicaClientCertificateResponse) {}
   // After signing the CSR the member will upload the signed cert
@@ -50,7 +53,9 @@ service DiscountAdministrationService {
   rpc PingExternal(PingExternalRequest) returns (PingExternalResponse) {}
 }
 
-message PingExternalRequest {}
+message PingExternalRequest {
+  string tenant = 1 [(validate.rules).string.min_len = 1];
+}
 
 message PingExternalResponse {
   enum Status {
@@ -75,6 +80,7 @@ message PingExternalResponse {
 // We generate the db entry and return the csr to the user so they can sign it.
 message GenerateFromMicaClientCertificateRequest {
   string display_name = 1;
+  string tenant = 2 [(validate.rules).string.min_len = 1];
 }
 
 message GenerateFromMicaClientCertificateResponse {
@@ -98,6 +104,7 @@ message UpdateFromMicaClientCertificateRequest {
   //Base64 standard encoded PEM string
   string base64_rootca_pem = 4;
 
+  string tenant = 5 [(validate.rules).string.min_len = 1];
 }
 
 message UpdateFromMicaClientCertificateResponse {
@@ -114,6 +121,7 @@ message UpdateFromMicaClientCertificateResponse {
 
 message EnableFromMicaClientCertificateRequest {
   string certificate_id = 1 ;
+  string tenant = 2 [(validate.rules).string.min_len = 1];
 }
 
 message EnableFromMicaClientCertificateResponse {
@@ -129,7 +137,10 @@ message EnableFromMicaClientCertificateResponse {
 }
 
 
-message SearchFromMicaClientCertificateRequest {}
+message SearchFromMicaClientCertificateRequest {
+  // Optional filter to search by tenant
+  string tenant = 1 [(validate.rules).string.min_len = 1];
+}
 
 message SearchFromMicaClientCertificateResponse {
   enum Status {
@@ -143,7 +154,9 @@ message SearchFromMicaClientCertificateResponse {
   repeated micashared.common.v1.FromMicaClientCertificate certificates = 3;
 }
 
-message GetFromMicaClientSettingsRequest {}
+message GetFromMicaClientSettingsRequest {
+  string tenant = 1 [(validate.rules).string.min_len = 1];
+}
 
 message GetFromMicaClientSettingsResponse {
   enum Status {
@@ -163,6 +176,8 @@ message UpdateFromMicaClientCallbackAddressRequest {
   // the callback address must folow a <hostname>:<port> pattern for example
   // mycallbackservicie.somecompany.io:443
   string callback_address = 2 [(validate.rules).string.pattern = "^[^/]+:\\d{3,6}$"];
+
+  string tenant = 3 [(validate.rules).string.min_len = 1];
 }
 
 message UpdateFromMicaClientCallbackAddressResponse {
@@ -183,6 +198,8 @@ message CreateApiTokenConfigurationRequest {
   string api_token_value = 2 [(validate.rules).string.min_len = 1];
   //The pem encoded certificate chain
   repeated string pem_ca_chain = 3 [(validate.rules).repeated.min_items = 1];
+
+  string tenant = 4 [(validate.rules).string.min_len = 1];
 }
 
 message CreateApiTokenConfigurationResponse {
@@ -197,7 +214,10 @@ message CreateApiTokenConfigurationResponse {
   int64 version = 3 [(validate.rules).int64.gte = 0];
 }
 
-message GetApiTokenConfigurationRequest {}
+message GetApiTokenConfigurationRequest {
+  // The tenant for which the api token configuration is requested
+  string tenant = 1 [(validate.rules).string.min_len = 1];
+}
 
 message GetApiTokenConfigurationResponse {
   enum Status {
@@ -218,6 +238,8 @@ message UpdateAPITokenAuthenticationConfigurationRequest {
   string api_token_value = 3;
   //The pem encoded certificate chain
   repeated string pem_ca_chain = 4;
+
+  string tenant = 5 [(validate.rules).string.min_len = 1];
 }
 
 message UpdateAPITokenAuthenticationConfigurationResponse {
@@ -230,4 +252,50 @@ message UpdateAPITokenAuthenticationConfigurationResponse {
   Status status = 1;
 
   micashared.common.v1.Error error = 2;
+}
+
+message MTLSCertificateSignatureRequest {
+  //Base64 standard encoded PEM string
+  string base64_pem_csr = 1 [(validate.rules).string.min_len = 1];
+}
+
+message GenerateToMicaCertificateRequest {
+  MTLSCertificateSignatureRequest csr = 1 [(validate.rules).message.required = true];
+  string expire_in_duration = 2;
+  string display_name = 3;
+  string tenant = 4 [(validate.rules).string.min_len = 1];
+}
+
+message GenerateToMicaCertificateResponse {
+  enum Status {
+    STATUS_UNSPECIFIED = 0;
+    STATUS_SUCCESS = 1;
+    STATUS_ERROR = 2;
+  }
+  Status status = 1;
+
+  micashared.common.v1.Error error = 2;
+
+  ToMicaCertificate certificate = 3;
+}
+
+message ToMicaCertificate {
+  //Serial number of the generated certificate
+  string serial_number = 1 [(validate.rules).string.min_len = 1];
+
+  google.protobuf.Timestamp issued = 2;
+
+  google.protobuf.Timestamp expiry = 3 [(validate.rules).timestamp.required = true];
+
+  //whether this certificate can be used or has been disallowed for access regardless of expiration
+  bool enabled = 4;
+
+  //Base64 standard encoded PEM string
+  string base64_certificate_pem = 12;
+
+  //Base64 standard encoded PEM string
+  string base64_rootca_pem = 13;
+
+  //The friendly name of the certificate
+  string display_name = 10;
 }
