@@ -36,6 +36,8 @@ const (
 	ServiceProviderToMicaWIPService_SearchRecurringPayments_FullMethodName        = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/SearchRecurringPayments"
 	ServiceProviderToMicaWIPService_SendValue_FullMethodName                      = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/SendValue"
 	ServiceProviderToMicaWIPService_SearchUserDiscount_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/SearchUserDiscount"
+	ServiceProviderToMicaWIPService_GetAdjudicationProgram_FullMethodName         = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/GetAdjudicationProgram"
+	ServiceProviderToMicaWIPService_SetAdjudicationProgram_FullMethodName         = "/mica.serviceprovider.service.v1.ServiceProviderToMicaWIPService/SetAdjudicationProgram"
 )
 
 // ServiceProviderToMicaWIPServiceClient is the client API for ServiceProviderToMicaWIPService service.
@@ -61,6 +63,8 @@ type ServiceProviderToMicaWIPServiceClient interface {
 	SendValue(ctx context.Context, in *SendValueRequest, opts ...grpc.CallOption) (*SendValueResponse, error)
 	// Search for discounts available to a user.
 	SearchUserDiscount(ctx context.Context, in *SearchUserDiscountRequest, opts ...grpc.CallOption) (*SearchUserDiscountResponse, error)
+	GetAdjudicationProgram(ctx context.Context, in *GetAdjudicationProgramRequest, opts ...grpc.CallOption) (*GetAdjudicationProgramResponse, error)
+	SetAdjudicationProgram(ctx context.Context, in *SetAdjudicationProgramRequest, opts ...grpc.CallOption) (*SetAdjudicationProgramResponse, error)
 }
 
 type serviceProviderToMicaWIPServiceClient struct {
@@ -153,6 +157,24 @@ func (c *serviceProviderToMicaWIPServiceClient) SearchUserDiscount(ctx context.C
 	return out, nil
 }
 
+func (c *serviceProviderToMicaWIPServiceClient) GetAdjudicationProgram(ctx context.Context, in *GetAdjudicationProgramRequest, opts ...grpc.CallOption) (*GetAdjudicationProgramResponse, error) {
+	out := new(GetAdjudicationProgramResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderToMicaWIPService_GetAdjudicationProgram_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *serviceProviderToMicaWIPServiceClient) SetAdjudicationProgram(ctx context.Context, in *SetAdjudicationProgramRequest, opts ...grpc.CallOption) (*SetAdjudicationProgramResponse, error) {
+	out := new(SetAdjudicationProgramResponse)
+	err := c.cc.Invoke(ctx, ServiceProviderToMicaWIPService_SetAdjudicationProgram_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceProviderToMicaWIPServiceServer is the server API for ServiceProviderToMicaWIPService service.
 // All implementations must embed UnimplementedServiceProviderToMicaWIPServiceServer
 // for forward compatibility
@@ -176,6 +198,8 @@ type ServiceProviderToMicaWIPServiceServer interface {
 	SendValue(context.Context, *SendValueRequest) (*SendValueResponse, error)
 	// Search for discounts available to a user.
 	SearchUserDiscount(context.Context, *SearchUserDiscountRequest) (*SearchUserDiscountResponse, error)
+	GetAdjudicationProgram(context.Context, *GetAdjudicationProgramRequest) (*GetAdjudicationProgramResponse, error)
+	SetAdjudicationProgram(context.Context, *SetAdjudicationProgramRequest) (*SetAdjudicationProgramResponse, error)
 	mustEmbedUnimplementedServiceProviderToMicaWIPServiceServer()
 }
 
@@ -209,6 +233,12 @@ func (UnimplementedServiceProviderToMicaWIPServiceServer) SendValue(context.Cont
 }
 func (UnimplementedServiceProviderToMicaWIPServiceServer) SearchUserDiscount(context.Context, *SearchUserDiscountRequest) (*SearchUserDiscountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchUserDiscount not implemented")
+}
+func (UnimplementedServiceProviderToMicaWIPServiceServer) GetAdjudicationProgram(context.Context, *GetAdjudicationProgramRequest) (*GetAdjudicationProgramResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAdjudicationProgram not implemented")
+}
+func (UnimplementedServiceProviderToMicaWIPServiceServer) SetAdjudicationProgram(context.Context, *SetAdjudicationProgramRequest) (*SetAdjudicationProgramResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetAdjudicationProgram not implemented")
 }
 func (UnimplementedServiceProviderToMicaWIPServiceServer) mustEmbedUnimplementedServiceProviderToMicaWIPServiceServer() {
 }
@@ -386,6 +416,42 @@ func _ServiceProviderToMicaWIPService_SearchUserDiscount_Handler(srv interface{}
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceProviderToMicaWIPService_GetAdjudicationProgram_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAdjudicationProgramRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderToMicaWIPServiceServer).GetAdjudicationProgram(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderToMicaWIPService_GetAdjudicationProgram_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderToMicaWIPServiceServer).GetAdjudicationProgram(ctx, req.(*GetAdjudicationProgramRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ServiceProviderToMicaWIPService_SetAdjudicationProgram_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetAdjudicationProgramRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceProviderToMicaWIPServiceServer).SetAdjudicationProgram(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceProviderToMicaWIPService_SetAdjudicationProgram_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceProviderToMicaWIPServiceServer).SetAdjudicationProgram(ctx, req.(*SetAdjudicationProgramRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ServiceProviderToMicaWIPService_ServiceDesc is the grpc.ServiceDesc for ServiceProviderToMicaWIPService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -428,6 +494,14 @@ var ServiceProviderToMicaWIPService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchUserDiscount",
 			Handler:    _ServiceProviderToMicaWIPService_SearchUserDiscount_Handler,
+		},
+		{
+			MethodName: "GetAdjudicationProgram",
+			Handler:    _ServiceProviderToMicaWIPService_GetAdjudicationProgram_Handler,
+		},
+		{
+			MethodName: "SetAdjudicationProgram",
+			Handler:    _ServiceProviderToMicaWIPService_SetAdjudicationProgram_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

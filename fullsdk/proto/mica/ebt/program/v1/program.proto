@@ -38,9 +38,9 @@ message EBTProgram {
 
   google.protobuf.Timestamp updated = 4;
 
-  micashared.common.enums.ebttype.v1.EbtType ebt_type = 5 [(validate.rules).enum.not_in = 0];
+  micashared.common.enums.ebttype.v1.EbtType ebt_type = 5 [deprecated = true, (validate.rules).enum.not_in = 0];
 
-  micashared.common.enums.ebtregion.v1.EbtRegion region = 6 [(validate.rules).enum.not_in = 0];
+  micashared.common.enums.ebtregion.v1.EbtRegion region = 6 [deprecated = true, (validate.rules).enum.not_in = 0];
 
   string issuer = 7 [(validate.rules).string = {
     min_len: 1,
@@ -48,6 +48,11 @@ message EBTProgram {
   }];
 
   EBTProgramRules program_rules = 8;
+
+  string program_code = 9 [(validate.rules).string = {
+    // min_len: 1,
+    max_len: 50,
+  }];
 }
 
 message GetEBTProgramRequest {}

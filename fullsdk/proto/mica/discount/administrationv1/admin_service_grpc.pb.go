@@ -27,6 +27,7 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
+	DiscountAdministrationService_GenerateToMicaCertificate_FullMethodName                 = "/mica.discount.administration.v1.DiscountAdministrationService/GenerateToMicaCertificate"
 	DiscountAdministrationService_GenerateFromMicaClientCertificate_FullMethodName         = "/mica.discount.administration.v1.DiscountAdministrationService/GenerateFromMicaClientCertificate"
 	DiscountAdministrationService_UpdateFromMicaClientCertificate_FullMethodName           = "/mica.discount.administration.v1.DiscountAdministrationService/UpdateFromMicaClientCertificate"
 	DiscountAdministrationService_EnableFromMicaClientCertificate_FullMethodName           = "/mica.discount.administration.v1.DiscountAdministrationService/EnableFromMicaClientCertificate"
@@ -43,6 +44,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DiscountAdministrationServiceClient interface {
+	GenerateToMicaCertificate(ctx context.Context, in *GenerateToMicaCertificateRequest, opts ...grpc.CallOption) (*GenerateToMicaCertificateResponse, error)
 	// Client certificates are used when mica needs to call out to a customers environment.
 	GenerateFromMicaClientCertificate(ctx context.Context, in *GenerateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*GenerateFromMicaClientCertificateResponse, error)
 	// After signing the CSR the member will upload the signed cert
@@ -71,6 +73,15 @@ type discountAdministrationServiceClient struct {
 
 func NewDiscountAdministrationServiceClient(cc grpc.ClientConnInterface) DiscountAdministrationServiceClient {
 	return &discountAdministrationServiceClient{cc}
+}
+
+func (c *discountAdministrationServiceClient) GenerateToMicaCertificate(ctx context.Context, in *GenerateToMicaCertificateRequest, opts ...grpc.CallOption) (*GenerateToMicaCertificateResponse, error) {
+	out := new(GenerateToMicaCertificateResponse)
+	err := c.cc.Invoke(ctx, DiscountAdministrationService_GenerateToMicaCertificate_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *discountAdministrationServiceClient) GenerateFromMicaClientCertificate(ctx context.Context, in *GenerateFromMicaClientCertificateRequest, opts ...grpc.CallOption) (*GenerateFromMicaClientCertificateResponse, error) {
@@ -167,6 +178,7 @@ func (c *discountAdministrationServiceClient) PingExternal(ctx context.Context, 
 // All implementations must embed UnimplementedDiscountAdministrationServiceServer
 // for forward compatibility
 type DiscountAdministrationServiceServer interface {
+	GenerateToMicaCertificate(context.Context, *GenerateToMicaCertificateRequest) (*GenerateToMicaCertificateResponse, error)
 	// Client certificates are used when mica needs to call out to a customers environment.
 	GenerateFromMicaClientCertificate(context.Context, *GenerateFromMicaClientCertificateRequest) (*GenerateFromMicaClientCertificateResponse, error)
 	// After signing the CSR the member will upload the signed cert
@@ -194,6 +206,9 @@ type DiscountAdministrationServiceServer interface {
 type UnimplementedDiscountAdministrationServiceServer struct {
 }
 
+func (UnimplementedDiscountAdministrationServiceServer) GenerateToMicaCertificate(context.Context, *GenerateToMicaCertificateRequest) (*GenerateToMicaCertificateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenerateToMicaCertificate not implemented")
+}
 func (UnimplementedDiscountAdministrationServiceServer) GenerateFromMicaClientCertificate(context.Context, *GenerateFromMicaClientCertificateRequest) (*GenerateFromMicaClientCertificateResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateFromMicaClientCertificate not implemented")
 }
@@ -236,6 +251,24 @@ type UnsafeDiscountAdministrationServiceServer interface {
 
 func RegisterDiscountAdministrationServiceServer(s grpc.ServiceRegistrar, srv DiscountAdministrationServiceServer) {
 	s.RegisterService(&DiscountAdministrationService_ServiceDesc, srv)
+}
+
+func _DiscountAdministrationService_GenerateToMicaCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GenerateToMicaCertificateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DiscountAdministrationServiceServer).GenerateToMicaCertificate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DiscountAdministrationService_GenerateToMicaCertificate_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DiscountAdministrationServiceServer).GenerateToMicaCertificate(ctx, req.(*GenerateToMicaCertificateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _DiscountAdministrationService_GenerateFromMicaClientCertificate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -425,6 +458,10 @@ var DiscountAdministrationService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "mica.discount.administration.v1.DiscountAdministrationService",
 	HandlerType: (*DiscountAdministrationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GenerateToMicaCertificate",
+			Handler:    _DiscountAdministrationService_GenerateToMicaCertificate_Handler,
+		},
 		{
 			MethodName: "GenerateFromMicaClientCertificate",
 			Handler:    _DiscountAdministrationService_GenerateFromMicaClientCertificate_Handler,
