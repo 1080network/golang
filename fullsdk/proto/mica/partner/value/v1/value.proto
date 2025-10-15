@@ -13,7 +13,6 @@ package mica.partner.value.v1;
 import "google/protobuf/timestamp.proto";
 import "mica/common/v1/currency.proto";
 import "micashared/common/enums/approvaltype/v1/approval_type.proto";
-import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
 import "micashared/common/enums/valueoperationtype/v1/value_operation_type.proto";
 import "micashared/common/v1/discount.proto";
@@ -31,6 +30,8 @@ option java_package = "io.mica.partner.value.v1";
 option objc_class_prefix = "MICA";
 
 message Value {
+  reserved 9, 10, 12;
+
   // Mica's transaction record primary key.
   string transaction_key = 1 [(validate.rules).string = {
     min_len: 30,
@@ -54,15 +55,8 @@ message Value {
   // A unique identifier at the Partner for this transaction.
   string transaction_ref = 7 [(validate.rules).string.max_len = 100];
 
-  // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 9 [deprecated = true];
+  mica.common.v1.Currency currency = 24 [(validate.rules).message = {required: true}];
 
-  mica.common.v1.Currency currency = 24;
-
-  string obsolete_organization_key = 10 [
-    deprecated = true,
-    (validate.rules).string = {max_len: 50}
-  ];
   // The organization this operation is being processed for.
   oneof organization_identifier {
     string organization_key = 19 [(validate.rules).string = {max_len: 50}];
@@ -74,10 +68,6 @@ message Value {
   // Organization category
   micashared.common.enums.organizationcategory.v1.OrganizationCategory category = 11;
 
-  string obsolete_store_key = 12 [
-    deprecated = true,
-    (validate.rules).string = {max_len: 50}
-  ];
   // The store where this operation occurred.
   oneof store_identifier {
     string store_key = 20 [(validate.rules).string = {max_len: 50}];
@@ -116,7 +106,8 @@ message Value {
 
 // Type that represents the details of the value request (either to obtain or return).
 message ValueRequest {
-  reserved 3, 13;
+  reserved 3, 4, 5, 7, 13, 19;
+
   // The UUEK of the instrument is either one specific to the partner or one provisioned by a Service Provider.
   string uuek = 1;
 
@@ -126,15 +117,8 @@ message ValueRequest {
     max_len: 100
   }];
 
-  // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 4 [deprecated = true];
+  mica.common.v1.Currency currency = 22 [(validate.rules).message = {required: true}];
 
-  mica.common.v1.Currency currency = 22;
-
-  string obsolete_organization_key = 5 [
-    deprecated = true,
-    (validate.rules).string = {max_len: 50}
-  ];
   // The organization this operation is being processed for.
   oneof organization_identifier {
     string organization_key = 16 [(validate.rules).string = {max_len: 50}];
@@ -146,10 +130,6 @@ message ValueRequest {
   // Organization category
   micashared.common.enums.organizationcategory.v1.OrganizationCategory category = 6;
 
-  string obsolete_store_key = 7 [
-    deprecated = true,
-    (validate.rules).string = {max_len: 50}
-  ];
   // The store where this operation occurred.
   oneof store_identifier {
     string store_key = 17 [(validate.rules).string = {max_len: 50}];
@@ -170,9 +150,6 @@ message ValueRequest {
     max_len: 50,
     pattern: "^([0-9]*[.])?[0-9]+$"
   }];
-
-  // deprecated use surcharges instead
-  string obsolete_surcharge_amount = 19;
 
   PartnerFee partner_fee = 21;
 
@@ -538,7 +515,7 @@ message ReverseReturnValueResponse {
 }
 
 message HoldValueRequest {
-  reserved 7;
+  reserved 4, 7;
 
   google.protobuf.Timestamp expiration = 1 [(validate.rules).timestamp = {required: true}];
 
@@ -547,10 +524,7 @@ message HoldValueRequest {
   // A unique identifier at the Partner for this transaction.
   string transaction_ref = 3 [(validate.rules).string.max_len = 100];
 
-  // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 4 [deprecated = true];
-
-  mica.common.v1.Currency currency = 11;
+  mica.common.v1.Currency currency = 11 [(validate.rules).message = {required: true}];
 
   LocationDetails location_details = 5 [(validate.rules).message = {required: true}];
 
@@ -791,7 +765,8 @@ message LocationDetails {
 }
 
 message ObtainHoldValueRequest {
-  reserved 9;
+  reserved 5, 9;
+
   // If a previous hold has been placed on the instrument, the hold transaction key or ref must be provided
   oneof transaction_identifier {
     option (validate.required) = true;
@@ -805,10 +780,7 @@ message ObtainHoldValueRequest {
   // A unique identifier at the Partner for this transaction.
   string transaction_ref = 4 [(validate.rules).string.max_len = 100];
 
-  // The 3-letter currency code defined in ISO 4217. Note all amounts are in this currency.
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 5 [deprecated = true];
-
-  mica.common.v1.Currency currency = 17;
+  mica.common.v1.Currency currency = 17 [(validate.rules).message = {required: true}];
 
   LocationDetails location_details = 6 [(validate.rules).message = {required: true}];
 

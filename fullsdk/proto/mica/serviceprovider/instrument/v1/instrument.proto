@@ -12,7 +12,6 @@ package mica.serviceprovider.instrument.v1;
 
 import "google/protobuf/timestamp.proto";
 import "mica/common/v1/currency.proto";
-import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/instrumenttype/v1/instrument_type.proto";
 import "micashared/common/v1/instrument.proto";
 import "micashared/common/v1/error.proto";
@@ -24,10 +23,8 @@ option java_package = "io.mica.serviceprovider.instrument.v1";
 option objc_class_prefix = "MICA";
 
 message RegisterInstrumentRequest {
-  string obsolete_service_provider_user_key = 1 [
-    deprecated = true,
-    (validate.rules).string = {max_len: 50}
-  ];
+  reserved 1, 4;
+
   oneof user_identifier {
     // The key representing this user in Mica.
     string service_provider_user_key = 7 [(validate.rules).string = {max_len: 50}];
@@ -40,17 +37,10 @@ message RegisterInstrumentRequest {
 
   micashared.common.enums.instrumenttype.v1.InstrumentType instrument_type = 3;
 
-  // DEPRECATED - use currency instead.
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 4 [deprecated = true];
-
   // Last 4 digits of this instrument.
   string nickname = 5;
 
-  mica.common.v1.Currency currency = 8;
-
-  // The program code that represents the adjudication program that should be used when processing transactions for
-  // the instrument.
-  //  string adjudication_program_code = 9 [(validate.rules).string.max_len = 50];
+  mica.common.v1.Currency currency = 8 [(validate.rules).message = {required: true}];
 }
 
 message RegisterInstrumentResponse {
@@ -80,6 +70,8 @@ message InstrumentExternalReference {
 }
 
 message GetInstrumentRequest {
+  reserved 2;
+
   oneof instrument_identifier {
     option (validate.required) = true;
 
@@ -90,18 +82,13 @@ message GetInstrumentRequest {
     }];
 
     // Primary key on the external system.
-    // DEPRECATED - Use external_reference instead
-    string obsolete_service_provider_instrument_ref = 2 [
-      (validate.rules).string.max_len = 100,
-      deprecated = true
-    ];
-
-    // Primary key on the external system.
     InstrumentExternalReference external_reference = 3;
   }
 }
 
 message Instrument {
+  reserved 9;
+
   // The primary key that represents this instrument at Mica.
   string service_provider_instrument_key = 1 [(validate.rules).string = {
     min_len: 30,
@@ -131,15 +118,10 @@ message Instrument {
 
   micashared.common.enums.instrumenttype.v1.InstrumentType instrument_type = 8;
 
-  // DEPRECATED - use currency instead
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 9 [deprecated = true];
-
   // Last for characters of this instrument.
   string nickname = 10;
 
-  mica.common.v1.Currency currency = 11;
-
-  //  string adjudication_program_code = 12 [(validate.rules).string.max_len = 50];
+  mica.common.v1.Currency currency = 11 [(validate.rules).message = {required: true}];
 }
 
 message GetInstrumentResponse {
@@ -157,6 +139,8 @@ message GetInstrumentResponse {
 }
 
 message RemoveInstrumentRequest {
+  reserved 2;
+
   oneof instrument_identifier {
     option (validate.required) = true;
 
@@ -165,10 +149,6 @@ message RemoveInstrumentRequest {
       min_len: 30,
       max_len: 50
     }];
-
-    // Primary key on the external system.
-    // DEPRECATED - Use external_reference instead
-    string obsolete_service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100, deprecated = true];
 
     // Primary key on the external system.
     InstrumentExternalReference external_reference = 3;

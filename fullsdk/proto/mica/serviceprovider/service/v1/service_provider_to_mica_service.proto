@@ -52,9 +52,6 @@ service ServiceProviderToMicaService {
   // Remove a User from Mica. Typically called when a User ends their relationship with the issuer (e.g. closes their account).
   rpc RemoveUser(user.v1.RemoveUserRequest) returns (user.v1.RemoveUserResponse) {}
 
-  // Searches for Users held at Mica.
-  rpc SearchUser(user.v1.SearchUserRequest) returns (user.v1.SearchUserResponse) {}
-
   // Called to register a Users instrument (account) for use at Mica. This requires a user to already have been registered.
   rpc RegisterInstrument(instrument.v1.RegisterInstrumentRequest) returns (instrument.v1.RegisterInstrumentResponse) {}
 

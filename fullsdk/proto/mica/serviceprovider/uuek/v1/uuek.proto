@@ -22,6 +22,8 @@ option objc_class_prefix = "MICA";
 
 // to Mica
 message ProvisionServiceProviderUUEKRequest {
+  reserved 2;
+
   oneof instrument_identifier {
     option (validate.required) = true;
 
@@ -30,10 +32,6 @@ message ProvisionServiceProviderUUEKRequest {
       min_len: 30,
       max_len: 50
     }];
-
-    // Primary key on the external system.
-    // DEPRECATED - use instrument_external_reference instead
-    string obsolete_service_provider_instrument_ref = 2 [(validate.rules).string.max_len = 100, deprecated = true];
 
     // Primary key on the external system.
     mica.serviceprovider.instrument.v1.InstrumentExternalReference instrument_external_reference = 8;

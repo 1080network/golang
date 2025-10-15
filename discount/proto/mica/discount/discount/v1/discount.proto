@@ -13,7 +13,6 @@ package mica.discount.discount.v1;
 import "google/protobuf/timestamp.proto";
 import "mica/common/v1/currency.proto";
 import "micashared/common/enums/approvaltype/v1/approval_type.proto";
-import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/discounttype/v1/discount_type.proto";
 import "micashared/common/enums/unit/v1/unit.proto";
 import "micashared/common/v1/address.proto";
@@ -67,6 +66,8 @@ message TransactionDetails {
 }
 
 message Discount {
+  reserved 14;
+
   string discount_definition_key = 1 [(validate.rules).string = {
     min_len: 27,
     max_len: 50
@@ -121,9 +122,6 @@ message Discount {
   // discount to apply
   repeated DiscountCriteria discount_criteria = 13;
 
-  // Deprecated - use currency instead
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 14;
-
   string user_key = 15 [(validate.rules).string = {
     min_len: 27,
     max_len: 50
@@ -141,7 +139,7 @@ message Discount {
 
   TransactionDetails transaction_details = 19;
 
-  mica.common.v1.Currency currency = 24;
+  mica.common.v1.Currency currency = 24 [(validate.rules).message = {required: true}];
 }
 
 enum DiscountStatus {
@@ -416,6 +414,8 @@ message RemoveDiscountResponse {
 }
 
 message ApplyDiscountNotificationRequest {
+  reserved 4;
+
   // discount details
   string discount_key = 1 [(validate.rules).string = {
     min_len: 27,
@@ -430,9 +430,6 @@ message ApplyDiscountNotificationRequest {
   int32 discount_version = 23;
 
   DiscountStatus status = 3; // only USED supported initially
-
-  // DEPRECATED - use currency instead
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 4 [deprecated = true];
 
   MonetaryAmount monetary_amount = 5;
 
@@ -476,7 +473,7 @@ message ApplyDiscountNotificationRequest {
 
   repeated micashared.common.v1.LineItem line_items = 22;
 
-  mica.common.v1.Currency currency = 24;
+  mica.common.v1.Currency currency = 24 [(validate.rules).message = {required: true}];
 }
 
 message ApplyDiscountNotificationResponse {
@@ -499,6 +496,8 @@ message ApplyDiscountNotificationResponse {
 }
 
 message SearchDiscountRequest {
+  reserved 8;
+
   string discount_definition_ref = 2 [(validate.rules).string.max_len = 100];
 
   string receipt_description = 3;
@@ -510,8 +509,6 @@ message SearchDiscountRequest {
   google.protobuf.Timestamp valid_from = 6;
 
   google.protobuf.Timestamp valid_to = 7;
-
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 8 [deprecated = true];
 
   string user_ref = 9 [(validate.rules).string.max_len = 100];
 

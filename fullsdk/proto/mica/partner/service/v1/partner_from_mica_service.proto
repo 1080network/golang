@@ -10,16 +10,14 @@ syntax = "proto3";
 
 package mica.partner.service.v1;
 
-import "mica/partner/user/v1/user.proto";
-
 option go_package = "mica/partner/servicev1";
 option java_outer_classname = "PartnerFromMicaServiceProto";
 option java_package = "io.mica.partner.service.v1";
 option objc_class_prefix = "MICA";
 
 service PartnerFromMicaService {
-  // operation to support reverse onboarding. Instead of the Partner calling Mica, Mica will call the Partner with a
-  // new enrollment. For example, a User starting at the Mica user website could sign up for Netflix assuming that
-  // Netflix supported Mica and have implemented this API.
-  rpc EnrollUserInstrument(user.v1.EnrollUserInstrumentRequest) returns (user.v1.EnrollUserInstrumentResponse) {}
+  // Possible operations:
+  //  - operation to support reverse onboarding. Instead of the Partner calling Mica, Mica will call the Partner with a
+  //    new enrollment. For example, a User starting at the Mica user website could sign up for Netflix assuming that
+  //    Netflix supported Mica and have implemented this API.
 }

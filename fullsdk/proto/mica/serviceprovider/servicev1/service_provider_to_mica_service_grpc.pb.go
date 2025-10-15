@@ -16,15 +16,15 @@ package servicev1
 
 import (
 	context "context"
-	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
 	instrumentv1 "github.com/1080network/golang/fullsdk/proto/mica/serviceprovider/instrumentv1"
 	serviceproviderv1 "github.com/1080network/golang/fullsdk/proto/mica/serviceprovider/serviceproviderv1"
 	userv1 "github.com/1080network/golang/fullsdk/proto/mica/serviceprovider/userv1"
 	uuekv1 "github.com/1080network/golang/fullsdk/proto/mica/serviceprovider/uuekv1"
 	valuev1 "github.com/1080network/golang/fullsdk/proto/mica/serviceprovider/valuev1"
 	v1 "github.com/1080network/golang/fullsdk/proto/micashared/common/v1"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -38,7 +38,6 @@ const (
 	ServiceProviderToMicaService_GetUser_FullMethodName                        = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetUser"
 	ServiceProviderToMicaService_UpdateUser_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/UpdateUser"
 	ServiceProviderToMicaService_RemoveUser_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveUser"
-	ServiceProviderToMicaService_SearchUser_FullMethodName                     = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/SearchUser"
 	ServiceProviderToMicaService_RegisterInstrument_FullMethodName             = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RegisterInstrument"
 	ServiceProviderToMicaService_GetInstrument_FullMethodName                  = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/GetInstrument"
 	ServiceProviderToMicaService_RemoveInstrument_FullMethodName               = "/mica.serviceprovider.service.v1.ServiceProviderToMicaService/RemoveInstrument"
@@ -68,8 +67,6 @@ type ServiceProviderToMicaServiceClient interface {
 	UpdateUser(ctx context.Context, in *userv1.UpdateUserRequest, opts ...grpc.CallOption) (*userv1.UpdateUserResponse, error)
 	// Remove a User from Mica. Typically called when a User ends their relationship with the issuer (e.g. closes their account).
 	RemoveUser(ctx context.Context, in *userv1.RemoveUserRequest, opts ...grpc.CallOption) (*userv1.RemoveUserResponse, error)
-	// Searches for Users held at Mica.
-	SearchUser(ctx context.Context, in *userv1.SearchUserRequest, opts ...grpc.CallOption) (*userv1.SearchUserResponse, error)
 	// Called to register a Users instrument (account) for use at Mica. This requires a user to already have been registered.
 	RegisterInstrument(ctx context.Context, in *instrumentv1.RegisterInstrumentRequest, opts ...grpc.CallOption) (*instrumentv1.RegisterInstrumentResponse, error)
 	// Retrieve an instrument based on it's key.
@@ -151,15 +148,6 @@ func (c *serviceProviderToMicaServiceClient) UpdateUser(ctx context.Context, in 
 func (c *serviceProviderToMicaServiceClient) RemoveUser(ctx context.Context, in *userv1.RemoveUserRequest, opts ...grpc.CallOption) (*userv1.RemoveUserResponse, error) {
 	out := new(userv1.RemoveUserResponse)
 	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_RemoveUser_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceProviderToMicaServiceClient) SearchUser(ctx context.Context, in *userv1.SearchUserRequest, opts ...grpc.CallOption) (*userv1.SearchUserResponse, error) {
-	out := new(userv1.SearchUserResponse)
-	err := c.cc.Invoke(ctx, ServiceProviderToMicaService_SearchUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -298,8 +286,6 @@ type ServiceProviderToMicaServiceServer interface {
 	UpdateUser(context.Context, *userv1.UpdateUserRequest) (*userv1.UpdateUserResponse, error)
 	// Remove a User from Mica. Typically called when a User ends their relationship with the issuer (e.g. closes their account).
 	RemoveUser(context.Context, *userv1.RemoveUserRequest) (*userv1.RemoveUserResponse, error)
-	// Searches for Users held at Mica.
-	SearchUser(context.Context, *userv1.SearchUserRequest) (*userv1.SearchUserResponse, error)
 	// Called to register a Users instrument (account) for use at Mica. This requires a user to already have been registered.
 	RegisterInstrument(context.Context, *instrumentv1.RegisterInstrumentRequest) (*instrumentv1.RegisterInstrumentResponse, error)
 	// Retrieve an instrument based on it's key.
@@ -353,9 +339,6 @@ func (UnimplementedServiceProviderToMicaServiceServer) UpdateUser(context.Contex
 }
 func (UnimplementedServiceProviderToMicaServiceServer) RemoveUser(context.Context, *userv1.RemoveUserRequest) (*userv1.RemoveUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveUser not implemented")
-}
-func (UnimplementedServiceProviderToMicaServiceServer) SearchUser(context.Context, *userv1.SearchUserRequest) (*userv1.SearchUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SearchUser not implemented")
 }
 func (UnimplementedServiceProviderToMicaServiceServer) RegisterInstrument(context.Context, *instrumentv1.RegisterInstrumentRequest) (*instrumentv1.RegisterInstrumentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterInstrument not implemented")
@@ -496,24 +479,6 @@ func _ServiceProviderToMicaService_RemoveUser_Handler(srv interface{}, ctx conte
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(ServiceProviderToMicaServiceServer).RemoveUser(ctx, req.(*userv1.RemoveUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _ServiceProviderToMicaService_SearchUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(userv1.SearchUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceProviderToMicaServiceServer).SearchUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ServiceProviderToMicaService_SearchUser_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceProviderToMicaServiceServer).SearchUser(ctx, req.(*userv1.SearchUserRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -778,10 +743,6 @@ var ServiceProviderToMicaService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RemoveUser",
 			Handler:    _ServiceProviderToMicaService_RemoveUser_Handler,
-		},
-		{
-			MethodName: "SearchUser",
-			Handler:    _ServiceProviderToMicaService_SearchUser_Handler,
 		},
 		{
 			MethodName: "RegisterInstrument",
