@@ -10,8 +10,6 @@ syntax = "proto3";
 
 package micashared.common.v1;
 
-import "micashared/common/enums/custodialbank/v1/custodial_bank.proto";
-
 option go_package = "micashared/common/v1;commonv1";
 option java_outer_classname = "BankAccountDetailProto";
 option java_package = "io.micashared.common.v1";
@@ -29,25 +27,13 @@ message ABAAccountNumber {
 }
 
 message BankAccountDetail {
-  // the custodial bank where this transaction will be settled
-  enums.custodialbank.v1.CustodialBank custodial_bank = 6;
+  reserved 6;
 
   // The bank at which this account is held at
   string bank = 8;
 
   // The account reference for this account
   string account_ref = 7;
-}
-
-message BankAccountDetailSearch {
-  // the custodial bank where this transaction will be settled
-  enums.custodialbank.v1.CustodialBank custodial_bank = 1;
-
-  // The bank at which this account is held at
-  string bank = 2;
-
-  // The account reference for this account
-  string account_ref = 3;
 }
 
 message ABAAccountEntry {

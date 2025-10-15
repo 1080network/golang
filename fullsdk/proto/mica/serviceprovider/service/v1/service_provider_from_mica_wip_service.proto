@@ -41,7 +41,7 @@ message ApproveChargebackRequest {
   mica.serviceprovider.instrument.v1.InstrumentExternalReference instrument_external_reference = 22 [(validate.rules).message.required = true];
 
   // The currency
-  mica.common.v1.Currency currency = 5;
+  mica.common.v1.Currency currency = 5 [(validate.rules).message = {required: true}];
 
   // Amount expressed as: ([0-9]*[.])?[0-9]+
   string requested_amount = 15;

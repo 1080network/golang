@@ -11,14 +11,41 @@ syntax = "proto3";
 package mica.serviceprovider.user.v1;
 
 import "google/protobuf/timestamp.proto";
+import "micashared/common/enums/ageband/v1/age_band.proto";
+import "micashared/common/enums/country/v1/country.proto";
+import "micashared/common/enums/region/v1/region.proto";
 import "micashared/common/v1/error.proto";
-import "micashared/common/v1/user.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/serviceprovider/userv1";
 option java_outer_classname = "UserProto";
 option java_package = "io.mica.serviceprovider.user.v1";
 option objc_class_prefix = "MICA";
+
+message Address {
+  // this would be state in the US (ISO 3166-2:US), prefecture in Japan (ISO 3166-2:JP) or
+  // territory in Australia (ISO 3166-2:AU)
+  micashared.common.enums.region.v1.Region region = 3 [deprecated = true];
+  string region_code = 6 [(validate.rules).string = {max_len: 3}];
+
+  // postal code, in the US this would be zip code
+  string postal_code = 4;
+
+  // https://en.wikipedia.org/wiki/ISO_3166-2
+  micashared.common.enums.country.v1.Country country = 5 [deprecated = true];
+  string country_code = 7 [(validate.rules).string.max_len = 2];
+}
+
+message UserDemographic {
+  // The street address of the user.
+  Address address = 4;
+
+  // The age band of the user.
+  micashared.common.enums.ageband.v1.AgeBand age_band = 7;
+
+  // E.164 format.
+  string phone = 6 [(validate.rules).string.pattern = "^$|^\\+[1-9]\\d{10,14}$", deprecated = true]; // @gotags: mask:"pii"
+}
 
 message User {
   // version of the user record, used for optimistic locking
@@ -39,7 +66,7 @@ message User {
   // Primary key on the external system.
   string service_provider_user_ref = 5 [(validate.rules).string.max_len = 100];
 
-  micashared.common.v1.UserDemographic user_demographic = 6;
+  UserDemographic user_demographic = 6;
 }
 
 // to Mica
@@ -48,7 +75,7 @@ message RegisterUserRequest {
   // Primary key on the external system.
   string service_provider_user_ref = 8 [(validate.rules).string.max_len = 100];
 
-  micashared.common.v1.UserDemographic user_demographic = 1;
+  UserDemographic user_demographic = 1;
 }
 
 message RegisterUserResponse {
@@ -72,10 +99,8 @@ message RegisterUserResponse {
 }
 
 message UpdateUserRequest {
-  string obsolete_service_provider_user_key = 1 [
-    deprecated = true,
-    (validate.rules).string = {max_len: 50}
-  ];
+  reserved 1;
+
   oneof user_identifier {
     // The key representing this user in Mica.
     string service_provider_user_key = 5 [(validate.rules).string = {max_len: 50}];
@@ -85,7 +110,7 @@ message UpdateUserRequest {
 
   int64 version = 2;
 
-  micashared.common.v1.UserDemographic user_demographic = 3;
+  UserDemographic user_demographic = 3;
 }
 
 message UpdateUserResponse {
@@ -104,10 +129,8 @@ message UpdateUserResponse {
 }
 
 message RemoveUserRequest {
-  string obsolete_service_provider_user_key = 1 [
-    deprecated = true,
-    (validate.rules).string = {max_len: 50}
-  ];
+  reserved 1;
+
   oneof user_identifier {
     // The key representing this user in Mica.
     string service_provider_user_key = 3 [(validate.rules).string = {max_len: 50}];
@@ -129,10 +152,8 @@ message RemoveUserResponse {
 }
 
 message GetUserRequest {
-  string obsolete_service_provider_user_key = 1 [
-    deprecated = true,
-    (validate.rules).string = {max_len: 50}
-  ];
+  reserved 1;
+
   oneof user_identifier {
     // The key representing this user in Mica.
     string service_provider_user_key = 3 [(validate.rules).string = {max_len: 50}];
@@ -153,27 +174,4 @@ message GetUserResponse {
   micashared.common.v1.Error error = 2;
 
   User user = 3;
-}
-
-message SearchUserRequest {
-  string first_name = 2; // @gotags: mask:"pii"
-
-  string last_name = 3; // @gotags: mask:"pii"
-
-  string email = 4; // @gotags: mask:"pii"
-
-  string phone = 5 [(validate.rules).string.pattern = "^$|^\\+[1-9]\\d{10,14}$"]; // @gotags: mask:"pii"
-}
-
-message SearchUserResponse {
-  enum Status {
-    STATUS_UNSPECIFIED = 0;
-    STATUS_SUCCESS = 1;
-    STATUS_ERROR = 2;
-  }
-  Status status = 1;
-
-  micashared.common.v1.Error error = 2;
-
-  repeated User users = 3;
 }

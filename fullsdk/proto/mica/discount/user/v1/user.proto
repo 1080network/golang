@@ -11,7 +11,6 @@ syntax = "proto3";
 package mica.discount.user.v1;
 
 import "micashared/common/v1/error.proto";
-import "micashared/common/v1/user.proto";
 import "validate/validate.proto";
 
 option go_package = "mica/discount/userv1";
@@ -19,9 +18,14 @@ option java_outer_classname = "UserProto";
 option java_package = "io.mica.discount.user.v1";
 option objc_class_prefix = "MICA";
 
+message UserDemographic {
+  // E.164 format.
+  string phone = 6 [(validate.rules).string.pattern = "^$|^\\+[1-9]\\d{10,14}$"]; // @gotags: mask:"pii"
+}
+
 message GetUserKeyRequest {
   // for a get user key request one or more demographic info entries need to be set
-  micashared.common.v1.UserDemographic user_demographic = 1 [(validate.rules).message.required = true];
+  UserDemographic user_demographic = 1 [(validate.rules).message.required = true];
 }
 
 message GetUserKeyResponse {

@@ -2,9 +2,10 @@ syntax = "proto3";
 
 package micashared.common.v1;
 
-import "micashared/common/v1/user.proto";
+import "micashared/common/enums/ageband/v1/age_band.proto";
 import "micashared/common/enums/instrumenttype/v1/instrument_type.proto";
-
+import "micashared/common/v1/address.proto";
+import "validate/validate.proto";
 
 option go_package = "micashared/common/v1;commonv1";
 option java_outer_classname = "InstrumentProto";
@@ -19,11 +20,31 @@ message LinkedInstrumentData {
     string icon_url = 3;
 }
 
+message UserDemographic {
+  // The first name of the user.
+  string first_name = 1; // @gotags: mask:"pii"
+
+  // The last name of the user.
+  string last_name = 2; // @gotags: mask:"pii"
+
+  // The email of the user.
+  string email = 3; // @gotags: mask:"pii"
+
+  // The street address of the user.
+  micashared.common.v1.Address address = 4;
+
+  // The age band of the user.
+  micashared.common.enums.ageband.v1.AgeBand age_band = 7;
+
+  // E.164 format.
+  string phone = 6 [(validate.rules).string.pattern = "^$|^\\+[1-9]\\d{10,14}$"]; // @gotags: mask:"pii"
+}
+
 // A message that allows to exchange information between the different sides of the network
 // when linking an instrument. This message is made up of a couple of generic 
 // claims/assertions and also structured data
 message InstrumentLinkClaims {
     map<string, string> assertions = 1;
 
-    micashared.common.v1.UserDemographic user_demographic = 2;
+    UserDemographic user_demographic = 2;
 }

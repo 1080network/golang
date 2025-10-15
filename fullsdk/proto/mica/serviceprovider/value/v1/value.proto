@@ -14,7 +14,6 @@ import "google/protobuf/timestamp.proto";
 import "mica/common/v1/currency.proto";
 import "mica/serviceprovider/instrument/v1/instrument.proto";
 import "micashared/common/enums/approvaltype/v1/approval_type.proto";
-import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/organizationcategory/v1/organization_category.proto";
 import "micashared/common/enums/valueoperationtype/v1/value_operation_type.proto";
 import "micashared/common/v1/address.proto";
@@ -30,6 +29,8 @@ option objc_class_prefix = "MICA";
 
 // Type that represents the details of the value request (either to obtain or return).
 message Value {
+  reserved 9;
+
   // Mica's transaction record primary key.
   string transaction_key = 1 [(validate.rules).string = {
     min_len: 30,
@@ -59,9 +60,6 @@ message Value {
   // The Partner's transaction record primary key for this transaction. This is an optional value and is unique within
   // a given Partner.
   string partner_transaction_ref = 23 [(validate.rules).string.max_len = 100];
-
-  // DEPRECATED - Use mica.common.v1.Currency field instead.
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 9 [deprecated = true];
 
   // The organization this operation is being processed for.
   string organization_key = 10 [(validate.rules).string = {
@@ -120,11 +118,13 @@ message Value {
   // Service Provider can then use this field to match up Returns with the original Obtain.
   string initial_partner_transaction_ref = 26 [(validate.rules).string.max_len = 100];
 
-  mica.common.v1.Currency currency = 27;
+  mica.common.v1.Currency currency = 27 [(validate.rules).message = {required: true}];
 }
 
 // Type that represents the details of the value request (either to obtain or return).
 message ValueRequest {
+  reserved 5;
+
   // Mica's transaction record primary key.
   string transaction_key = 1 [(validate.rules).string = {
     min_len: 30,
@@ -146,9 +146,6 @@ message ValueRequest {
   // The Partner's transaction record primary key for this transaction. This is an optional value and is unique within
   // a given Partner.
   string partner_transaction_ref = 4 [(validate.rules).string.max_len = 100];
-
-  // DEPRECATED - use currency instead
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 5 [deprecated = true];
 
   // The organization this operation is being processed for.
   string organization_key = 6 [(validate.rules).string = {
@@ -205,7 +202,7 @@ message ValueRequest {
 
   micashared.common.v1.TransactionIdentifier transaction_identifier = 20;
 
-  mica.common.v1.Currency currency = 23;
+  mica.common.v1.Currency currency = 23 [(validate.rules).message = {required: true}];
 }
 
 enum PINStatus {
@@ -658,7 +655,7 @@ message ReceiveValueRequest {
 
   mica.serviceprovider.instrument.v1.InstrumentExternalReference instrument_external_reference = 8 [(validate.rules).message.required = true];
 
-  mica.common.v1.Currency currency = 3;
+  mica.common.v1.Currency currency = 3 [(validate.rules).message = {required: true}];
 
   // the amount that's being received
   // Amount expressed as: ([0-9]*[.])?[0-9]+

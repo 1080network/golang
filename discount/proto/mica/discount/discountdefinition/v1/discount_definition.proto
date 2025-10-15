@@ -13,7 +13,6 @@ package mica.discount.discountdefinition.v1;
 import "google/protobuf/timestamp.proto";
 import "mica/common/v1/currency.proto";
 import "mica/discount/discount/v1/discount.proto";
-import "micashared/common/enums/currency/v1/currency.proto";
 import "micashared/common/enums/discounttype/v1/discount_type.proto";
 import "micashared/common/v1/error.proto";
 import "validate/validate.proto";
@@ -24,6 +23,8 @@ option java_package = "io.mica.discount.discountdefinition.v1";
 option objc_class_prefix = "MICA";
 
 message DiscountDefinition {
+  reserved 13;
+
   string discount_definition_key = 1 [(validate.rules).string = {
     min_len: 27,
     max_len: 50
@@ -65,8 +66,6 @@ message DiscountDefinition {
   // discount to apply
   repeated discount.v1.DiscountCriteria discount_criteria = 12 [(validate.rules).repeated.min_items = 1];
 
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 13 [ deprecated = true ];
-
   oneof discount_amount {
     option (validate.required) = true;
 
@@ -77,7 +76,7 @@ message DiscountDefinition {
   // address to the image for this discount definition (note that this image is expected to be square)
   string thumbnail_url = 18 [(validate.rules).string.max_len = 300];
 
-  mica.common.v1.Currency currency = 19;
+  mica.common.v1.Currency currency = 19 [(validate.rules).message = {required: true}];
 }
 
 enum DiscountDefinitionStatus {
@@ -91,6 +90,8 @@ enum DiscountDefinitionStatus {
 }
 
 message CreateDiscountDefinitionRequest {
+  reserved 9;
+
   string discount_definition_ref = 1 [(validate.rules).string = {
     min_len: 1,
     max_len: 50
@@ -124,8 +125,6 @@ message CreateDiscountDefinitionRequest {
   // discount to apply
   repeated discount.v1.DiscountCriteria discount_criteria = 8 [(validate.rules).repeated.min_items = 1];
 
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 9 [deprecated = true];
-
   oneof discount_amount {
     option (validate.required) = true;
 
@@ -136,7 +135,7 @@ message CreateDiscountDefinitionRequest {
   // address to the image for this discount definition (note that this image is expected to be square)
   string thumbnail_url = 14 [(validate.rules).string.max_len = 300];
 
-  mica.common.v1.Currency currency = 15;
+  mica.common.v1.Currency currency = 15 [(validate.rules).message = {required: true}];
 }
 
 message CreateDiscountDefinitionResponse {
@@ -185,6 +184,8 @@ message GetDiscountDefinitionResponse {
 }
 
 message UpdateDiscountDefinitionRequest {
+  reserved 10;
+
   oneof discount_definition_identifier {
     option (validate.required) = true;
 
@@ -232,8 +233,6 @@ message UpdateDiscountDefinitionRequest {
   // discount to apply
   repeated discount.v1.DiscountCriteria discount_criteria = 9 [(validate.rules).repeated.min_items = 1];
 
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 10 [deprecated = true];
-
   oneof discount_amount {
     option (validate.required) = true;
 
@@ -241,7 +240,7 @@ message UpdateDiscountDefinitionRequest {
     discount.v1.PercentageAmount percentage_amount = 12;
   }
 
-  mica.common.v1.Currency currency = 17;
+  mica.common.v1.Currency currency = 17 [(validate.rules).message = {required: true}];
 }
 
 message UpdateDiscountDefinitionResponse {
@@ -308,6 +307,8 @@ message RemoveDiscountDefinitionRequest {
 }
 
 message RemoveDiscountDefinitionResponse {
+  reserved 7;
+
   enum Status {
     STATUS_UNSPECIFIED = 0;
     STATUS_SUCCESS = 1;
@@ -329,8 +330,6 @@ message SearchDiscountDefinitionRequest {
   google.protobuf.Timestamp valid_from = 4;
 
   google.protobuf.Timestamp valid_to = 5;
-
-  micashared.common.enums.currency.v1.Currency obsolete_currency = 7 [deprecated=true];
 
   mica.common.v1.Currency currency = 8;
 }
