@@ -1,9 +1,9 @@
 ifndef VERSION
-VERSION=main
+    $(error VERSION is not set)
 endif
 
 .PHONY: all
-all: clean prepare shared discount partner serviceprovider fullsdk
+all: clean protoupdate prepare shared discount partner serviceprovider fullsdk
 
 .PHONY: shared
 shared:
@@ -66,16 +66,16 @@ protoupdate:
 
 .PHONY: publish
 publish:
-	@if [[ -z "${PUBLISH_VERSION}" ]]; then echo "Must set PUBLISH_VERSION=vX.X.X"; exit 1; fi
+	@if [[ -z "${VERSION}" ]]; then echo "Must set VERSION=vX.X.X"; exit 1; fi
 	@git diff-index --quiet HEAD -- || (echo "Uncommitted changes found. Please stash or commit them before publishing" && exit 1)
-	git tag discount/$(PUBLISH_VERSION)
-	git tag partner/$(PUBLISH_VERSION)
-	git tag serviceprovider/$(PUBLISH_VERSION)
-	git tag fullsdk/$(PUBLISH_VERSION)
-	git push origin discount/$(PUBLISH_VERSION)
-	git push origin partner/$(PUBLISH_VERSION)
-	git push origin serviceprovider/$(PUBLISH_VERSION)
-	git push origin fullsdk/$(PUBLISH_VERSION)
+	git tag discount/$(VERSION)
+	git tag partner/$(VERSION)
+	git tag serviceprovider/$(VERSION)
+	git tag fullsdk/$(VERSION)
+	git push origin discount/$(VERSION)
+	git push origin partner/$(VERSION)
+	git push origin serviceprovider/$(VERSION)
+	git push origin fullsdk/$(VERSION)
 
 clean: 
 	rm -rf vendor
