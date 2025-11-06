@@ -66,7 +66,6 @@ protoupdate:
 
 .PHONY: publish
 publish:
-	@if [[ -z "${VERSION}" ]]; then echo "Must set VERSION=vX.X.X"; exit 1; fi
 	@git diff-index --quiet HEAD -- || (echo "Uncommitted changes found. Please stash or commit them before publishing" && exit 1)
 	git tag discount/$(VERSION)
 	git tag partner/$(VERSION)
