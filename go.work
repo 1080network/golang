@@ -7,3 +7,5 @@ use (
 	./examples
 	./issuer
 )
+
+replace github.com/1080network/golang/common/v2 v2.0.0-pre0 => ./common

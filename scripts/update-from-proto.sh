@@ -63,5 +63,9 @@ done
 for m in issuer acceptor examples; do
     (cd "$ROOT/$m" && go mod edit -require="github.com/1080network/golang/common/v2@$VERSION")
 done
+# Keep the workspace's replacement of common in step with the version the role modules now require, so a
+# clean checkout builds before the tags exist (and CI passes on the pull request)
+(cd "$ROOT" && go work edit -dropreplace=github.com/1080network/golang/common/v2@"$(cat VERSION 2>/dev/null || echo v0.0.0)" \
+    -replace=github.com/1080network/golang/common/v2@"$VERSION"=./common)
 echo "$VERSION" > "$ROOT/VERSION"
 echo "Done. Tag each module as <module>/${VERSION}, for example common/${VERSION}."
