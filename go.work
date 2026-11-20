@@ -1,0 +1,11 @@
+go 1.23
+
+// Local development only: lets the modules in this repository resolve each other without published tags.
+use (
+	./acceptor
+	./common
+	./examples
+	./issuer
+)
+
+replace github.com/1080network/golang/common/v2 v2.0.0-pre0 => ./common
